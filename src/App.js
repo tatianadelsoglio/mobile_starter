@@ -3,10 +3,7 @@ import {
   Checkbox,
   Form,
   Image,
-  Input,
-  Stepper,
-  Switch,
-  TextArea,
+  Input
 } from "antd-mobile";
 import React from "react";
 import "./App.css";
