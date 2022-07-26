@@ -29,26 +29,12 @@ const App = () => {
           src={duo}
           width={150}
           height={150}
-          style={{ padding: "0px", margin: "15vh 50px 20px" }}
+          style={{ padding: "0px", margin: "12vh 50px 20px" }}
         />
 
         <div style={{ height: "60vh", width: "80vw", margin: "-40px 45px" }}>
           <Form
             layout="vertical"
-            footer={
-              <>
-                <h3>Mantener la sesión Iniciada <Checkbox style={{marginLeft:"15%"}}/></h3>
-
-                <Button
-                  block
-                  type="submit"
-                  style={{ backgroundColor: "#00b33b", marginTop:"50px" }}
-                  size="large"
-                >
-                  INICIAR
-                </Button>
-              </>
-            }
           >
             <Form.Item name="name" label="Usuario">
               <Input onChange={console.log} placeholder="Ingrese usuario" />
@@ -62,6 +48,27 @@ const App = () => {
               />
             </Form.Item>
           </Form>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignContent: "center",
+              width: "80vw",
+              marginTop: "10%",
+            }}
+          >
+            <label>Mantener la sesión Iniciada</label><Checkbox style={{marginLeft:"31vw", marginTop:"-1vh"}}/>
+          </div>
+
+          <Button
+            block
+            type="submit"
+            style={{ backgroundColor: "#00b33b", marginTop: "50px" }}
+            size="large"
+          >
+            INICIAR
+          </Button>
         </div>
       </div>
     </div>
