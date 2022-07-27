@@ -1,0 +1,54 @@
+@import 'antd-mobile/bundle/css-vars-patch.css';
+
+
+.vista_home_wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: solid 1px black;
+    height: 100vh;
+}
+
+.vista_home_content1{
+    background-color: #f8f8f8;
+    width: 10vw;
+    height: 100vh;
+}
+
+
+.vista_home_content{
+    background-color: #f8f8f8;
+    width: 80vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.home_tabs{
+    flex: 1;
+    z-index: 1;
+    width: 99.5vw;
+    border: solid 1px gray;
+}
+
+.adm-tabs-content{
+    text-align: start;
+}
+
+/* .home_contenido{
+    flex: 1;
+    z-index: 1;
+    width: 99.5vw;
+} */
+
+.home_menuInf{
+    flex: 0;
+    z-index: 1;
+    width: 99.5vw;
+    border: solid 1px gray;
+}
+
