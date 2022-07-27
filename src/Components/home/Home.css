@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: solid 1px black;
+    /* border: solid 1px black; */
     height: 100vh;
 }
 
@@ -32,7 +32,7 @@
     flex: 1;
     z-index: 1;
     width: 99.5vw;
-    border: solid 1px gray;
+    border-bottom: solid 1px gray;
 }
 
 .adm-tabs-content{
@@ -49,6 +49,29 @@
     flex: 0;
     z-index: 1;
     width: 99.5vw;
-    border: solid 1px gray;
+    border-top: solid 1px gray;
 }
 
+.adm-tabs{
+    --active-line-color:#56b43c !important;
+}
+.adm-tabs-tab-active{
+    --active-title-color:#56b43c;
+    
+}
+.adm-tabs-tab-active:active{
+    --active-title-color:#56b43c;
+}
+
+.adm-tab-bar-item-active{
+    color:#56b43c !important;
+}
+
+.adm-nav-bar{
+    border-bottom: solid 1px #f4f4f4 !important;
+}
+
+.navBar{
+    flex: 0;
+    margin-bottom: 1px;
+}

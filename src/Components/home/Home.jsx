@@ -4,8 +4,10 @@ import {
   UnorderedListOutline,
   UserOutline,
   CalendarOutline,
+  SearchOutline,
+  MoreOutline,
 } from "antd-mobile-icons";
-import { Ellipsis, List, TabBar, Tabs } from "antd-mobile";
+import { Ellipsis, List, NavBar, Space, TabBar, Tabs} from "antd-mobile";
 
 const Home = () => {
   const tabs = [
@@ -25,12 +27,26 @@ const Home = () => {
       icon: <CalendarOutline />,
     },
   ];
+
+  const right = (
+    <div style={{ fontSize: 24 }}>
+      <Space style={{ '--gap': '16px' }}>
+        <SearchOutline />
+        <MoreOutline />
+      </Space>
+    </div>
+  );
+
+
   return (
     <>
       <div className="vista_home_wrapper">
         <div className="vista_home_content1" />
         <div className="vista_home_content">
           <div className="home_tabs">
+          <NavBar className="navBar" right={right} onBack>
+            <h4>Nombre Usuario</h4>
+          </NavBar>
             <Tabs defaultActiveKey="1">
               <Tabs.Tab className="home_tabs_item" title="Esta Semana" key="1">
                 <List>
