@@ -11,21 +11,12 @@ const Home = () => {
       <div className="vista_home_wrapper">
         <div className="vista_home_content1" />
         <div className="vista_home_content">
-        <div className="home_nav">          
+          <div className="home_nav">          
             <Nav/>
           </div>
-          <div className="home_tabs">          
+          <div className="home_contenido">          
             <Tareas/>
           </div>
-          {/* <div className="home_contenido">
-            <h3>Contenido Pestaña</h3>
-            <h3>Contenido Pestaña</h3>
-            <h3>Contenido Pestaña</h3>
-            <h3>Contenido Pestaña</h3>
-            <h3>Contenido Pestaña</h3>
-            <h3>Contenido Pestaña</h3>
-            <h3>Contenido Pestaña</h3>
-          </div> */}
           <div className="home_menuInf">
             <Menu/>
           </div>
