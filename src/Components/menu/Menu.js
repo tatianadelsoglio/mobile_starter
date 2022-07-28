@@ -14,17 +14,14 @@ const Menu = () => {
   const tabs = [
     {
       key: "tareas",
-      title: "Tareas",
       icon: <UnorderedListOutline />,
     },
     {
       key: "clientes",
-      title: "Clientes",
       icon: <UserOutline />,
     },
     {
       key: "calendario",
-      title: "Calendario",
       icon: <CalendarOutline />,
     },
   ];
@@ -32,7 +29,7 @@ const Menu = () => {
     <>
       <TabBar>
         {tabs.map((item) => (
-          <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
+          <TabBar.Item key={item.key} icon={item.icon}/>
         ))}
       </TabBar>
     </>
