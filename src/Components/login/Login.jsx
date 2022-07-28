@@ -68,11 +68,6 @@ const Login = () => {
           <div className="btn_content">
             <Button className="btn_content_btn">INICIAR</Button>
           </div>
-          <div className="recuperar">
-            <a href="#" style={{ color: "#56b43c" }}>
-              <h4>¿Olvidaste tu contraseña?</h4>
-            </a>
-          </div>
         </div>
         <div className="vista_login_content1"></div>
       </div>

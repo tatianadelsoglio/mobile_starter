@@ -1,12 +1,11 @@
-@import 'antd-mobile/bundle/css-vars-patch.css';
+@import "antd-mobile/bundle/css-vars-patch.css";
 
-.adm-tabs{
-    --active-line-color:#56b43c !important;
+.adm-tabs {
+  --active-line-color: #56b43c !important;
 }
-.adm-tabs-tab-active{
-    --active-title-color:#56b43c;
-    
+.adm-tabs-tab-active {
+  --active-title-color: #56b43c;
 }
-.adm-tabs-tab-active:active{
-    --active-title-color:#56b43c;
+.adm-tabs-tab-active:active {
+  --active-title-color: #56b43c;
 }

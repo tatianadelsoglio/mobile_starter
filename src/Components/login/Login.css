@@ -26,11 +26,11 @@
 }
 
 .img_content{
-    margin-top: -15vh;
+    margin-top: -20vh;
     margin-left: 2vw;
 }
 .form_login{
-    display: flex;
+    width: 115%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -40,7 +40,6 @@
     font-family: sans-serif;
     color:#8f8c8e;
     padding: 0px;
-
 }
 
 /* .form_login_input{
@@ -58,7 +57,7 @@
     border : 0px none rgb(73, 80, 87); 
     background : rgb(255, 255, 255);
     box-sizing : content-box;
-    width: 100px;
+    width: 150px;
 }
 
 .adm-list-item-content-prefix{
@@ -68,24 +67,31 @@
 
 .recordar{
     display: flex;
+    z-index: 1;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+    width: 115%;
 }
 
 .recordar_texto{
-    margin-left: 10px;
+    width: 115%;
+    margin-left: 2%;
 }
 
 .recordar_check{
-    margin-left: 165px;
+    width: 115%;
+    margin-left: 66%;
 }
 
 .btn_content_btn{
     margin-top: 3vh;
-    width: 200px;
+    width: 92vw;
+    height: 7vh;
     display: block;
+    background-color: #56b43c;
+    color: white;
 }
 
 .recuperar{
