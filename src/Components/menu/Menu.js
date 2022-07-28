@@ -7,7 +7,10 @@ import {
 import { TabBar } from "antd-mobile";
 import "./Menu.css";
 
+
 const Menu = () => {
+
+
   const tabs = [
     {
       key: "tareas",
@@ -26,11 +29,13 @@ const Menu = () => {
     },
   ];
   return (
-    <TabBar>
-      {tabs.map((item) => (
-        <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
-      ))}
-    </TabBar>
+    <>
+      <TabBar>
+        {tabs.map((item) => (
+          <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
+        ))}
+      </TabBar>
+    </>
   );
 };
 
