@@ -1,0 +1,10 @@
+@import 'antd-mobile/bundle/css-vars-patch.css';
+
+.navBar{
+    flex: 0;
+    margin-bottom: 1px;
+}
+
+.adm-nav-bar{
+    border-bottom: solid 1px #f4f4f4 !important;
+}
