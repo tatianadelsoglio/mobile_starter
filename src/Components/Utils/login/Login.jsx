@@ -4,8 +4,12 @@ import React, { useState } from "react";
 import duo from "./logo-crm-prod.svg";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
 import "./Login.css";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+
+  let history = useHistory();
+
   const [visible, setVisible] = useState(false);
   return (
     <>
@@ -66,7 +70,7 @@ const Login = () => {
             </div>
           </div>
           <div className="btn_content">
-            <Button className="btn_content_btn">INICIAR</Button>
+            <Button className="btn_content_btn" onClick={() => history.replace("/home")}>INICIAR</Button>
           </div>
         </div>
         <div className="vista_login_content1"></div>

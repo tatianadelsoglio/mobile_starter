@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import "./Home.css";
-import Nav from "../Utils/navBar/Nav";
-import Tareas from "../Utils/tareas/Tareas";
-import Menu from "../Utils/menu/Menu";
-import Calendario from "../Utils/calendario/Calendario";
-import Clientes from "../Utils/clientes/Clientes";
-import DetalleTarea from "../Utils/detalleTarea/DetalleTarea";
+import Nav from "../navBar/Nav";
+import Tareas from "../tareas/Tareas";
+import Menu from "../menu/Menu";
+import Calendario from "../calendario/Calendario";
+import Clientes from "../clientes/Clientes";
+import DetalleTarea from "../detalleTarea/DetalleTarea";
 
 const Home = () => {
 
