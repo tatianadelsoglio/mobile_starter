@@ -9,11 +9,10 @@ const DetalleTarea = () => {
           style={{
             display: "flex",
             justifyContent: "flex-start",
-            marginBottom:"-25px",
-            marginTop:"-10px"
+            marginBottom:"5px",
           }}
         >
-          <h3>Tarea:</h3>          
+          <label style={{fontSize:"15px"}}>Tarea:</label>          
         </div>
         <div
           style={{
@@ -22,7 +21,7 @@ const DetalleTarea = () => {
             justifyContent: "flex-start",
           }}
         >
-          <h4>Llamar a Adrian, conversar sobre nuevos insumos</h4>
+          <label style={{fontSize:"14px"}}>Llamar a Adrian, conversar sobre nuevos insumos</label>
           
         </div>
         <div>

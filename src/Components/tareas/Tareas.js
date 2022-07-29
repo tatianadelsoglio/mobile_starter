@@ -11,7 +11,6 @@ const Tareas = () => {
       <Tabs.Tab title="Esta Semana" key="1">
         <div className="lista_tareas">
           <ListaTarea/>
-          <ListaTarea/>
         </div>
       </Tabs.Tab>
 

@@ -9,18 +9,18 @@ import Clientes from "../clientes/Clientes";
 import DetalleTarea from "../detalleTarea/DetalleTarea";
 
 const Home = () => {
-  
+
   return (
     <>
       <div className="vista_home_wrapper">
         <div className="vista_home_content1" />
         <div className="vista_home_content">
-          <div className="home_nav">          
+          <div className="home_nav">
             <Nav/>
           </div>
           <div className="home_contenido">
-            <DetalleTarea/>
-            {/* <Tareas/> */}
+            {/* <DetalleTarea/> */}
+            <Tareas/>
             {/* <Calendario/> */}
             {/* <Clientes/> */}
           </div>
