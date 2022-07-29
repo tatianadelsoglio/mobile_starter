@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import "./Home.css";
 import Nav from "../navBar/Nav";
 import Tareas from "../tareas/Tareas";
 import Menu from "../menu/Menu";
+import Calendario from "../calendario/Calendario";
+import Clientes from "../clientes/Clientes";
 
 const Home = () => {
   
@@ -14,8 +17,10 @@ const Home = () => {
           <div className="home_nav">          
             <Nav/>
           </div>
-          <div className="home_contenido">          
+          <div className="home_contenido">
             <Tareas/>
+            {/* <Calendario/> */}
+            {/* <Clientes/> */}
           </div>
           <div className="home_menuInf">
             <Menu/>

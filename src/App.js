@@ -8,10 +8,8 @@ import Login from "./Components/login/Login";
 const App = () => {
   return (
     
-      <Login/>
-      //<Home/>
-      //<Calendario/>
-    
+      <Home/>
+
   );
 };
 

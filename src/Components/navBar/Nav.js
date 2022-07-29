@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavBar, Space} from "antd-mobile";
 import {
-    SearchOutline,
-    MoreOutline,
+  CalendarOutline,
+    AddCircleOutline,
   } from "antd-mobile-icons";
 
 const Nav = () => {
@@ -10,8 +10,8 @@ const Nav = () => {
     const right = (
         <div style={{ fontSize: 24 }}>
           <Space style={{ '--gap': '16px' }}>
-            <SearchOutline />
-            <MoreOutline />
+            <CalendarOutline color='#56b43c' />
+            <AddCircleOutline color='#56b43c' />
           </Space>
         </div>
       );

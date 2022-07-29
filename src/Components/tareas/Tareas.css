@@ -9,3 +9,7 @@
 .adm-tabs-tab-active:active {
   --active-title-color: #56b43c;
 }
+
+.lista_tareas{
+  overflow: auto !important;
+}
