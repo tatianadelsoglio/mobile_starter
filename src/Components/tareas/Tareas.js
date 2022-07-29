@@ -1,4 +1,4 @@
-import { Ellipsis, List, Tabs } from "antd-mobile";
+import { Tabs } from "antd-mobile";
 import ListaTarea from "../listaTareas/ListaTarea";
 import "./Tareas.css";
 

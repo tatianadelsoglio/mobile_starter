@@ -6,6 +6,7 @@ import Tareas from "../tareas/Tareas";
 import Menu from "../menu/Menu";
 import Calendario from "../calendario/Calendario";
 import Clientes from "../clientes/Clientes";
+import DetalleTarea from "../detalleTarea/DetalleTarea";
 
 const Home = () => {
   
@@ -18,7 +19,8 @@ const Home = () => {
             <Nav/>
           </div>
           <div className="home_contenido">
-            <Tareas/>
+            <DetalleTarea/>
+            {/* <Tareas/> */}
             {/* <Calendario/> */}
             {/* <Clientes/> */}
           </div>
