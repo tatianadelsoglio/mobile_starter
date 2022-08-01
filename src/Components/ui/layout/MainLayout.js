@@ -1,4 +1,3 @@
-import React from "react";
 import Menu from "../menu/Menu";
 import Nav from "../navBar/Nav";
 
