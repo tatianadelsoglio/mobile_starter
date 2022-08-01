@@ -1,5 +1,6 @@
 import Menu from "../menu/Menu";
 import Nav from "../navBar/Nav";
+import "./MainLayout.css";
 
 const MainLayout = ({ children }) => {
   return (
