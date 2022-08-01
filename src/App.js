@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import "./App.css";
-import Calendario from "./Components/Utils/calendario/Calendario";
-import Home from "./Components/Utils/home/Home";
-import Login from "./Components/Utils/login/Login";
+import Calendario from "./Components/ui/calendario/Calendario";
+import Home from "./Components/ui/home/Home";
+import Login from "./Components/ui/login/Login";
 import AppRouter from "./Components/router/AppRouter";
 
 
