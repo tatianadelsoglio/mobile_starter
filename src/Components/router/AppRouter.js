@@ -5,7 +5,6 @@ import ClientesView from '../../views/ClientesView';
 import DetalleTareaView from '../../views/DetalleTareaView';
 import HomeView from '../../views/HomeView';
 import LoginView from '../../views/LoginView';
-import Tareas from '../ui/tareas/Tareas';
 
 
 const AppRouter = () => {
@@ -15,11 +14,8 @@ const AppRouter = () => {
                 <Route path="/home">
                     <HomeView/>
                 </Route>
-                <Route path="/">
+                <Route exact path="/">
                     <LoginView/>
-                </Route>
-                <Route path="/tareas">
-                    <Tareas/>
                 </Route>
                 <Route path="/calendario">
                     <CalendarioView/>
