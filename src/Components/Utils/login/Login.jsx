@@ -70,7 +70,7 @@ const Login = () => {
             </div>
           </div>
           <div className="btn_content">
-            <Button className="btn_content_btn" onClick={() => history.replace("/home")}>INICIAR</Button>
+            <Button className="btn_content_btn" onClick={() =>  history.replace("/home")}>INICIAR</Button>
           </div>
         </div>
         <div className="vista_login_content1"></div>

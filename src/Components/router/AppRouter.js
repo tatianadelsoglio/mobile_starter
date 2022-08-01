@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Calendario from '../Utils/calendario/Calendario';
 import Clientes from '../Utils/clientes/Clientes';
 import Home from "../Utils/home/Home";
@@ -8,7 +8,7 @@ import Tareas from '../Utils/tareas/Tareas';
 
 const AppRouter = () => {
     return (
-        <BrowserRouter>
+        <Router>
             <Switch>
                 <Route path="/home" component={Home}/>
                 <Route path="/" component={Login}/>
@@ -16,7 +16,7 @@ const AppRouter = () => {
                 <Route path="/home/calendario" component={Calendario}/>
                 <Route path="/home/clientes" component={Clientes}/>
             </Switch>
-        </BrowserRouter>
+        </Router>
     );
 };
 
