@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route} from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import CalendarioView from '../../views/CalendarioView';
 import ClientesView from '../../views/ClientesView';
 import DetalleTareaView from '../../views/DetalleTareaView';
@@ -11,21 +11,23 @@ const AppRouter = () => {
     return (
 
         <BrowserRouter>
-                <Route path="/home">
+            <Switch>
+                <Route exact path="/home">
                     <HomeView/>
                 </Route>
                 <Route exact path="/">
                     <LoginView/>
                 </Route>
-                <Route path="/calendario">
+                <Route exact path="/calendario">
                     <CalendarioView/>
                 </Route>
-                <Route path="/clientes">
+                <Route exact path="/clientes">
                     <ClientesView/>
                 </Route>
-                <Route path="/detalletarea">
+                <Route exact path="/detalletarea">
                     <DetalleTareaView/>
                 </Route>
+            </Switch>
         </BrowserRouter>
     );
 };
