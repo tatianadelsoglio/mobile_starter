@@ -1,7 +1,6 @@
 import { Dialog, Ellipsis, List, SwipeAction } from "antd-mobile";
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
-// import { SwipeActionRef } from "antd-mobile/es/components/swipe-action";
 
 const ListaTarea = () => {
   let history = useHistory();
