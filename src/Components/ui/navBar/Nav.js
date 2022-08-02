@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, NavBar, Space } from "antd-mobile";
 import { UploadOutline, AddCircleOutline } from "antd-mobile-icons";
 import { useHistory } from "react-router-dom";
+import "./Nav.css";
 
 const Nav = () => {
   let history = useHistory();

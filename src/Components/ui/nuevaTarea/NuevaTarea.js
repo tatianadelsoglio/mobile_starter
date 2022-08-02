@@ -2,6 +2,7 @@
 import { Button, DatePicker, Form, Input, Picker, TextArea } from "antd-mobile";
 import React, { useState } from "react";
 import dayjs from "dayjs";
+import "./NuevaTarea.css";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
@@ -11,7 +12,7 @@ const NuevaTarea = () => {
       <div>
         <h3>Nueva Tarea</h3>
       </div>
-      <div>
+      <div className="form_nuevaTarea">
         <Form
           layout="horizontal"
           mode="card"
@@ -40,23 +41,9 @@ const NuevaTarea = () => {
                 value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
               }
             </DatePicker>
-            {/* <Picker
-              columns={basicColumns}
-              visible={visible}
-              onClose={() => {
-                setVisible(false);
-              }}
-              value={value}
-              onConfirm={(v) => {
-                setValue(v);
-              }}
-            /> */}
           </Form.Item>
-          <Form.Item label="Tarea">
-            <TextArea placeholder="Detalle de Tarea"></TextArea>
-          </Form.Item>
-          <Form.Item label="Ubicación">
-            <Input placeholder="Ingresar Ubicación" />
+          <Form.Item label="Tarea" style={{borderBottom:"1px solid #f4f4f4"}}>
+            <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
         </Form>
       </div>

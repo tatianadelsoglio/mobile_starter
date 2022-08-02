@@ -6,14 +6,14 @@ const DetalleTarea = () => {
   return (
     <div>
       <Card title="Adrian Sabo" extra="29-07-2022">
-      <div
+        <div
           style={{
             display: "flex",
             justifyContent: "flex-start",
-            marginBottom:"5px",
+            marginBottom: "5px",
           }}
         >
-          <label style={{fontSize:"15px"}}>Tarea:</label>          
+          <label style={{ fontSize: "15px" }}>Tarea:</label>
         </div>
         <div
           style={{
@@ -22,11 +22,13 @@ const DetalleTarea = () => {
             justifyContent: "flex-start",
           }}
         >
-          <label style={{fontSize:"14px"}}>Llamar a Adrian, conversar sobre nuevos insumos</label>
-          
+          <label style={{ fontSize: "14px" }}>
+            Llamar a Adrian, conversar sobre nuevos insumos
+          </label>
         </div>
         <div>
           <TextArea
+            rows={5}
             placeholder="Anexe Nota Necesaria"
             style={{
               backgroundColor: "#f8f8f8",
