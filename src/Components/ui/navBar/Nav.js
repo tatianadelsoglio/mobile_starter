@@ -11,8 +11,7 @@ const Nav = () => {
   };
 
   const handleModalCrearTarea = () => {
-    //history.push("/nuevatarea");
-    alert("Crear Nueva Tarea");
+    history.push("/nuevatarea");
   };
 
   const right = (
