@@ -21,7 +21,7 @@ const Calendario = () => {
           </div>
           <div>
             <div>
-              <Collapse defaultActiveKey={["1"]}>
+              <Collapse >
                 <Collapse.Panel
                   key="1"
                   title="Lista de tareas para la fecha: 29-07-2022"
