@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   UnorderedListOutline,
   UserOutline,
@@ -6,37 +6,31 @@ import {
 } from "antd-mobile-icons";
 import { TabBar } from "antd-mobile";
 import "./Menu.css";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 
 const Menu = () => {
 
   let history = useHistory;
-  const location = useLocation()
-  const { pathname } = location
-
-  const setRouteActive = (value) => {
-    history.push(value)
-  }
 
   const tabs = [
     {
-      key: "/home/tareas",
+      key: "/tareas",
       icon: <UnorderedListOutline />,
     },
     {
-      key: "/home/clientes",
+      key: "/clientes",
       icon: <UserOutline />,
     },
     {
-      key: "/home/calendario",
+      key: "/calendario",
       icon: <CalendarOutline />,
     },
   ];
   return (
     <>
-      <TabBar activeKey={pathname} onChange={value => setRouteActive(value)}>
+      <TabBar onChange={(key) => history.push({key}, { replace: true })}>
         {tabs.map((item) => (
           <TabBar.Item key={item.key} icon={item.icon}/>
         ))}
