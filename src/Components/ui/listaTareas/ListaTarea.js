@@ -1,6 +1,7 @@
 import { Dialog, Ellipsis, List, SwipeAction } from "antd-mobile";
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
+import { EditSOutline, CheckOutline } from 'antd-mobile-icons';
 
 const ListaTarea = () => {
   let history = useHistory();
@@ -10,6 +11,11 @@ const ListaTarea = () => {
   const handleModalDetalleTarea = () => {
     history.push("/detalletarea");
   };
+
+  const handleModalCerrar = () => {
+    alert("Se cerro correctamente");
+  };
+
 
   return (
     <>
@@ -22,8 +28,8 @@ const ListaTarea = () => {
             rightActions={[
               {
                 key: "editar",
-                text: "Editar Tarea",
-                color: "primary",
+                text:<EditSOutline />,
+                color: "#2bc4e3",
                 onClick: async () => {
                   await Dialog.confirm({
                     content: "¿Editar Tarea?",
@@ -36,14 +42,14 @@ const ListaTarea = () => {
               },
               {
                 key: "cerrar",
-                text: "Cerrar Tarea",
-                color: "danger",
-
+                text:<CheckOutline />,
+                color: "primary",
                 onClick: async () => {
                   await Dialog.confirm({
                     content: "¿Cerrar Tarea?",
                     cancelText: "Cancelar",
                     confirmText: "Aceptar",
+                    onConfirm: handleModalCerrar,
                   });
                   ref.current?.close();
                 },
@@ -57,7 +63,7 @@ const ListaTarea = () => {
               />
             </List.Item>
           </SwipeAction>
-          
+
           <List.Item description="Horacio Mercol" extra="29-07-2022">
             <Ellipsis direction="end" content="Visitar Campo Oeste" />
           </List.Item>
