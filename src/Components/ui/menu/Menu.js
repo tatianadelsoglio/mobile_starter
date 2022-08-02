@@ -30,7 +30,7 @@ const Menu = () => {
   ];
   return (
     <>
-      <TabBar onChange={(key) => history.push({key}, { replace: true })}>
+      <TabBar onChange={(key) => history.push({key})}>
         {tabs.map((item) => (
           <TabBar.Item key={item.key} icon={item.icon}/>
         ))}
