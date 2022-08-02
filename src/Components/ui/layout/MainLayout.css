@@ -31,6 +31,7 @@
     flex: 0;
     z-index: 1;
     width: 99.5vw;
+    background-color: white;
     border-bottom: solid 1px #f4f4f4 !important;
 }
 
@@ -43,11 +44,13 @@
     z-index: 1;
     width: 99.5vw;
     overflow: auto;
+    background-color: white;
 }
 
 .home_menuInf{
     flex: 0;
     z-index: 1;
     width: 99.5vw;
+    background-color: white;
     border-top: solid 1px gray;
 }

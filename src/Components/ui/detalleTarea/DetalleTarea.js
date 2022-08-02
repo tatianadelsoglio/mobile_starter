@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Button, Card, Checkbox, TextArea, Toast } from "antd-mobile";
 import React from "react";
 
@@ -39,7 +40,7 @@ const DetalleTarea = () => {
             paddingTop: "20px",
           }}
         >
-          <div
+          {/* <div
             style={{
               paddingBottom: "11px",
               display: "flex",
@@ -57,7 +58,7 @@ const DetalleTarea = () => {
             }}
           >
             <Checkbox />
-          </div>
+          </div> */}
         </div>
         <div
           style={{
