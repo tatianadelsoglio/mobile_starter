@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   UnorderedListOutline,
   UserOutline,
@@ -6,13 +6,15 @@ import {
 } from "antd-mobile-icons";
 import { TabBar } from "antd-mobile";
 import "./Menu.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 
 
 const Menu = () => {
 
-  let history = useHistory;
+  let history = useHistory();
+  const location = useLocation();
+  const { pathname } = location;
 
   const tabs = [
     {
@@ -30,9 +32,9 @@ const Menu = () => {
   ];
   return (
     <>
-      <TabBar onChange={(key) => history.push({key})}>
+      <TabBar activeKey={pathname} onChange={(key) => history.push(key)}>        
         {tabs.map((item) => (
-          <TabBar.Item key={item.key} icon={item.icon}/>
+            <TabBar.Item key={item.key} icon={item.icon}/>
         ))}
       </TabBar>
     </>

@@ -6,7 +6,7 @@ import DetalleTareaView from "../../views/DetalleTareaView";
 import HomeView from "../../views/HomeView";
 import LoginView from "../../views/LoginView";
 import TareasView from "../../views/TareasView";
-import Menu from "../ui/menu/Menu";
+
 
 const AppRouter = () => {
   return (
