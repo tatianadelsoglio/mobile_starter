@@ -1,13 +1,17 @@
 import { Checkbox, Ellipsis, List } from "antd-mobile";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const ListaTarea = () => {
+
+  let history = useHistory();
+
   return (
     <>
       <div>
 
         <List>
-          <List.Item prefix={<Checkbox/>} description="Adrian Sabo" extra="29-07-2022" clickable>
+          <List.Item prefix={<Checkbox/>} description="Adrian Sabo" extra="29-07-2022" onClick={() => {history.push("/detalletarea")}}>
             <Ellipsis
               direction="end"
               content="Llamar a Adrian, conversar sobre nuevos insumos"
