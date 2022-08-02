@@ -1,4 +1,4 @@
-import { Dialog, Ellipsis, List, SwipeAction } from "antd-mobile";
+import { Dialog, Ellipsis, List, Modal, SwipeAction } from "antd-mobile";
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline } from 'antd-mobile-icons';
@@ -13,7 +13,18 @@ const ListaTarea = () => {
   };
 
   const handleModalCerrar = () => {
-    alert("Se cerro correctamente");
+      Modal.alert({
+        header: (
+          <CheckOutline
+            style={{
+              fontSize: 64,
+              color: 'var(--adm-color-primary)',
+            }}
+          />
+        ),
+        title: 'Tarea Cerrada Correctamente',
+        confirmText:"Cerrar",
+      });
   };
 
 

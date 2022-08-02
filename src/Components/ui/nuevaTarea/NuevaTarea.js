@@ -1,52 +1,87 @@
 /* eslint-disable no-unused-vars */
-import { Button, DatePicker, Form, Input, Picker, TextArea } from "antd-mobile";
+import {
+  Button,
+  ConfigProvider,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Picker,
+  TextArea,
+} from "antd-mobile";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import "./NuevaTarea.css";
+import es_ES from "antd-mobile/es/locales/es-ES";
+import { CheckOutline } from 'antd-mobile-icons';
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
 
   return (
     <>
-      <div>
-        <h3>Nueva Tarea</h3>
-      </div>
-      <div className="form_nuevaTarea">
-        <Form
-          layout="horizontal"
-          mode="card"
-          footer={
-            <Button block type="submit" color="primary" size="large">
-              Cargar Tarea
-            </Button>
-          }
-        >
-          <Form.Item label="Cliente">
-            <Input placeholder="Ingrese Cliente" />
-          </Form.Item>
-          <Form.Item
-            label="Fecha"
-            onClick={() => {
-              setVisible(true);
-            }}
+      <ConfigProvider locale={es_ES}>
+        <div>
+          <h3>Nueva Tarea</h3>
+        </div>
+        <div className="form_nuevaTarea">
+          <Form
+            layout="horizontal"
+            mode="card"
+            footer={
+              <Button
+                block
+                type="submit"
+                color="primary"
+                size="large"
+                onClick={() => {
+                  Modal.alert({
+                    header: (
+                      <CheckOutline
+                        style={{
+                          fontSize: 64,
+                          color: 'var(--adm-color-primary)',
+                        }}
+                      />
+                    ),
+                    title: 'Tarea Cargada Correctamente',
+                    confirmText:"Cerrar",
+                  })
+                }}
+              >
+                Cargar Tarea
+              </Button>
+            }
           >
-            <DatePicker
-              visible={visible}
-              onClose={() => {
-                setVisible(false);
+            <Form.Item label="Cliente">
+              <Input placeholder="Ingrese Cliente" />
+            </Form.Item>
+            <Form.Item
+              label="Fecha"
+              onClick={() => {
+                setVisible(true);
               }}
             >
-              {(value) =>
-                value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
-              }
-            </DatePicker>
-          </Form.Item>
-          <Form.Item label="Tarea" style={{borderBottom:"1px solid #f4f4f4"}}>
-            <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
-          </Form.Item>
-        </Form>
-      </div>
+              <DatePicker
+                visible={visible}
+                onClose={() => {
+                  setVisible(false);
+                }}
+              >
+                {(value) =>
+                  value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
+                }
+              </DatePicker>
+            </Form.Item>
+            <Form.Item
+              label="Tarea"
+              style={{ borderBottom: "1px solid #f4f4f4" }}
+            >
+              <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+            </Form.Item>
+          </Form>
+        </div>
+      </ConfigProvider>
     </>
   );
 };
