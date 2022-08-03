@@ -1,7 +1,7 @@
-import { Calendar, Collapse, ConfigProvider } from "antd-mobile";
+/* eslint-disable no-unused-vars */
+import { Calendar, Collapse } from "antd-mobile";
 import React, { useState } from "react";
 import ListaTarea from "../listaTareas/ListaTarea";
-import es_ES from "antd-mobile/es/locales/es-ES";
 import "./Calendario.css";
 import moment from "moment";
 
@@ -12,17 +12,27 @@ const Calendario = () => {
     content: defaultSingle,
   });
 
+  const [fechaLi, setFechaLi] = useState({
+    content: defaultSingle,
+  });
+
 
   const handleChange = (val) => {
     let fechaSelec = moment(val).format("DD/MM/YYYY");
     setFecha({
       content: fechaSelec,
     })
+
+    console.log(fecha);
   }
-  console.log(fecha);
+
+  const calendarLista = () => {
+    setFechaLi(setFecha);
+  }
+
+
   return (
     <>
-      <ConfigProvider locale={es_ES}>
         <div className="div_content_calendario">
           <div>
             <Calendar
@@ -34,12 +44,11 @@ const Calendario = () => {
           <div className="div_lista">
             <Collapse>
               <Collapse.Panel key="1" title="Lista de tareas para la fecha">
-                <ListaTarea />
+                <ListaTarea calendarLista={fechaLi} />
               </Collapse.Panel>
             </Collapse>
           </div>
         </div>
-      </ConfigProvider>
     </>
   );
 };

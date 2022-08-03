@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
   Button,
-  ConfigProvider,
   DatePicker,
   Form,
   Input,
@@ -12,7 +11,6 @@ import {
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import "./NuevaTarea.css";
-import es_ES from "antd-mobile/es/locales/es-ES";
 import { CheckOutline } from 'antd-mobile-icons';
 
 const NuevaTarea = () => {
@@ -20,7 +18,6 @@ const NuevaTarea = () => {
 
   return (
     <>
-      <ConfigProvider locale={es_ES}>
         <div>
           <h3>Nueva Tarea</h3>
         </div>
@@ -81,7 +78,6 @@ const NuevaTarea = () => {
             </Form.Item>
           </Form>
         </div>
-      </ConfigProvider>
     </>
   );
 };

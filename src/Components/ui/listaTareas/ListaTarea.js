@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline } from 'antd-mobile-icons';
 import "./ListaTarea.css";
 
-const ListaTarea = () => {
+const ListaTarea = ({calendarLista}) => {
 
   let history = useHistory();
 
@@ -70,7 +70,7 @@ const ListaTarea = () => {
               },
             ]}
           >
-            <List.Item description="Adrian Sabo" extra="fechapor props??">
+            <List.Item description="Adrian Sabo" extra="fecha por props?">
               <Ellipsis
                 direction="end"
                 content="Llamar a Adrian, conversar sobre nuevos insumos"
