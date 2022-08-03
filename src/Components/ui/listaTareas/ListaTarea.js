@@ -12,6 +12,7 @@ const ListaTarea = () => {
     history.push("/detalletarea");
   };
 
+
   const handleModalCerrar = () => {
       Modal.alert({
         header: (
@@ -67,7 +68,7 @@ const ListaTarea = () => {
               },
             ]}
           >
-            <List.Item description="Adrian Sabo" extra="29-07-2022">
+            <List.Item description="Adrian Sabo" extra="03-08-2022">
               <Ellipsis
                 direction="end"
                 content="Llamar a Adrian, conversar sobre nuevos insumos"

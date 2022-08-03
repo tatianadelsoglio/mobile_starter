@@ -2,6 +2,7 @@ import { Calendar, Collapse, ConfigProvider } from "antd-mobile";
 import React from "react";
 import ListaTareaCalendar from "../listaTareas/ListaTarea";
 import es_ES from "antd-mobile/es/locales/es-ES";
+import "./Calendario.css";
 
 const defaultSingle = new Date();
 
@@ -21,10 +22,10 @@ const Calendario = () => {
           </div>
           <div>
             <div>
-              <Collapse >
+              <Collapse>
                 <Collapse.Panel
                   key="1"
-                  title="Lista de tareas para la fecha: 29-07-2022"
+                  title="Lista de tareas para la fecha"
                 >
                   <ListaTareaCalendar />
                 </Collapse.Panel>
