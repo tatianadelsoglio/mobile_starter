@@ -1,3 +1,12 @@
 @import 'antd-mobile/bundle/css-vars-patch.css';
 
+.div_content_calendario{
+  text-align: start;
+}
 
+.div_lista {
+    display: block;
+    height: 210px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }

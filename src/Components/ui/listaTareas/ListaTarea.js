@@ -2,6 +2,7 @@ import { Dialog, Ellipsis, List, Modal, SwipeAction } from "antd-mobile";
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline } from 'antd-mobile-icons';
+import "./ListaTarea.css";
 
 const ListaTarea = () => {
   let history = useHistory();
@@ -31,7 +32,7 @@ const ListaTarea = () => {
 
   return (
     <>
-      <div>
+      <div className="div_tareas">
         <List>
           <SwipeAction
             ref={ref}

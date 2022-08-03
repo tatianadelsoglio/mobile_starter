@@ -10,7 +10,7 @@ const Calendario = () => {
   return (
     <>
       <ConfigProvider locale={es_ES}>
-        <div>
+        <div className="div_content_calendario">
           <div>
             <Calendar
               selectionMode="single"
@@ -20,17 +20,12 @@ const Calendario = () => {
               }}
             />
           </div>
-          <div>
-            <div>
-              <Collapse>
-                <Collapse.Panel
-                  key="1"
-                  title="Lista de tareas para la fecha"
-                >
-                  <ListaTareaCalendar />
-                </Collapse.Panel>
-              </Collapse>
-            </div>
+          <div className="div_lista">
+            <Collapse>
+              <Collapse.Panel key="1" title="Lista de tareas para la fecha">
+                <ListaTareaCalendar />
+              </Collapse.Panel>
+            </Collapse>
           </div>
         </div>
       </ConfigProvider>
