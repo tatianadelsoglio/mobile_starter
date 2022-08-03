@@ -1,20 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { Calendar, Collapse } from "antd-mobile";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ListaTarea from "../listaTareas/ListaTarea";
 import "./Calendario.css";
 import moment from "moment";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const defaultSingle = new Date();
 
 const Calendario = () => {
-  const [fecha, setFecha] = useState({
-    content: defaultSingle,
-  });
 
-  const [fechaLi, setFechaLi] = useState({
-    content: defaultSingle,
-  });
+  const {fecha, setFecha} = useContext(GlobalContext);
+
 
 
   const handleChange = (val) => {
@@ -22,14 +19,9 @@ const Calendario = () => {
     setFecha({
       content: fechaSelec,
     })
-
-    console.log(fecha);
   }
 
-  const calendarLista = () => {
-    setFechaLi(setFecha);
-  }
-
+  console.log(fecha);
 
   return (
     <>
@@ -44,7 +36,7 @@ const Calendario = () => {
           <div className="div_lista">
             <Collapse>
               <Collapse.Panel key="1" title="Lista de tareas para la fecha">
-                <ListaTarea calendarLista={fechaLi} />
+                <ListaTarea handleChange={fecha} />
               </Collapse.Panel>
             </Collapse>
           </div>

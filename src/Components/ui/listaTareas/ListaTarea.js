@@ -1,10 +1,13 @@
 import { Dialog, Ellipsis, List, Modal, SwipeAction } from "antd-mobile";
-import React, { useRef} from "react";
+import React, { useContext, useRef} from "react";
 import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline } from 'antd-mobile-icons';
 import "./ListaTarea.css";
+import { GlobalContext } from "../../context/GlobalContext";
 
-const ListaTarea = ({calendarLista}) => {
+const ListaTarea = ({handleChange}) => {
+
+  const {fecha} = useContext(GlobalContext);
 
   let history = useHistory();
 
@@ -70,7 +73,7 @@ const ListaTarea = ({calendarLista}) => {
               },
             ]}
           >
-            <List.Item description="Adrian Sabo" extra="fecha por props?">
+            <List.Item description="Adrian Sabo" extra={fecha.value}>
               <Ellipsis
                 direction="end"
                 content="Llamar a Adrian, conversar sobre nuevos insumos"
