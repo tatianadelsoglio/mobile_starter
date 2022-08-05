@@ -16,9 +16,7 @@ const Calendario = () => {
 
   const handleChange = (val) => {
     let fechaSelec = moment(val).format("DD/MM/YYYY");
-    setFecha({
-      content: fechaSelec,
-    })
+    setFecha(fechaSelec);
   }
 
   console.log(fecha);
@@ -36,7 +34,7 @@ const Calendario = () => {
           <div className="div_lista">
             <Collapse>
               <Collapse.Panel key="1" title="Lista de tareas para la fecha">
-                <ListaTarea handleChange={fecha} />
+                <ListaTarea />
               </Collapse.Panel>
             </Collapse>
           </div>

@@ -5,7 +5,7 @@ import { EditSOutline, CheckOutline } from 'antd-mobile-icons';
 import "./ListaTarea.css";
 import { GlobalContext } from "../../context/GlobalContext";
 
-const ListaTarea = ({handleChange}) => {
+const ListaTarea = () => {
 
   const {fecha} = useContext(GlobalContext);
 
@@ -73,7 +73,7 @@ const ListaTarea = ({handleChange}) => {
               },
             ]}
           >
-            <List.Item description="Adrian Sabo" extra={fecha.value}>
+            <List.Item description="Adrian Sabo" extra={fecha}>
               <Ellipsis
                 direction="end"
                 content="Llamar a Adrian, conversar sobre nuevos insumos"
