@@ -13,7 +13,7 @@ const defaultSingle = moment().format("DD/MM/YYYY");
 const App = () => {
 
   //*States creados para utilizarlos globalmente
-  const [fecha, setFecha] = useState(defaultSingle);
+  const [fecha, setFecha] = useState(defaultSingle); //*Se utiliza para el calendario
 
 
   return (

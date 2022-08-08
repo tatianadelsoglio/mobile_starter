@@ -12,7 +12,6 @@ const Calendario = () => {
   const {fecha, setFecha} = useContext(GlobalContext);
 
 
-
   const handleChange = (val) => {
     let fechaSelec = moment(val).format("DD/MM/YYYY");
     setFecha(fechaSelec);

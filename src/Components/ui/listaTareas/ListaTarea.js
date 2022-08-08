@@ -1,12 +1,10 @@
 import { Dialog, Ellipsis, List, Modal, SwipeAction } from "antd-mobile";
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline } from "antd-mobile-icons";
 import "./ListaTarea.css";
-import { GlobalContext } from "../../context/GlobalContext";
 
 const ListaTarea = () => {
-  const { fecha } = useContext(GlobalContext);
 
   let history = useHistory();
 
@@ -65,53 +63,62 @@ const ListaTarea = () => {
   const ItemListaTarea = [
     {
       description: "Adrian Sabo",
-      //extra:"11/08/2022",
+      extra:"11/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
       description: "Horacio Mercol",
-      //extra:{fecha},
+      extra:"11/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
       description: "Jorge Mayorga",
+      extra:"12/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
       description: "Aida Campos",
+      extra:"12/08/2022",
       content: "Venta Trigo",
     },
     {
       description: "Adrian Sabo",
+      extra:"16/08/2022",
       content:"Venta de Maíz",
     },
     {
       description: "Florencia Caverzasi",
+      extra:"17/08/2022",
       content: "Venta de Soja",
     },
     {
       description: "Adrian Sabo",
+      extra:"17/08/2022",
       content: "Venta de Maíz para temporada 2223",
     },
     {
       description: "Adrian Sabo",
-      //extra:{fecha},
+      extra:"18/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
       description: "Horacio Mercol",
-      //extra:{fecha},
+      extra:"02/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
       description: "Jorge Mayorga",
+      extra:"03/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
       description: "Aida Campos",
+      extra:"03/08/2022",
       content: "Venta Trigo",
     },    
   ];
+
+
 
   return (
     <>
@@ -124,7 +131,7 @@ const ListaTarea = () => {
               closeOnTouchOutside={false}
               rightActions={rightActions}
             >
-              <List.Item description={ItemListaTarea.description} extra={fecha}>
+              <List.Item description={ItemListaTarea.description} extra={ItemListaTarea.extra}>
                 <Ellipsis direction="end" content={ItemListaTarea.content} />
               </List.Item>
             </SwipeAction>
