@@ -6,7 +6,7 @@ import "./Calendario.css";
 import moment from "moment";
 import { GlobalContext } from "../../context/GlobalContext";
 
-const defaultSingle = new Date();
+const defaultSingle = moment().format("DD/MM/YYYY");
 
 const Calendario = () => {
 
