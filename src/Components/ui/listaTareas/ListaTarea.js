@@ -4,8 +4,7 @@ import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline } from "antd-mobile-icons";
 import "./ListaTarea.css";
 
-const ListaTarea = () => {
-
+const ListaTarea = ({ keyPest }) => {
   let history = useHistory();
 
   const ref = useRef(null);
@@ -60,71 +59,83 @@ const ListaTarea = () => {
     },
   ];
 
-
   const ItemListaTarea = [
     {
       description: "Adrian Sabo",
-      extra:"11/08/2022",
+      extra: "11/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
       description: "Horacio Mercol",
-      extra:"11/08/2022",
+      extra: "11/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
       description: "Jorge Mayorga",
-      extra:"12/08/2022",
+      extra: "12/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
       description: "Aida Campos",
-      extra:"12/08/2022",
+      extra: "12/08/2022",
       content: "Venta Trigo",
     },
     {
       description: "Adrian Sabo",
-      extra:"16/08/2022",
-      content:"Venta de Maíz",
+      extra: "16/08/2022",
+      content: "Venta de Maíz",
     },
     {
       description: "Florencia Caverzasi",
-      extra:"17/08/2022",
+      extra: "17/08/2022",
       content: "Venta de Soja",
     },
     {
       description: "Adrian Sabo",
-      extra:"17/08/2022",
+      extra: "17/08/2022",
       content: "Venta de Maíz para temporada 2223",
     },
     {
       description: "Adrian Sabo",
-      extra:"18/08/2022",
+      extra: "18/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
       description: "Horacio Mercol",
-      extra:"02/08/2022",
+      extra: "02/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
       description: "Jorge Mayorga",
-      extra:"03/08/2022",
+      extra: "03/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
       description: "Aida Campos",
-      extra:"03/08/2022",
+      extra: "03/08/2022",
       content: "Venta Trigo",
-    },    
+    },
   ];
 
- 
-
   //* Funciona, filtra correctamente:
-  let fechaCompare = ItemListaTarea.filter(ItemListaTarea => (ItemListaTarea.extra >= "15/08/2022" && ItemListaTarea.extra <= "19/08/2022")); 
-  console.log(fechaCompare);
+  // let fechaCompare = ItemListaTarea.filter(ItemListaTarea => (ItemListaTarea.extra >= "08/08/2022" && ItemListaTarea.extra <= "12/08/2022"));
+  // console.log(fechaCompare);
 
+  // if (keyPest === 1 ){
+  //   //console.log("Pestaña Esta Semana")
+  //   let fechaSemanaActual = ItemListaTarea.filter(ItemListaTarea => (ItemListaTarea.extra >= "08/08/2022" && ItemListaTarea.extra <= "12/08/2022"));
+  //   console.log(fechaSemanaActual);
+  // };
+  // if (keyPest === 2 ){
+  //   //console.log("Pestaña Semana Prox.")
+  //   let fechaSemanaProx = ItemListaTarea.filter(ItemListaTarea => (ItemListaTarea.extra >= "15/08/2022" && ItemListaTarea.extra <= "19/08/2022"));
+  //   console.log(fechaSemanaProx);
+  // };
+  // if (keyPest === 3 ){
+  //   //console.log("Pestaña Vencida")
+  //   let fechaVencida = ItemListaTarea.filter(ItemListaTarea => (ItemListaTarea.extra >= "01/08/2022" && ItemListaTarea.extra <= "05/08/2022"));
+  //   console.log(fechaVencida);
+  // };
 
   return (
     <>
@@ -137,7 +148,10 @@ const ListaTarea = () => {
               closeOnTouchOutside={false}
               rightActions={rightActions}
             >
-              <List.Item description={ItemListaTarea.description} extra={ItemListaTarea.extra}>
+              <List.Item
+                description={ItemListaTarea.description}
+                extra={ItemListaTarea.extra}
+              >
                 <Ellipsis direction="end" content={ItemListaTarea.content} />
               </List.Item>
             </SwipeAction>
