@@ -13,7 +13,8 @@ const defaultSingle = moment().format("DD/MM/YYYY");
 const App = () => {
 
   //*States creados para utilizarlos globalmente
-  const [fecha, setFecha] = useState(defaultSingle); //*Se utiliza para el calendario
+  const [fecha, setFecha] = useState(defaultSingle); //*Se utiliza para el Calendario.js
+  const [itemListaTarea, setItemListaTarea] = useState([]); //*Se utiliza en ListaTarea.js
 
 
   return (
@@ -22,6 +23,8 @@ const App = () => {
         value={{
           fecha, 
           setFecha,
+          itemListaTarea,
+          setItemListaTarea,
         }}
       >
         <AppRouter />

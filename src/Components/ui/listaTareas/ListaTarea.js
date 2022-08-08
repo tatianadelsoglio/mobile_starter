@@ -60,6 +60,7 @@ const ListaTarea = () => {
     },
   ];
 
+
   const ItemListaTarea = [
     {
       description: "Adrian Sabo",
@@ -118,6 +119,11 @@ const ListaTarea = () => {
     },    
   ];
 
+ 
+
+  //* Funciona, filtra correctamente:
+  let fechaCompare = ItemListaTarea.filter(ItemListaTarea => (ItemListaTarea.extra >= "15/08/2022" && ItemListaTarea.extra <= "19/08/2022")); 
+  console.log(fechaCompare);
 
 
   return (

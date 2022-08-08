@@ -3,6 +3,7 @@ import ListaTarea from "../listaTareas/ListaTarea";
 import "./Tareas.css";
 
 const Tareas = () => {
+
   return (
     <Tabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS ESTA SEMANA */}
