@@ -12,9 +12,6 @@ const defaultSingle = moment().format("DD/MM/YYYY");
 const App = () => {
 
   //*States creados para utilizarlos globalmente
-  // const [fecha, setFecha] = useState({
-  //   content: defaultSingle,
-  // });
   const [fecha, setFecha] = useState(defaultSingle);
 
 
