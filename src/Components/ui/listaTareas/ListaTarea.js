@@ -65,7 +65,7 @@ const ListaTarea = () => {
   const ItemListaTarea = [
     {
       description: "Adrian Sabo",
-      //extra:{fecha},
+      //extra:"11/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
