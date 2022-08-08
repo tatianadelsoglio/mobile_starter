@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import ListaTarea from "../listaTareas/ListaTarea";
 import "./Calendario.css";
 import moment from "moment";
+import 'moment/locale/es';
 import { GlobalContext } from "../../context/GlobalContext";
 
 const Calendario = () => {
@@ -19,6 +20,9 @@ const Calendario = () => {
 
   console.log(fecha);
 
+  let titulo = `Lista de tareas del ${fecha}`;
+
+
   return (
     <>
         <div className="div_content_calendario">
@@ -31,7 +35,7 @@ const Calendario = () => {
           </div>
           <div className="div_lista">
             <Collapse>
-              <Collapse.Panel key="1" title="Lista de tareas para la fecha">
+              <Collapse.Panel key="1" title={titulo}>
                 <ListaTarea />
               </Collapse.Panel>
             </Collapse>
