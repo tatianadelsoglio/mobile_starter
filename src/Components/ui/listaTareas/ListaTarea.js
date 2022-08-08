@@ -61,56 +61,67 @@ const ListaTarea = ({ keyPest }) => {
 
   const ItemListaTarea = [
     {
+      key:1,
       description: "Adrian Sabo",
       extra: "11/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
+      key:2,
       description: "Horacio Mercol",
       extra: "11/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
+      key:3,
       description: "Jorge Mayorga",
       extra: "12/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
+      key:4,
       description: "Aida Campos",
       extra: "12/08/2022",
       content: "Venta Trigo",
     },
     {
+      key:5,
       description: "Adrian Sabo",
       extra: "16/08/2022",
       content: "Venta de Maíz",
     },
     {
+      key:6,
       description: "Florencia Caverzasi",
       extra: "17/08/2022",
       content: "Venta de Soja",
     },
     {
+      key:7,
       description: "Adrian Sabo",
       extra: "17/08/2022",
       content: "Venta de Maíz para temporada 2223",
     },
     {
+      key:8,
       description: "Adrian Sabo",
       extra: "18/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
+      key:9,
       description: "Horacio Mercol",
       extra: "02/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
+      key:10,
       description: "Jorge Mayorga",
       extra: "03/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
+      key:11,
       description: "Aida Campos",
       extra: "03/08/2022",
       content: "Venta Trigo",
