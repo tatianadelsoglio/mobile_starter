@@ -6,8 +6,6 @@ import "./Calendario.css";
 import moment from "moment";
 import { GlobalContext } from "../../context/GlobalContext";
 
-const defaultSingle = moment().format("DD/MM/YYYY");
-
 const Calendario = () => {
 
   const {fecha, setFecha} = useContext(GlobalContext);
@@ -27,7 +25,7 @@ const Calendario = () => {
           <div>
             <Calendar
               selectionMode="single"
-              defaultValue={defaultSingle}
+              defaultValue={fecha}
               onChange={(val) => handleChange(val)}
             />
           </div>
