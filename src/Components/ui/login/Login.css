@@ -72,21 +72,26 @@
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    width: 115%;
 }
 
 .recordar_texto{
-    width: 115%;
-    margin-left: 2%;
+    position: absolute;
+    left: 5%;
 }
 
 .recordar_check{
-    width: 115%;
-    margin-left: 66%;
+    position: absolute;
+    right: 4%;
+}
+
+.btn_content{
+    display: block;
+    margin-left: -11px;
+
 }
 
 .btn_content_btn{
-    margin-top: 3vh;
+    margin-top: 4vh;
     width: 92vw;
     height: 7vh;
     display: block;
