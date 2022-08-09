@@ -1,28 +1,30 @@
-import { Tabs } from "antd-mobile";
+import { CapsuleTabs } from "antd-mobile";
 import ListaTarea from "../listaTareas/ListaTarea";
 import "./Tareas.css";
 
 const Tareas = () => {
-
   return (
-    <Tabs defaultActiveKey="1">
+    <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS ESTA SEMANA */}
-      <Tabs.Tab title="Esta Semana" key="1">
+      <CapsuleTabs.Tab title="Esta Semana" key="1">
+        <div style={{ height: "50px" }}></div>
         <div className="lista_tareas">
           <ListaTarea />
         </div>
-      </Tabs.Tab>
+      </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA PROXIMA */}
-      <Tabs.Tab title="Semana Prox." key="2">
+      <CapsuleTabs.Tab title="Semana Prox." key="2">
+        <div style={{ height: "50px" }}></div>
         <ListaTarea />
-      </Tabs.Tab>
+      </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS VENCIDAS */}
-      <Tabs.Tab title="Vencido" key="3">
+      <CapsuleTabs.Tab title="Vencido" key="3">
+        <div style={{ height: "50px" }}></div>
         <ListaTarea />
-      </Tabs.Tab>
-    </Tabs>
+      </CapsuleTabs.Tab>
+    </CapsuleTabs>
   );
 };
 

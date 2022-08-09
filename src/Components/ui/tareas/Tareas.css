@@ -13,3 +13,22 @@
 .lista_tareas{
   overflow: auto !important;
 }
+
+.adm-capsule-tabs-content{
+  display:flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+}
+
+.adm-capsule-tabs-header{
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+}
+
+.adm-capsule-tabs-tab{
+  font-size: 14px;
+  padding: 8px 15px;
+}
+

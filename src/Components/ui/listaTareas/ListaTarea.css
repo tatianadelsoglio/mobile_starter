@@ -3,3 +3,7 @@
 .adm-list-item-content-arrow{
     display: none;
 }
+
+.adm-list-header{
+    background-color: #fbfbfb;
+}
