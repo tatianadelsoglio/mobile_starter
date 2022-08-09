@@ -172,31 +172,33 @@ const ListaTarea = () => {
 
   return (
     <>
-      <div className="div_tareas">
+      <div className="div_lista_tareas">
         {ItemListaTarea.map((ItemListaTarea) => (
-          <List header={ItemListaTarea.hora}>
-            <SwipeAction
-              ref={ref}
-              closeOnAction={false}
-              closeOnTouchOutside={false}
-              rightActions={rightActions}
-            >
-              <List.Item
-                key={ItemListaTarea.key}
-                description={ItemListaTarea.description}
-                extra={ItemListaTarea.extra}
-                onClick={() =>
-                  Modal.show({
-                    title: ItemListaTarea.description,
-                    content: ItemListaTarea.content,
-                    closeOnMaskClick: true,
-                  })
-                }
+          <div>
+            <div className="div_lista_tareas_fecha">{ItemListaTarea.extra}</div>
+            <List header={ItemListaTarea.hora}>
+              <SwipeAction
+                ref={ref}
+                closeOnAction={false}
+                closeOnTouchOutside={false}
+                rightActions={rightActions}
               >
-                <Ellipsis direction="end" content={ItemListaTarea.content} />
-              </List.Item>
-            </SwipeAction>
-          </List>
+                <List.Item
+                  key={ItemListaTarea.key}
+                  description={ItemListaTarea.description}
+                  onClick={() =>
+                    Modal.show({
+                      title: ItemListaTarea.description,
+                      content: ItemListaTarea.content,
+                      closeOnMaskClick: true,
+                    })
+                  }
+                >
+                  <Ellipsis direction="end" content={ItemListaTarea.content} />
+                </List.Item>
+              </SwipeAction>
+            </List>
+          </div>
         ))}
         <div style={{ height: "40px" }}></div>
         <div>

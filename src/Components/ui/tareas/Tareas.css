@@ -19,6 +19,9 @@
   justify-content: flex-start;
   align-items: flex-start;
   text-align: start;
+  margin-left: -20px;
+  width: 102vw;
+  overflow-x: hidden;
 }
 
 .adm-capsule-tabs-header{
