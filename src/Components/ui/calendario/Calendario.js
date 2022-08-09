@@ -7,6 +7,8 @@ import moment from "moment";
 import 'moment/locale/es';
 import { GlobalContext } from "../../context/GlobalContext";
 
+const defaultSingle = new Date();
+
 const Calendario = () => {
 
   const {fecha, setFecha} = useContext(GlobalContext);
@@ -28,13 +30,13 @@ const Calendario = () => {
           <div>
             <Calendar
               selectionMode="single"
-              defaultValue={fecha}
+              defaultValue={defaultSingle}
               onChange={(val) => handleChange(val)}
             />
           </div>
           <div className="div_lista">
-            <Collapse>
-              <Collapse.Panel key="1" title={titulo}>
+            <Collapse defaultActiveKey={['1']}>
+              <Collapse.Panel  key="1" title={titulo}>
                 <ListaTarea />
               </Collapse.Panel>
             </Collapse>

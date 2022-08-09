@@ -1,7 +1,14 @@
-import { Dialog, Ellipsis, List, Modal, SwipeAction } from "antd-mobile";
+import {
+  Dialog,
+  Ellipsis,
+  FloatingBubble,
+  List,
+  Modal,
+  SwipeAction,
+} from "antd-mobile";
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
-import { EditSOutline, CheckOutline } from "antd-mobile-icons";
+import { EditSOutline, CheckOutline, AddOutline } from "antd-mobile-icons";
 import "./ListaTarea.css";
 
 const ListaTarea = () => {
@@ -11,6 +18,10 @@ const ListaTarea = () => {
 
   const handleModalDetalleTarea = () => {
     history.push("/detalletarea");
+  };
+
+  const handleModalCrearTarea = () => {
+    history.push("/nuevatarea");
   };
 
   const handleModalCerrar = () => {
@@ -61,67 +72,67 @@ const ListaTarea = () => {
 
   const ItemListaTarea = [
     {
-      key:1,
+      key: 1,
       description: "Adrian Sabo",
       extra: "11/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
-      key:2,
+      key: 2,
       description: "Horacio Mercol",
       extra: "11/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
-      key:3,
+      key: 3,
       description: "Jorge Mayorga",
       extra: "12/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
-      key:4,
+      key: 4,
       description: "Aida Campos",
       extra: "12/08/2022",
       content: "Venta Trigo",
     },
     {
-      key:5,
+      key: 5,
       description: "Adrian Sabo",
       extra: "16/08/2022",
       content: "Venta de Maíz",
     },
     {
-      key:6,
+      key: 6,
       description: "Florencia Caverzasi",
       extra: "17/08/2022",
       content: "Venta de Soja",
     },
     {
-      key:7,
+      key: 7,
       description: "Adrian Sabo",
       extra: "17/08/2022",
       content: "Venta de Maíz para temporada 2223",
     },
     {
-      key:8,
+      key: 8,
       description: "Adrian Sabo",
       extra: "18/08/2022",
       content: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
-      key:9,
+      key: 9,
       description: "Horacio Mercol",
       extra: "02/08/2022",
       content: "Visitar Campo Oeste",
     },
     {
-      key:10,
+      key: 10,
       description: "Jorge Mayorga",
       extra: "03/08/2022",
       content: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
-      key:11,
+      key: 11,
       description: "Aida Campos",
       extra: "03/08/2022",
       content: "Venta Trigo",
@@ -163,12 +174,41 @@ const ListaTarea = () => {
                 key={ItemListaTarea.key}
                 description={ItemListaTarea.description}
                 extra={ItemListaTarea.extra}
+                onClick={() =>
+                  Modal.show({
+                    title: ItemListaTarea.description,
+                    content: ItemListaTarea.content,
+                    closeOnMaskClick: true,
+                  })
+                }
               >
                 <Ellipsis direction="end" content={ItemListaTarea.content} />
               </List.Item>
             </SwipeAction>
           ))}
         </List>
+        <div style={{height:"40px"}}></div>
+        <div>
+          <FloatingBubble
+            style={{
+              "--initial-position-bottom": "60px",
+              "--initial-position-right": "24px",
+              "--edge-distance": "24px",
+            }}
+          >
+            <AddOutline
+              fontSize={32}
+              onClick={() =>
+                Modal.confirm({
+                  title: "¿Crear una nueva tarea?",
+                  cancelText: "Cancelar",
+                  confirmText: "Crear",
+                  onConfirm: handleModalCrearTarea,
+                })
+              }
+            />
+          </FloatingBubble>
+        </div>
       </div>
     </>
   );
