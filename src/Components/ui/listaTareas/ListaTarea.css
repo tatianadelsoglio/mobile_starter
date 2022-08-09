@@ -4,11 +4,19 @@
     display: none;
 }
 
-.adm-list-header{
-    background-color: #fbfbfb;
-}
-
 .div_lista_tareas_fecha{
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 20px;
+    padding: 10px;
+    border-bottom: solid 2px #f4f4f4 ;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #56b43c;
+}
+
+.adm-list-item-description{
+    color: #56b43c;
 }
