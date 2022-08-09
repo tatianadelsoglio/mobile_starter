@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Modal, NavBar, Space } from "antd-mobile";
 import { UploadOutline, AddCircleOutline } from "antd-mobile-icons";
@@ -11,14 +12,14 @@ const Nav = () => {
     history.push("/");
   };
 
-  const handleModalCrearTarea = () => {
-    history.push("/nuevatarea");
-  };
+  // const handleModalCrearTarea = () => {
+  //   history.push("/nuevatarea");
+  // };
 
   const right = (
     <div style={{ fontSize: 24 }}>
       <Space style={{ "--gap": "16px" }}>
-        <AddCircleOutline
+        {/* <AddCircleOutline
           color="#56b43c"
           onClick={() =>
             Modal.confirm({
@@ -28,7 +29,7 @@ const Nav = () => {
               onConfirm: handleModalCrearTarea,
             })
           }
-        />
+        /> */}
         <UploadOutline
           style={{ transform: "rotate(90deg)" }}
           color="#56b43c"
