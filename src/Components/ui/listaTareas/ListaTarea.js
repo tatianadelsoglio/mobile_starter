@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline } from "antd-mobile-icons";
 import "./ListaTarea.css";
 
-const ListaTarea = ({ keyPest }) => {
+const ListaTarea = () => {
   let history = useHistory();
 
   const ref = useRef(null);
@@ -160,6 +160,7 @@ const ListaTarea = ({ keyPest }) => {
               rightActions={rightActions}
             >
               <List.Item
+                key={ItemListaTarea.key}
                 description={ItemListaTarea.description}
                 extra={ItemListaTarea.extra}
               >

@@ -9,18 +9,18 @@ const Tareas = () => {
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <Tabs.Tab title="Esta Semana" key="1">
         <div className="lista_tareas">
-          <ListaTarea pest={1}/>
+          <ListaTarea />
         </div>
       </Tabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA PROXIMA */}
       <Tabs.Tab title="Semana Prox." key="2">
-        <ListaTarea pest={2}/>
+        <ListaTarea />
       </Tabs.Tab>
 
       {/* PESTAÑA TAREAS VENCIDAS */}
       <Tabs.Tab title="Vencido" key="3">
-        <ListaTarea pest={3}/>
+        <ListaTarea />
       </Tabs.Tab>
     </Tabs>
   );
