@@ -170,11 +170,27 @@ const ListaTarea = () => {
   //   console.log(fechaVencida);
   // };
 
+  // let ultimaFecha = "";
+  // let ultimaHora = "";
+
+  // if (ItemListaTarea.extra !== ultimaFecha) {
+  //   ultimaFecha = ItemListaTarea.extra;
+  //   if (ItemListaTarea.hora !== ultimaHora) {
+  //     ultimaHora = ItemListaTarea.hora;
+  //     return( 
+  //       <>
+          
+  //       </>
+  //     );
+  //   }
+  // }
+
   return (
     <>
       <div className="div_lista_tareas">
         {ItemListaTarea.map((ItemListaTarea) => (
-          <div>
+
+          <div>            
             <div className="div_lista_tareas_fecha">{ItemListaTarea.extra}</div>
             <List header={ItemListaTarea.hora}>
               <SwipeAction
@@ -200,6 +216,7 @@ const ListaTarea = () => {
             </List>
           </div>
         ))}
+
         <div style={{ height: "40px" }}></div>
         <div>
           <FloatingBubble
