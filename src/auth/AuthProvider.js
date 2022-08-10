@@ -3,28 +3,28 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [credentials, setCredentials] = useState(
+  const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("userInfo")) || null
   );
 
   useEffect(() => {
     try {
-      localStorage.setItem("credentials", JSON.stringify(credentials));
+      localStorage.setItem("token", JSON.stringify(token));
     } catch (error) {
-      localStorage.removeItem("credentials");
+      localStorage.removeItem("token");
     }
-  }, [credentials]);
+  }, [token]);
 
   const contextValue = {
-    credentials,
-    login(credentials) {
-        setCredentials(credentials);
+    token,
+    login(token) {
+      setToken(token);
     },
     logout() {
-        setCredentials(null);
+      setToken(null);
     },
     isLogged() {
-      return !!credentials;
+      return !!token;
     },
   };
 

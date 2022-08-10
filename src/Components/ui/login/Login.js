@@ -1,22 +1,56 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Checkbox, Form, Image, Input } from "antd-mobile";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import duo from "./logo-crm-prod.svg";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
 import "./Login.css";
 import { useHistory } from "react-router-dom";
 import useAuth from "../../../auth/useAuth";
+import { GlobalContext } from "../../context/GlobalContext";
+import { saveDataInStorage } from "../../storage/manageStorage";
+import * as base64 from "base-64";
+import { LOGIN_AUTHENTICATION } from "../../../graphql/queries/loginAuthentication";
+import { useLazyQuery } from "@apollo/client";
 
 const Login = () => {
   let history = useHistory();
   const auth = useAuth();
 
   const [visible, setVisible] = useState(false);
+  const { userData, setUserData } = useContext(GlobalContext);
+  const [switchChecked, setSwitchChecked] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+
+  const [loginIframeResolver, { loading, data, error }] =
+    useLazyQuery(LOGIN_AUTHENTICATION);
+
+  useEffect(() => {
+    if(data) {
+      if (data.loginIframeResolver.status === 200) {
+        if (switchChecked) {
+          saveDataInStorage("userInfo", userData);
+        }
+  
+        auth.login(userData);
+      } else {
+        alert(data.loginIframeResolver.message);
+      }
+    }
+  }, [data]);
 
   const onFinish = (values) => {
-    console.log(1 + 1);
-    // auth.login(1+1);
-    history.push("/home");
+    let usuario = base64.encode(values.username);
+    let contrasena = base64.encode(values.password);
+    console.log(usuario, contrasena);
+
+    loginIframeResolver({
+      variables: { credentials: { username: usuario, password: contrasena } },
+    });
+
+    setUserData({username: usuario, password: contrasena});
+
+    const info = { usuario, contrasena };
   };
 
   return (
@@ -38,7 +72,11 @@ const Login = () => {
                       <h3>Recordarme</h3>
                     </div>
                     <div className="recordar_check">
-                      <Checkbox />
+                      <Checkbox
+                        onChange={() => {
+                          setSwitchChecked(!switchChecked);
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="btn_content">
@@ -53,6 +91,12 @@ const Login = () => {
                 className="form_login_label"
                 label="Usuario"
                 name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por Favor Ingrese Usuario!",
+                  },
+                ]}
               >
                 <Input
                   className="form_login_input"
@@ -64,6 +108,12 @@ const Login = () => {
                 className="form_login_label"
                 label="Contraseña"
                 name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por Favor Ingrese Contraseña!",
+                  },
+                ]}
                 extra={
                   <div className="eye">
                     {!visible ? (
@@ -83,14 +133,6 @@ const Login = () => {
               </Form.Item>
             </Form>
           </div>
-          {/* <div className="recordar">
-            <div className="recordar_texto">
-              <h3>Recordarme</h3>
-            </div>
-            <div className="recordar_check">
-              <Checkbox />
-            </div>
-          </div> */}
         </div>
         <div className="vista_login_content1"></div>
       </div>
