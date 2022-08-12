@@ -113,7 +113,7 @@ const ListaTarea = ({ItemListaTarea}) => {
         {ItemListaTarea.map((ItemListaTarea) => (
 
           <div>            
-            <div className="div_lista_tareas_fecha">{ItemListaTarea.extra}</div>
+            <div className="div_lista_tareas_fecha">{ItemListaTarea.fecha}</div>
             <List header={ItemListaTarea.hora}>
               <SwipeAction
                 ref={ref}
