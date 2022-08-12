@@ -17,9 +17,9 @@ import { useLazyQuery } from "@apollo/client";
 const Login = () => {
   let history = useHistory();
   const auth = useAuth();
+  const { userData, setUserData } = useContext(GlobalContext);
 
   const [visible, setVisible] = useState(false);
-  const { userData, setUserData } = useContext(GlobalContext);
   const [switchChecked, setSwitchChecked] = useState(false);
   const [loginError, setLoginError] = useState(false);
 
