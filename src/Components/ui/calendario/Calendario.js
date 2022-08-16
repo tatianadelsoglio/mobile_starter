@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Calendar, Collapse } from "antd-mobile";
 import React, { useContext, useState } from "react";
+import Tareas from "../tareas/Tareas";
 import ListaTarea from "../listaTareas/ListaTarea";
 import "./Calendario.css";
 import moment from "moment";
@@ -23,6 +24,7 @@ const Calendario = () => {
 
   let titulo = `Lista de tareas del ${fecha}`;
 
+  //*NO FUNCIONA PORQUE HAY QUE TRAER LA LISTA DE TAREAS POR CONSULTA, YA QUE AHORA ESTA INVENTADO EN EL PROYECTO
 
   return (
     <>
