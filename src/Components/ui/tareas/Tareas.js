@@ -16,7 +16,7 @@ const Tareas = () => {
     {
       id: 2,
       usu_nombre: "Horacio Mercol",
-      fechaHora: "08-17-2022 08:30",
+      fechaHora: "08-17-2022 08:40",
       estado: 1,
       descripcion: "Visitar Campo Oeste",
     },
@@ -159,7 +159,7 @@ console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
   })};
 
 listaTareasVC();
-console.log("Lista de tareas Vencidas: ", arrayVC);
+console.log("Lista de tareas VENCIDAS: ", arrayVC);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
 
   return (

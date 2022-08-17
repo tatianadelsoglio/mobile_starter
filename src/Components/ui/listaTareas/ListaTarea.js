@@ -13,9 +13,7 @@ import "./ListaTarea.css";
 import moment from "moment";
 import "moment/locale/es";
 
-
 const ListaTarea = ({ ItemListaTarea }) => {
-
   // const [validFecha, setValidFecha] = useState("");
   // const [validHora, setValidHora] = useState("");
 
@@ -79,42 +77,24 @@ const ListaTarea = ({ ItemListaTarea }) => {
 
   //*Handles para separar las fechasHoras en fecha y hora como viene de base de datos con moment.js
 
+  let ultimaFecha = "";
+
   const handleFecha = (val) => {
     let fecha = moment(val).format("DD-MM-YYYY");
-    //setValidFecha(fecha);
 
-    //*Filtrado de Fechas por semanas y vencidas, con moment.js
-
-    // //*ES
-    // let StartES = moment().startOf('isoWeek').format('DD-MM-YYYY');
-    // let EndES = moment().endOf('isoWeek').format('DD-MM-YYYY');
-
-    // //*SP
-    // let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY');
-    // let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY');
-
-    // //*VC
-    // let StartVC = moment().subtract(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY');
-    // let EndVC= moment().subtract(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY');
-
-    // if(validFecha >= StartES && validFecha <= EndES){
-    //   return "ES";
-    // } else if(validFecha >= StartSP && validFecha <= EndSP){
-    //   return "SP";
-    // } else if(validFecha >= StartVC && validFecha <= EndVC){
-    //   return "VC";
-    // } else{
-    //   console.log("No funciona");
-    // }
-    return fecha;
+    if (fecha !== ultimaFecha) {
+      ultimaFecha = fecha;
+      return ultimaFecha;
+    } else {
+      ultimaFecha = "";
+      return ultimaFecha;
+    }
   };
 
   const handleHora = (val) => {
     let hora = moment(val).format("LT");
-    //setValidHora(hora);
     return hora;
   };
-
 
   return (
     <>
@@ -122,7 +102,7 @@ const ListaTarea = ({ ItemListaTarea }) => {
         {ItemListaTarea.map((ItemListaTarea) => (
           <div>
             <div className="div_lista_tareas_fecha">
-              {handleFecha(ItemListaTarea.fechaHora)}
+              {handleFecha(ItemListaTarea.fechaHora) ? ultimaFecha : null}
             </div>
             <List header={handleHora(ItemListaTarea.fechaHora)}>
               <SwipeAction
