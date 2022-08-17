@@ -6,7 +6,7 @@ import {
   Modal,
   SwipeAction,
 } from "antd-mobile";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline, AddOutline } from "antd-mobile-icons";
 import "./ListaTarea.css";
