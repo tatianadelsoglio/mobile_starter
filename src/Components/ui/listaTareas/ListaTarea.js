@@ -84,8 +84,9 @@ const ListaTarea = ({ ItemListaTarea }) => {
 
     if (fecha !== ultimaFecha) {
       ultimaFecha = fecha;
+
       return ultimaFecha;
-    } else {
+     } else {
       ultimaFecha = "";
       return ultimaFecha;
     }
@@ -101,9 +102,7 @@ const ListaTarea = ({ ItemListaTarea }) => {
       <div className="div_lista_tareas">
         {ItemListaTarea.map((ItemListaTarea) => (
           <div>
-            <div className="div_lista_tareas_fecha">
-              {handleFecha(ItemListaTarea.fechaHora) ? ultimaFecha : null}
-            </div>
+            {handleFecha(ItemListaTarea.fechaHora) ? (<div className="div_lista_tareas_fecha">{ultimaFecha}</div>) : null}
             <List header={handleHora(ItemListaTarea.fechaHora)}>
               <SwipeAction
                 ref={ref}
