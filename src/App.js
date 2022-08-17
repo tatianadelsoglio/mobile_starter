@@ -10,13 +10,15 @@ import AuthProvider from "./auth/AuthProvider";
 import { ApolloProvider } from "@apollo/client";
 import Client from "./config/apolloClientConfig";
 
-const defaultSingle = moment().format("DD/MM/YYYY");
+const defaultSingle = moment().format("DD-MM-YYYY");
 
 const App = () => {
   //*States creados para utilizarlos globalmente
   const [fecha, setFecha] = useState(defaultSingle); //*Se utiliza para el Calendario.js
   const [userData, setUserData] = useState({});
   const [logoutAlert, setLogoutAlert] = useState(false);
+  const [infoUser, setInfoUser] = useState({});
+
 
   return (
     <AuthProvider>
@@ -30,6 +32,8 @@ const App = () => {
               setLogoutAlert,
               fecha,
               setFecha,
+              infoUser,
+              setInfoUser,
             }}
           >
             <AppRouter />

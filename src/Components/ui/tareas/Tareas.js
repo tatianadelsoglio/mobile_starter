@@ -1,123 +1,185 @@
 import { CapsuleTabs } from "antd-mobile";
-import { useEffect, useState } from "react";
+import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import "./Tareas.css";
 
 const Tareas = () => {
 
-  const [tabSelect, setTabSelect] = useState("1");
-  const [fechaListaTarea, setFechaListaTarea] = useState("");
-  const [fechaEstaSemana, setFechaEstaSemana] = useState("");
-  const [fechaSemanaProx, setFechaSemanaProx] = useState("");
-  const [fechaVencida, setFechaVencida] = useState("");
-
   const ItemListaTarea = [
     {
-      key: 1,
-      description: "Adrian Sabo",
-      hora: "08:30",
-      fecha: "11/08/2022",
-      content: "Llamar a Adrian, conversar sobre nuevos insumos",
+      id: 1,
+      usu_nombre: "Adrian Sabo",
+      fechaHora: "08-17-2022 08:30",
+      estado: 1,
+      descripcion: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
-      key: 2,
-      description: "Horacio Mercol",
-      hora: "08:30",
-      fecha: "11/08/2022",
-      content: "Visitar Campo Oeste",
+      id: 2,
+      usu_nombre: "Horacio Mercol",
+      fechaHora: "08-17-2022 08:30",
+      estado: 1,
+      descripcion: "Visitar Campo Oeste",
     },
     {
-      key: 3,
-      description: "Jorge Mayorga",
-      hora: "09:00",
-      fecha: "12/08/2022",
-      content: "Llamar a Jorge para Venta de Herbicidas",
+      id: 3,
+      usu_nombre: "Jorge Mayorga",
+      fechaHora: "08-18-2022 09:00",
+      estado: 1,
+      descripcion: "Llamar a Jorge para Venta de Herbicidas",
     },
     {
-      key: 4,
-      description: "Aida Campos",
-      hora: "09:15",
-      fecha: "12/08/2022",
-      content: "Venta Trigo",
+      id: 4,
+      usu_nombre: "Aida Campos",
+      fechaHora: "08-18-2022 09:15",
+      estado: 1,
+      descripcion: "Venta Trigo",
     },
     {
-      key: 5,
-      description: "Adrian Sabo",
-      hora: "09:30",
-      fecha: "16/08/2022",
-      content: "Venta de Maíz",
+      id: 5,
+      usu_nombre: "Adrian Sabo",
+      fechaHora: "08-19-2022 09:30",
+      estado: 1,
+      descripcion: "Venta de Maíz",
     },
     {
-      key: 6,
-      description: "Florencia Caverzasi",
-      hora: "09:30",
-      fecha: "17/08/2022",
-      content: "Venta de Soja",
+      id: 6,
+      usu_nombre: "Florencia Caverzasi",
+      fechaHora: "08-22-2022 09:30",
+      estado: 1,
+      descripcion: "Venta de Soja",
     },
     {
-      key: 7,
-      description: "Adrian Sabo",
-      hora: "09:40",
-      fecha: "17/08/2022",
-      content: "Venta de Maíz para temporada 2223",
+      id: 7,
+      usu_nombre: "Adrian Sabo",
+      fechaHora: "08-23-2022 09:40",
+      estado: 1,
+      descripcion: "Venta de Maíz para temporada 2223",
     },
     {
-      key: 8,
-      description: "Adrian Sabo",
-      hora: "10:00",
-      fecha: "18/08/2022",
-      content: "Llamar a Adrian, conversar sobre nuevos insumos",
+      id: 8,
+      usu_nombre: "Edgar jazz",
+      fechaHora: "08-23-2022 10:00",
+      estado: 1,
+      descripcion: "Llamar para conversar sobre nuevos insumos",
     },
     {
-      key: 9,
-      description: "Horacio Mercol",
-      hora: "10:00",
-      fecha: "02/08/2022",
-      content: "Visitar Campo Oeste",
+      id: 9,
+      usu_nombre: "Adrian Sabo",
+      fechaHora: "08-24-2022 10:00",
+      estado: 1,
+      descripcion: "Llamar a Adrian, conversar sobre nuevos insumos",
     },
     {
-      key: 10,
-      description: "Jorge Mayorga",
-      hora: "10:30",
-      fecha: "03/08/2022",
-      content: "Llamar a Jorge para Venta de Herbicidas",
+      id: 10,
+      usu_nombre: "Horacio Mercol",
+      fechaHora: "08-02-2022 10:00",
+      estado: 1,
+      descripcion: "Visitar Campo Oeste",
     },
     {
-      key: 11,
-      description: "Aida Campos",
-      hora: "11:00",
-      fecha: "03/08/2022",
-      content: "Venta Trigo",
+      id: 11,
+      usu_nombre: "Jorge Mayorga",
+      fechaHora: "08-03-2022 10:30",
+      estado: 1,
+      descripcion: "Llamar a Jorge para Venta de Herbicidas",
+    },
+    {
+      id: 12,
+      usu_nombre: "Aida Campos",
+      fechaHora: "08-03-2022 11:00",
+      estado: 1,
+      descripcion: "Venta Trigo",
     },
   ];
 
-  
-  useEffect(() => {
-    
+  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 1
 
-  }, [])
+  let arrayES = [];
+
+  const listaTareasES = () => { ItemListaTarea.map((tarea) => {
+    let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
+
+    let StartES = moment().startOf("isoWeek").format("DD-MM-YYYY")
+
+    let EndES = moment().endOf("isoWeek").format("DD-MM-YYYY")
+
+
+    if (fecha >= StartES) {
+      if (fecha <= EndES) {  
+        arrayES.push(tarea);
+      }
+    }  
+    return "Prueba lista tareas"
+  })};
+
+listaTareasES();
+console.log("Lista de tareas ESTA SEMANA: ", arrayES);
+//! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
+
+
+
+  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
+
+  let arraySP = [];
+
+  const listaTareasSP = () => { ItemListaTarea.map((tarea) => {
+    let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
+
+    let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY')
+
+    let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY')
+
+
+    if (fecha >= StartSP) {
+      if (fecha <= EndSP) {  
+        arraySP.push(tarea);
+      }
+    }  
+    return "Prueba lista tareas"
+  })};
+
+listaTareasSP();
+console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
+//! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
+
+
+  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 3
+
+  let arrayVC = [];
+
+  const listaTareasVC = () => { ItemListaTarea.map((tarea) => {
+    let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
+
+    let StartES = moment().startOf("isoWeek").format("DD-MM-YYYY")    
+
+    if (fecha <= StartES) {
+      arrayVC.push(tarea);
+    }  
+    return "Prueba lista tareas"
+  })};
+
+listaTareasVC();
+console.log("Lista de tareas Vencidas: ", arrayVC);
+//! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
 
   return (
-    <CapsuleTabs defaultActiveKey="1">
+    <CapsuleTabs defaultActiveKey="1" onChange={(key) => console.log(key)}>
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Esta Semana" key="1">
-        
         <div style={{ height: "50px" }}></div>
-        <div className="lista_tareas">
-          <ListaTarea ItemListaTarea={ItemListaTarea}/>
-        </div>
+        <ListaTarea ItemListaTarea={arrayES} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA PROXIMA */}
       <CapsuleTabs.Tab title="Semana Prox." key="2">
         <div style={{ height: "50px" }}></div>
-        <ListaTarea ItemListaTarea={ItemListaTarea}/>
+        <ListaTarea ItemListaTarea={arraySP} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS VENCIDAS */}
       <CapsuleTabs.Tab title="Vencido" key="3">
         <div style={{ height: "50px" }}></div>
-        <ListaTarea ItemListaTarea={ItemListaTarea}/>
+        <ListaTarea ItemListaTarea={arrayVC} />
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );

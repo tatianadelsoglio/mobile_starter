@@ -6,19 +6,11 @@ import {
   Modal,
   SwipeAction,
 } from "antd-mobile";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline, AddOutline } from "antd-mobile-icons";
-import "./ListaTarea.css";
-import moment from "moment";
-import "moment/locale/es";
 
-
-const ListaTarea = ({ ItemListaTarea }) => {
-
-  // const [validFecha, setValidFecha] = useState("");
-  // const [validHora, setValidHora] = useState("");
-
+const ListaCalendario = ({ItemListaTarea}) => {
   let history = useHistory();
 
   const ref = useRef(null);
@@ -77,54 +69,13 @@ const ListaTarea = ({ ItemListaTarea }) => {
     },
   ];
 
-  //*Handles para separar las fechasHoras en fecha y hora como viene de base de datos con moment.js
-
-  const handleFecha = (val) => {
-    let fecha = moment(val).format("DD-MM-YYYY");
-    //setValidFecha(fecha);
-
-    //*Filtrado de Fechas por semanas y vencidas, con moment.js
-
-    // //*ES
-    // let StartES = moment().startOf('isoWeek').format('DD-MM-YYYY');
-    // let EndES = moment().endOf('isoWeek').format('DD-MM-YYYY');
-
-    // //*SP
-    // let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY');
-    // let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY');
-
-    // //*VC
-    // let StartVC = moment().subtract(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY');
-    // let EndVC= moment().subtract(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY');
-
-    // if(validFecha >= StartES && validFecha <= EndES){
-    //   return "ES";
-    // } else if(validFecha >= StartSP && validFecha <= EndSP){
-    //   return "SP";
-    // } else if(validFecha >= StartVC && validFecha <= EndVC){
-    //   return "VC";
-    // } else{
-    //   console.log("No funciona");
-    // }
-    return fecha;
-  };
-
-  const handleHora = (val) => {
-    let hora = moment(val).format("LT");
-    //setValidHora(hora);
-    return hora;
-  };
-
 
   return (
     <>
       <div className="div_lista_tareas">
         {ItemListaTarea.map((ItemListaTarea) => (
           <div>
-            <div className="div_lista_tareas_fecha">
-              {handleFecha(ItemListaTarea.fechaHora)}
-            </div>
-            <List header={handleHora(ItemListaTarea.fechaHora)}>
+            <List header={ItemListaTarea.hora}>
               <SwipeAction
                 ref={ref}
                 closeOnAction={false}
@@ -132,8 +83,8 @@ const ListaTarea = ({ ItemListaTarea }) => {
                 rightActions={rightActions}
               >
                 <List.Item
-                  key={ItemListaTarea.id}
-                  description={ItemListaTarea.usu_nombre}
+                  key={ItemListaTarea.key}
+                  description={ItemListaTarea.description}
                   onClick={() =>
                     Modal.show({
                       title: ItemListaTarea.description,
@@ -142,10 +93,7 @@ const ListaTarea = ({ ItemListaTarea }) => {
                     })
                   }
                 >
-                  <Ellipsis
-                    direction="end"
-                    content={ItemListaTarea.descripcion}
-                  />
+                  <Ellipsis direction="end" content={ItemListaTarea.content} />
                 </List.Item>
               </SwipeAction>
             </List>
@@ -179,4 +127,4 @@ const ListaTarea = ({ ItemListaTarea }) => {
   );
 };
 
-export default ListaTarea;
+export default ListaCalendario;
