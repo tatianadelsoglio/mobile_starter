@@ -10,11 +10,17 @@
     align-items: center;
     height: 20px;
     padding: 10px;
-    border-bottom: solid 2px #f4f4f4 ;
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     color: #56b43c;
+    margin-top: 3px;
+    margin-bottom: -15px;
+}
+
+.adm-list-header{
+    color: black;
+    font-size: 14px;
 }
 
 .adm-list-item-description{

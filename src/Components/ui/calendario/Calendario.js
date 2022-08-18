@@ -21,7 +21,7 @@ const Calendario = () => {
 
   console.log(fecha);
 
-  let titulo = `Lista de tareas del ${fecha}`;
+  //let titulo = `Lista de tareas del ${fecha}`;
 
   const ItemListaTarea = [
     {
@@ -140,11 +140,7 @@ const Calendario = () => {
           />
         </div>
         <div className="div_lista">
-          <Collapse defaultActiveKey={["1"]}>
-            <Collapse.Panel key="1" title={titulo}>
-              <TareasCalendario ItemListaTarea={arrayHOY} />
-            </Collapse.Panel>
-          </Collapse>
+          <TareasCalendario ItemListaTarea={arrayHOY} />
         </div>
       </div>
     </>
