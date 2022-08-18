@@ -1,0 +1,8 @@
+@import 'antd-mobile/bundle/css-vars-patch.css';
+
+.adm-list-item-description{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}

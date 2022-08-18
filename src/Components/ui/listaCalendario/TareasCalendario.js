@@ -9,6 +9,8 @@ import {
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { EditSOutline, CheckOutline, AddOutline } from "antd-mobile-icons";
+import moment from "moment";
+import "./TareasCalendario.css";
 
 const ListaCalendario = ({ItemListaTarea}) => {
   let history = useHistory();
@@ -69,13 +71,19 @@ const ListaCalendario = ({ItemListaTarea}) => {
     },
   ];
 
+  const handleHora = (val) => {
+    let hora = moment(val).format("LT");
+    return hora;
+  };
+
 
   return (
     <>
       <div className="div_lista_tareas">
         {ItemListaTarea.map((ItemListaTarea) => (
           <div>
-            <List header={ItemListaTarea.hora}>
+            {/* header={handleHora(ItemListaTarea.fechaHora)} */}
+            <List>  
               <SwipeAction
                 ref={ref}
                 closeOnAction={false}
@@ -84,7 +92,7 @@ const ListaCalendario = ({ItemListaTarea}) => {
               >
                 <List.Item
                   key={ItemListaTarea.key}
-                  description={ItemListaTarea.description}
+                  description={ItemListaTarea.usu_nombre}
                   onClick={() =>
                     Modal.show({
                       title: ItemListaTarea.description,
@@ -93,7 +101,14 @@ const ListaCalendario = ({ItemListaTarea}) => {
                     })
                   }
                 >
-                  <Ellipsis direction="end" content={ItemListaTarea.content} />
+                  <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
+                    <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+                      {handleHora(ItemListaTarea.fechaHora)}
+                    </div>
+                    <div style={{display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+                      <Ellipsis direction="end" content={ItemListaTarea.descripcion} />
+                    </div>
+                  </div>
                 </List.Item>
               </SwipeAction>
             </List>
