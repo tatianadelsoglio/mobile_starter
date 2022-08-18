@@ -1,4 +1,5 @@
 import {
+  Card,
   Dialog,
   Ellipsis,
   FloatingBubble,
@@ -14,8 +15,6 @@ import moment from "moment";
 import "moment/locale/es";
 
 const ListaTarea = ({ ItemListaTarea }) => {
-
-
   let history = useHistory();
 
   const ref = useRef(null);
@@ -85,7 +84,7 @@ const ListaTarea = ({ ItemListaTarea }) => {
       ultimaFecha = fecha;
 
       return ultimaFecha;
-     } else {
+    } else {
       ultimaFecha = "";
       return ultimaFecha;
     }
@@ -101,7 +100,9 @@ const ListaTarea = ({ ItemListaTarea }) => {
       <div className="div_lista_tareas">
         {ItemListaTarea.map((ItemListaTarea) => (
           <div>
-            {handleFecha(ItemListaTarea.fechaHora) ? (<div className="div_lista_tareas_fecha">{ultimaFecha}</div>) : null}
+            {handleFecha(ItemListaTarea.fechaHora) ? (
+              <div className="div_lista_tareas_fecha">{ultimaFecha}</div>
+            ) : null}
             <List header={handleHora(ItemListaTarea.fechaHora)}>
               <SwipeAction
                 ref={ref}
@@ -112,11 +113,20 @@ const ListaTarea = ({ ItemListaTarea }) => {
                 <List.Item
                   key={ItemListaTarea.id}
                   description={ItemListaTarea.usu_nombre}
-                  onClick={() =>
-                    Modal.show({
-                      title: ItemListaTarea.description,
-                      content: ItemListaTarea.content,
-                      closeOnMaskClick: true,
+                  onClick={async() =>
+                    await Dialog.confirm({
+                      content: (
+                        <>
+                          <Card title={<div>{ItemListaTarea.usu_nombre}</div>}>
+                            <div><p><span style={{fontWeight:"bold"}}>Fecha: </span>{ultimaFecha}</p></div>
+                            <div><p><span style={{fontWeight:"bold"}}>Hora: </span>{handleHora(ItemListaTarea.fechaHora)}</p></div>
+                            <div><p><span style={{fontWeight:"bold"}}>Tarea: </span>{ItemListaTarea.descripcion}</p></div>
+                          </Card>
+                        </>
+                      ),
+                      confirmText: "Editar",
+                      cancelText:"Cerrar",
+                      onConfirm: handleModalDetalleTarea,
                     })
                   }
                 >
