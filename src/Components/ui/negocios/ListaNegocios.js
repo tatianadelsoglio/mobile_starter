@@ -111,7 +111,6 @@ export const ListaNegocios = () => {
 
   return (
     <div className="contenedor-negocios-principal">
-      <p className="titulo-negocio">Negocios</p>
       <div className="contenedor-negocios">
         {data.map((negocio) => {
           return (

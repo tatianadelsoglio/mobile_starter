@@ -108,61 +108,25 @@ export const NegocioCompleto = () => {
   return (
     <div className="contenedor-negocio-completo">
       <div className="negocio-completo-header">
-        <Ellipsis
-          direction="end"
-          content={negocio.asunto}
-          className="negocio-completo-header-asunto"
-          expandText="más"
-          collapseText="...menos"
-        />
-        <Ellipsis
-          direction="end"
-          content={negocio.moneda + " " + negocio.importe}
-          className="negocio-completo-header-importe"
-          expandText="...más"
-          collapseText="...menos"
-        />
+        <p className="negocio-completo-header-asunto">{negocio.asunto}</p>
+        <p className="negocio-completo-header-importe">{negocio.moneda + " " + negocio.importe}</p>
         <div className="negocio-completo-header-linea">
           <UserCircleOutline />
-          <Ellipsis
-            direction="end"
-            content={negocio.cliente}
-            className="negocio-completo-header-texto"
-            expandText="...más"
-            collapseText="...menos"
-          />
+          <p className="negocio-completo-header-texto">{negocio.cliente}</p>
         </div>
         {negocio.contacto.length > 0 && (
           <div className="negocio-completo-header-linea">
             <UserOutline />
-            <Ellipsis
-              direction="end"
-              content={negocio.contacto}
-              className="negocio-completo-header-texto"
-              expandText="...más"
-              collapseText="...menos"
-            />
+            <p className="negocio-completo-header-texto">content={negocio.contacto}</p>
           </div>
         )}
         <div className="negocio-completo-header-linea">
           <FilterOutline />
-          <Ellipsis
-            direction="end"
-            content={negocio.embudo}
-            className="negocio-completo-header-texto"
-            expandText="...más"
-            collapseText="...menos"
-          />
+          <p className="negocio-completo-header-texto">content={negocio.embudo}</p>
         </div>
         <div className="negocio-completo-header-linea">
           <BellOutline />
-          <Ellipsis
-            direction="end"
-            content={negocio.cierreEstimado}
-            className="negocio-completo-header-texto"
-            expandText="...más"
-            collapseText="...menos"
-          />
+          <p className="negocio-completo-header-texto">content={negocio.cierreEstimado}</p>
         </div>
       </div>
       <div className="negocio-completo-caja-grafica">
