@@ -14,8 +14,7 @@ import moment from "moment";
 import "moment/locale/es";
 
 const ListaTarea = ({ ItemListaTarea }) => {
-  // const [validFecha, setValidFecha] = useState("");
-  // const [validHora, setValidHora] = useState("");
+
 
   let history = useHistory();
 
