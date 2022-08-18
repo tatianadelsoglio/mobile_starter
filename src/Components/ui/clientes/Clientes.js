@@ -1,5 +1,6 @@
 import { Image, List } from "antd-mobile";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -35,6 +36,8 @@ const users = [
   ]
 
 const Clientes = () => {
+
+  let history = useHistory();
   return (
     <div style={{textAlign:"start"}}>
       <List header="Clientes">
@@ -51,6 +54,7 @@ const Clientes = () => {
               />
             }
             description={user.description}
+            onClick={() => history.push("/cliente-individual")}
           >
             {user.name}
           </List.Item>
