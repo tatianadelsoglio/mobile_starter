@@ -19,19 +19,43 @@
   justify-content: flex-start;
   align-items: flex-start;
   text-align: start;
-  margin-left: -20px;
-  width: 102vw;
+  margin: 0px;
+  width: 100vw;
   overflow-x: hidden;
+  padding: 0px;
 }
 
-.adm-capsule-tabs-header{
+.adm-floating-bubble-button {
+  background-color: #56b43c;
+}
+
+.adm-capsule-tabs-header {
   position: fixed;
-  z-index: 1;
+  top: 3rem;
+  left: 0rem;
+  z-index: 999;
+  background-color: white;
+  width: 99.5vw;
+  padding: 12px 0px;
+}
+
+.adm-capsule-tabs-tab {
+  padding: 8px 0px;
+  border: 1px solid #56b43c;
+  color: #56b43c;
+  font-size: 0.8rem;
   background-color: white;
 }
 
-.adm-capsule-tabs-tab{
-  font-size: 14px;
-  padding: 8px 15px;
+.adm-capsule-tabs-tab-wrapper{
+  padding: 0px 3px;
 }
 
+.adm-capsule-tabs-tab-active {
+  background-color: #56b43c;
+  color: white;
+}
+
+.adm-button-primary {
+  --color: #56b43c;
+}

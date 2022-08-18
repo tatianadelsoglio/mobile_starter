@@ -30,7 +30,7 @@
 .home_nav{
     flex: 0;
     z-index: 1;
-    width: 99.5vw;
+    width: 100vw;
     background-color: white;
     border-bottom: solid 1px #f4f4f4 !important;
 }
@@ -42,16 +42,16 @@
 .home_contenido{
     flex: 1;
     z-index: 1;
-    width: 99.5vw;
+    width: 100vw;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: white;
+    background-color: #f8f8f8;
 }
 
 .home_menuInf{
     flex: 0;
     z-index: 1;
-    width: 99.5vw;
+    width: 100vw;
     background-color: white;
     border-top: solid 1px  #f4f4f4;
 }

@@ -6,6 +6,7 @@ import ClientesView from "../../views/ClientesView";
 import DetalleTareaView from "../../views/DetalleTareaView";
 import HomeView from "../../views/HomeView";
 import LoginView from "../../views/LoginView";
+import NegocioCompletoView from "../../views/NegocioCompletoView";
 import NuevaTareaView from "../../views/NuevaTareaView";
 import TareasView from "../../views/TareasView";
 import PrivateRoute from "./PrivateRoute";
@@ -31,6 +32,8 @@ const AppRouter = () => {
         <PrivateRoute exact path="/nuevatarea" component={NuevaTareaView}/>
 
         <PrivateRoute exact path="/cliente-individual" component={ClienteIndividualView} />
+
+        <PrivateRoute exact path="/negocio-completo/*" component={NegocioCompletoView} />
 
       </Switch>
     </BrowserRouter>
