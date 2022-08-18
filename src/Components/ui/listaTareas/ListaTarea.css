@@ -25,3 +25,7 @@
     justify-content: center;
     color:#56b43c;
 }
+
+.adm-dialog-footer .adm-dialog-action-row > .adm-dialog-button-bold{
+    font-weight: 400;
+}
