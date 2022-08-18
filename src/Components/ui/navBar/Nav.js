@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from "react";
 import { Modal, NavBar, Space } from "antd-mobile";
-import { UploadOutline, AddCircleOutline } from "antd-mobile-icons";
+import { MoreOutline } from "antd-mobile-icons";
 import { useHistory } from "react-router-dom";
 import "./Nav.css";
 import useAuth from "../../../auth/useAuth";
@@ -29,7 +29,7 @@ const Nav = () => {
   const right = (
     <div style={{ fontSize: 24 }}>
       <Space style={{ "--gap": "16px" }}>
-        <UploadOutline
+        <MoreOutline
           style={{ transform: "rotate(90deg)" }}
           color="#56b43c"
           onClick={() =>

@@ -3,6 +3,7 @@ import {
   UnorderedListOutline,
   UserOutline,
   CalendarOutline,
+  SetOutline,
 } from "antd-mobile-icons";
 import { TabBar } from "antd-mobile";
 import "./Menu.css";
@@ -28,6 +29,10 @@ const Menu = () => {
     {
       key: "/calendario",
       icon: <CalendarOutline />,
+    },
+    {
+      key: "/configuracion",
+      icon: <SetOutline />,
     },
   ];
   return (
