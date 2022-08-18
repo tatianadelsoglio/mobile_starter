@@ -4,21 +4,20 @@ import React, { useContext, useState } from "react";
 import ListaCalendario from "../listaCalendario/TareasCalendario";
 import "./Calendario.css";
 import moment from "moment";
-import 'moment/locale/es';
+import "moment/locale/es";
 import TareasCalendario from "../listaCalendario/TareasCalendario";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const defaultSingle = new Date();
 
 const Calendario = () => {
-
-  const {fecha, setFecha} = useContext(GlobalContext);
-
+  const { fecha, setFecha } = useContext(GlobalContext);
 
   const handleChange = (val) => {
-    let fechaSelec = moment(val).format("DD/MM/YYYY");
+    let fechaSelec = moment(val).format("DD-MM-YYYY");
     setFecha(fechaSelec);
-  }
+    listaTareasHOY();
+  };
 
   console.log(fecha);
 
@@ -111,24 +110,43 @@ const Calendario = () => {
     },
   ];
 
+  //! FILTRO POR DIA DE TAREAS - INICIO DEL METODO
+
+  let arrayHOY = [];
+
+  const listaTareasHOY = () => {
+    ItemListaTarea.map((tarea) => {
+      let fechaTarea = moment(tarea.fechaHora).format("DD-MM-YYYY");
+
+      if (fechaTarea === fecha) {
+        arrayHOY.push(tarea);
+      }
+      return "Prueba lista tareas";
+    });
+  };
+
+  listaTareasHOY();
+  console.log("Lista de tareas ESTA SEMANA: ", arrayHOY);
+  //! FIN DE METODO PARA FILTRADO POR DIA
+
   return (
     <>
-        <div className="div_content_calendario">
-          <div>
-            <Calendar
-              selectionMode="single"
-              defaultValue={defaultSingle}
-              onChange={(val) => handleChange(val)}
-            />
-          </div>
-          <div className="div_lista">
-            <Collapse defaultActiveKey={['1']}>
-              <Collapse.Panel  key="1" title={titulo}>
-                <TareasCalendario ItemListaTarea={ItemListaTarea}/>
-              </Collapse.Panel>
-            </Collapse>
-          </div>
+      <div className="div_content_calendario">
+        <div>
+          <Calendar
+            selectionMode="single"
+            defaultValue={defaultSingle}
+            onChange={(val) => handleChange(val)}
+          />
         </div>
+        <div className="div_lista">
+          <Collapse defaultActiveKey={["1"]}>
+            <Collapse.Panel key="1" title={titulo}>
+              <TareasCalendario ItemListaTarea={arrayHOY} />
+            </Collapse.Panel>
+          </Collapse>
+        </div>
+      </div>
     </>
   );
 };
