@@ -29,3 +29,7 @@
 .adm-dialog-footer .adm-dialog-action-row > .adm-dialog-button-bold{
     font-weight: 400;
 }
+
+.bold{
+    font-weight: bold;
+}

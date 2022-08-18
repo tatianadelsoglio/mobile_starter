@@ -118,9 +118,9 @@ const ListaTarea = ({ ItemListaTarea }) => {
                       content: (
                         <>
                           <Card title={<div>{ItemListaTarea.usu_nombre}</div>}>
-                            <div><p><span style={{fontWeight:"bold"}}>Fecha: </span>{ultimaFecha}</p></div>
-                            <div><p><span style={{fontWeight:"bold"}}>Hora: </span>{handleHora(ItemListaTarea.fechaHora)}</p></div>
-                            <div><p><span style={{fontWeight:"bold"}}>Tarea: </span>{ItemListaTarea.descripcion}</p></div>
+                            <div><p><span className="bold">Fecha: </span>{ultimaFecha}</p></div>
+                            <div><p><span className="bold">Hora: </span>{handleHora(ItemListaTarea.fechaHora)}</p></div>
+                            <div><p><span className="bold">Tarea: </span>{ItemListaTarea.descripcion}</p></div>
                           </Card>
                         </>
                       ),
