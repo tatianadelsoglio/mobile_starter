@@ -1,8 +1,14 @@
 @import 'antd-mobile/bundle/css-vars-patch.css';
 
-.adm-list-item-description{
+.lista_tarea_calendar .adm-list-item-description{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
+}
+
+.div_tarea_calendar .adm-ellipsis{
+    width: 60vw;
+    display: flex;
+    justify-content: flex-end;
 }

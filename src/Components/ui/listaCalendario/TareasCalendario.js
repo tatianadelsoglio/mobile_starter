@@ -82,7 +82,6 @@ const ListaCalendario = ({ItemListaTarea}) => {
       <div className="div_lista_tareas">
         {ItemListaTarea.map((ItemListaTarea) => (
           <div>
-            {/* header={handleHora(ItemListaTarea.fechaHora)} */}
             <List>  
               <SwipeAction
                 ref={ref}
@@ -91,6 +90,7 @@ const ListaCalendario = ({ItemListaTarea}) => {
                 rightActions={rightActions}
               >
                 <List.Item
+                  className="lista_tarea_calendar"
                   key={ItemListaTarea.key}
                   description={ItemListaTarea.usu_nombre}
                   onClick={() =>
@@ -105,7 +105,7 @@ const ListaCalendario = ({ItemListaTarea}) => {
                     <div style={{display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
                       {handleHora(ItemListaTarea.fechaHora)}
                     </div>
-                    <div style={{display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+                    <div className="div_tarea_calendar" style={{display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
                       <Ellipsis direction="end" content={ItemListaTarea.descripcion} />
                     </div>
                   </div>
