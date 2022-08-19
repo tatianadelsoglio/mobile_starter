@@ -34,7 +34,7 @@ const AppRouter = () => {
 
         <PrivateRoute exact path="/nuevatarea" component={NuevaTareaView}/>
 
-        <PrivateRoute exact path="/cliente-individual" component={ClienteIndividualView} />
+        <PrivateRoute exact path="/cliente-individual/*" component={ClienteIndividualView} />
 
         <PrivateRoute exact path="/negocio-completo/*" component={NegocioCompletoView} />
 

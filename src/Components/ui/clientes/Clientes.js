@@ -1,62 +1,62 @@
-import { Image, List } from "antd-mobile";
+import { List } from "antd-mobile";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import "./Clientes.css";
+
+const clientes = [
+  {
+    id: "1",
+    empresa: "La Ganadera",
+    telefono: "353987654",
+    email: "ganadera@ganadera.com.ar",
+  },
+  {
+    id: "2",
+    empresa: "Caverzasi",
+    telefono: "353654321",
+    email: "caverzasi@caverzasi.com.ar",
+  },
+  {
+    id: "3",
+    empresa: "Vitalforce",
+    telefono: "353456987",
+    email: "vitalforce@vitalfocer",
+  },
+  {
+    id: "4",
+    empresa: "Darregueira",
+    telefono: "353852963",
+    email: "darregueira@darregueira.com.ar",
+  },
+];
 
 
-
-const users = [
-    {
-      id: '1',
-      avatar:
-        'https://images.unsplash.com/photo-1548532928-b34e3be62fc6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-      name: 'Novalee Spicer',
-      description: 'La Ganadera',
-    },
-    {
-      id: '2',
-      avatar:
-        'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9',
-      name: 'Sara Koivisto',
-      description: 'Caverzasi',
-    },
-    {
-      id: '3',
-      avatar:
-        'https://images.unsplash.com/photo-1542624937-8d1e9f53c1b9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-      name: 'Marco Gregg',
-      description: 'Vitalforce',
-    },
-    {
-      id: '4',
-      avatar:
-        'https://images.unsplash.com/photo-1546967191-fdfb13ed6b1e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-      name: 'Edith Koenig',
-      description: 'Darregueira',
-    },
-  ]
 
 const Clientes = () => {
 
   let history = useHistory();
+
+  const redirecInfo = (id) => {
+
+    let cliente = clientes.filter(cliente => cliente.id === id);
+  
+    return history.push({
+        pathname: `/cliente-individual/${id}`,
+        state:{...cliente},
+      });
+  };
+
   return (
-    <div style={{textAlign:"start"}}>
+    <div style={{ textAlign: "start" }}>
       <List header="Clientes">
-        {users.map((user) => (
+        {clientes.map((cliente) => (
           <List.Item
-            key={user.name}
-            prefix={
-              <Image
-                src={user.avatar}
-                style={{ borderRadius: 20 }}
-                fit="cover"
-                width={40}
-                height={40}
-              />
-            }
-            description={user.description}
-            onClick={() => history.push("/cliente-individual")}
+            key={cliente.empresa}
+            onClick={() => redirecInfo(cliente.id)}
           >
-            {user.name}
+            <div className="div_empresa">
+              {cliente.empresa}
+            </div>
           </List.Item>
         ))}
       </List>
