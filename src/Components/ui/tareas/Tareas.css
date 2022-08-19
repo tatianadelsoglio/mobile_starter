@@ -10,6 +10,10 @@
   --active-title-color: #56b43c;
 }
 
+.adm-capsule-tabs-tab .adm-capsule-tabs-tab-active{
+  padding: 8px 10px;
+}
+
 .lista_tareas{
   overflow: auto !important;
 }
@@ -37,11 +41,13 @@
 }
 
 .adm-capsule-tabs-tab {
-  padding: 8px 0px;
+  padding: 8px 5px;
   border: 1px solid #56b43c;
   color: #56b43c;
   font-size: 0.8rem;
   background-color: white;
+  font-size: 18px !important;
+  font-weight: bold;
 }
 
 .adm-capsule-tabs-tab-wrapper{
