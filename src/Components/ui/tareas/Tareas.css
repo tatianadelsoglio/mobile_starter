@@ -30,9 +30,6 @@
 }
 
 .adm-capsule-tabs-header {
-  position: fixed;
-  top: 3rem;
-  left: 0rem;
   z-index: 999;
   background-color: white;
   width: 99.5vw;
