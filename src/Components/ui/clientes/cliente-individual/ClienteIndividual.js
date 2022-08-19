@@ -26,11 +26,9 @@ export const ClienteIndividual = () => {
     <div className="contenedor-cliente-individual">
         <CapsuleTabs>
             <CapsuleTabs.Tab title="Info" key="1">
-              <div style={{ height: "50px" }}></div>
               <InfoCliente clienteSelect={cliente}/>
             </CapsuleTabs.Tab>
             <CapsuleTabs.Tab title="Tareas" key="2">
-              <div style={{ height: "50px" }}></div>
               <h1>Lista de tareas filtrada por cliente</h1>
             </CapsuleTabs.Tab>
             <CapsuleTabs.Tab title="Negocios" key="3">

@@ -166,19 +166,19 @@ console.log("Lista de tareas VENCIDAS: ", arrayVC);
     <CapsuleTabs defaultActiveKey="1" onChange={(key) => console.log(key)}>
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Esta Semana" key="1">
-        <div style={{ height: "50px" }}></div>
+
         <ListaTarea ItemListaTarea={arrayES} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA PROXIMA */}
       <CapsuleTabs.Tab title="Semana Prox." key="2">
-        <div style={{ height: "50px" }}></div>
+
         <ListaTarea ItemListaTarea={arraySP} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS VENCIDAS */}
       <CapsuleTabs.Tab title="Vencido" key="3">
-        <div style={{ height: "50px" }}></div>
+
         <ListaTarea ItemListaTarea={arrayVC} />
       </CapsuleTabs.Tab>
     </CapsuleTabs>
