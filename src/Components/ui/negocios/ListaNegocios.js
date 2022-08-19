@@ -22,10 +22,6 @@ export const ListaNegocios = () => {
     return false;
   };
 
-  const onCardClick = (id) => {
-    return history.push(`/negocio-completo/${id}`, data.filter(negocio => negocio.id = id));
-  };
-
   const data = [
     {
       id: 1,
@@ -108,6 +104,16 @@ export const ListaNegocios = () => {
       ],
     },
   ];
+
+  const onCardClick = (id) => {
+
+    let negocio = data.filter(negocio => negocio.id === id);
+
+    return history.push({
+      pathname: `/negocio-completo/${id}`,
+      state:{...negocio}
+    });
+  };
 
   return (
     <div className="contenedor-negocios-principal">

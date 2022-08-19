@@ -1,4 +1,4 @@
-import { Ellipsis } from "antd-mobile";
+import { CapsuleTabs, Ellipsis, Steps } from "antd-mobile";
 import {
   UserCircleOutline,
   UserOutline,
@@ -6,31 +6,36 @@ import {
   BellOutline,
   CalendarOutline,
 } from "antd-mobile-icons";
+import { Step } from "antd-mobile/es/components/steps/step";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 import "./negocioCompleto.css";
 
 export const NegocioCompleto = () => {
-  const negocio = {
-    id: 2,
-    asunto: "Venta de trigo asdgasdgasd has hsdfhsdf hsdfhsdfh sdfhsfhsdfhsfhs",
-    cliente: "Tres Arroyos",
-    importe: 500,
-    fechaInicio: "27/07/22",
-    cierreEstimado: "24/08/2022",
-    moneda: "USD",
-    contacto: "ADRIAN SABO",
-    embudo: "ESTIMULUS",
-    tareas: [
-      "Cotización",
-      "Visita de campo",
-      "Cotización",
-      "Visita de campo",
-      "Otro",
-      "Otro mas",
-      "Último",
-    ],
-  };
+  const tareas = [
+    {
+      id: 1,
+      asunto: "Visitar para cerrar propuesta",
+      cliente: "Tres Arroyos",
+      fechaInicio: "27/07/22",
+      cierreEstimado: "24/08/2022",
+      contacto: "ADRIAN SABO",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+    },
+    {
+      id: 2,
+      asunto: "Visita de seguimiento",
+      cliente: "Tres Arroyos",
+      fechaInicio: "28/07/22",
+      cierreEstimado: "24/08/2022",
+      contacto: "ADRIAN SABO",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+    },
+  ];
 
   const getColor = (i) => {
     const colorList = [
@@ -69,7 +74,7 @@ export const NegocioCompleto = () => {
     return colorList[i];
   };
 
-  const tareasOrdenadas = () => {
+  const tareasOrdenadas = (negocio) => {
     let tareasParametro = negocio.tareas.sort(function (a, b) {
       return a.localeCompare(b);
     });
@@ -101,15 +106,29 @@ export const NegocioCompleto = () => {
 
   const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
 
+  const location = useLocation();
+
+  const [negocio, setNegocio] = useState(location.state[0]);
+  
   useEffect(() => {
-    setTareasDefinitivo(tareasOrdenadas());
+    setTareasDefinitivo(tareasOrdenadas(negocio));
   }, []);
+
+  const componentHandler = () => {
+
+  }
 
   return (
     <div className="contenedor-negocio-completo">
       <div className="negocio-completo-header">
         <p className="negocio-completo-header-asunto">{negocio.asunto}</p>
-        <p className="negocio-completo-header-importe">{negocio.moneda + " " + negocio.importe}</p>
+        <p className="negocio-completo-header-importe">
+          {negocio.moneda +
+            " " +
+            negocio.importe.toLocaleString("de-DE", {
+              minimumFractionDigits: 0,
+            })}
+        </p>
         <div className="negocio-completo-header-linea">
           <UserCircleOutline />
           <p className="negocio-completo-header-texto">{negocio.cliente}</p>
@@ -117,71 +136,83 @@ export const NegocioCompleto = () => {
         {negocio.contacto.length > 0 && (
           <div className="negocio-completo-header-linea">
             <UserOutline />
-            <p className="negocio-completo-header-texto">content={negocio.contacto}</p>
+            <p className="negocio-completo-header-texto">{negocio.contacto}</p>
           </div>
         )}
         <div className="negocio-completo-header-linea">
           <FilterOutline />
-          <p className="negocio-completo-header-texto">content={negocio.embudo}</p>
+          <p className="negocio-completo-header-texto">{negocio.embudo}</p>
         </div>
         <div className="negocio-completo-header-linea">
           <BellOutline />
-          <p className="negocio-completo-header-texto">content={negocio.cierreEstimado}</p>
-        </div>
-      </div>
-      <div className="negocio-completo-caja-grafica">
-        <div className="negocio-grafica-linea">
-          <p className="negocio-antiguedad">Antigüedad del negocio</p>
-          <p className="negocio-antiguedad-dias">
-            {moment(negocio.fechaInicio, "DD/MM/YYYY").fromNow()}
+          <p className="negocio-completo-header-texto">
+            {negocio.cierreEstimado}
           </p>
         </div>
-        <div className="negocio-grafico-degrade"></div>
-        <p className="negocio-tareas">Tareas</p>
-        <div className="negocio-grafico-tareas">
-          {tareasDefinitivo.map((tarea) => {
-            return (
-              <span
-                className="negocio-caja-tarea-grafico"
-                style={{
-                  backgroundColor: `${getColor(tarea.orden)}`,
-                  width: `${(tarea.count / tarea.suma) * 100}%`,
-                }}
-              ></span>
-            );
-          })}
-        </div>
-        <div className="negocio-grafico-referencias">
-          {tareasDefinitivo.map((tarea) => {
-            return (
-              <div className="negocio-grafico-referencias-linea">
-                <span
-                  className="negocio-grafico-referencia-cuadrito"
-                  style={{ backgroundColor: `${getColor(tarea.orden)}` }}
-                ></span>
-                <p className="negocio-tarea-texto">{`${tarea.task} (${tarea.count})`}</p>
-                <p className="negocio-tarea-texto">{`- ${Math.round(
-                  (tarea.count / tarea.suma) * 100
-                )}%`}</p>
-              </div>
-            );
-          })}
-        </div>
       </div>
-      <div className="negocio-linea-tiempo-contenedor">
-        <div className="negocio-linea-tiempo-header">
-          <CalendarOutline style={{ color: "#00B33C" }} />
-          <div className="negocio-descripcion">
-            <Ellipsis
-              direction="end"
-              content={negocio.asunto}
-              className="negocio-completo-header-asunto"
-              expandText="más"
-              collapseText="...menos"
-            />
+      <CapsuleTabs className="capsuletabs-negocio">
+        <CapsuleTabs.Tab title="Info" key="1">
+          <div className="negocio-completo-caja-grafica">
+            <div className="negocio-grafica-linea">
+              <p className="negocio-antiguedad">Antigüedad del negocio</p>
+              <p className="negocio-antiguedad-dias">
+                {moment(negocio.fechaInicio, "DD/MM/YYYY").fromNow()}
+              </p>
+            </div>
+            <div className="negocio-grafico-degrade"></div>
+            <p className="negocio-tareas">Tareas</p>
+            <div className="negocio-grafico-tareas">
+              {tareasDefinitivo.map((tarea) => {
+                return (
+                  <span
+                    className="negocio-caja-tarea-grafico"
+                    style={{
+                      backgroundColor: `${getColor(tarea.orden)}`,
+                      width: `${(tarea.count / tarea.suma) * 100}%`,
+                    }}
+                  ></span>
+                );
+              })}
+            </div>
+            <div className="negocio-grafico-referencias">
+              {tareasDefinitivo.map((tarea) => {
+                return (
+                  <div className="negocio-grafico-referencias-linea">
+                    <span
+                      className="negocio-grafico-referencia-cuadrito"
+                      style={{ backgroundColor: `${getColor(tarea.orden)}` }}
+                    ></span>
+                    <p className="negocio-tarea-texto">{`${tarea.task} (${tarea.count})`}</p>
+                    <p className="negocio-tarea-texto">{`- ${Math.round(
+                      (tarea.count / tarea.suma) * 100
+                    )}%`}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </div>
+        </CapsuleTabs.Tab>
+        <CapsuleTabs.Tab title="Planificado" key="2">
+          <div className="negocio-linea-tiempo-contenedor">
+            <Steps direction="vertical">
+              {tareas.map( tarea => {
+                  switch (tarea.tipo) {
+                    case "#T":
+                      return <Step description={<TareaNegocio tarea={tarea}/>} icon={<CalendarOutline style={{color:"#00B33C"}}/>} />
+                      break;
+                    case "#N":
+                      break;
+                    case "#A":
+                      break;
+                  }
+                })
+              }
+              
+            </Steps>
+          </div>
+        </CapsuleTabs.Tab>
+        <CapsuleTabs.Tab title="Completado" key="3"></CapsuleTabs.Tab>
+      </CapsuleTabs>
     </div>
   );
 };
