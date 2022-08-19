@@ -1,6 +1,6 @@
 import moment from 'moment';
 import './tareaNegocio.css';
-import {CheckOutline} from "antd-mobile-icons";
+import { CheckOutline, ShopbagOutline, InformationCircleOutline} from "antd-mobile-icons";
 
 export const TareaNegocio = ({tarea}) => {
 
@@ -12,7 +12,17 @@ export const TareaNegocio = ({tarea}) => {
         </div>
         <div className="tarea-negocio-linea-inferior">
             <p className="tarea-negocio-fecha">{moment(tarea.fechaInicio, "DD/MM/YYYY").fromNow()}</p>
-            <p className="tarea-negocio-contacto">{tarea.contacto}</p>
+            {tarea.contacto 
+            ? <div className="tarea-negocio-item">
+                <ShopbagOutline style={{color: "#00B33C"}} /> <p className="tarea-negocio-contacto">{tarea.contacto}</p>
+                </div> 
+            : ""}
+            {tarea.tipoTarea 
+            ? <div className="tarea-negocio-item">
+                <InformationCircleOutline style={{color: "#00B33C"}} /> <p className="tarea-negocio-tipoTarea">{tarea.tipoTarea}</p>
+                </div> 
+            : ""}
+            
         </div>
     </div>
   )

@@ -20,13 +20,13 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-left: 5px;
     align-items: center;
+    margin: 0.5rem 0px;
 }
 
 .tarea-negocio-fecha {
     color: #00B33C;
-    margin-right: 10px;
+    margin: 0px 5px;
 }
 
 .tarea-negocio-titulo {
@@ -41,5 +41,17 @@
 }
 
 .tarea-negocio-contacto {
-    
+    margin: 0px 5px;
+}
+
+.tarea-negocio-tipoTarea {
+    margin: 0px 5px;
+    text-transform: uppercase;
+    color: #00B33C;
+}
+
+.tarea-negocio-item {
+    display: flex;
+    flex-direction: row;
+    margin: 0px 5px;
 }
