@@ -4,15 +4,42 @@
     margin-top: 1em;
 }
 
-.lista_infoClient .adm-list-header{
-    background-color: white;
-    text-align: center;
+
+.p_info{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.p_infoEmpresa{
+    font-size: 20px;
+    font-weight: bold;
+    color: #56b43c;
+}
+
+.p_infoContacto{
     font-size: 18px;
     font-weight: bold;
     color: #56b43c;
 }
 
-.p_infoClient{
-    font-size: 14px;
-    font-weight: bold;
+.border{
+    border-bottom: solid 1px #f4f4f4;
+}
+
+.div_contacto{
+    margin-top: 1rem;
+}
+
+.div_contacto_lista{
+    height: 55vh;
+    display: block;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.numCel{
+    text-decoration: none;
+    list-style: none;
+    font-weight: 600;
+    color:rgb(66, 66, 66);
 }

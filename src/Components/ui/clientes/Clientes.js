@@ -30,20 +30,16 @@ const clientes = [
   },
 ];
 
-
-
 const Clientes = () => {
-
   let history = useHistory();
 
   const redirecInfo = (id) => {
+    let cliente = clientes.filter((cliente) => cliente.id === id);
 
-    let cliente = clientes.filter(cliente => cliente.id === id);
-  
     return history.push({
-        pathname: `/cliente-individual/${id}`,
-        state:{...cliente},
-      });
+      pathname: `/cliente-individual/${id}`,
+      state: { ...cliente },
+    });
   };
 
   return (
@@ -51,12 +47,10 @@ const Clientes = () => {
       <List header="Clientes">
         {clientes.map((cliente) => (
           <List.Item
-            key={cliente.empresa}
+            key={cliente.id}
             onClick={() => redirecInfo(cliente.id)}
           >
-            <div className="div_empresa">
-              {cliente.empresa}
-            </div>
+            <div className="div_empresa">{cliente.empresa}</div>
           </List.Item>
         ))}
       </List>

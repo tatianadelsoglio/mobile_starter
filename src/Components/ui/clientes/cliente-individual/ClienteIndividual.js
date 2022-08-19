@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import InfoCliente from "../../infoCliente/InfoCliente"
 import { ListaNegocios } from "../../negocios/ListaNegocios"
+import "./clienteIndividual.css";
 
 
 export const ClienteIndividual = () => {
