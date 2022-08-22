@@ -106,7 +106,7 @@ const Tareas = () => {
 
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 1
 
-  let arrayES = [];
+  let ES = [];
 
   const listaTareasES = () => { ItemListaTarea.map((tarea) => {
     let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
@@ -118,21 +118,21 @@ const Tareas = () => {
 
     if (fecha >= StartES) {
       if (fecha <= EndES) {  
-        arrayES.push(tarea);
+        ES.push(tarea);
       }
     }  
     return "Prueba lista tareas"
   })};
 
 listaTareasES();
-console.log("Lista de tareas ESTA SEMANA: ", arrayES);
+console.log("Lista de tareas ESTA SEMANA: ", ES);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
 
 
 
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
-  let arraySP = [];
+  let SP = [];
 
   const listaTareasSP = () => { ItemListaTarea.map((tarea) => {
     let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
@@ -144,20 +144,20 @@ console.log("Lista de tareas ESTA SEMANA: ", arrayES);
 
     if (fecha >= StartSP) {
       if (fecha <= EndSP) {  
-        arraySP.push(tarea);
+        SP.push(tarea);
       }
     }  
     return "Prueba lista tareas"
   })};
 
 listaTareasSP();
-console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
+console.log("Lista de tareas SEMANA PROXIMA: ", SP);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
 
 
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 3
 
-  let arrayVC = [];
+  let VC = [];
 
   const listaTareasVC = () => { ItemListaTarea.map((tarea) => {
     let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
@@ -165,13 +165,13 @@ console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
     let StartES = moment().startOf("isoWeek").format("DD-MM-YYYY")    
 
     if (fecha <= StartES) {
-      arrayVC.push(tarea);
+      VC.push(tarea);
     }  
     return "Prueba lista tareas"
   })};
 
 listaTareasVC();
-console.log("Lista de tareas VENCIDAS: ", arrayVC);
+console.log("Lista de tareas VENCIDAS: ", VC);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
 
   return (
@@ -179,19 +179,19 @@ console.log("Lista de tareas VENCIDAS: ", arrayVC);
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Esta Semana" key="1">
 
-        <ListaTarea ItemListaTarea={arrayES} />
+        <ListaTarea ItemListaTarea={ES} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA PROXIMA */}
       <CapsuleTabs.Tab title="Semana Prox." key="2">
 
-        <ListaTarea ItemListaTarea={arraySP} />
+        <ListaTarea ItemListaTarea={SP} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS VENCIDAS */}
       <CapsuleTabs.Tab title="Vencido" key="3">
 
-        <ListaTarea ItemListaTarea={arrayVC} />
+        <ListaTarea ItemListaTarea={VC} />
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );

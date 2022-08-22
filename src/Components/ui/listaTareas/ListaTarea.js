@@ -91,6 +91,11 @@ const ListaTarea = ({ ItemListaTarea }) => {
     }
   };
 
+  const handleFechaVer = (val) => {
+    let fecha = moment(val).format("DD-MM-YYYY");
+    return fecha;
+  };
+
   const handleHora = (val) => {
     let hora = moment(val).format("LT");
     return hora;
@@ -122,7 +127,8 @@ const ListaTarea = ({ ItemListaTarea }) => {
                             <div>
                               <p>
                                 <span className="bold">Fecha: </span>
-                                {ultimaFecha}
+                                {/* {ultimaFecha} */}
+                                {handleFechaVer(ItemListaTarea.fechaHora)}
                               </p>
                             </div>
                             <div>
@@ -148,7 +154,7 @@ const ListaTarea = ({ ItemListaTarea }) => {
                 >
                   <div className="div_elip_badge">
                     <Ellipsis
-                      style={{fontWeight:"bold"}}
+                      style={{ fontWeight: "bold" }}
                       direction="end"
                       content={ItemListaTarea.descripcion}
                     />
