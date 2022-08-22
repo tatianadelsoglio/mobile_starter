@@ -5,11 +5,15 @@ import {
   FilterOutline,
   BellOutline,
   CalendarOutline,
+  FileOutline,
+  PictureOutline,
 } from "antd-mobile-icons";
 import { Step } from "antd-mobile/es/components/steps/step";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
+import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 import "./negocioCompleto.css";
 
@@ -21,9 +25,27 @@ export const NegocioCompleto = () => {
       cliente: "Tres Arroyos",
       fechaInicio: "27/07/22",
       cierreEstimado: "24/08/2022",
+      hora: "14.30",
       contacto: "ADRIAN SABO",
       tipoTarea: "Visita de campo",
       tipo: "#T",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "22/08/2022",
+          prioridad: "MEDIA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "20/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
     },
     {
       id: 2,
@@ -31,9 +53,25 @@ export const NegocioCompleto = () => {
       cliente: "Tres Arroyos",
       fechaInicio: "28/07/22",
       cierreEstimado: "24/08/2022",
+      hora: "10.30",
       contacto: "ADRIAN SABO",
       tipoTarea: "Visita de campo",
       tipo: "#T",
+    },
+    {
+      id: 3,
+      texto: "nota numero 1, primera prueba",
+      fecha: "22/08/2022",
+      prioridad: "MEDIA",
+      tipo: "#N",
+    },
+    {
+      id: 4,
+      nombre: "paisaje-02",
+      descripcion: "foto de la entrada al campo",
+      fecha: "20/08/2022 13:45",
+      tipo: "#A",
+      peso: "2035 Kb",
     },
   ];
 
@@ -109,14 +147,10 @@ export const NegocioCompleto = () => {
   const location = useLocation();
 
   const [negocio, setNegocio] = useState(location.state[0]);
-  
+
   useEffect(() => {
     setTareasDefinitivo(tareasOrdenadas(negocio));
   }, []);
-
-  const componentHandler = () => {
-
-  }
 
   return (
     <div className="contenedor-negocio-completo">
@@ -129,7 +163,7 @@ export const NegocioCompleto = () => {
               minimumFractionDigits: 0,
             })}
         </p>
-        <div className="negocio-completo-header-linea">
+        <div className="negocio-completo-header-linea-cliente">
           <UserCircleOutline />
           <p className="negocio-completo-header-texto">{negocio.cliente}</p>
         </div>
@@ -144,9 +178,9 @@ export const NegocioCompleto = () => {
           <p className="negocio-completo-header-texto">{negocio.embudo}</p>
         </div>
         <div className="negocio-completo-header-linea">
-          <BellOutline />
-          <p className="negocio-completo-header-texto">
-            {negocio.cierreEstimado}
+          {/* <BellOutline /> */}
+          <p className="negocio-completo-header-fecha">
+            {"Fecha de cierre estimada: " + negocio.cierreEstimado}
           </p>
         </div>
       </div>
@@ -195,19 +229,31 @@ export const NegocioCompleto = () => {
         <CapsuleTabs.Tab title="Planificado" key="2">
           <div className="negocio-linea-tiempo-contenedor">
             <Steps direction="vertical">
-              {tareas.map( tarea => {
-                  switch (tarea.tipo) {
-                    case "#T":
-                      return <Step description={<TareaNegocio tarea={tarea}/>} icon={<CalendarOutline style={{color:"#00B33C"}}/>} />
-                      break;
-                    case "#N":
-                      break;
-                    case "#A":
-                      break;
-                  }
-                })
-              }
-              
+              {tareas.map((tarea) => {
+                switch (tarea.tipo) {
+                  case "#T":
+                    return (
+                      <Step
+                        description={<TareaNegocio tarea={tarea} />}
+                        icon={<CalendarOutline style={{ color: "#00B33C" }} />}
+                      />
+                    );
+                  case "#N":
+                    return (
+                      <Step
+                        description={<NotaTareaNegocio nota={tarea} />}
+                        icon={<FileOutline style={{ color: "#00B33C" }} />}
+                      />
+                    );
+                  case "#A":
+                    return (
+                      <Step
+                        description={<ArchivoTareaNegocio archivo={tarea} />}
+                        icon={<PictureOutline style={{ color: "#00B33C" }} />}
+                      />
+                    );
+                }
+              })}
             </Steps>
           </div>
         </CapsuleTabs.Tab>
