@@ -46,3 +46,10 @@
     justify-content: center;
     align-items: center;
 }
+
+
+.adm-dialog-body{
+    height: auto;
+    width: 120%;
+    margin-left: -28px;
+}

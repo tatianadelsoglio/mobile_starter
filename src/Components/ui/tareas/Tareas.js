@@ -9,6 +9,7 @@ const Tareas = () => {
     {
       id: 1,
       usu_nombre: "Adrian Sabo",
+      empresa: "La Ganadera",
       fechaHora: "08-22-2022 08:30",
       estado: 1,
       descripcion: "Llamar a Adrian, conversar sobre nuevos insumos",
@@ -17,6 +18,7 @@ const Tareas = () => {
     {
       id: 2,
       usu_nombre: "Horacio Mercol",
+      empresa: "La Ganadera",
       fechaHora: "08-22-2022 08:40",
       estado: 1,
       descripcion: "Visitar Campo Oeste",
@@ -25,6 +27,7 @@ const Tareas = () => {
     {
       id: 3,
       usu_nombre: "Jorge Mayorga",
+      empresa: "La Ganadera",
       fechaHora: "08-23-2022 09:00",
       estado: 1,
       descripcion: "Llamar a Jorge para Venta de Herbicidas",
@@ -33,6 +36,7 @@ const Tareas = () => {
     {
       id: 4,
       usu_nombre: "Aida Campos",
+      empresa: "La Ganadera",
       fechaHora: "08-24-2022 09:15",
       estado: 1,
       descripcion: "Venta Trigo",
@@ -41,6 +45,7 @@ const Tareas = () => {
     {
       id: 5,
       usu_nombre: "Adrian Sabo",
+      empresa: "Vitalforce",
       fechaHora: "08-30-2022 09:30",
       estado: 1,
       descripcion: "Venta de Maíz",
@@ -49,6 +54,7 @@ const Tareas = () => {
     {
       id: 6,
       usu_nombre: "Florencia Caverzasi",
+      empresa: "Vitalforce",
       fechaHora: "08-31-2022 09:30",
       estado: 1,
       descripcion: "Venta de Soja",
@@ -57,6 +63,7 @@ const Tareas = () => {
     {
       id: 7,
       usu_nombre: "Adrian Sabo",
+      empresa: "Vitalforce",
       fechaHora: "09-01-2022 09:40",
       estado: 1,
       descripcion: "Venta de Maíz para temporada 2223",
@@ -65,6 +72,7 @@ const Tareas = () => {
     {
       id: 8,
       usu_nombre: "Edgar jazz",
+      empresa: "Vitalforce",
       fechaHora: "09-02-2022 10:00",
       estado: 1,
       descripcion: "Llamar para conversar sobre nuevos insumos",
@@ -73,6 +81,7 @@ const Tareas = () => {
     {
       id: 9,
       usu_nombre: "Adrian Sabo",
+      empresa: "Darregueira",
       fechaHora: "08-17-2022 10:00",
       estado: 1,
       descripcion: "Llamar a Adrian, conversar sobre nuevos insumos",
@@ -81,6 +90,7 @@ const Tareas = () => {
     {
       id: 10,
       usu_nombre: "Horacio Mercol",
+      empresa: "Darregueira",
       fechaHora: "08-17-2022 10:00",
       estado: 1,
       descripcion: "Visitar Campo Oeste",
@@ -89,6 +99,7 @@ const Tareas = () => {
     {
       id: 11,
       usu_nombre: "Jorge Mayorga",
+      empresa: "Darregueira",
       fechaHora: "08-18-2022 10:30",
       estado: 1,
       descripcion: "Llamar a Jorge para Venta de Herbicidas",
@@ -97,6 +108,7 @@ const Tareas = () => {
     {
       id: 12,
       usu_nombre: "Aida Campos",
+      empresa: "Darregueira",
       fechaHora: "08-19-2022 11:00",
       estado: 1,
       descripcion: "Venta Trigo",
