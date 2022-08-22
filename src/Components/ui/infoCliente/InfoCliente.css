@@ -43,3 +43,24 @@
     font-weight: 600;
     color:rgb(66, 66, 66);
 }
+
+.div_enlace{
+    border: solid 1px #56b43c;
+    border-radius: 4px;
+    height: 50px;
+    width: 50px;
+    padding: 7px 12px;
+    margin: 0px;
+    position: relative;
+    color: #56b43c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div_content_enlace{
+    margin-top: -20px;
+    display: flex;
+    flex-direction: row;
+}
