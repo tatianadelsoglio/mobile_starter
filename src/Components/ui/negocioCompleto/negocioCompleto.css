@@ -24,12 +24,14 @@
   font-size: 1.2rem;
   color: #00b33c;
   margin: 0.2rem 0.5rem;
+  font-weight: bold;
 }
 
 .negocio-completo-header-importe {
   font-size: 1rem;
   color: #333;
   margin: 0.2rem 0.5rem;
+  font-weight: bold;
 }
 
 .negocio-completo-header-linea {
@@ -42,6 +44,18 @@
 .negocio-completo-header-texto {
   margin: 0.3rem 0rem 0.3rem 0.3rem;
   text-transform: uppercase;
+}
+
+.negocio-completo-header-fecha {
+  margin: 0.3rem 0rem 0.3rem 0.3rem;
+}
+
+.negocio-completo-header-linea-cliente {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 0.5rem;
+  color: #00b33c;
 }
 
 .adm-ellipsis {
@@ -82,8 +96,8 @@
   background: linear-gradient(
     90deg,
     rgba(16, 180, 6, 1) 0%,
-    rgba(237, 237, 7, 1) 33%,
-    rgba(237, 155, 7, 1) 66%,
+    rgba(237, 237, 7, 1) 40%,
+    rgba(237, 155, 7, 1) 80%,
     rgba(208, 8, 8, 1) 100%
   );
   margin-top: 0.5rem;

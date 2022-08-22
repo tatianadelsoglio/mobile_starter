@@ -1,11 +1,17 @@
+.tarea-negocio-contenedor {
+    width: calc(100% - 14px);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
 
 .tarea-negocio-wrapper {
     display: flex;
     flex-direction: column;
     margin-left: 10px;
-    width: 95%;
+    width: 100%;
     border: 1px solid rgba(153, 153, 153, 0.2);
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .tarea-negocio-linea-superior {
@@ -54,4 +60,21 @@
     display: flex;
     flex-direction: row;
     margin: 0px 5px;
+}
+
+.tarea-contenedor-horario {
+    background-color: rgb(244, 67, 54);
+    padding: 4px 8px;
+    color: white;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.texto-tarea-horario {
+    margin: 1px 0px 1px 5px;
 }
