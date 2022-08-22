@@ -1,4 +1,5 @@
 import {
+  Badge,
   Card,
   Dialog,
   Ellipsis,
@@ -113,27 +114,69 @@ const ListaTarea = ({ ItemListaTarea }) => {
                 <List.Item
                   key={ItemListaTarea.id}
                   description={ItemListaTarea.usu_nombre}
-                  onClick={async() =>
+                  onClick={async () =>
                     await Dialog.confirm({
                       content: (
                         <>
                           <Card title={<div>{ItemListaTarea.usu_nombre}</div>}>
-                            <div><p><span className="bold">Fecha: </span>{ultimaFecha}</p></div>
-                            <div><p><span className="bold">Hora: </span>{handleHora(ItemListaTarea.fechaHora)}</p></div>
-                            <div><p><span className="bold">Tarea: </span>{ItemListaTarea.descripcion}</p></div>
+                            <div>
+                              <p>
+                                <span className="bold">Fecha: </span>
+                                {ultimaFecha}
+                              </p>
+                            </div>
+                            <div>
+                              <p>
+                                <span className="bold">Hora: </span>
+                                {handleHora(ItemListaTarea.fechaHora)}
+                              </p>
+                            </div>
+                            <div>
+                              <p>
+                                <span className="bold">Tarea: </span>
+                                {ItemListaTarea.descripcion}
+                              </p>
+                            </div>
                           </Card>
                         </>
                       ),
                       confirmText: "Editar",
-                      cancelText:"Cerrar",
+                      cancelText: "Cerrar",
                       onConfirm: handleModalDetalleTarea,
                     })
                   }
                 >
-                  <Ellipsis
-                    direction="end"
-                    content={ItemListaTarea.descripcion}
-                  />
+                  <div className="div_elip_badge">
+                    <Ellipsis
+                      style={{fontWeight:"bold"}}
+                      direction="end"
+                      content={ItemListaTarea.descripcion}
+                    />
+                    {ItemListaTarea.prioridad === "ALTA" ? (
+                      <Badge
+                        color="#da4453"
+                        content={ItemListaTarea.prioridad}
+                        // content={Badge.dot}
+                        bordered
+                      ></Badge>
+                    ) : null}
+                    {ItemListaTarea.prioridad === "MEDIA" ? (
+                      <Badge
+                        color="#f7c560"
+                        content={ItemListaTarea.prioridad}
+                        // content={Badge.dot}
+                        bordered
+                      ></Badge>
+                    ) : null}
+                    {ItemListaTarea.prioridad === "BAJA" ? (
+                      <Badge
+                        color="#8cc152"
+                        content={ItemListaTarea.prioridad}
+                        // content={Badge.dot}
+                        bordered
+                      ></Badge>
+                    ) : null}
+                  </div>
                 </List.Item>
               </SwipeAction>
             </List>

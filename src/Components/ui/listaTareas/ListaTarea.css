@@ -39,3 +39,10 @@
 .bold{
     font-weight: bold;
 }
+
+.div_elip_badge{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

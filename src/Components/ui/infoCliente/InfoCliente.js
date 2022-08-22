@@ -1,4 +1,4 @@
-import { Button, Card } from "antd-mobile";
+import {  Card } from "antd-mobile";
 import React from "react";
 import { PhonebookOutline, MailOutline } from "antd-mobile-icons";
 import "./InfoCliente.css";
@@ -27,11 +27,6 @@ const InfoCliente = ({ clienteSelect }) => {
     },
   ];
 
-  let contactoPrueba = 3533418378;
-  function Llamar(e) {
-    window.location.assign(e.getAttribute("href"));
-  }
-
   return (
     <>
       <div className="lista_infoClient">
@@ -53,7 +48,6 @@ const InfoCliente = ({ clienteSelect }) => {
               {contactos.map((contacto) => (
                 <Card
                   className="border"
-                  onClick={() => Llamar(contacto.telefono_contacto)}
                 >
                   <div>
                     <p className="p_infoContacto">{contacto.nombre_contacto}</p>
