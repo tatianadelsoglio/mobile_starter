@@ -24,6 +24,15 @@ import "moment/locale/es";
 const ListaTarea = ({ ItemListaTarea }) => {
   let history = useHistory();
 
+  // const handleModalDetalleTarea = (id) => {
+  //   let cliente = ItemListaTarea.filter((tarea) => tarea.id === id);
+
+  //   return history.push({
+  //     pathname: `/detalletarea/${id}`,
+  //     state: { ...cliente },
+  //   });
+  // };
+
   const ref = useRef(null);
 
   const handleModalDetalleTarea = () => {
@@ -336,7 +345,7 @@ const ListaTarea = ({ ItemListaTarea }) => {
                       ),
                       confirmText: "Editar",
                       cancelText: "Cerrar",
-                      onConfirm: handleModalDetalleTarea,
+                      onConfirm:handleModalDetalleTarea,
                     })
                   }
                 >
