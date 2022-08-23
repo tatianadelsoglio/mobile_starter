@@ -8,6 +8,7 @@
 .p_info{
     font-size: 18px;
     font-weight: bold;
+    margin-top: 10px;
 }
 
 .p_infoEmpresa{
@@ -20,6 +21,7 @@
     font-size: 18px;
     font-weight: bold;
     color: #56b43c;
+    margin-bottom: 5px;
 }
 
 .border{
@@ -60,7 +62,6 @@
 }
 
 .div_content_enlace{
-    margin-top: -20px;
     display: flex;
     flex-direction: row;
 }

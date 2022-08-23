@@ -92,3 +92,25 @@
     color: rgb(62, 62, 62);
 } */
 
+.borde_contenedor{
+    border: solid 1px #f4f4f4;
+    width: 100% !important;
+    border-radius: 4px;
+}
+
+.flexColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.interlineado{
+    margin-bottom:-5px !important;
+    font-size: 14px;
+    width: 100%;
+}
+
+.margenElip{
+    margin-bottom: -10px !important;
+}
