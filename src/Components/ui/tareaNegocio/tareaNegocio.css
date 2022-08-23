@@ -1,5 +1,5 @@
 .tarea-negocio-contenedor {
-    width: calc(100% - 14px);
+    width: calc(100% - 9px);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -8,10 +8,11 @@
 .tarea-negocio-wrapper {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 5px;
     width: 100%;
     border: 1px solid rgba(153, 153, 153, 0.2);
-    border-radius: 3px;
+    border-radius: 1px;
+    background-color: white;
 }
 
 .tarea-negocio-linea-superior {
