@@ -120,78 +120,84 @@ const ListaTarea = ({ ItemListaTarea }) => {
       <div className="div_lista_tareas">
         {/* {ItemListaTarea.map((ItemListaTarea) => ( */}
         <div>
-          <div style={{ marginLeft: "15px" }}>
-            <Steps direction="vertical">
-              {ItemListaTarea.map((ItemListaTarea) => (
-                <Step
-                  description={
-                    <SwipeAction
-                      ref={ref}
-                      closeOnAction={false}
-                      closeOnTouchOutside={false}
-                      rightActions={rightActions}
-                    >
-                      <div className="tarea-negocio-contenedor">
-                        <div className="tarea-negocio-wrapper">
-                          <div className="tarea-negocio-linea-superior">
-                            <p className="tarea-negocio-titulo">
-                              {ItemListaTarea.descripcion}
+          <Steps direction="vertical">
+            {ItemListaTarea.map((ItemListaTarea) => (
+              <Step
+                description={
+                  <SwipeAction
+                    ref={ref}
+                    closeOnAction={false}
+                    closeOnTouchOutside={false}
+                    rightActions={rightActions}
+                  >
+                    <div className="tarea-negocio-contenedor ">
+                      <div className="tarea-negocio-linea-superior">
+                        <p className="tarea-negocio-titulo">
+                          <Ellipsis
+                            style={{ fontWeight: "bold", width:"5em" }}
+                            direction="end"
+                            content={ItemListaTarea.descripcion}
+                          />
+                        </p>
+                        <CheckOutline
+                          style={{
+                            color: "#00B33C",
+                            marginRight: "5px",
+                            fontSize: "1rem",
+                          }}
+                        />
+                      </div>
+                      <div className="tarea-negocio-linea-inferior">
+                        <p className="tarea-negocio-fecha">
+                          {handleHora(ItemListaTarea.fechaHora)}
+                        </p>
+                        {ItemListaTarea.empresa ? (
+                          <div className="tarea-negocio-item">
+                            <ShopbagOutline style={{ color: "#00B33C" }} />{" "}
+                            <p className="tarea-negocio-contacto">
+                              {ItemListaTarea.empresa}
                             </p>
-                            <CheckOutline
-                              style={{
-                                color: "#00B33C",
-                                marginRight: "5px",
-                                fontSize: "1rem",
-                              }}
-                            />
                           </div>
-                          <div className="tarea-negocio-linea-inferior">
-                            <p className="tarea-negocio-fecha">
-                              {handleHora(ItemListaTarea.fechaHora)}
+                        ) : (
+                          ""
+                        )}
+                        {ItemListaTarea.empresa ? (
+                          <div className="tarea-negocio-item">
+                            <InformationCircleOutline
+                              style={{ color: "#00B33C" }}
+                            />{" "}
+                            <p className="tarea-negocio-tipoTarea">
+                              {ItemListaTarea.empresa}
                             </p>
-                            {Item.contacto ? (
-                              <div className="tarea-negocio-item">
-                                <ShopbagOutline style={{ color: "#00B33C" }} />{" "}
-                                <p className="tarea-negocio-contacto">
-                                  {tarea.contacto}
-                                </p>
-                              </div>
-                            ) : (
-                              ""
-                            )}
-                            {tarea.tipoTarea ? (
-                              <div className="tarea-negocio-item">
-                                <InformationCircleOutline
-                                  style={{ color: "#00B33C" }}
-                                />{" "}
-                                <p className="tarea-negocio-tipoTarea">
-                                  {tarea.tipoTarea}
-                                </p>
-                              </div>
-                            ) : (
-                              ""
-                            )}
-                            <div className="tarea-contenedor-horario">
-                              <ClockCircleOutline
-                                style={{ color: "white", fontSize: "0.8rem" }}
-                              />
-                              <p className="texto-tarea-horario">
-                                {tarea.cierreEstimado}
-                              </p>
-                              <p className="texto-tarea-horario">
-                                {tarea.hora} hs
-                              </p>
-                            </div>
                           </div>
+                        ) : (
+                          ""
+                        )}
+                        <div className="tarea-contenedor-horario">
+                          <ClockCircleOutline
+                            style={{ color: "white", fontSize: "0.8rem" }}
+                          />
+                          <p className="texto-tarea-horario">
+                            {handleFecha(ItemListaTarea.fechaHora)}
+                          </p>
+                          <p className="texto-tarea-horario">
+                            {handleHora(ItemListaTarea.fechaHora)} hs
+                          </p>
                         </div>
                       </div>
-                    </SwipeAction>
-                  }
-                  icon={<CalendarOutline color="#56b43c" />}
-                />
-              ))}
-            </Steps>
-          </div>
+                    </div>
+                  </SwipeAction>
+                }
+                icon={
+                  <CalendarOutline
+                    color="#56b43c"
+                    style={{ backgroundColor: "#f4f4f4" }}
+                  />
+                }
+              />
+            ))}
+          </Steps>
+
           {/* {handleFecha(ItemListaTarea.fechaHora) ? (
               <div className="div_lista_tareas_fecha">{ultimaFecha}</div>
             ) : null} */}
