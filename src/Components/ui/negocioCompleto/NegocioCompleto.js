@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable default-case */
 import { CapsuleTabs, Ellipsis, Steps } from "antd-mobile";
 import {
   UserCircleOutline,

@@ -137,7 +137,9 @@ const Tareas = () => {
   })};
 
 listaTareasES();
-console.log("Lista de tareas ESTA SEMANA: ", ES);
+let arrayES = ES;
+ES = [];
+console.log("Lista de tareas ESTA SEMANA: ", arrayES);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
 
 
@@ -163,7 +165,9 @@ console.log("Lista de tareas ESTA SEMANA: ", ES);
   })};
 
 listaTareasSP();
-console.log("Lista de tareas SEMANA PROXIMA: ", SP);
+let arraySP = SP;
+SP = [];
+console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
 
 
@@ -183,7 +187,9 @@ console.log("Lista de tareas SEMANA PROXIMA: ", SP);
   })};
 
 listaTareasVC();
-console.log("Lista de tareas VENCIDAS: ", VC);
+let arrayVC = VC;
+VC = [];
+console.log("Lista de tareas VENCIDAS: ", arrayVC);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
 
   return (
@@ -191,19 +197,19 @@ console.log("Lista de tareas VENCIDAS: ", VC);
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Esta Semana" key="1">
 
-        <ListaTarea ItemListaTarea={ES} />
+        <ListaTarea ItemListaTarea={arrayES} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA PROXIMA */}
       <CapsuleTabs.Tab title="Semana Prox." key="2">
 
-        <ListaTarea ItemListaTarea={SP} />
+        <ListaTarea ItemListaTarea={arraySP} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS VENCIDAS */}
       <CapsuleTabs.Tab title="Vencido" key="3">
 
-        <ListaTarea ItemListaTarea={VC} />
+        <ListaTarea ItemListaTarea={arrayVC} />
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );

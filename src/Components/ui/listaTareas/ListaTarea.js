@@ -5,6 +5,7 @@ import {
   FloatingBubble,
   List,
   Modal,
+  Steps,
   SwipeAction,
 } from "antd-mobile";
 import React, { useRef } from "react";
@@ -15,11 +16,14 @@ import {
   AddOutline,
   ClockCircleOutline,
   CalendarOutline,
-  UserCircleOutline
+  UserCircleOutline,
+  ShopbagOutline,
+  InformationCircleOutline,
 } from "antd-mobile-icons";
 import "./ListaTarea.css";
 import moment from "moment";
 import "moment/locale/es";
+import { Step } from "antd-mobile/es/components/steps/step";
 
 const ListaTarea = ({ ItemListaTarea }) => {
   let history = useHistory();
@@ -113,12 +117,49 @@ const ListaTarea = ({ ItemListaTarea }) => {
   return (
     <>
       <div className="div_lista_tareas">
-        {ItemListaTarea.map((ItemListaTarea) => (
-          <div>
-            {handleFecha(ItemListaTarea.fechaHora) ? (
+        {/* {ItemListaTarea.map((ItemListaTarea) => ( */}
+        <div>
+          <div style={{ marginLeft: "15px"}}>
+            <Steps direction="vertical">
+              {ItemListaTarea.map((ItemListaTarea) => (
+                <Step
+                  description={
+                    <SwipeAction
+                      ref={ref}
+                      closeOnAction={false}
+                      closeOnTouchOutside={false}
+                      rightActions={rightActions}
+                    >
+                      <div className="div_contenedor_lista">
+                        <div className="div_wrapper_lista">
+                          <div className="div_superior">
+                            <Ellipsis
+                              style={{ fontWeight: "bold" }}
+                              direction="end"
+                              content={ItemListaTarea.descripcion}
+                            />
+                          </div>
+                          <div className="div_inferior">
+                            <div className="div_iconoEmp">
+                              <ShopbagOutline color="#56b43c"/>
+                              <p>{ItemListaTarea.empresa}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </SwipeAction>
+                  }
+                  icon={
+                    <CalendarOutline color="#56b43c" />
+                  }
+                />
+              ))}
+            </Steps>
+          </div>
+          {/* {handleFecha(ItemListaTarea.fechaHora) ? (
               <div className="div_lista_tareas_fecha">{ultimaFecha}</div>
-            ) : null}
-            <List header={handleHora(ItemListaTarea.fechaHora)}>
+            ) : null} */}
+          {/* <List header={handleHora(ItemListaTarea.fechaHora)}>
               <SwipeAction
                 ref={ref}
                 closeOnAction={false}
@@ -418,9 +459,9 @@ const ListaTarea = ({ ItemListaTarea }) => {
                   ) : null}
                 </List.Item>
               </SwipeAction>
-            </List>
-          </div>
-        ))}
+            </List> */}
+        </div>
+        {/* ))} */}
 
         <div style={{ height: "40px" }}></div>
         <div>
