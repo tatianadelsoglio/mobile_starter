@@ -1,6 +1,6 @@
 import "./notaTareaNegocio.css";
 
-export const NotaTareaNegocio = ({ nota, interno=false}) => {
+export const NotaTareaNegocio = ({ nota, interno=false, display=true }) => {
   const colorPrioridad = (prioridad) => {
     let color = "";
 
@@ -18,18 +18,25 @@ export const NotaTareaNegocio = ({ nota, interno=false}) => {
     return color;
   };
 
-  return (
-    <div className={interno ? "nota-tarea-wrapper-interno" : "nota-tarea-wrapper"} >
-      <div className="nota-tarea-linea-superior">
-        <p className="nota-tarea-fecha">{nota.fecha}</p>
-        <div
-          className="nota-tarea-prioridad"
-          style={{ backgroundColor: colorPrioridad(nota.prioridad) }}
-        >
-          <p style={{ margin: "0px" }}>{nota.prioridad}</p>
+  if(display===true) {
+    return (
+      <div className={interno ? "nota-tarea-wrapper-interno" : "nota-tarea-wrapper"} >
+        <div className="nota-tarea-linea-superior">
+          <p className="nota-tarea-fecha">{nota.fecha}</p>
+          <div
+            className="nota-tarea-prioridad"
+            style={{ backgroundColor: colorPrioridad(nota.prioridad) }}
+          >
+            <p style={{ margin: "0px" }}>{nota.prioridad}</p>
+          </div>
         </div>
+        <p className="nota-tarea-texto">{nota.texto}</p>
       </div>
-      <p className="nota-tarea-texto">{nota.texto}</p>
-    </div>
-  );
+    );
+  }
+  else {
+    <>
+    </>
+  }
+  
 };
