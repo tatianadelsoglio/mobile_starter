@@ -1,12 +1,12 @@
 .archivo-tarea-wrapper {
-  width: calc(100% - 14px);
+  width: calc(100% - 7px);
   background-color: white;
   padding: 0px;
   display: flex;
   flex-direction: row;
-  margin-left: 10px;
+  margin-left: 5px;
   border: 1px solid rgba(153, 153, 153, 0.2);
-  border-radius: 5px;
+  border-radius: 1px;
   box-sizing: border-box;
 }
 
@@ -16,9 +16,9 @@
   padding: 0px;
   display: flex;
   flex-direction: row;
-  margin-left: 20px;
+  margin-left: 15px;
   border: 1px solid rgba(153, 153, 153, 0.2);
-  border-radius: 5px;
+  border-radius: 1px;
   box-sizing: border-box;
 }
 
@@ -33,7 +33,7 @@
 
 .archivo-tarea-nombre {
   margin: 10px 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #00b33c;
 }
 

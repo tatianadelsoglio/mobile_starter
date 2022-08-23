@@ -3,7 +3,6 @@ import {
   UserCircleOutline,
   UserOutline,
   FilterOutline,
-  BellOutline,
   CalendarOutline,
   FileOutline,
   PictureOutline,
@@ -34,7 +33,7 @@ export const NegocioCompleto = () => {
           id: 3,
           texto: "nota numero 1, primera prueba",
           fecha: "22/08/2022",
-          prioridad: "MEDIA",
+          prioridad: "ALTA",
           tipo: "#N",
         },
         {
@@ -73,6 +72,9 @@ export const NegocioCompleto = () => {
       tipo: "#A",
       peso: "2035 Kb",
     },
+    {
+      id:5,
+    }
   ];
 
   const getColor = (i) => {
@@ -257,7 +259,46 @@ export const NegocioCompleto = () => {
             </Steps>
           </div>
         </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Completado" key="3"></CapsuleTabs.Tab>
+        <CapsuleTabs.Tab title="Completado" key="3">
+          <div className="negocio-linea-tiempo-contenedor">
+            <Steps direction="vertical">
+              {tareas.map((tarea) => {
+                switch (tarea.tipo) {
+                  case "#T":
+                    return (
+                      <Step
+                        description={<TareaNegocio tarea={tarea} />}
+                        icon={<CalendarOutline style={{ color: "#00B33C" }} />}
+                      />
+                    );
+                  case "#N":
+                    return (
+                      <Step
+                        description={<NotaTareaNegocio nota={tarea} />}
+                        icon={<FileOutline style={{ color: "#00B33C" }} />}
+                      />
+                    );
+                  case "#A":
+                    return (
+                      <Step
+                        description={<ArchivoTareaNegocio archivo={tarea} />}
+                        icon={<PictureOutline style={{ color: "#00B33C" }} />}
+                      />
+                    );
+                  default:
+                    return (
+                      <Step
+                        description={
+                        <p> <span class="detailItem"> Fecha de Cierre: </span> <span class="strikeThrough"> 2022-06-20 </span> <span class="middleDot"> · </span> <span class="modifiedItem" > 2022-06-24 </span> </p>
+                        }
+                        
+                      />
+                    )
+                }
+              })}
+            </Steps>
+          </div>
+        </CapsuleTabs.Tab>
       </CapsuleTabs>
     </div>
   );

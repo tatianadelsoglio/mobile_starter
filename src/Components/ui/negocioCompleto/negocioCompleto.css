@@ -142,8 +142,8 @@
 
 .negocio-linea-tiempo-contenedor {
     width: 100%;
-    background-color: white;
-    padding: 0.5rem;
+    background-color: #f8f8f8;
+    padding: 6px;
     box-sizing: border-box;
 }
 
@@ -162,4 +162,45 @@
 
 .adm-steps-vertical {
   padding: 8px 0px;
+}
+
+.bullet p {
+	line-height: 10px;
+}
+
+span.detailItem {
+	font-weight: 500;
+	margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+span.strikeThrough {
+	text-decoration: line-through;
+	color: #bbb;
+	margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+span.modifiedItem {
+	margin-left: 5px;
+  font-size: 0.9rem;
+}
+
+span.middleDot {
+	font-size: 1.3rem;
+	font-weight: 500;
+	line-height: 0;
+	color: #bbb;
+}
+
+p {
+  margin: 0px 0px 0px 5px;
+}
+
+.adm-step .adm-step-indicator .adm-step-icon-container {
+  color: #00b33c;
+}
+
+.adm-steps-vertical .adm-step .adm-step-content {
+  padding-bottom: 12px;
 }
