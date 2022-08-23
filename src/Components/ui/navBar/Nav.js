@@ -47,7 +47,7 @@ const Nav = () => {
 
   return (
     <NavBar className="navBar" right={right} onBack={() => history.goBack()}>
-      <h4>Nombre Usuario</h4>
+      {/* <p>Logo</p> */}
     </NavBar>
   );
 };
