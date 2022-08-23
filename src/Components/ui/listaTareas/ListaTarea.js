@@ -21,6 +21,7 @@ import {
   InformationCircleOutline,
 } from "antd-mobile-icons";
 import "./ListaTarea.css";
+import "../tareaNegocio/tareaNegocio.css";
 import moment from "moment";
 import "moment/locale/es";
 import { Step } from "antd-mobile/es/components/steps/step";
@@ -119,7 +120,7 @@ const ListaTarea = ({ ItemListaTarea }) => {
       <div className="div_lista_tareas">
         {/* {ItemListaTarea.map((ItemListaTarea) => ( */}
         <div>
-          <div style={{ marginLeft: "15px"}}>
+          <div style={{ marginLeft: "15px" }}>
             <Steps direction="vertical">
               {ItemListaTarea.map((ItemListaTarea) => (
                 <Step
@@ -130,28 +131,63 @@ const ListaTarea = ({ ItemListaTarea }) => {
                       closeOnTouchOutside={false}
                       rightActions={rightActions}
                     >
-                      <div className="div_contenedor_lista">
-                        <div className="div_wrapper_lista">
-                          <div className="div_superior">
-                            <Ellipsis
-                              style={{ fontWeight: "bold" }}
-                              direction="end"
-                              content={ItemListaTarea.descripcion}
+                      <div className="tarea-negocio-contenedor">
+                        <div className="tarea-negocio-wrapper">
+                          <div className="tarea-negocio-linea-superior">
+                            <p className="tarea-negocio-titulo">
+                              {ItemListaTarea.descripcion}
+                            </p>
+                            <CheckOutline
+                              style={{
+                                color: "#00B33C",
+                                marginRight: "5px",
+                                fontSize: "1rem",
+                              }}
                             />
                           </div>
-                          <div className="div_inferior">
-                            <div className="div_iconoEmp">
-                              <ShopbagOutline color="#56b43c"/>
-                              <p>{ItemListaTarea.empresa}</p>
+                          <div className="tarea-negocio-linea-inferior">
+                            <p className="tarea-negocio-fecha">
+                              {handleHora(ItemListaTarea.fechaHora)}
+                            </p>
+                            {Item.contacto ? (
+                              <div className="tarea-negocio-item">
+                                <ShopbagOutline style={{ color: "#00B33C" }} />{" "}
+                                <p className="tarea-negocio-contacto">
+                                  {tarea.contacto}
+                                </p>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                            {tarea.tipoTarea ? (
+                              <div className="tarea-negocio-item">
+                                <InformationCircleOutline
+                                  style={{ color: "#00B33C" }}
+                                />{" "}
+                                <p className="tarea-negocio-tipoTarea">
+                                  {tarea.tipoTarea}
+                                </p>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                            <div className="tarea-contenedor-horario">
+                              <ClockCircleOutline
+                                style={{ color: "white", fontSize: "0.8rem" }}
+                              />
+                              <p className="texto-tarea-horario">
+                                {tarea.cierreEstimado}
+                              </p>
+                              <p className="texto-tarea-horario">
+                                {tarea.hora} hs
+                              </p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </SwipeAction>
                   }
-                  icon={
-                    <CalendarOutline color="#56b43c" />
-                  }
+                  icon={<CalendarOutline color="#56b43c" />}
                 />
               ))}
             </Steps>
