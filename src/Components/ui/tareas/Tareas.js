@@ -9,10 +9,10 @@ const Tareas = () => {
     {
       id: 1,
       usu_nombre: "Adrian Sabo",
-      empresa: "La Ganadera",
+      contacto: "La Ganadera",
       fechaHora: "08-22-2022 08:30",
       estado: 1,
-      descripcion: "Llamar a Adrian, conversar sobre nuevos insumos",
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "ALTA",
     },
     {
@@ -119,14 +119,12 @@ const Tareas = () => {
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 1
 
   let ES = [];
+  let StartES = moment().startOf("isoWeek").format("DD-MM-YYYY")
+
+  let EndES = moment().endOf("isoWeek").format("DD-MM-YYYY")
 
   const listaTareasES = () => { ItemListaTarea.map((tarea) => {
     let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
-
-    let StartES = moment().startOf("isoWeek").format("DD-MM-YYYY")
-
-    let EndES = moment().endOf("isoWeek").format("DD-MM-YYYY")
-
 
     if (fecha >= StartES) {
       if (fecha <= EndES) {  
@@ -147,17 +145,20 @@ console.log("Lista de tareas ESTA SEMANA: ", arrayES);
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
   let SP = [];
+  let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY')
+  console.log("StartSP: ", StartSP)
+
+  let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY')
+  console.log("EndSP: ", EndSP)
 
   const listaTareasSP = () => { ItemListaTarea.map((tarea) => {
     let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
-
-    let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY')
-
-    let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY')
-
+    console.log("fecha: ", fecha)
 
     if (fecha >= StartSP) {
+      console.log("paso1")
       if (fecha <= EndSP) {  
+        console.log("paso2")
         SP.push(tarea);
       }
     }  
@@ -177,8 +178,6 @@ console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
 
   const listaTareasVC = () => { ItemListaTarea.map((tarea) => {
     let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
-
-    let StartES = moment().startOf("isoWeek").format("DD-MM-YYYY")    
 
     if (fecha <= StartES) {
       VC.push(tarea);
