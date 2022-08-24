@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 
 import {
   Form,
@@ -9,8 +10,7 @@ import {
   Modal,
 } from "antd-mobile";
 import { CheckOutline } from "antd-mobile-icons";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
 import dayjs from "dayjs";
@@ -69,15 +69,6 @@ const DetalleTarea = () => {
     },
   ];
 
-  const handleFechaVer = (val) => {
-    let fecha = moment(val).format("DD-MM-YYYY");
-    return fecha;
-  };
-
-  const handleHora = (val) => {
-    let hora = moment(val).format("LT");
-    return hora;
-  };
 
   return (
     <div className="detalle-tarea-contenedor">
