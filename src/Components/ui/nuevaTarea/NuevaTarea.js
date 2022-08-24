@@ -2,10 +2,12 @@
 import {
   Button,
   DatePicker,
+  Divider,
   Form,
   Input,
   Modal,
   Picker,
+  PickerView,
   Selector,
   TextArea,
 } from "antd-mobile";
@@ -36,8 +38,23 @@ const NuevaTarea = () => {
 
   const horaPicker = [
     [
-      { label: "上午", value: "am" },
-      { label: "下午", value: "pm" },
+      { label: "08:00", value: "08:00" },
+      { label: "08:10", value: "08:10" },
+      { label: "08:20", value: "08:20" },
+      { label: "08:30", value: "08:30" },
+      { label: "08:40", value: "08:40" },
+      { label: "08:50", value: "08:50" },
+      { label: "09:00", value: "09:00" },
+      { label: "09:10", value: "09:10" },
+      { label: "09:20", value: "09:20" },
+      { label: "09:30", value: "09:30" },
+      { label: "09:40", value: "09:40" },
+      { label: "09:50", value: "09:50" },
+      { label: "10:00", value: "10:00" },
+    ],
+    [
+      { label: "AM", value: "am" },
+      { label: "PM", value: "pm" },
     ],
   ];
 
@@ -81,7 +98,7 @@ const NuevaTarea = () => {
           </Form.Item>
           <p className="titulo-form">Asunto</p>
           <Form.Item>
-            <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+            <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
           <p className="titulo-form">Tipo de tarea</p>
           <Form.Item>
@@ -91,34 +108,23 @@ const NuevaTarea = () => {
           <Form.Item>
             <Input placeholder="Ingrese Fuente" />
           </Form.Item>
-          <p className="titulo-form">Vencimiento</p>
-          <Form.Item
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
-            <DatePicker
-              visible={visible}
-              onClose={() => {
-                setVisible(false);
-              }}
-            >
-              {(value) =>
-                value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
-              }
-            </DatePicker>
-          </Form.Item>
-          <p className="titulo-form">Hora</p>
-          <Form.Item
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
-            <p>Hora</p>
-          </Form.Item>
+          <div style={{ display: "flex", flexDirection: "row", justifyContent:"space-between"}}>
+            <div>
+              <p className="titulo-form">Vencimiento</p>
+              <Form.Item>
+                <input type="date" min="2014-09-08" />
+              </Form.Item>
+            </div>
+            <div>
+              <p className="titulo-form">Hora</p>
+              <Form.Item>
+                <input type="time" />
+              </Form.Item>
+            </div>
+          </div>
           <p className="titulo-form">Nota</p>
           <Form.Item>
-            <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+            <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
           <p className="titulo-form">Prioridad</p>
           <Form.Item>
@@ -126,8 +132,9 @@ const NuevaTarea = () => {
               style={{
                 "--border-radius": "100px",
                 "--border": "solid transparent 1px",
-                "--checked-border": "solid var(--adm-color-primary) 1px",
+                "--checked-border": "solid gray 1px",
                 "--padding": "8px 10px",
+                "--checked-text-color":"gray", 
                 fontSize: "16px",
               }}
               showCheckMark={false}
