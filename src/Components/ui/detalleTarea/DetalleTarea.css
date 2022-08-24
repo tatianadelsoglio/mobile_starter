@@ -1,0 +1,12 @@
+
+.detalle-tarea-contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.detalle-tarea-label {
+    padding: 4px auto;
+    margin: 4px;
+}
