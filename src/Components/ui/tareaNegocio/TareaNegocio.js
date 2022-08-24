@@ -1,3 +1,5 @@
+/* eslint-disable default-case */
+/* eslint-disable array-callback-return */
 import moment from "moment";
 import "./tareaNegocio.css";
 import {
@@ -19,24 +21,18 @@ export const TareaNegocio = ({ tarea, origen="" }) => {
   }, [mostrar])
   
 
-  if(origen==="listaTareas") {
+  if(origen==="ListaTareas") {
     return (
       <div className="tarea-negocio-contenedor">
         <div className="tarea-negocio-wrapper" onClick={() => setMostrar(!mostrar)}>
           <div className="tarea-negocio-linea-superior">
             <p className="tarea-negocio-titulo">{tarea.asunto}</p>
-            <CheckOutline
-              style={{ color: "#00B33C", marginRight: "5px", fontSize: "1rem" }}
-            />
           </div>
           <div className="tarea-negocio-linea-inferior">
-            <p className="tarea-negocio-fecha">
-              {moment(tarea.fechaInicio, "DD/MM/YYYY").fromNow()}
-            </p>
             {tarea.contacto ? (
               <div className="tarea-negocio-item">
                 <ShopbagOutline style={{ color: "#00B33C" }} />{" "}
-                <p className="tarea-negocio-contacto">{tarea.contacto}</p>
+                <p className="tarea-negocio-contacto">{tarea.cliente}</p>
               </div>
             ) : (
               ""
