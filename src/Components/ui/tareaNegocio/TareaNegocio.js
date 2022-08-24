@@ -20,20 +20,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   //*Handles para separar las fechasHoras en fecha y hora como viene de base de datos con moment.js
 
-  let ultimaFecha = "";
-
-  const handleFecha = (val) => {
-    let fecha = moment(val).format("DD-MM-YYYY");
-
-    if (fecha !== ultimaFecha) {
-      ultimaFecha = fecha;
-
-      return ultimaFecha;
-    } else {
-      ultimaFecha = "";
-      return ultimaFecha;
-    }
-  };
+  
 
   const handleFechaVer = (val) => {
     let fecha = moment(val).format("DD-MM-YYYY");
