@@ -58,6 +58,23 @@ export const NegocioCompleto = () => {
       contacto: "ADRIAN SABO",
       tipoTarea: "Visita de campo",
       tipo: "#T",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "22/08/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "20/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
     },
     {
       id: 3,
