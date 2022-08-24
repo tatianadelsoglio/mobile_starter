@@ -31,11 +31,11 @@ import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 const ListaTarea = ({ItemListaTarea}) => {
   let history = useHistory();
 
-  const handleModalDetalleTarea = (id) => {
-    let cliente = ItemListaTarea.filter((tarea) => tarea.id === id);
+  const handleModalDetalleTarea = (tareaP) => {
+    let cliente = ItemListaTarea.filter((tarea) => tarea.id === tareaP.id);
 
     return history.push({
-      pathname: `/detalletarea/${id}`,
+      pathname: `/detalletarea/${tareaP.id}`,
       state: { ...cliente },
     });
   };
@@ -82,7 +82,7 @@ const ListaTarea = ({ItemListaTarea}) => {
                         text: <EditSOutline />,
                         color: "#2bc4e3",
                         onClick: () => {
-                          handleModalDetalleTarea(ItemListaTarea.id);
+                          handleModalDetalleTarea(ItemListaTarea);
                         },
                       },
                       {
