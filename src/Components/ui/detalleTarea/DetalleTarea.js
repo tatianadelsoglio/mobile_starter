@@ -25,17 +25,106 @@ const DetalleTarea = () => {
 
   return (
     <div className="detalle-tarea-contenedor">
-      <Form layout="horizontal">
-
+      <Form
+        layout="vertical"
+        mode="card"
+        footer={
+          <Button
+            block
+            type="submit"
+            color="primary"
+            size="large"
+            onClick={() => {
+              Modal.alert({
+                header: (
+                  <CheckOutline
+                    style={{
+                      fontSize: 64,
+                      color: "var(--adm-color-primary)",
+                    }}
+                  />
+                ),
+                title: "Tarea Cargada Correctamente",
+                confirmText: "Cerrar",
+              });
+            }}
+          >
+            Cargar Tarea
+          </Button>
+        }
+      >
+        <p
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            margin: "10px 15px",
+          }}
+        >
+          Cliente
+        </p>
         <Form.Item>
-          
+          <Input placeholder="Ingrese Cliente" />
         </Form.Item>
-        <div className="detalle-tarea-item">
-          <p className="detalle-tarea-label">Asunto</p>
-          <div className="">
-
-          </div>
-        </div>
+        <p
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            margin: "10px 15px",
+          }}
+        >
+          Asunto
+        </p>
+        <Form.Item style={{ borderBottom: "1px solid #f4f4f4" }}>
+          <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+        </Form.Item>
+        <Form.Item label="Tipo de tarea">
+          <Input placeholder="Ingrese Cliente" />
+        </Form.Item>
+        <Form.Item label="Fuente">
+          <Input placeholder="Ingrese Cliente" />
+        </Form.Item>
+        <Form.Item
+          label="Fecha"
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
+          <DatePicker
+            visible={visible}
+            onClose={() => {
+              setVisible(false);
+            }}
+          >
+            {(value) =>
+              value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
+            }
+          </DatePicker>
+        </Form.Item>
+        <Form.Item
+          label="Hora"
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
+          <p>Hora</p>
+        </Form.Item>
+        <Form.Item label="Nota" style={{ borderBottom: "1px solid #f4f4f4" }}>
+          <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+        </Form.Item>
+        <Form.Item label="Prioridad">
+          <Selector
+            style={{
+              "--border-radius": "100px",
+              "--border": "solid transparent 1px",
+              "--checked-border": "solid var(--adm-color-primary) 1px",
+              "--padding": "8px 10px",
+              fontSize: "16px",
+            }}
+            showCheckMark={false}
+            label="Prioridad"
+            options={prioridad}
+          />
+        </Form.Item>
       </Form>
     </div>
   );
