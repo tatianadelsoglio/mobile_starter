@@ -1,7 +1,39 @@
-@import 'antd-mobile/bundle/css-vars-patch.css';
+@import "antd-mobile/bundle/css-vars-patch.css";
 
-
-.titulo-form{
-    text-align: left;
-    margin:10px 15px !important;
+.titulo-form {
+  text-align: left;
+  margin: 10px 15px !important;
 }
+
+.input-fechaHora {
+  padding: 8px 10px;
+  position: relative;
+  background-color: white;
+  opacity: 1;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+  vertical-align: center;
+}
+
+input[type="date"]:not(.has-value)::before {
+  color: lightgray;
+  content: attr(placeholder);
+}
+
+input[type="date"]:not(.has-value):before{
+    color: transparent;
+  content: attr(placeholder);
+}
+
+input[type="time"]:not(.has-value)::before {
+  color: lightgray;
+  content: attr(placeholder);
+}
+
+/* input[type="time"]:not(:focus):not(.has-value):before{
+    color: transparent;
+  content: attr(placeholder);
+} */

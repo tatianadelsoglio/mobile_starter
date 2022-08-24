@@ -112,13 +112,15 @@ const NuevaTarea = () => {
             <div>
               <p className="titulo-form">Vencimiento</p>
               <Form.Item>
-                <input type="date" min="2014-09-08" />
+                {/* <input className="input-fechaHora" type="date" placeholder="Seleccione Fecha" onchange="this.className=(this.value!=''?'has-value':'')"/> */}
+                <input className="input-fechaHora" type="date" placeholder="Seleccione Fecha" onchange="this.classList.toggle('has-value',this.value);"/>
+
               </Form.Item>
             </div>
             <div>
               <p className="titulo-form">Hora</p>
               <Form.Item>
-                <input type="time" />
+              <input className="input-fechaHora" type="time" placeholder="Seleccione Hora" onchange="this.classList.toggle('has-value',this.value);"/>
               </Form.Item>
             </div>
           </div>
