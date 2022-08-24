@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 import "./NuevaTarea.css";
 import { CheckOutline } from "antd-mobile-icons";
+import Nav from "../navBar/Nav";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
@@ -119,12 +120,10 @@ const NuevaTarea = () => {
           >
             <div>
               <Form.Item label="Vencimiento">
-                {/* <input className="input-fechaHora" type="date" placeholder="Seleccione Fecha" onchange="this.className=(this.value!=''?'has-value':'')"/> */}
                 <input
                   className="input-fechaHora"
                   type="date"
                   placeholder="Seleccione Fecha"
-                  onchange="this.classList.toggle('has-value',this.value);"
                 />
               </Form.Item>
             </div>
@@ -134,7 +133,6 @@ const NuevaTarea = () => {
                   className="input-fechaHora"
                   type="time"
                   placeholder="Seleccione Hora"
-                  onchange="this.classList.toggle('has-value',this.value);"
                 />
               </Form.Item>
             </div>

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from "react";
-import { Modal, NavBar, Space } from "antd-mobile";
+import { Image, Modal, NavBar, Space } from "antd-mobile";
 import { MoreOutline, AddOutline } from "antd-mobile-icons";
 import { useHistory } from "react-router-dom";
 import "./Nav.css";
@@ -8,7 +8,9 @@ import useAuth from "../../../auth/useAuth";
 import { GlobalContext } from "../../context/GlobalContext";
 import { removeDataInStorage } from "../../storage/manageStorage";
 
-const Nav = () => {
+const Nav = ({titulo}) => {
+  
+
   let history = useHistory();
   const auth = useAuth();
   const { setUserData, setLogoutAlert, logoutAlert } =
@@ -58,7 +60,7 @@ const Nav = () => {
 
   return (
     <NavBar className="navBar" right={right} onBack={() => history.goBack()}>
-      {/* <p>Logo</p> */}
+      Logo
     </NavBar>
   );
 };

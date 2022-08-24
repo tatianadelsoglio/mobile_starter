@@ -10,6 +10,7 @@ import AuthProvider from "./auth/AuthProvider";
 import { ApolloProvider } from "@apollo/client";
 import Client from "./config/apolloClientConfig";
 
+
 const defaultSingle = moment().format("DD-MM-YYYY");
 
 const App = () => {
@@ -36,7 +37,7 @@ const App = () => {
               infoUser,
               setInfoUser,
               tareaSeleccionada,
-              setTareaSeleccionada
+              setTareaSeleccionada,
             }}
           >
             <AppRouter />

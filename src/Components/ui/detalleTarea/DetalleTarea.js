@@ -111,23 +111,32 @@ const DetalleTarea = () => {
         <Form.Item label="Fuente">
           <Input defaultValue={tarea.origen} />
         </Form.Item>
-        <Form.Item
-          onClick={() => {
-            setVisible(true);
-          }}
-          label="Vencimiento"
-        >
-          <DatePicker
-            visible={visible}
-            onClose={() => {
-              setVisible(false);
+        <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            {(value) =>
-              value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
-            }
-          </DatePicker>
-        </Form.Item>
+            <div>
+              <Form.Item label="Vencimiento">
+                <input
+                  className="input-fechaHora"
+                  type="date"
+                  placeholder="Seleccione Fecha"
+                />
+              </Form.Item>
+            </div>
+            <div>
+              <Form.Item label="Hora">
+                <input
+                  className="input-fechaHora"
+                  type="time"
+                  placeholder="Seleccione Hora"
+                />
+              </Form.Item>
+            </div>
+          </div>
         <Form.Item
           onClick={() => {
             setVisible(true);
