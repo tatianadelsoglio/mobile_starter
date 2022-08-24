@@ -124,7 +124,7 @@ const NuevaTarea = () => {
               </Form.Item>
             </div>
           </div>
-          <p className="titulo-form">Notas</p>
+          <p className="titulo-form">Nota</p>
           <Form.Item>
             <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
