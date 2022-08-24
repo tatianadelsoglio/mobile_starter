@@ -79,3 +79,29 @@
 .texto-tarea-horario {
     margin: 1px 0px 1px 5px;
 }
+
+.adm-swipe-action{
+    background-color: #f4f4f4;
+}
+
+.horario{
+    width: 100%;
+    margin-bottom: -3px;
+}
+
+.asunto{
+    margin-bottom: -3px;
+}
+
+.cliente-tipo{
+    margin-bottom: -3px;
+}
+
+.prioridad-fuente{
+    margin-left: 5px;
+    margin-bottom: 13px;
+}
+
+.fuente{
+    margin-left: 3px;
+}

@@ -15,6 +15,24 @@ const Tareas = () => {
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "ALTA",
       tipoTarea: "Visita de campo",
+      tipo: "#T",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "22/08/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "20/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
     },
     {
       id: 2,
@@ -25,26 +43,63 @@ const Tareas = () => {
       asunto: "Visitar Campo Oeste",
       prioridad: "ALTA",
       tipoTarea: "Visita de campo",
+      tipo: "#T",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "22/08/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "20/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
     },
     {
       id: 3,
       contacto: "Jorge Mayorga",
       cliente: "La Ganadera",
-      fechaHora: "08/23/2022 09:00",
+      fechaHora: "08/23/2022 10:00",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "MEDIA",
       tipoTarea: "Visita de campo",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "22/08/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+      ],
     },
     {
       id: 4,
       contacto: "Aida Campos",
       cliente: "La Ganadera",
-      fechaHora: "08-24-2022 09:15",
+      fechaHora: "08-24-2022 11:15",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
       tipoTarea: "Visita de campo",
+      anexo: [
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "20/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
     },
     {
       id: 5,
@@ -158,19 +213,15 @@ console.log("Lista de tareas ESTA SEMANA: ", arrayES);
 
   let SP = [];
   let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY')
-  console.log("StartSP: ", StartSP)
 
   let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY')
-  console.log("EndSP: ", EndSP)
 
   const listaTareasSP = () => { ItemListaTarea.map((tarea) => {
     let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
-    console.log("fecha: ", fecha)
 
     if (fecha >= StartSP) {
-      console.log("paso1")
       if (fecha <= EndSP) {  
-        console.log("paso2")
+
         SP.push(tarea);
       }
     }  
