@@ -16,6 +16,7 @@ const Tareas = () => {
       prioridad: "ALTA",
       tipoTarea: "Visita de campo",
       tipo: "#T",
+      origen: "NEGOCIO",
       anexo: [
         {
           id: 3,
@@ -44,6 +45,7 @@ const Tareas = () => {
       prioridad: "ALTA",
       tipoTarea: "Visita de campo",
       tipo: "#T",
+      origen: "MAIL",
       anexo: [
         {
           id: 3,
@@ -71,6 +73,7 @@ const Tareas = () => {
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "MEDIA",
       tipoTarea: "Visita de campo",
+      origen: "TELEFONO",
       anexo: [
         {
           id: 3,

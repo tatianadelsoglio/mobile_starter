@@ -1,29 +1,19 @@
 /* eslint-disable no-unused-vars */
 import {
-  Card,
   Dialog,
-  Ellipsis,
-  FloatingBubble,
-  List,
   Modal,
   Steps,
   SwipeAction,
 } from "antd-mobile";
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import {
   EditSOutline,
   CheckOutline,
-  AddOutline,
-  ClockCircleOutline,
   CalendarOutline,
-  UserCircleOutline,
-  ShopbagOutline,
-  InformationCircleOutline,
 } from "antd-mobile-icons";
 import "./ListaTarea.css";
 import "../tareaNegocio/tareaNegocio.css";
-import moment from "moment";
 import "moment/locale/es";
 import { Step } from "antd-mobile/es/components/steps/step";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";

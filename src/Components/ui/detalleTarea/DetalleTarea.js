@@ -1,17 +1,76 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Form, Input } from "antd-mobile";
+import {
+  Form,
+  Input,
+  Button,
+  DatePicker,
+  Selector,
+  TextArea,
+  Modal,
+} from "antd-mobile";
+import { CheckOutline } from "antd-mobile-icons";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
+import dayjs from "dayjs";
 
 const DetalleTarea = () => {
   const location = useLocation();
 
   const [tarea, setTarea] = useState(location.state[0]);
 
-  console.log(tarea);
+  const [visible, setVisible] = useState(false);
+
+  const [idSelector, setIdSelector] = useState(tarea.prioridad);
+
+  const prioridad = [
+    {
+      label: (
+        <div
+          className={
+            idSelector === "ALTA"
+              ? "selector-alta seleccionado"
+              : "selector-alta"
+          }
+        >
+          <p className="selector-texto">ALTA</p>
+        </div>
+      ),
+      value: "ALTA",
+    },
+    {
+      label: (
+        <div
+          className={
+            idSelector === "MEDIA"
+              ? "selector-media seleccionado"
+              : "selector-media"
+          }
+        >
+          <p className="selector-texto">MEDIA</p>
+        </div>
+      ),
+      value: "MEDIA",
+    },
+    {
+      label: (
+        <div
+          className={
+            idSelector === "BAJA"
+              ? "selector-baja seleccionado"
+              : "selector-baja"
+          }
+        >
+          <p className="selector-texto">BAJA</p>
+        </div>
+      ),
+      value: "BAJA",
+    },
+  ];
+
+  console.log(idSelector);
 
   const handleFechaVer = (val) => {
     let fecha = moment(val).format("DD-MM-YYYY");
@@ -27,7 +86,6 @@ const DetalleTarea = () => {
     <div className="detalle-tarea-contenedor">
       <Form
         layout="vertical"
-        mode="card"
         footer={
           <Button
             block
@@ -53,41 +111,23 @@ const DetalleTarea = () => {
           </Button>
         }
       >
-        <p
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            margin: "10px 15px",
-          }}
-        >
-          Cliente
-        </p>
-        <Form.Item>
-          <Input placeholder="Ingrese Cliente" />
+        <Form.Item label="Cliente">
+          <Input defaultValue={tarea.cliente} />
         </Form.Item>
-        <p
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            margin: "10px 15px",
-          }}
-        >
-          Asunto
-        </p>
-        <Form.Item style={{ borderBottom: "1px solid #f4f4f4" }}>
-          <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+        <Form.Item label="Asunto" >
+          <TextArea autoSize={true} defaultValue={tarea.asunto} />
         </Form.Item>
-        <Form.Item label="Tipo de tarea">
-          <Input placeholder="Ingrese Cliente" />
+        <Form.Item label="Tipo de Tarea">
+          <Input defaultValue={tarea.tipoTarea} />
         </Form.Item>
         <Form.Item label="Fuente">
-          <Input placeholder="Ingrese Cliente" />
+          <Input defaultValue={tarea.origen} />
         </Form.Item>
         <Form.Item
-          label="Fecha"
           onClick={() => {
             setVisible(true);
           }}
+          label="Vencimiento"
         >
           <DatePicker
             visible={visible}
@@ -101,28 +141,36 @@ const DetalleTarea = () => {
           </DatePicker>
         </Form.Item>
         <Form.Item
-          label="Hora"
           onClick={() => {
             setVisible(true);
           }}
+          label="Hora"
         >
           <p>Hora</p>
         </Form.Item>
-        <Form.Item label="Nota" style={{ borderBottom: "1px solid #f4f4f4" }}>
-          <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+        <Form.Item label="Nota">
+          <TextArea
+            autoSize={true}
+            defaultValue={tarea.anexo.map((anexo) => {
+              if (anexo.tipo === "#N") {
+                return anexo.texto;
+              }
+            })}
+          />
         </Form.Item>
         <Form.Item label="Prioridad">
           <Selector
             style={{
-              "--border-radius": "100px",
-              "--border": "solid transparent 1px",
-              "--checked-border": "solid var(--adm-color-primary) 1px",
-              "--padding": "8px 10px",
+              "--border-radius": "10px",
+              "--border": "none",
+              "--checked-border": "none",
+              "--padding": "0px",
               fontSize: "16px",
             }}
             showCheckMark={false}
             label="Prioridad"
             options={prioridad}
+            onChange={(v) => setIdSelector(v[0])}
           />
         </Form.Item>
       </Form>

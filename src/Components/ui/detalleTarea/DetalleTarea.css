@@ -1,12 +1,58 @@
-
 .detalle-tarea-contenedor {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .detalle-tarea-label {
-    padding: 4px auto;
-    margin: 4px;
+  padding: 4px auto;
+  margin: 4px;
+}
+
+.adm-form-item-label {
+    color: #00b33c;
+    text-align: left;
+}
+
+.adm-form {
+  width: 100%;
+}
+
+.detalle-tarea-titulo {
+  margin-top: 5px;
+  font-size: 1.5rem;
+}
+
+.selector-alta {
+  background-color: rgb(241, 45, 45);
+  opacity: 0.6;
+  padding: 5px;
+}
+
+.selector-media {
+  background-color: rgb(232, 188, 13);
+  opacity: 0.6;
+  padding: 5px;
+}
+
+.selector-baja {
+  background-color: rgb(0, 179, 60);
+  opacity: 0.6;
+  padding: 5px;
+}
+
+.selector-texto {
+  color: white;
+  padding: 5px;
+  margin: 0px;
+}
+
+.seleccionado {
+    opacity: 1;
+}
+
+.detalle-tarea-contenedor .adm-form .adm-form-footer {
+    padding: 10px 12px;
+    background-color: white;
 }
