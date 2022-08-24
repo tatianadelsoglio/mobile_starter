@@ -57,7 +57,7 @@ const ListaTarea = ({ItemListaTarea}) => {
     <>
       <div className="div_lista_tareas">
         <div>
-          <Steps direction="vertical">
+          <Steps direction="vertical" style={{marginLeft:"8px"}}>
             {ItemListaTarea.map((ItemListaTarea) => (
               <Step
                 key={ItemListaTarea.id}
