@@ -20,8 +20,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   //*Handles para separar las fechasHoras en fecha y hora como viene de base de datos con moment.js
 
-  
-
   const handleFechaVer = (val) => {
     let fecha = moment(val).format("DD-MM-YYYY");
     return fecha;
@@ -40,17 +38,17 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
           onClick={() => setMostrar(!mostrar)}
         >
           <div className="tarea-negocio-linea-superior">
-            <p className="tarea-negocio-titulo asunto">
-              <Ellipsis
-                style={{
-                  fontWeight: "bold",
-                  width: "18rem",
-                  fontSize: "16px",
-                }}
-                direction="end"
-                content={tarea.asunto}
-              />
-            </p>
+            <Ellipsis
+              className="asunto tarea-negocio-titulo"
+              style={{
+                fontWeight: "bold",
+                width: "18rem",
+                fontSize: "16px",
+
+              }}
+              direction="end"
+              content={tarea.asunto}
+            />
           </div>
           <div className="tarea-negocio-linea-inferior cliente-tipo">
             {tarea.contacto ? (
@@ -143,8 +141,8 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 ) : null}
               </div>
               <div>
-                <p>
-                  <div className="fuente"
+                <div className="fuente">
+                  <p
                     style={{
                       display: "flex",
                       justifyContent: "center",
@@ -161,8 +159,8 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                     }}
                   >
                     NEGOCIO
-                  </div>
-                </p>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

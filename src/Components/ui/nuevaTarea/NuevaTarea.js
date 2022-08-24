@@ -36,10 +36,10 @@ const NuevaTarea = () => {
 
   const horaPicker = [
     [
-      { label: '上午', value: 'am' },
-      { label: '下午', value: 'pm' },
+      { label: "上午", value: "am" },
+      { label: "下午", value: "pm" },
     ],
-  ]
+  ];
 
   return (
     <>
@@ -48,7 +48,7 @@ const NuevaTarea = () => {
       </div>
       <div className="form_nuevaTarea">
         <Form
-          layout="vertical"          
+          layout="vertical"
           mode="card"
           footer={
             <Button
@@ -75,25 +75,24 @@ const NuevaTarea = () => {
             </Button>
           }
         >
-          <p style={{display:"flex", justifyContent:"flex-start", margin:"10px 15px"}}>Cliente</p>
+          <p className="titulo-form">Cliente</p>
           <Form.Item>
             <Input placeholder="Ingrese Cliente" />
           </Form.Item>
-          <p style={{display:"flex", justifyContent:"flex-start", margin:"10px 15px"}}>Asunto</p>
-          <Form.Item
-      
-            style={{ borderBottom: "1px solid #f4f4f4" }}
-          >
+          <p className="titulo-form">Asunto</p>
+          <Form.Item>
             <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
-          <Form.Item label="Tipo de tarea">
-            <Input placeholder="Ingrese Cliente" />
+          <p className="titulo-form">Tipo de tarea</p>
+          <Form.Item>
+            <Input placeholder="Ingrese Tipo Tarea" />
           </Form.Item>
-          <Form.Item label="Fuente">
-            <Input placeholder="Ingrese Cliente" />
+          <p className="titulo-form">Fuente</p>
+          <Form.Item>
+            <Input placeholder="Ingrese Fuente" />
           </Form.Item>
+          <p className="titulo-form">Vencimiento</p>
           <Form.Item
-            label="Fecha"
             onClick={() => {
               setVisible(true);
             }}
@@ -109,19 +108,20 @@ const NuevaTarea = () => {
               }
             </DatePicker>
           </Form.Item>
+          <p className="titulo-form">Hora</p>
           <Form.Item
-            label="Hora"
             onClick={() => {
               setVisible(true);
             }}
           >
             <p>Hora</p>
-
           </Form.Item>
-          <Form.Item label="Nota" style={{ borderBottom: "1px solid #f4f4f4" }}>
+          <p className="titulo-form">Nota</p>
+          <Form.Item>
             <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
-          <Form.Item label="Prioridad">
+          <p className="titulo-form">Prioridad</p>
+          <Form.Item>
             <Selector
               style={{
                 "--border-radius": "100px",
