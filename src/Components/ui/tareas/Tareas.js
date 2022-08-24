@@ -85,7 +85,7 @@ const Tareas = () => {
       id: 4,
       contacto: "Aida Campos",
       cliente: "La Ganadera",
-      fechaHora: "08-24-2022 11:15",
+      fechaHora: "08/24/2022 11:15",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -93,7 +93,7 @@ const Tareas = () => {
       anexo: [
         {
           id: 4,
-          nombre: "paisaje-02",
+          nombre: "paisaje/02",
           descripcion: "foto de la entrada al campo",
           fecha: "20/08/2022 13:45",
           tipo: "#A",
@@ -105,7 +105,7 @@ const Tareas = () => {
       id: 5,
       contacto: "Adrian Sabo",
       cliente: "Vitalforce",
-      fechaHora: "08-30-2022 09:30",
+      fechaHora: "08/30/2022 09:30",
       estado: 1,
       asunto: "Venta de Maíz",
       prioridad: "MEDIA",
@@ -115,7 +115,7 @@ const Tareas = () => {
       id: 6,
       contacto: "Florencia Caverzasi",
       cliente: "Vitalforce",
-      fechaHora: "08-31-2022 09:30",
+      fechaHora: "08/31/2022 09:30",
       estado: 1,
       asunto: "Venta de Soja",
       prioridad: "MEDIA",
@@ -125,7 +125,7 @@ const Tareas = () => {
       id: 7,
       contacto: "Adrian Sabo",
       cliente: "Vitalforce",
-      fechaHora: "09-01-2022 09:40",
+      fechaHora: "09/01/2022 09:40",
       estado: 1,
       asunto: "Venta de Maíz para temporada 2223",
       prioridad: "MEDIA",
@@ -135,7 +135,7 @@ const Tareas = () => {
       id: 8,
       contacto: "Edgar jazz",
       cliente: "Vitalforce",
-      fechaHora: "09-02-2022 10:00",
+      fechaHora: "09/02/2022 10:00",
       estado: 1,
       asunto: "Llamar para conversar sobre nuevos insumos",
       prioridad: "BAJA",
@@ -145,7 +145,7 @@ const Tareas = () => {
       id: 9,
       contacto: "Adrian Sabo",
       cliente: "Darregueira",
-      fechaHora: "08-17-2022 10:00",
+      fechaHora: "08/17/2022 10:00",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "BAJA",
@@ -155,7 +155,7 @@ const Tareas = () => {
       id: 10,
       contacto: "Horacio Mercol",
       cliente: "Darregueira",
-      fechaHora: "08-17-2022 10:00",
+      fechaHora: "08/17/2022 10:00",
       estado: 1,
       asunto: "Visitar Campo Oeste",
       prioridad: "BAJA",
@@ -165,7 +165,7 @@ const Tareas = () => {
       id: 11,
       contacto: "Jorge Mayorga",
       cliente: "Darregueira",
-      fechaHora: "08-18-2022 10:30",
+      fechaHora: "08/18/2022 10:30",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "BAJA",
@@ -175,7 +175,7 @@ const Tareas = () => {
       id: 12,
       contacto: "Aida Campos",
       cliente: "Darregueira",
-      fechaHora: "08-19-2022 11:00",
+      fechaHora: "08/19/2022 11:00",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -183,15 +183,15 @@ const Tareas = () => {
     },
   ];
 
-  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 1
+  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   let ES = [];
-  let StartES = moment().startOf("isoWeek").format("DD-MM-YYYY")
+  let StartES = moment().startOf("isoWeek").format("DD/MM/YYYY")
 
-  let EndES = moment().endOf("isoWeek").format("DD-MM-YYYY")
+  let EndES = moment().endOf("isoWeek").format("DD/MM/YYYY")
 
   const listaTareasES = () => { ItemListaTarea.map((tarea) => {
-    let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
+    let fecha = moment(tarea.fechaHora).format("DD/MM/YYYY")
 
     if (fecha >= StartES) {
       if (fecha <= EndES) {  
@@ -204,7 +204,7 @@ const Tareas = () => {
 listaTareasES();
 let arrayES = ES;
 ES = [];
-console.log("Lista de tareas ESTA SEMANA: ", arrayES);
+// console.log("Lista de tareas ESTA SEMANA: ", arrayES);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
 
 
@@ -212,12 +212,12 @@ console.log("Lista de tareas ESTA SEMANA: ", arrayES);
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
   let SP = [];
-  let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD-MM-YYYY')
+  let StartSP = moment().add(1, 'weeks').startOf('isoWeek').format('DD/MM/YYYY')
 
-  let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD-MM-YYYY')
+  let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD/MM/YYYY')
 
   const listaTareasSP = () => { ItemListaTarea.map((tarea) => {
-    let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
+    let fecha = moment(tarea.fechaHora).format("DD/MM/YYYY")
 
     if (fecha >= StartSP) {
       if (fecha <= EndSP) {  
@@ -231,16 +231,16 @@ console.log("Lista de tareas ESTA SEMANA: ", arrayES);
 listaTareasSP();
 let arraySP = SP;
 SP = [];
-console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
+// console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
 
 
-  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 3
+  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
 
   let VC = [];
 
   const listaTareasVC = () => { ItemListaTarea.map((tarea) => {
-    let fecha = moment(tarea.fechaHora).format("DD-MM-YYYY")
+    let fecha = moment(tarea.fechaHora).format("DD/MM/YYYY")
 
     if (fecha <= StartES) {
       VC.push(tarea);
@@ -251,7 +251,7 @@ console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
 listaTareasVC();
 let arrayVC = VC;
 VC = [];
-console.log("Lista de tareas VENCIDAS: ", arrayVC);
+// console.log("Lista de tareas VENCIDAS: ", arrayVC);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
 
   return (

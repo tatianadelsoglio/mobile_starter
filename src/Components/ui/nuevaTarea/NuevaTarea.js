@@ -6,78 +6,137 @@ import {
   Input,
   Modal,
   Picker,
+  Selector,
   TextArea,
 } from "antd-mobile";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import "./NuevaTarea.css";
-import { CheckOutline } from 'antd-mobile-icons';
+import { CheckOutline } from "antd-mobile-icons";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
 
+  const [value, setValue] = useState([]);
+
+  const prioridad = [
+    {
+      label: "ALTA",
+      value: "1",
+    },
+    {
+      label: "MEDIA",
+      value: "2",
+    },
+    {
+      label: "BAJA",
+      value: "3",
+    },
+  ];
+
+  const horaPicker = [
+    [
+      { label: '上午', value: 'am' },
+      { label: '下午', value: 'pm' },
+    ],
+  ]
+
   return (
     <>
-        <div>
-          <h3>Nueva Tarea</h3>
-        </div>
-        <div className="form_nuevaTarea">
-          <Form
-            layout="horizontal"
-            mode="card"
-            footer={
-              <Button
-                block
-                type="submit"
-                color="primary"
-                size="large"
-                onClick={() => {
-                  Modal.alert({
-                    header: (
-                      <CheckOutline
-                        style={{
-                          fontSize: 64,
-                          color: 'var(--adm-color-primary)',
-                        }}
-                      />
-                    ),
-                    title: 'Tarea Cargada Correctamente',
-                    confirmText:"Cerrar",
-                  })
-                }}
-              >
-                Cargar Tarea
-              </Button>
-            }
-          >
-            <Form.Item label="Cliente">
-              <Input placeholder="Ingrese Cliente" />
-            </Form.Item>
-            <Form.Item
-              label="Fecha"
+      <div>
+        <h3>Nueva Tarea</h3>
+      </div>
+      <div className="form_nuevaTarea">
+        <Form
+          layout="vertical"          
+          mode="card"
+          footer={
+            <Button
+              block
+              type="submit"
+              color="primary"
+              size="large"
               onClick={() => {
-                setVisible(true);
+                Modal.alert({
+                  header: (
+                    <CheckOutline
+                      style={{
+                        fontSize: 64,
+                        color: "var(--adm-color-primary)",
+                      }}
+                    />
+                  ),
+                  title: "Tarea Cargada Correctamente",
+                  confirmText: "Cerrar",
+                });
               }}
             >
-              <DatePicker
-                visible={visible}
-                onClose={() => {
-                  setVisible(false);
-                }}
-              >
-                {(value) =>
-                  value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
-                }
-              </DatePicker>
-            </Form.Item>
-            <Form.Item
-              label="Tarea"
-              style={{ borderBottom: "1px solid #f4f4f4" }}
+              Cargar Tarea
+            </Button>
+          }
+        >
+          <p style={{display:"flex", justifyContent:"flex-start", margin:"10px 15px"}}>Cliente</p>
+          <Form.Item>
+            <Input placeholder="Ingrese Cliente" />
+          </Form.Item>
+          <p style={{display:"flex", justifyContent:"flex-start", margin:"10px 15px"}}>Asunto</p>
+          <Form.Item
+      
+            style={{ borderBottom: "1px solid #f4f4f4" }}
+          >
+            <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+          </Form.Item>
+          <Form.Item label="Tipo de tarea">
+            <Input placeholder="Ingrese Cliente" />
+          </Form.Item>
+          <Form.Item label="Fuente">
+            <Input placeholder="Ingrese Cliente" />
+          </Form.Item>
+          <Form.Item
+            label="Fecha"
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            <DatePicker
+              visible={visible}
+              onClose={() => {
+                setVisible(false);
+              }}
             >
-              <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
-            </Form.Item>
-          </Form>
-        </div>
+              {(value) =>
+                value ? dayjs(value).format("YYYY-MM-DD") : "Seleccione Fecha"
+              }
+            </DatePicker>
+          </Form.Item>
+          <Form.Item
+            label="Hora"
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            <p>Hora</p>
+
+          </Form.Item>
+          <Form.Item label="Nota" style={{ borderBottom: "1px solid #f4f4f4" }}>
+            <TextArea rows={5} placeholder="Detalle de Tarea"></TextArea>
+          </Form.Item>
+          <Form.Item label="Prioridad">
+            <Selector
+              style={{
+                "--border-radius": "100px",
+                "--border": "solid transparent 1px",
+                "--checked-border": "solid var(--adm-color-primary) 1px",
+                "--padding": "8px 10px",
+                fontSize: "16px",
+              }}
+              showCheckMark={false}
+              label="Prioridad"
+              options={prioridad}
+            />
+          </Form.Item>
+        </Form>
+      </div>
     </>
   );
 };

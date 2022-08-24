@@ -63,33 +63,6 @@ const ListaTarea = ({ItemListaTarea}) => {
   };
 
 
-  //*Handles para separar las fechasHoras en fecha y hora como viene de base de datos con moment.js
-
-  let ultimaFecha = "";
-
-  const handleFecha = (val) => {
-    let fecha = moment(val).format("DD-MM-YYYY");
-
-    if (fecha !== ultimaFecha) {
-      ultimaFecha = fecha;
-
-      return ultimaFecha;
-    } else {
-      ultimaFecha = "";
-      return ultimaFecha;
-    }
-  };
-
-  const handleFechaVer = (val) => {
-    let fecha = moment(val).format("DD-MM-YYYY");
-    return fecha;
-  };
-
-  const handleHora = (val) => {
-    let hora = moment(val).format("LT");
-    return hora;
-  };
-
   return (
     <>
       <div className="div_lista_tareas">
@@ -140,29 +113,6 @@ const ListaTarea = ({ItemListaTarea}) => {
               />
             ))}
           </Steps>
-
-          <div style={{ height: "40px" }}></div>
-          <div>
-            <FloatingBubble
-              style={{
-                "--initial-position-bottom": "60px",
-                "--initial-position-right": "24px",
-                "--edge-distance": "24px",
-              }}
-            >
-              <AddOutline
-                fontSize={32}
-                onClick={() =>
-                  Modal.confirm({
-                    title: "¿Crear una nueva tarea?",
-                    cancelText: "Cancelar",
-                    confirmText: "Crear",
-                    onConfirm: handleModalCrearTarea,
-                  })
-                }
-              />
-            </FloatingBubble>
-          </div>
         </div>
       </div>
     </>
