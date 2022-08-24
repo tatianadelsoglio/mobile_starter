@@ -5,17 +5,12 @@
   align-items: center;
 }
 
-.detalle-tarea-label {
-  padding: 4px auto;
-  margin: 4px;
+.detalle-tarea-contenedor .adm-form-item-label {
+  color: #00b33c;
+  text-align: left;
 }
 
-.adm-form-item-label {
-    color: #00b33c;
-    text-align: left;
-}
-
-.adm-form {
+.detalle-tarea-contenedor .adm-form {
   width: 100%;
 }
 
@@ -49,10 +44,10 @@
 }
 
 .seleccionado {
-    opacity: 1;
+  opacity: 1;
 }
 
 .detalle-tarea-contenedor .adm-form .adm-form-footer {
-    padding: 10px 12px;
-    background-color: white;
+  padding: 10px 12px;
+  background-color: white;
 }

@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
+
 import {
   Form,
   Input,
@@ -69,8 +68,6 @@ const DetalleTarea = () => {
       value: "BAJA",
     },
   ];
-
-  console.log(idSelector);
 
   const handleFechaVer = (val) => {
     let fecha = moment(val).format("DD-MM-YYYY");
