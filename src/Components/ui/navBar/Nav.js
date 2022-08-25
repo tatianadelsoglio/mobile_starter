@@ -60,7 +60,7 @@ const Nav = ({titulo}) => {
 
   return (
     <NavBar className="navBar" right={right} onBack={() => history.goBack()}>
-      Logo
+      {titulo ? titulo : "Logo"}
     </NavBar>
   );
 };

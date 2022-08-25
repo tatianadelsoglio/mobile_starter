@@ -5,7 +5,7 @@ import MainLayout from "../Components/ui/layout/MainLayout";
 const DetalleTareaView = () => {
     return (
         <>
-          <MainLayout>
+          <MainLayout titulo="Editar Tarea">
             <DetalleTarea/>            
           </MainLayout>  
         </>

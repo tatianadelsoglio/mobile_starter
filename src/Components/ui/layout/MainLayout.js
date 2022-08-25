@@ -2,14 +2,14 @@ import Menu from "../menu/Menu";
 import Nav from "../navBar/Nav";
 import "./MainLayout.css";
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, titulo="" }) => {
   return (
     <>
       <div className="vista_home_wrapper">
         <div className="vista_home_content1" />
         <div className="vista_home_content">
           <div className="home_nav">
-            <Nav />
+            <Nav titulo={titulo}/>
           </div>
           <div className="home_contenido">
             {children}

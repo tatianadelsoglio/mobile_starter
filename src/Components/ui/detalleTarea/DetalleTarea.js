@@ -4,7 +4,6 @@ import {
   Form,
   Input,
   Button,
-  DatePicker,
   Selector,
   TextArea,
   Modal,
@@ -14,15 +13,24 @@ import React, {  useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
 import dayjs from "dayjs";
+import moment from "moment";
 
 const DetalleTarea = () => {
   const location = useLocation();
 
   const [tarea, setTarea] = useState(location.state[0]);
 
-  const [visible, setVisible] = useState(false);
-
   const [idSelector, setIdSelector] = useState(tarea.prioridad);
+
+  const handleFecha = (fecha) => {
+    fecha = fecha.split(" ",[1]);
+
+    fecha = moment(fecha[0]).format("YYYY-MM-DD");
+    
+    console.log(fecha);
+
+    return fecha;
+  }
 
   const prioridad = [
     {
@@ -123,7 +131,7 @@ const DetalleTarea = () => {
                 <input
                   className="input-fechaHora"
                   type="date"
-                  placeholder="Seleccione Fecha"
+                  value={handleFecha(tarea.fechaHora)}
                 />
               </Form.Item>
             </div>
@@ -137,14 +145,6 @@ const DetalleTarea = () => {
               </Form.Item>
             </div>
           </div>
-        <Form.Item
-          onClick={() => {
-            setVisible(true);
-          }}
-          label="Hora"
-        >
-          <p>Hora</p>
-        </Form.Item>
         <Form.Item label="Nota">
           <TextArea
             autoSize={true}
