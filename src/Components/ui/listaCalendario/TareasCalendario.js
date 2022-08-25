@@ -116,27 +116,7 @@ const ListaCalendario = ({ItemListaTarea}) => {
         ))}
 
         <div style={{ height: "40px" }}></div>
-        <div>
-          <FloatingBubble
-            style={{
-              "--initial-position-bottom": "60px",
-              "--initial-position-right": "24px",
-              "--edge-distance": "24px",
-            }}
-          >
-            <AddOutline
-              fontSize={32}
-              onClick={() =>
-                Modal.confirm({
-                  title: "¿Crear una nueva tarea?",
-                  cancelText: "Cancelar",
-                  confirmText: "Crear",
-                  onConfirm: handleModalCrearTarea,
-                })
-              }
-            />
-          </FloatingBubble>
-        </div>
+  
       </div>
     </>
   );

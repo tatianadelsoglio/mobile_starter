@@ -4,7 +4,7 @@ import NuevaTarea from "../Components/ui/nuevaTarea/NuevaTarea";
 const NuevaTareaView = () => {
   return (
     <>
-      <MainLayout>
+      <MainLayout titulo="Nueva Tarea">
         <NuevaTarea />
       </MainLayout>
     </>

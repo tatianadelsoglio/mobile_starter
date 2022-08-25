@@ -42,7 +42,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               className="asunto tarea-negocio-titulo"
               style={{
                 fontWeight: "bold",
-                width: "18rem",
+                width: "90%",
                 fontSize: "16px",
 
               }}

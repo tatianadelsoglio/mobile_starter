@@ -7,6 +7,7 @@ import "./Nav.css";
 import useAuth from "../../../auth/useAuth";
 import { GlobalContext } from "../../context/GlobalContext";
 import { removeDataInStorage } from "../../storage/manageStorage";
+import duo from "../login/logo-crm-prod.svg";
 
 const Nav = ({titulo}) => {
   
@@ -60,7 +61,7 @@ const Nav = ({titulo}) => {
 
   return (
     <NavBar className="navBar" right={right} onBack={() => history.goBack()}>
-      {titulo ? titulo : "Logo"}
+      {titulo ? titulo : <Image src={duo} width={100} height={50} style={{}}/>}
     </NavBar>
   );
 };
