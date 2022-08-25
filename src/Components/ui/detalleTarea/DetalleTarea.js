@@ -1,15 +1,8 @@
 /* eslint-disable array-callback-return */
 
-import {
-  Form,
-  Input,
-  Button,
-  Selector,
-  TextArea,
-  Modal,
-} from "antd-mobile";
+import { Form, Input, Button, Selector, TextArea, Modal } from "antd-mobile";
 import { CheckOutline } from "antd-mobile-icons";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
 import dayjs from "dayjs";
@@ -23,14 +16,18 @@ const DetalleTarea = () => {
   const [idSelector, setIdSelector] = useState(tarea.prioridad);
 
   const handleFecha = (fecha) => {
-    fecha = fecha.split(" ",[1]);
+    fecha = fecha.split(" ");
 
     fecha = moment(fecha[0]).format("YYYY-MM-DD");
-    
-    console.log(fecha);
 
     return fecha;
-  }
+  };
+
+  const handleHora = (hora) => {
+    hora = hora.split(" ");
+
+    return hora[1];
+  };
 
   const prioridad = [
     {
@@ -77,11 +74,19 @@ const DetalleTarea = () => {
     },
   ];
 
+  const [form] = Form.useForm();
+
+  const onFinish = (values) => {
+    console.log(values);
+  };
 
   return (
     <div className="detalle-tarea-contenedor">
       <Form
+        name="tareaForm"
+        form={form}
         layout="vertical"
+        onFinish={onFinish}
         footer={
           <Button
             block
@@ -94,58 +99,79 @@ const DetalleTarea = () => {
                   <CheckOutline
                     style={{
                       fontSize: 64,
-                      color: "var(--adm-color-primary)",
+                      color: "#00b33c",
                     }}
                   />
                 ),
-                title: "Tarea Cargada Correctamente",
+                title: "Tarea editada correctamente",
                 confirmText: "Cerrar",
               });
             }}
           >
-            Cargar Tarea
+            Guardar
           </Button>
         }
       >
-        <Form.Item label="Cliente">
-          <Input defaultValue={tarea.cliente} />
+        <Form.Item label="Cliente"
+        name="cliente">
+          <select className="select_nueva_tarea" required>
+            <option value="1" selected>
+              {tarea.cliente}
+            </option>
+          </select>
         </Form.Item>
-        <Form.Item label="Asunto" >
+        <Form.Item label="Asunto"
+        name="asunto">
           <TextArea autoSize={true} defaultValue={tarea.asunto} />
         </Form.Item>
-        <Form.Item label="Tipo de Tarea">
-          <Input defaultValue={tarea.tipoTarea} />
+        <Form.Item label="Tipo de Tarea"
+        name="tipoTarea">
+          <select className="select_nueva_tarea" required>
+            <option value="1" selected>
+              {tarea.tipoTarea}
+            </option>
+          </select>
         </Form.Item>
-        <Form.Item label="Fuente">
-          <Input defaultValue={tarea.origen} />
+        <Form.Item label="Fuente"
+        name="fuente">
+          <select className="select_nueva_tarea" required>
+            <option value="1" selected>
+              {tarea.origen}
+            </option>
+          </select>
         </Form.Item>
         <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <div>
-              <Form.Item label="Vencimiento">
-                <input
-                  className="input-fechaHora"
-                  type="date"
-                  value={handleFecha(tarea.fechaHora)}
-                />
-              </Form.Item>
-            </div>
-            <div>
-              <Form.Item label="Hora">
-                <input
-                  className="input-fechaHora"
-                  type="time"
-                  placeholder="Seleccione Hora"
-                />
-              </Form.Item>
-            </div>
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <Form.Item label="Vencimiento"
+            name="fecha">
+              <input
+                className="input-fechaHora"
+                type="date"
+                value={handleFecha(tarea.fechaHora)}
+                onChange={(e) => { console.log(e)
+                  // const value = e.target.value;
+                  // form.setFieldsValue({ date: e });
+                }}
+              />
+            </Form.Item>
           </div>
-        <Form.Item label="Nota">
+          <div>
+            <Form.Item label="Hora" name="hora">
+              <input
+                className="input-fechaHora"
+                type="time"
+                value={handleHora(tarea.fechaHora)}
+              />
+            </Form.Item>
+          </div>
+        </div>
+        <Form.Item label="Nota" name="nota">
           <TextArea
             autoSize={true}
             defaultValue={tarea.anexo.map((anexo) => {
@@ -155,7 +181,7 @@ const DetalleTarea = () => {
             })}
           />
         </Form.Item>
-        <Form.Item label="Prioridad">
+        <Form.Item label="Prioridad" name="prioridad">
           <Selector
             style={{
               "--border-radius": "10px",
@@ -169,6 +195,9 @@ const DetalleTarea = () => {
             options={prioridad}
             onChange={(v) => setIdSelector(v[0])}
           />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="submit">Submit</Button>
         </Form.Item>
       </Form>
     </div>
