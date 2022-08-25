@@ -77,8 +77,8 @@ const NuevaTarea = () => {
     <>
       <div className="detalle-tarea-contenedor">
         <Form
-          onFinish={(values) => handleFormSubmit(values)}
-          layout="vertical"          
+          layout="vertical"
+          onFinish={(values) => handleFormSubmit(values)}          
           footer={
             <Button
               block
