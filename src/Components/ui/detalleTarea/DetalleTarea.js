@@ -199,9 +199,6 @@ const DetalleTarea = () => {
             onChange={(v) => setIdSelector(v[0])}
           />
         </Form.Item>
-        <Form.Item>
-          <Button htmlType="submit">Submit</Button>
-        </Form.Item>
       </Form>
     </div>
   );
