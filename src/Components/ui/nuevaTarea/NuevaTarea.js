@@ -69,15 +69,9 @@ const NuevaTarea = () => {
     },
   ];
 
+
   const handleFormSubmit = (values) => {
-    const cliente = values.cliente;
-    const asunto = values.asunto;
-    const tipoTarea = values.tipoTarea;
-    const fuente = values.fuente;
-    const vencimiento = values.vencimiento;
-    const hora = values.hora;
-    const prioridad = values.prioridad;
-    console.log(cliente, asunto, tipoTarea, fuente, vencimiento, hora, prioridad);
+    console.log(values);
   };
 
   return (
@@ -85,7 +79,7 @@ const NuevaTarea = () => {
       <div className="detalle-tarea-contenedor">
         <Form
           onFinish={(values) => handleFormSubmit(values)}
-          layout="vertical"
+          layout="vertical"          
           footer={
             <Button
               block
@@ -116,7 +110,7 @@ const NuevaTarea = () => {
               <option value="" disabled selected hidden>
                 Seleccione un cliente
               </option>
-              <option value="LaGanadera">La Ganadera</option>
+              <option value="La Ganadera">La Ganadera</option>
             </select>
           </Form.Item>
           <Form.Item label="Asunto" name="asunto">
@@ -127,7 +121,7 @@ const NuevaTarea = () => {
               <option value="" disabled selected hidden>
                 Seleccione tipo de tarea
               </option>
-              <option value="1">Visita de Campo</option>
+              <option value="Visita de Campo">Visita de Campo</option>
             </select>
           </Form.Item>
           <Form.Item label="Fuente" name="fuente">
@@ -135,7 +129,7 @@ const NuevaTarea = () => {
               <option value="" disabled selected hidden>
                 Seleccione fuente
               </option>
-              <option value="1">Negocio</option>
+              <option value="Negocio">Negocio</option>
             </select>
           </Form.Item>
           <div
