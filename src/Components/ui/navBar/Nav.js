@@ -9,7 +9,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { removeDataInStorage } from "../../storage/manageStorage";
 import duo from "../login/logo-crm-prod.svg";
 
-const Nav = ({titulo}) => {
+const Nav = ({titulo, modo}) => {
   
 
   let history = useHistory();
@@ -59,11 +59,29 @@ const Nav = ({titulo}) => {
     </div>
   );
 
-  return (
-    <NavBar className="navBar" right={right} onBack={() => history.goBack()}>
-      {titulo ? titulo : <Image src={duo} width={100} height={50} style={{}}/>}
-    </NavBar>
-  );
+  if(modo==="sinBack"){
+
+    return (
+      <NavBar className="navBar" right={right} backArrow={false}>
+        {titulo ? titulo : <Image src={duo} width={100} height={50} style={{}}/>}
+      </NavBar>
+    );
+
+  } else if (modo==="sinOp"){
+    return (
+      <NavBar className="navBar" onBack={() => history.goBack()}>
+        {titulo ? titulo : <Image src={duo} width={100} height={50} style={{}}/>}
+      </NavBar>
+    );
+
+  } else{
+    
+    return (
+      <NavBar className="navBar" right={right} onBack={() => history.goBack()}>
+        {titulo ? titulo : <Image src={duo} width={100} height={50} style={{}}/>}
+      </NavBar>
+    );
+  }
 };
 
 export default Nav;
