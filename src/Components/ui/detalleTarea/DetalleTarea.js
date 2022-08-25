@@ -19,12 +19,15 @@ const DetalleTarea = () => {
     fecha = fecha.split(" ");
 
     fecha = moment(fecha[0]).format("YYYY-MM-DD");
+    console.log(fecha);
 
     return fecha;
   };
 
   const handleHora = (hora) => {
     hora = hora.split(" ");
+
+    console.log(hora[1]);
 
     return hora[1];
   };
@@ -154,10 +157,10 @@ const DetalleTarea = () => {
                 className="input-fechaHora"
                 type="date"
                 value={handleFecha(tarea.fechaHora)}
-                onChange={(e) => { console.log(e)
-                  // const value = e.target.value;
-                  // form.setFieldsValue({ date: e });
-                }}
+                // onChange={(e) => { console.log(e)
+                //   // const value = e.target.value;
+                //   // form.setFieldsValue({ date: e });
+                // }}
               />
             </Form.Item>
           </div>
