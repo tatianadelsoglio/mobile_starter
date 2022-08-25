@@ -100,16 +100,31 @@ const NuevaTarea = () => {
           }
         >
           <Form.Item label="Cliente">
-            <Input placeholder="Ingrese Cliente" />
+            <select className="select_nueva_tarea" required>
+              <option value="" disabled selected hidden>
+                Seleccione un cliente
+              </option>
+              <option value="1">La Ganadera</option>
+            </select>
           </Form.Item>
           <Form.Item label="Asunto">
             <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
           <Form.Item label="Tipo de Tarea">
-          <Input placeholder="Ingrese Tipo Tarea" />
+            <select className="select_nueva_tarea" required>
+              <option value="" disabled selected hidden>
+                Seleccione tipo de tarea
+              </option>
+              <option value="1">Visita de Campo</option>
+            </select>
           </Form.Item>
           <Form.Item label="Fuente">
-          <Input placeholder="Ingrese Tipo Fuente" />
+            <select className="select_nueva_tarea" required>
+              <option value="" disabled selected hidden>
+                Seleccione fuente
+              </option>
+              <option value="1">Negocio</option>
+            </select>
           </Form.Item>
           <div
             style={{
