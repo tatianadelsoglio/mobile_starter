@@ -69,11 +69,6 @@ const NuevaTarea = () => {
     },
   ];
 
-
-  const handleFormSubmit = (values) => {
-    console.log(values);
-  };
-
   return (
     <>
       <div className="detalle-tarea-contenedor">
