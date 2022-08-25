@@ -83,6 +83,21 @@ const DetalleTarea = () => {
     console.log(values);
   };
 
+  const valoresIniciales = {
+    cliente: tarea.cliente,
+    asunto: tarea.asunto,
+    fecha: handleFecha(tarea.fechaHora),
+    hora: handleHora(tarea.fechaHora),
+    nota: tarea.anexo.map((anexo) => {
+      if (anexo.tipo === "#N") {
+        return anexo.texto;
+      }
+    }),
+    tipoTarea: tarea.tipoTarea,
+    fuente: tarea.origen,
+    prioridad: tarea.prioridad,
+  }
+
   return (
     <div className="detalle-tarea-contenedor">
       <Form
@@ -90,6 +105,7 @@ const DetalleTarea = () => {
         form={form}
         layout="vertical"
         onFinish={onFinish}
+        initialValues={valoresIniciales}
         footer={
           <Button
             block
@@ -125,7 +141,7 @@ const DetalleTarea = () => {
         </Form.Item>
         <Form.Item label="Asunto"
         name="asunto">
-          <TextArea autoSize={true} defaultValue={tarea.asunto} />
+          <TextArea autoSize={true} />
         </Form.Item>
         <Form.Item label="Tipo de Tarea"
         name="tipoTarea">
@@ -157,10 +173,6 @@ const DetalleTarea = () => {
                 className="input-fechaHora"
                 type="date"
                 value={handleFecha(tarea.fechaHora)}
-                // onChange={(e) => { console.log(e)
-                //   // const value = e.target.value;
-                //   // form.setFieldsValue({ date: e });
-                // }}
               />
             </Form.Item>
           </div>
@@ -177,11 +189,6 @@ const DetalleTarea = () => {
         <Form.Item label="Nota" name="nota">
           <TextArea
             autoSize={true}
-            defaultValue={tarea.anexo.map((anexo) => {
-              if (anexo.tipo === "#N") {
-                return anexo.texto;
-              }
-            })}
           />
         </Form.Item>
         <Form.Item label="Prioridad" name="prioridad">
