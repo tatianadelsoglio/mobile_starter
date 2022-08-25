@@ -308,7 +308,7 @@ export const NegocioCompleto = () => {
                     return (
                       <Step
                         description={
-                        <p> <span class="detailItem"> Fecha de Cierre: </span> <span class="strikeThrough"> 2022-06-20 </span> <span class="middleDot"> · </span> <span class="modifiedItem" > 2022-06-24 </span> </p>
+                        <p> <span className="detailItem"> Fecha de Cierre: </span> <span className="strikeThrough"> 2022-06-20 </span> <span className="middleDot"> · </span> <span className="modifiedItem" > 2022-06-24 </span> </p>
                         }
                         
                       />
