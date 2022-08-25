@@ -12,3 +12,20 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.prioridad_cliente{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon_cliente{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.p_cliente{
+    margin-top: 3px;
+}
