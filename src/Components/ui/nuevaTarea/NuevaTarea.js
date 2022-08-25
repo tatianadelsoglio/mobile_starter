@@ -69,10 +69,22 @@ const NuevaTarea = () => {
     },
   ];
 
+  const handleFormSubmit = (values) => {
+    const cliente = values.cliente;
+    const asunto = values.asunto;
+    const tipoTarea = values.tipoTarea;
+    const fuente = values.fuente;
+    const vencimiento = values.vencimiento;
+    const hora = values.hora;
+    const prioridad = values.prioridad;
+    console.log(cliente, asunto, tipoTarea, fuente, vencimiento, hora, prioridad);
+  };
+
   return (
     <>
       <div className="detalle-tarea-contenedor">
         <Form
+          onFinish={(values) => handleFormSubmit(values)}
           layout="vertical"
           footer={
             <Button
@@ -99,18 +111,18 @@ const NuevaTarea = () => {
             </Button>
           }
         >
-          <Form.Item label="Cliente">
+          <Form.Item label="Cliente" name="cliente">
             <select className="select_nueva_tarea" required>
               <option value="" disabled selected hidden>
                 Seleccione un cliente
               </option>
-              <option value="1">La Ganadera</option>
+              <option value="LaGanadera">La Ganadera</option>
             </select>
           </Form.Item>
-          <Form.Item label="Asunto">
+          <Form.Item label="Asunto" name="asunto">
             <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
           </Form.Item>
-          <Form.Item label="Tipo de Tarea">
+          <Form.Item label="Tipo de Tarea" name="tipoTarea">
             <select className="select_nueva_tarea" required>
               <option value="" disabled selected hidden>
                 Seleccione tipo de tarea
@@ -118,7 +130,7 @@ const NuevaTarea = () => {
               <option value="1">Visita de Campo</option>
             </select>
           </Form.Item>
-          <Form.Item label="Fuente">
+          <Form.Item label="Fuente" name="fuente">
             <select className="select_nueva_tarea" required>
               <option value="" disabled selected hidden>
                 Seleccione fuente
@@ -134,7 +146,7 @@ const NuevaTarea = () => {
             }}
           >
             <div>
-              <Form.Item label="Vencimiento">
+              <Form.Item label="Vencimiento" name="vencimiento">
                 <input
                   className="input-fechaHora"
                   type="date"
@@ -143,7 +155,7 @@ const NuevaTarea = () => {
               </Form.Item>
             </div>
             <div>
-              <Form.Item label="Hora">
+              <Form.Item label="Hora" name="hora">
                 <input
                   className="input-fechaHora"
                   type="time"
@@ -152,7 +164,7 @@ const NuevaTarea = () => {
               </Form.Item>
             </div>
           </div>
-          <Form.Item label="Prioridad">
+          <Form.Item label="Prioridad" name="prioridad">
             <Selector
               style={{
                 "--border-radius": "10px",
