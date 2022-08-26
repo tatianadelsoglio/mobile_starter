@@ -21,7 +21,7 @@ const Calendario = () => {
       id: 1,
       contacto: "Adrian Sabo",
       cliente: "La Ganadera",
-      fechaHora: "08/22/2022 08:30",
+      fechaHora: "22/08/2022 08:30",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "ALTA",
@@ -32,7 +32,7 @@ const Calendario = () => {
         {
           id: 3,
           texto: "nota numero 1, primera prueba",
-          fecha: "22/08/2022",
+          fecha: "23/08/2022",
           prioridad: "ALTA",
           tipo: "#N",
         },
@@ -40,7 +40,7 @@ const Calendario = () => {
           id: 4,
           nombre: "paisaje-02",
           descripcion: "foto de la entrada al campo",
-          fecha: "20/08/2022 13:45",
+          fecha: "24/08/2022 13:45",
           tipo: "#A",
           peso: "2035 Kb",
         },
@@ -50,7 +50,7 @@ const Calendario = () => {
       id: 2,
       contacto: "Horacio Mercol",
       cliente: "La Ganadera",
-      fechaHora: "08/22/2022 08:40",
+      fechaHora: "24/08/2022 08:40",
       estado: 1,
       asunto: "Visitar Campo Oeste",
       prioridad: "ALTA",
@@ -79,7 +79,7 @@ const Calendario = () => {
       id: 3,
       contacto: "Jorge Mayorga",
       cliente: "La Ganadera",
-      fechaHora: "08/23/2022 10:00",
+      fechaHora: "25/08/2022 10:00",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "MEDIA",
@@ -99,7 +99,7 @@ const Calendario = () => {
       id: 4,
       contacto: "Aida Campos",
       cliente: "La Ganadera",
-      fechaHora: "08/24/2022 11:15",
+      fechaHora: "26/08/2022 11:15",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -119,7 +119,7 @@ const Calendario = () => {
       id: 5,
       contacto: "Adrian Sabo",
       cliente: "Vitalforce",
-      fechaHora: "08/30/2022 09:30",
+      fechaHora: "30/08/2022 09:30",
       estado: 1,
       asunto: "Venta de Maíz",
       prioridad: "MEDIA",
@@ -129,7 +129,7 @@ const Calendario = () => {
       id: 6,
       contacto: "Florencia Caverzasi",
       cliente: "Vitalforce",
-      fechaHora: "08/31/2022 09:30",
+      fechaHora: "31/08/2022 09:30",
       estado: 1,
       asunto: "Venta de Soja",
       prioridad: "MEDIA",
@@ -139,7 +139,7 @@ const Calendario = () => {
       id: 7,
       contacto: "Adrian Sabo",
       cliente: "Vitalforce",
-      fechaHora: "09/01/2022 09:40",
+      fechaHora: "01/09/2022 09:40",
       estado: 1,
       asunto: "Venta de Maíz para temporada 2223",
       prioridad: "MEDIA",
@@ -149,7 +149,7 @@ const Calendario = () => {
       id: 8,
       contacto: "Edgar jazz",
       cliente: "Vitalforce",
-      fechaHora: "09/02/2022 10:00",
+      fechaHora: "02/09/2022 10:00",
       estado: 1,
       asunto: "Llamar para conversar sobre nuevos insumos",
       prioridad: "BAJA",
@@ -159,7 +159,7 @@ const Calendario = () => {
       id: 9,
       contacto: "Adrian Sabo",
       cliente: "Darregueira",
-      fechaHora: "08/17/2022 10:00",
+      fechaHora: "17/08/2022 10:00",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "BAJA",
@@ -169,7 +169,7 @@ const Calendario = () => {
       id: 10,
       contacto: "Horacio Mercol",
       cliente: "Darregueira",
-      fechaHora: "08/17/2022 10:00",
+      fechaHora: "17/08/2022 10:00",
       estado: 1,
       asunto: "Visitar Campo Oeste",
       prioridad: "BAJA",
@@ -179,7 +179,7 @@ const Calendario = () => {
       id: 11,
       contacto: "Jorge Mayorga",
       cliente: "Darregueira",
-      fechaHora: "08/18/2022 10:30",
+      fechaHora: "18/08/2022 10:30",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "BAJA",
@@ -189,7 +189,7 @@ const Calendario = () => {
       id: 12,
       contacto: "Aida Campos",
       cliente: "Darregueira",
-      fechaHora: "08/19/2022 11:00",
+      fechaHora: "16/08/2022 11:00",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -220,7 +220,8 @@ const Calendario = () => {
   listaTareasHOY();
   //! FIN DE METODO PARA FILTRADO POR DIA
 
-  const renderbadge = () => {
+  const renderbadge = (val) => {
+
     <Badge color="#56b43c" content={Badge.dot} />;  
   }
 
@@ -231,7 +232,7 @@ const Calendario = () => {
           <Calendar
             selectionMode="single"
             defaultValue={defaultSingle}
-            renderLabel={renderbadge}
+            renderLabel={(val) => renderbadge(val)}
             onChange={(val) => handleChange(val)}
           />
         </div>

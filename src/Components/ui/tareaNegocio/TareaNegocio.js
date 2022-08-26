@@ -21,13 +21,14 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
   //*Handles para separar las fechasHoras en fecha y hora como viene de base de datos con moment.js
 
   const handleFechaVer = (val) => {
-    let fecha = moment(val).format("DD-MM-YYYY");
+    let fecha = moment(val, "DD/MM/YYYY").format("DD/MM/YYYY");
     return fecha;
   };
 
   const handleHora = (val) => {
-    let hora = moment(val).format("LT");
-    return hora;
+    let horaSola = val.split(" ");
+    horaSola = horaSola[1];
+    return horaSola;
   };
 
   if (origen === "ListaTareas") {

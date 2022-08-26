@@ -10,7 +10,7 @@ const Tareas = () => {
       id: 1,
       contacto: "Adrian Sabo",
       cliente: "La Ganadera",
-      fechaHora: "08/22/2022 08:30",
+      fechaHora: "22/08/2022 08:30",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "ALTA",
@@ -21,7 +21,7 @@ const Tareas = () => {
         {
           id: 3,
           texto: "nota numero 1, primera prueba",
-          fecha: "22/08/2022",
+          fecha: "23/08/2022",
           prioridad: "ALTA",
           tipo: "#N",
         },
@@ -29,7 +29,7 @@ const Tareas = () => {
           id: 4,
           nombre: "paisaje-02",
           descripcion: "foto de la entrada al campo",
-          fecha: "20/08/2022 13:45",
+          fecha: "24/08/2022 13:45",
           tipo: "#A",
           peso: "2035 Kb",
         },
@@ -39,7 +39,7 @@ const Tareas = () => {
       id: 2,
       contacto: "Horacio Mercol",
       cliente: "La Ganadera",
-      fechaHora: "08/22/2022 08:40",
+      fechaHora: "24/08/2022 08:40",
       estado: 1,
       asunto: "Visitar Campo Oeste",
       prioridad: "ALTA",
@@ -68,7 +68,7 @@ const Tareas = () => {
       id: 3,
       contacto: "Jorge Mayorga",
       cliente: "La Ganadera",
-      fechaHora: "08/23/2022 10:00",
+      fechaHora: "25/08/2022 10:00",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "MEDIA",
@@ -88,7 +88,7 @@ const Tareas = () => {
       id: 4,
       contacto: "Aida Campos",
       cliente: "La Ganadera",
-      fechaHora: "08/24/2022 11:15",
+      fechaHora: "26/08/2022 11:15",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -108,7 +108,7 @@ const Tareas = () => {
       id: 5,
       contacto: "Adrian Sabo",
       cliente: "Vitalforce",
-      fechaHora: "08/30/2022 09:30",
+      fechaHora: "30/08/2022 09:30",
       estado: 1,
       asunto: "Venta de Maíz",
       prioridad: "MEDIA",
@@ -118,7 +118,7 @@ const Tareas = () => {
       id: 6,
       contacto: "Florencia Caverzasi",
       cliente: "Vitalforce",
-      fechaHora: "08/31/2022 09:30",
+      fechaHora: "31/08/2022 09:30",
       estado: 1,
       asunto: "Venta de Soja",
       prioridad: "MEDIA",
@@ -128,7 +128,7 @@ const Tareas = () => {
       id: 7,
       contacto: "Adrian Sabo",
       cliente: "Vitalforce",
-      fechaHora: "09/01/2022 09:40",
+      fechaHora: "01/09/2022 09:40",
       estado: 1,
       asunto: "Venta de Maíz para temporada 2223",
       prioridad: "MEDIA",
@@ -138,7 +138,7 @@ const Tareas = () => {
       id: 8,
       contacto: "Edgar jazz",
       cliente: "Vitalforce",
-      fechaHora: "09/02/2022 10:00",
+      fechaHora: "02/09/2022 10:00",
       estado: 1,
       asunto: "Llamar para conversar sobre nuevos insumos",
       prioridad: "BAJA",
@@ -148,7 +148,7 @@ const Tareas = () => {
       id: 9,
       contacto: "Adrian Sabo",
       cliente: "Darregueira",
-      fechaHora: "08/17/2022 10:00",
+      fechaHora: "17/08/2022 10:00",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "BAJA",
@@ -158,7 +158,7 @@ const Tareas = () => {
       id: 10,
       contacto: "Horacio Mercol",
       cliente: "Darregueira",
-      fechaHora: "08/17/2022 10:00",
+      fechaHora: "17/08/2022 10:00",
       estado: 1,
       asunto: "Visitar Campo Oeste",
       prioridad: "BAJA",
@@ -168,7 +168,7 @@ const Tareas = () => {
       id: 11,
       contacto: "Jorge Mayorga",
       cliente: "Darregueira",
-      fechaHora: "08/18/2022 10:30",
+      fechaHora: "18/08/2022 10:30",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "BAJA",
@@ -178,7 +178,7 @@ const Tareas = () => {
       id: 12,
       contacto: "Aida Campos",
       cliente: "Darregueira",
-      fechaHora: "08/19/2022 11:00",
+      fechaHora: "16/08/2022 11:00",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -194,7 +194,12 @@ const Tareas = () => {
   let EndES = moment().endOf("isoWeek").format("DD/MM/YYYY")
 
   const listaTareasES = () => { ItemListaTarea.map((tarea) => {
-    let fecha = moment(tarea.fechaHora).format("DD/MM/YYYY")
+    let fechaSola = tarea.fechaHora.split(" ");
+    fechaSola = fechaSola[0];
+    let fecha = moment(fechaSola, "DD/MM/YYYY");
+
+    StartES = moment(StartES, "DD/MM/YYYY");
+    EndES = moment(EndES, "DD/MM/YYYY");
 
     if (fecha >= StartES) {
       if (fecha <= EndES) {  
@@ -220,7 +225,12 @@ ES = [];
   let EndSP = moment().add(1, 'weeks').endOf('isoWeek').format('DD/MM/YYYY')
 
   const listaTareasSP = () => { ItemListaTarea.map((tarea) => {
-    let fecha = moment(tarea.fechaHora).format("DD/MM/YYYY")
+    let fechaSola = tarea.fechaHora.split(" ");
+    fechaSola = fechaSola[0];
+    let fecha = moment(fechaSola, "DD/MM/YYYY");
+
+    StartSP = moment(StartSP, "DD/MM/YYYY");
+    EndSP = moment(EndSP, "DD/MM/YYYY");
 
     if (fecha >= StartSP) {
       if (fecha <= EndSP) {  
@@ -243,7 +253,11 @@ SP = [];
   let VC = [];
 
   const listaTareasVC = () => { ItemListaTarea.map((tarea) => {
-    let fecha = moment(tarea.fechaHora).format("DD/MM/YYYY")
+    let fechaSola = tarea.fechaHora.split(" ");
+    fechaSola = fechaSola[0];
+    let fecha = moment(fechaSola, "DD/MM/YYYY");
+
+    StartES = moment(StartES, "DD/MM/YYYY");
 
     if (fecha <= StartES) {
       VC.push(tarea);
@@ -258,7 +272,7 @@ VC = [];
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
 
   return (
-    <CapsuleTabs defaultActiveKey="1" onChange={(key) => console.log(key)}>
+    <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Esta Semana" key="1">
 

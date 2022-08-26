@@ -73,6 +73,7 @@ const ListaTarea = ({ItemListaTarea}) => {
                         color: "#2bc4e3",
                         onClick: () => {
                           handleModalDetalleTarea(ItemListaTarea);
+                          console.log(ItemListaTarea);
                         },
                       },
                       {
