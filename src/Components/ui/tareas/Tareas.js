@@ -1,9 +1,13 @@
 import { CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
+import { CalendarOutline } from 'antd-mobile-icons';
 import "./Tareas.css";
+import { useState } from "react";
 
 const Tareas = () => {
+
+  const [fechaSelect, setFechaSelect] = useState(moment());
 
   const ItemListaTarea = [
     {
@@ -186,6 +190,23 @@ const Tareas = () => {
     },
   ];
 
+  const listaTareasHoy = () => { ItemListaTarea.map((tarea) => {
+    let fechaSola = tarea.fechaHora.split(" ");
+    fechaSola = fechaSola[0];
+    let fecha = moment(fechaSola, "DD/MM/YYYY");
+
+    let fechaHoy = moment();
+    fechaHoy = moment(fechaHoy, "DD/MM/YYYY")
+    console.log(fechaHoy);
+
+    if (fecha === fechaHoy) {
+      console.log("true")
+    }  
+    return "Prueba lista tareas"
+  })};
+  listaTareasHoy();
+
+
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   let ES = [];
@@ -271,22 +292,30 @@ VC = [];
 // console.log("Lista de tareas VENCIDAS: ", arrayVC);
 //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
 
+
+
   return (
     <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS ESTA SEMANA */}
-      <CapsuleTabs.Tab title="Esta Semana" key="1">
+      <CapsuleTabs.Tab title="Diario" key="1">
+      <ListaTarea ItemListaTarea={arrayES} />
+      </CapsuleTabs.Tab>
+
+
+      {/* PESTAÑA TAREAS ESTA SEMANA */}
+      <CapsuleTabs.Tab title="Esta Semana" key="2">
 
         <ListaTarea ItemListaTarea={arrayES} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA PROXIMA */}
-      <CapsuleTabs.Tab title="Semana Prox." key="2">
+      <CapsuleTabs.Tab title="Semana Prox." key="3">
 
         <ListaTarea ItemListaTarea={arraySP} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS VENCIDAS */}
-      <CapsuleTabs.Tab title="Vencido" key="3">
+      <CapsuleTabs.Tab title="Vencido" key="4">
 
         <ListaTarea ItemListaTarea={arrayVC} />
       </CapsuleTabs.Tab>

@@ -57,11 +57,7 @@ const ListaTarea = ({ItemListaTarea}) => {
     <>
       <div className="div_lista_tareas">
         <div>
-          <Steps direction="vertical" style={{marginLeft:"8px"}}>
             {ItemListaTarea.map((ItemListaTarea) => (
-              <Step
-                key={ItemListaTarea.id}
-                description={
                   <SwipeAction
                     ref={ref}
                     closeOnAction={false}
@@ -94,16 +90,7 @@ const ListaTarea = ({ItemListaTarea}) => {
                   >
                     <TareaNegocio tarea={ItemListaTarea} origen="ListaTareas"/>
                   </SwipeAction>
-                }
-                icon={
-                  <CalendarOutline
-                    color="#56b43c"
-                    style={{ backgroundColor: "#f4f4f4" }}
-                  />
-                }
-              />
             ))}
-          </Steps>
         </div>
       </div>
     </>

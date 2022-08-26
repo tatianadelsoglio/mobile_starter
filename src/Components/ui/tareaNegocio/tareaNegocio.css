@@ -2,6 +2,8 @@
     width: calc(100% - 9px);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
 }
 
@@ -49,6 +51,7 @@
 
 .tarea-negocio-contacto {
     margin: 0px 5px;
+    text-transform: uppercase;
 }
 
 .tarea-negocio-tipoTarea {
@@ -64,9 +67,9 @@
 }
 
 .tarea-contenedor-horario {
-    background-color: rgb(244, 67, 54);
+    /* background-color: rgb(244, 67, 54); */
     padding: 4px 8px;
-    color: white;
+    color: gray;
     border-radius: 3px;
     box-sizing: border-box;
     display: flex;
@@ -84,11 +87,6 @@
     background-color: #f4f4f4;
 }
 
-.horario{
-    width: 100%;
-    margin-bottom: -3px;
-}
-
 .asunto{
     margin-bottom: -3px;
 }
@@ -97,11 +95,18 @@
     margin-bottom: -3px;
 }
 
-.prioridad-fuente{
+.fuente{
     margin-left: 5px;
-    margin-bottom: 13px;
 }
 
-.fuente{
-    margin-left: 3px;
+.wrapper_lista{
+    /* margin: 1% !important; */
+    width: calc(100% - 5px);
+    
+
+}
+
+.adm-swipe-action-content {
+    margin-left: 4px;
+    margin-top: 5px;
 }

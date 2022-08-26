@@ -35,7 +35,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     return (
       <div className="tarea-negocio-contenedor">
         <div
-          className="tarea-negocio-wrapper"
+          className="tarea-negocio-wrapper wrapper_lista"
           onClick={() => setMostrar(!mostrar)}
         >
           <div className="tarea-negocio-linea-superior">
@@ -68,10 +68,10 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             ) : (
               ""
             )}
-            <div className="tarea-negocio-linea-inferior horario">
+            <div className="tarea-negocio-linea-inferior">
               <div className="tarea-contenedor-horario">
                 <ClockCircleOutline
-                  style={{ color: "white", fontSize: "0.8rem" }}
+                  style={{ color: "green", fontSize: "0.8rem" }}
                 />
                 <p className="texto-tarea-horario">
                   {handleFechaVer(tarea.fechaHora)}
@@ -80,8 +80,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   {handleHora(tarea.fechaHora)} hs
                 </p>
               </div>
-            </div>
-            <div className="tarea-negocio-linea-inferior prioridad-fuente">
               <div>
                 {tarea.prioridad === "ALTA" ? (
                   <div
@@ -141,8 +139,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   </div>
                 ) : null}
               </div>
-              <div>
-                <div className="fuente">
+              <div className="fuente">
                   <p
                     style={{
                       display: "flex",
@@ -162,7 +159,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                     NEGOCIO
                   </p>
                 </div>
-              </div>
+                
             </div>
           </div>
         </div>

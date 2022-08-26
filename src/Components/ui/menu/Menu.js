@@ -26,10 +26,10 @@ const Menu = () => {
       key: "/clientes",
       icon: <UserOutline />,
     },
-    {
-      key: "/calendario",
-      icon: <CalendarOutline />,
-    },
+    // {
+    //   key: "/calendario",
+    //   icon: <CalendarOutline />,
+    // },
     {
       key: "/configuracion",
       icon: <SetOutline />,
