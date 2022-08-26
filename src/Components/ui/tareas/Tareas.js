@@ -1,3 +1,4 @@
+
 import { CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
@@ -315,7 +316,8 @@ const Tareas = () => {
         <ListaTarea ItemListaTarea={arrayHoy} />
         <FloatingBubble className="burbuja-tareas">
           <CalendarOutline
-            style={{ color: "white" fontSize}}
+            style={{ color: "white"}}
+            fontSize="24px"
             onClick={() => {
               Modal.confirm({
                 // content: <Calendario fechaCalendario={setFecha} />,
