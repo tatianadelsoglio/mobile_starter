@@ -1,4 +1,4 @@
-import { CapsuleTabs } from "antd-mobile";
+import { CapsuleTabs, FloatingBubble } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -313,6 +313,9 @@ const Tareas = () => {
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Diario" key="1">
         <ListaTarea ItemListaTarea={arrayHoy} />
+        <FloatingBubble>
+          <CalendarOutline />
+        </FloatingBubble>
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS ESTA SEMANA */}
