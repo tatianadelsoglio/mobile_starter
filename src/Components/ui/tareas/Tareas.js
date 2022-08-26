@@ -1,9 +1,10 @@
-import { CapsuleTabs } from "antd-mobile";
+import { CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CalendarioModal } from "../calendarioModal/CalendarioModal";
 
 const Tareas = () => {
   const [fechaSelect, setFechaSelect] = useState(moment());
@@ -189,32 +190,32 @@ const Tareas = () => {
     },
   ];
 
-    //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
+  //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
-    let hoy = [];
+  let hoy = [];
 
-    const listaTareasHoy = () => {
-      ItemListaTarea.map((tarea) => {
-        let fechaFormato = tarea.fechaHora.split(" ");
-        fechaFormato = fechaFormato[0];
-  
-        let fechaSeleccionada = moment(fechaSelect).format("DD/MM/YYYY");
-  
-        fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
-  
-        if (fechaFormato === fechaSeleccionada) {
-          hoy.push(tarea);
-        } else {
-          return false;
-        }
-      });
-    };
-  
-    listaTareasHoy();
-    let arrayHoy = hoy;
-    hoy = [];
+  const listaTareasHoy = () => {
+    ItemListaTarea.map((tarea) => {
+      let fechaFormato = tarea.fechaHora.split(" ");
+      fechaFormato = fechaFormato[0];
 
-      //! FIN FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
+      let fechaSeleccionada = moment(fechaSelect).format("DD/MM/YYYY");
+
+      fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
+
+      if (fechaFormato === fechaSeleccionada) {
+        hoy.push(tarea);
+      } else {
+        return false;
+      }
+    });
+  };
+
+  listaTareasHoy();
+  let arrayHoy = hoy;
+  hoy = [];
+
+  //! FIN FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
 
@@ -306,11 +307,49 @@ const Tareas = () => {
   // console.log("Lista de tareas VENCIDAS: ", arrayVC);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
+  let today = moment().format("DD/MM/YYYY");
+
+  const [fecha, setFecha] = useState(today);
+  const [fechaConfirmada, setFechaConfirmada] = useState(today);
+  const [track, setTrack] = useState('comienzo')
+
+  const fechaHandler = async() => {
+    setTrack('comienzo')
+    setTimeout(() => {
+      setTrack('terminado');
+    }, 1000)
+  }
+  
+  useEffect(() => {
+    if(track === 'terminado'){
+      setFechaConfirmada(fecha);
+    }
+  }, [track])
+
   return (
     <CapsuleTabs defaultActiveKey="1">
-      {/* PESTAÑA TAREAS ESTA SEMANA */}
+      {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title="Diario" key="1">
         <ListaTarea ItemListaTarea={arrayHoy} />
+
+          <FloatingBubble
+            style={{
+              "--initial-position-bottom": "70px",
+              "--initial-position-right": "24px",
+              "--edge-distance": "24px",
+            }}
+            onClick={() => {
+              Modal.confirm({
+                content: <CalendarioModal fechaCalendario={setFecha} />,
+                confirmText: "Confirmar",
+                cancelText: "Cancelar",
+                closeOnMaskClick: true,
+                onConfirm: fechaHandler,
+              });
+            }}
+          >
+            <CalendarOutline fontSize={25} />
+          </FloatingBubble>
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS ESTA SEMANA */}
