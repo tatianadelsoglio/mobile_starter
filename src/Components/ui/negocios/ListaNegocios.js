@@ -15,6 +15,7 @@ export const ListaNegocios = () => {
 
   const dateHandler = (fecha) => {
     let fechaParametro = moment(fecha, "DD/MM/YYYY");
+    console.log(fechaParametro);
 
     if (fechaParametro <= fechaActual) {
       return true;
