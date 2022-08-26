@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
