@@ -189,6 +189,8 @@ const Tareas = () => {
     },
   ];
 
+    //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
+
   let HOY = [];
   let fechaHoy = moment().format("DD/MM/YYYY");
 
@@ -198,19 +200,23 @@ const Tareas = () => {
       let fechaSola = tarea.fechaHora.split(" ");
       fechaSola = fechaSola[0];
       let fecha = moment(fechaSola, "DD/MM/YYYY");
-      
+
       fechaHoy = moment(fechaHoy, "DD/MM/YYYY");
+
 
       if (fecha === fechaHoy) {
         console.log(fecha)
         HOY.push(tarea);
       }
+
       return "Prueba lista tareas";
     });
   };
   listaTareasHoy();
   let arrayHOY = HOY;
   HOY = [];
+
+      //! FIN FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
 
