@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { CalendarioModal } from "../calendarioModal/CalendarioModal";
 
 const Tareas = () => {
-  const [fechaSelect, setFechaSelect] = useState(moment());
+  const [fechaSelect, setFechaSelect] = useState(moment().format("DD/MM/YYYY"));
 
   const ItemListaTarea = [
     {
@@ -194,12 +194,31 @@ const Tareas = () => {
 
   let hoy = [];
 
+  let today = moment().format("DD/MM/YYYY");
+
+  const [fecha, setFecha] = useState(today);
+  const [fechaConfirmada, setFechaConfirmada] = useState(fecha);
+  const [track, setTrack] = useState('comienzo')
+
+  const fechaHandler = async() => {
+    setTrack('comienzo')
+    setTimeout(() => {
+      setTrack('terminado');
+    }, 500)
+  }
+  
+  useEffect(() => {
+    if(track === 'terminado'){
+      setFechaConfirmada(fechaSelect);
+    }
+  }, [track])
+
   const listaTareasHoy = () => {
     ItemListaTarea.map((tarea) => {
       let fechaFormato = tarea.fechaHora.split(" ");
       fechaFormato = fechaFormato[0];
 
-      let fechaSeleccionada = moment(fechaSelect).format("DD/MM/YYYY");
+      let fechaSeleccionada = fechaConfirmada;
 
       fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
 
@@ -307,49 +326,29 @@ const Tareas = () => {
   // console.log("Lista de tareas VENCIDAS: ", arrayVC);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
-  let today = moment().format("DD/MM/YYYY");
-
-  const [fecha, setFecha] = useState(today);
-  const [fechaConfirmada, setFechaConfirmada] = useState(today);
-  const [track, setTrack] = useState('comienzo')
-
-  const fechaHandler = async() => {
-    setTrack('comienzo')
-    setTimeout(() => {
-      setTrack('terminado');
-    }, 1000)
-  }
-  
-  useEffect(() => {
-    if(track === 'terminado'){
-      setFechaConfirmada(fecha);
-    }
-  }, [track])
-
   return (
     <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title="Diario" key="1">
         <ListaTarea ItemListaTarea={arrayHoy} />
-
-          <FloatingBubble
-            style={{
-              "--initial-position-bottom": "70px",
-              "--initial-position-right": "24px",
-              "--edge-distance": "24px",
-            }}
-            onClick={() => {
-              Modal.confirm({
-                content: <CalendarioModal fechaCalendario={setFecha} />,
-                confirmText: "Confirmar",
-                cancelText: "Cancelar",
-                closeOnMaskClick: true,
-                onConfirm: fechaHandler,
-              });
-            }}
-          >
-            <CalendarOutline fontSize={25} />
-          </FloatingBubble>
+        <FloatingBubble
+          style={{
+            "--initial-position-bottom": "70px",
+            "--initial-position-right": "24px",
+            "--edge-distance": "24px",
+          }}
+          onClick={() => {
+            Modal.confirm({
+              content: <CalendarioModal fechaCalendario={setFechaSelect} />,
+              confirmText: "Confirmar",
+              cancelText: "Cancelar",
+              closeOnMaskClick: true,
+              onConfirm: fechaHandler,
+            });
+          }}
+        >
+          <CalendarOutline fontSize={24} />
+        </FloatingBubble>
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS ESTA SEMANA */}
