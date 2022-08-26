@@ -191,30 +191,28 @@ const Tareas = () => {
 
     //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
-  let HOY = [];
-  let fechaHoy = moment().format("DD/MM/YYYY");
+    let hoy = [];
 
-  const listaTareasHoy = () => {
-    ItemListaTarea.map((tarea) => {
-
-      let fechaSola = tarea.fechaHora.split(" ");
-      fechaSola = fechaSola[0];
-      let fecha = moment(fechaSola, "DD/MM/YYYY");
-
-      fechaHoy = moment(fechaHoy, "DD/MM/YYYY");
-
-
-      if (fecha === fechaHoy) {
-        console.log(fecha)
-        HOY.push(tarea);
-      }
-
-      return "Prueba lista tareas";
-    });
-  };
-  listaTareasHoy();
-  let arrayHOY = HOY;
-  HOY = [];
+    const listaTareasHoy = () => {
+      ItemListaTarea.map((tarea) => {
+        let fechaFormato = tarea.fechaHora.split(" ");
+        fechaFormato = fechaFormato[0];
+  
+        let fechaSeleccionada = moment(fechaSelect).format("DD/MM/YYYY");
+  
+        fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
+  
+        if (fechaFormato === fechaSeleccionada) {
+          hoy.push(tarea);
+        } else {
+          return false;
+        }
+      });
+    };
+  
+    listaTareasHoy();
+    let arrayHoy = hoy;
+    hoy = [];
 
       //! FIN FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -312,7 +310,7 @@ const Tareas = () => {
     <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Diario" key="1">
-        <ListaTarea ItemListaTarea={arrayHOY} />
+        <ListaTarea ItemListaTarea={arrayHoy} />
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS ESTA SEMANA */}
