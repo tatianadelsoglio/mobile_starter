@@ -1,4 +1,4 @@
-import { CapsuleTabs, FloatingBubble } from "antd-mobile";
+import { CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -313,8 +313,19 @@ const Tareas = () => {
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Diario" key="1">
         <ListaTarea ItemListaTarea={arrayHoy} />
-        <FloatingBubble>
-          <CalendarOutline />
+        <FloatingBubble className="burbuja-tareas">
+          <CalendarOutline
+            style={{ color: "white" fontSize}}
+            onClick={() => {
+              Modal.confirm({
+                // content: <Calendario fechaCalendario={setFecha} />,
+                confirmText: "Confirmar",
+                cancelText: "Cancelar",
+                closeOnMaskClick: true,
+                // onConfirm: fechaHandler,
+              });
+            }}
+          />
         </FloatingBubble>
       </CapsuleTabs.Tab>
 
