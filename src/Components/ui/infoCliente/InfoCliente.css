@@ -9,12 +9,14 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 10px;
+    
 }
 
 .p_infoEmpresa{
     font-size: 20px;
     font-weight: bold;
     color: #56b43c;
+    text-align: center;
 }
 
 .p_infoContacto{
@@ -22,6 +24,7 @@
     font-weight: bold;
     color: #56b43c;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 .border{

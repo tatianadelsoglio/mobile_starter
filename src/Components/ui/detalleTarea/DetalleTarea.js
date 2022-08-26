@@ -85,7 +85,7 @@ const DetalleTarea = () => {
     asunto: tarea.asunto,
     fecha: handleFecha(tarea.fechaHora),
     hora: handleHora(tarea.fechaHora),
-    nota: tarea.anexo.map((anexo) => {
+    nota: tarea.anexo?.map((anexo) => {
       if (anexo.tipo === "#N") {
         return anexo.texto;
       }

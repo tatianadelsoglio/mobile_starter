@@ -45,7 +45,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 fontWeight: "bold",
                 width: "90%",
                 fontSize: "16px",
-
               }}
               direction="end"
               content={tarea.asunto}
@@ -54,7 +53,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
           <div className="tarea-negocio-linea-inferior cliente-tipo">
             {tarea.contacto ? (
               <div className="tarea-negocio-item">
-                <ShopbagOutline style={{ color: "#00B33C" }} />{" "}
+                <ShopbagOutline
+                  style={{ color: "#00B33C"}}
+                />
                 <p className="tarea-negocio-contacto">{tarea.cliente}</p>
               </div>
             ) : (
@@ -62,16 +63,20 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             )}
             {tarea.tipoTarea ? (
               <div className="tarea-negocio-item">
-                <InformationCircleOutline style={{ color: "#00B33C" }} />{" "}
+                <InformationCircleOutline style={{ color: "#00B33C"}} />
                 <p className="tarea-negocio-tipoTarea">{tarea.tipoTarea}</p>
               </div>
             ) : (
               ""
             )}
             <div className="tarea-negocio-linea-inferior">
-              <div className="tarea-contenedor-horario">
+              <div className="tarea-contenedor-horario prioridad-fuente">
                 <ClockCircleOutline
-                  style={{ color: "green", fontSize: "0.8rem" }}
+                  style={{
+                    color: "green",
+                    fontSize: "0.8rem",
+                    marginBottom: "3px",
+                  }}
                 />
                 <p className="texto-tarea-horario">
                   {handleFechaVer(tarea.fechaHora)}
@@ -80,7 +85,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   {handleHora(tarea.fechaHora)} hs
                 </p>
               </div>
-              <div>
+              <div className="tarea-contenedor-horario prioridad-fuente">
                 {tarea.prioridad === "ALTA" ? (
                   <div
                     style={{
@@ -140,26 +145,25 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 ) : null}
               </div>
               <div className="fuente">
-                  <p
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      border: "solid 1px #f4f4f4",
-                      height: "20px",
-                      width: "auto",
-                      fontSize: "12px",
-                      color: "#7cb305",
-                      borderColor: "#eaff8f",
-                      backgroundColor: "#fcffe6",
-                      padding: "2px 5px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    NEGOCIO
-                  </p>
-                </div>
-                
+                <p
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    border: "solid 1px #f4f4f4",
+                    height: "22px",
+                    width: "auto",
+                    fontSize: "12px",
+                    color: "#7cb305",
+                    borderColor: "#eaff8f",
+                    backgroundColor: "#fcffe6",
+                    padding: "2px 5px",
+                    borderRadius: "4px",
+                  }}
+                >
+                  NEGOCIO
+                </p>
+              </div>
             </div>
           </div>
         </div>

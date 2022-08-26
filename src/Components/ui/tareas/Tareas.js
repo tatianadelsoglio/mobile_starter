@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
+import { Calendar, CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -201,20 +201,20 @@ const Tareas = () => {
 
   const [fecha, setFecha] = useState(today);
   const [fechaConfirmada, setFechaConfirmada] = useState(fecha);
-  const [track, setTrack] = useState('comienzo')
+  const [track, setTrack] = useState("comienzo");
 
-  const fechaHandler = async() => {
-    setTrack('comienzo')
+  const fechaHandler = async () => {
+    setTrack("comienzo");
     setTimeout(() => {
-      setTrack('terminado');
-    }, 500)
-  }
-  
+      setTrack("terminado");
+    }, 500);
+  };
+
   useEffect(() => {
-    if(track === 'terminado'){
+    if (track === "terminado") {
       setFechaConfirmada(fechaSelect);
     }
-  }, [track])
+  }, [track]);
 
   const listaTareasHoy = () => {
     ItemListaTarea.map((tarea) => {
@@ -332,9 +332,17 @@ const Tareas = () => {
   return (
     <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS HOY */}
-      <CapsuleTabs.Tab title="Diario" key="1">
+      <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
+        <div>
+          <Calendar
+            selectionMode="range"
+            // defaultValue={defaultSingle}
+            // renderLabel={(val) => renderbadge(val)}
+            // onChange={(val) => handleChange(val)}
+          />
+        </div>
         <ListaTarea ItemListaTarea={arrayHoy} />
-        <FloatingBubble
+        {/* <FloatingBubble
           style={{
             "--initial-position-bottom": "70px",
             "--initial-position-right": "24px",
@@ -351,11 +359,11 @@ const Tareas = () => {
           }}
         >
           <CalendarOutline fontSize={24} />
-        </FloatingBubble>
+        </FloatingBubble> */}
       </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS ESTA SEMANA */}
-      <CapsuleTabs.Tab title="Esta Semana" key="2">
+      {/* PESTAÑA TAREAS SEMANA */}
+      <CapsuleTabs.Tab title="Semana" key="2">
         <ListaTarea ItemListaTarea={arrayES} />
       </CapsuleTabs.Tab>
 
