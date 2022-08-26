@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Calendar, Collapse } from "antd-mobile";
+import { Badge, Calendar, Collapse } from "antd-mobile";
 import React, { useContext, useState } from "react";
 import ListaCalendario from "../listaCalendario/TareasCalendario";
 import "./Calendario.css";
@@ -7,19 +7,12 @@ import moment from "moment";
 import "moment/locale/es";
 import TareasCalendario from "../listaCalendario/TareasCalendario";
 import { GlobalContext } from "../../context/GlobalContext";
+import dayjs from "dayjs";
 
 const defaultSingle = new Date();
 
 const Calendario = () => {
   const { fecha, setFecha } = useContext(GlobalContext);
-
-  const handleChange = (val) => {
-    let fechaSelec = moment(val).format("DD-MM-YYYY");
-    setFecha(fechaSelec);
-    listaTareasHOY();
-  };
-
-  console.log(fecha);
 
   //let titulo = `Lista de tareas del ${fecha}`;
 
@@ -204,6 +197,11 @@ const Calendario = () => {
     },
   ];
 
+  const handleChange = (val) => {
+    let fechaSelec = moment(val).format("DD-MM-YYYY");
+    setFecha(fechaSelec);
+  };
+
   //! FILTRO POR DIA DE TAREAS - INICIO DEL METODO
 
   let arrayHOY = [];
@@ -222,6 +220,10 @@ const Calendario = () => {
   listaTareasHOY();
   //! FIN DE METODO PARA FILTRADO POR DIA
 
+  const renderbadge = () => {
+    <Badge color="#56b43c" content={Badge.dot} />;  
+  }
+
   return (
     <>
       <div className="div_content_calendario">
@@ -229,6 +231,7 @@ const Calendario = () => {
           <Calendar
             selectionMode="single"
             defaultValue={defaultSingle}
+            renderLabel={renderbadge}
             onChange={(val) => handleChange(val)}
           />
         </div>
