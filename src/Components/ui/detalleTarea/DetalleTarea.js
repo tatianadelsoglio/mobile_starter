@@ -1,17 +1,16 @@
 /* eslint-disable array-callback-return */
 
-import { Form, Input, Button, Selector, TextArea, Modal } from "antd-mobile";
+import { Form, Button, Selector, TextArea, Modal } from "antd-mobile";
 import { CheckOutline } from "antd-mobile-icons";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
-import dayjs from "dayjs";
 import moment from "moment";
 
 const DetalleTarea = () => {
   const location = useLocation();
 
-  const [tarea, setTarea] = useState(location.state[0]);
+  const [tarea, setTarea] = useState(location.state);
 
   const [idSelector, setIdSelector] = useState(tarea.prioridad);
 

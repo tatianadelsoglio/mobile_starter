@@ -31,6 +31,7 @@ const clientes = [
 ];
 
 const Clientes = () => {
+
   let history = useHistory();
 
   const redirecInfo = (id) => {

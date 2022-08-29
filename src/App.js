@@ -17,7 +17,8 @@ const App = () => {
   const [userData, setUserData] = useState({});
   const [logoutAlert, setLogoutAlert] = useState(false);
   const [infoUser, setInfoUser] = useState({});
-  const [tareaSeleccionada, setTareaSeleccionada] = useState({})
+  const [tareaSeleccionada, setTareaSeleccionada] = useState({});
+  const [listaTareas, setListaTareas] = useState({});
 
 
   return (
@@ -34,6 +35,8 @@ const App = () => {
               setInfoUser,
               tareaSeleccionada,
               setTareaSeleccionada,
+              listaTareas,
+              setListaTareas,
             }}
           >
             <AppRouter />

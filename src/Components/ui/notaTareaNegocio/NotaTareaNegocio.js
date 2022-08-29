@@ -1,6 +1,6 @@
 import "./notaTareaNegocio.css";
 
-export const NotaTareaNegocio = ({ nota, interno=false, display=true }) => {
+export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true }) => {
   const colorPrioridad = (prioridad) => {
     let color = "";
 
@@ -20,7 +20,7 @@ export const NotaTareaNegocio = ({ nota, interno=false, display=true }) => {
 
   if(display===true) {
     return (
-      <div className={interno ? "nota-tarea-wrapper-interno" : "nota-tarea-wrapper"} >
+      <div className={origen ? "nota-tarea-wrapper-lista-negocio" : interno ? "nota-tarea-wrapper-interno" : "nota-tarea-wrapper"} >
         <div className="nota-tarea-linea-superior">
           <p className="nota-tarea-fecha">{nota.fecha}</p>
           <div

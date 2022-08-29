@@ -4,8 +4,14 @@ import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
+import dayjs from "dayjs";
+
 const Tareas = () => {
+
+  const { listaTareas, setListaTareas } = useContext(GlobalContext);
+
   const ItemListaTarea = [
     {
       id: 1,
@@ -197,6 +203,11 @@ const Tareas = () => {
     },
   ];
 
+  useEffect(() => {
+    setListaTareas(ItemListaTarea);
+  }, [])
+  
+
   let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
 
@@ -367,7 +378,7 @@ const Tareas = () => {
         </CapsuleTabs.Tab>
 
         {/* PESTAÑA TAREAS ESTA SEMANA */}
-        <CapsuleTabs.Tab title="Esta Semana" key="2">
+        <CapsuleTabs.Tab title="Semana" key="2">
           <ListaTarea ItemListaTarea={arrayES} />
         </CapsuleTabs.Tab>
 
