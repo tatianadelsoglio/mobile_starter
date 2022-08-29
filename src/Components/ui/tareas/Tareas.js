@@ -1,14 +1,14 @@
-import { CapsuleTabs } from "antd-mobile";
+/* eslint-disable no-unused-vars */
+import { Badge, Calendar, CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useEffect, useState } from "react";
-import { CalendarioModal } from "../calendarioModal/CalendarioModal";
 import { GlobalContext } from "../../context/GlobalContext";
+import dayjs from "dayjs";
 
 const Tareas = () => {
-
   const [fechaSelect, setFechaSelect] = useState(moment());
 
   const ItemListaTarea = [
@@ -192,22 +192,49 @@ const Tareas = () => {
     },
   ];
 
-  const listaTareasHoy = () => { ItemListaTarea.map((tarea) => {
-    let fechaSola = tarea.fechaHora.split(" ");
-    fechaSola = fechaSola[0];
-    let fecha = moment(fechaSola, "DD/MM/YYYY");
+  let today = moment().format("DD/MM/YYYY");
 
-    let fechaHoy = moment();
-    fechaHoy = moment(fechaHoy, "DD/MM/YYYY")
-    console.log(fechaHoy);
+  const [fecha, setFecha] = useState(today);
+  const [fechaConfirmada, setFechaConfirmada] = useState(fecha);
+  const [track, setTrack] = useState("comienzo");
 
-    if (fecha === fechaHoy) {
-      console.log("true")
-    }  
-    return "Prueba lista tareas"
-  })};
+
+  //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
+
+  //*TAB 1 - SECCION CALENDARIO
+
+  const renderbadge = (val) => {
+    <Badge color="#56b43c" content={Badge.dot} />;
+  };
+
+  //*TAB 1 - SECCION CALENDARIO
+
+  //*TAB 1 - SECCION LISTA TAREA
+
+  let hoy = [];
+
+  const listaTareasHoy = () => {
+    ItemListaTarea.map((tarea) => {
+      let fechaFormato = tarea.fechaHora.split(" ");
+      fechaFormato = fechaFormato[0];
+
+      let fechaSeleccionada = fechaConfirmada;
+
+      fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
+
+      if (fechaFormato === fechaSeleccionada) {
+        hoy.push(tarea);
+      } else {
+        return false;
+      }
+    });
+
+    return "Prueba lista tareas";
+  };
+
   listaTareasHoy();
-
+  let arrayHoy = hoy;
+  hoy = [];
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
 
@@ -234,13 +261,11 @@ const Tareas = () => {
     });
   };
 
-listaTareasES();
-let arrayES = ES;
-ES = [];
-// console.log("Lista de tareas ESTA SEMANA: ", arrayES);
-//! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
-
-
+  listaTareasES();
+  let arrayES = ES;
+  ES = [];
+  // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
+  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
 
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
@@ -261,21 +286,20 @@ ES = [];
       StartSP = moment(StartSP, "DD/MM/YYYY");
       EndSP = moment(EndSP, "DD/MM/YYYY");
 
-    if (fecha >= StartSP) {
-      if (fecha <= EndSP) {  
-
-        SP.push(tarea);
+      if (fecha >= StartSP) {
+        if (fecha <= EndSP) {
+          SP.push(tarea);
+        }
       }
-    }  
-    return "Prueba lista tareas"
-  })};
+      return "Prueba lista tareas";
+    });
+  };
 
-listaTareasSP();
-let arraySP = SP;
-SP = [];
-// console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
-//! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
-
+  listaTareasSP();
+  let arraySP = SP;
+  SP = [];
+  // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
+  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
 
@@ -287,7 +311,7 @@ SP = [];
       fechaSola = fechaSola[0];
       let fecha = moment(fechaSola, "DD/MM/YYYY");
 
-    StartES = moment(StartES, "DD/MM/YYYY");
+      StartES = moment(StartES, "DD/MM/YYYY");
 
       if (fecha <= StartES) {
         VC.push(tarea);
@@ -300,41 +324,52 @@ SP = [];
   let arrayVC = VC;
   VC = [];
   // console.log("Lista de tareas VENCIDAS: ", arrayVC);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
+  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
   return (
-    <CapsuleTabs defaultActiveKey="1">
-      {/* PESTAÑA TAREAS ESTA SEMANA */}
-      <CapsuleTabs.Tab title="Diario" key="1">
-        <ListaTarea ItemListaTarea={arrayHoy} />
-        <FloatingBubble
-          style={{
-            "--initial-position-bottom": "70px",
-            "--initial-position-right": "24px",
-            "--edge-distance": "24px",
-          }}
-        >
-          <CalendarOutline fontSize={25} onClick/>
-        </FloatingBubble>
-      </CapsuleTabs.Tab>
+    <>
+      <CapsuleTabs defaultActiveKey="1">
+        {/* PESTAÑA TAREAS HOY */}
+        <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
+          <div>
+            <Calendar
+              selectionMode="single"
+              // defaultValue={defaultSingle}
+              // renderLabel={(val) => renderbadge(val)}
+              renderLabel={(date) => {
+                if (dayjs(date).isSame(today, "day")) return "hoy";
+                if (date.getDay() === 0 || date.getDay() === 6) {
+                  return (
+                    <>
+                      <Badge color="#56b43c" content={Badge.dot} />
+                    </>
+                  );
+                }
+              }}
+              // onChange={(val) => handleChange(val)}
+            />
+          </div>
+          <div>
+            <ListaTarea ItemListaTarea={arrayHoy} />
+          </div>
+        </CapsuleTabs.Tab>
 
+        {/* PESTAÑA TAREAS ESTA SEMANA */}
+        <CapsuleTabs.Tab title="Esta Semana" key="2">
+          <ListaTarea ItemListaTarea={arrayES} />
+        </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS ESTA SEMANA */}
-      <CapsuleTabs.Tab title="Esta Semana" key="2">
+        {/* PESTAÑA TAREAS SEMANA PROXIMA */}
+        <CapsuleTabs.Tab title="Semana Prox." key="3">
+          <ListaTarea ItemListaTarea={arraySP} />
+        </CapsuleTabs.Tab>
 
-        <ListaTarea ItemListaTarea={arrayES} />
-      </CapsuleTabs.Tab>
-
-      {/* PESTAÑA TAREAS SEMANA PROXIMA */}
-      <CapsuleTabs.Tab title="Semana Prox." key="3">
-        <ListaTarea ItemListaTarea={arraySP} />
-      </CapsuleTabs.Tab>
-
-      {/* PESTAÑA TAREAS VENCIDAS */}
-      <CapsuleTabs.Tab title="Vencido" key="4">
-        <ListaTarea ItemListaTarea={arrayVC} />
-      </CapsuleTabs.Tab>
-    </CapsuleTabs>
+        {/* PESTAÑA TAREAS VENCIDAS */}
+        <CapsuleTabs.Tab title="Vencido" key="4">
+          <ListaTarea ItemListaTarea={arrayVC} />
+        </CapsuleTabs.Tab>
+      </CapsuleTabs>
+    </>
   );
 };
 
