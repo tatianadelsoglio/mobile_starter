@@ -33,7 +33,12 @@ const InfoCliente = ({ clienteSelect }) => {
         <Card className="card_empresa">
           <div
             className="div_emp"
-            style={{ display: "flex", flexDirection: "column" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
           </div>
@@ -67,7 +72,13 @@ const InfoCliente = ({ clienteSelect }) => {
               {contactos.map((contacto) => (
                 <Card className="border">
                   <Card>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems:"flex-start" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                      }}
+                    >
                       <div>
                         <p className="p_infoContacto">
                           {contacto.nombre_contacto}
