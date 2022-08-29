@@ -228,7 +228,6 @@ const Tareas = () => {
       if (fecha >= StartES) {
         if (fecha <= EndES) {
           ES.push(tarea);
-          console.log(tarea);
         }
       }
       return "Prueba lista tareas";
