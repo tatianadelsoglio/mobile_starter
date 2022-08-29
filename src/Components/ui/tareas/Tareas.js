@@ -193,15 +193,16 @@ const Tareas = () => {
   ];
 
   let today = moment().format("DD/MM/YYYY");
-
   const [fecha, setFecha] = useState(today);
-  const [fechaConfirmada, setFechaConfirmada] = useState(fecha);
-  const [track, setTrack] = useState("comienzo");
-
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   //*TAB 1 - SECCION CALENDARIO
+
+  const handleChange = (val) => {
+    let fechaSelec = moment(val).format("DD/MM/YYYY");
+    setFecha(fechaSelec);
+  };
 
   const renderbadge = (val) => {
     <Badge color="#56b43c" content={Badge.dot} />;
@@ -218,12 +219,11 @@ const Tareas = () => {
       let fechaFormato = tarea.fechaHora.split(" ");
       fechaFormato = fechaFormato[0];
 
-      let fechaSeleccionada = fechaConfirmada;
-
       fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
 
-      if (fechaFormato === fechaSeleccionada) {
+      if (fechaFormato === fecha) {
         hoy.push(tarea);
+        return hoy;
       } else {
         return false;
       }
@@ -255,7 +255,6 @@ const Tareas = () => {
       if (fecha >= StartES) {
         if (fecha <= EndES) {
           ES.push(tarea);
-          console.log(tarea);
         }
       }
       return "Prueba lista tareas";
@@ -336,18 +335,29 @@ const Tareas = () => {
             <Calendar
               selectionMode="single"
               // defaultValue={defaultSingle}
-              // renderLabel={(val) => renderbadge(val)}
               renderLabel={(date) => {
-                if (dayjs(date).isSame(today, "day")) return "hoy";
-                if (date.getDay() === 0 || date.getDay() === 6) {
-                  return (
-                    <>
-                      <Badge color="#56b43c" content={Badge.dot} />
-                    </>
+                let bandera = false;
+
+                ItemListaTarea.map((tarea) => {
+                  let fechaHoySola = tarea.fechaHora.split(" ");
+                  fechaHoySola = fechaHoySola[0];
+                  let fechaHoy = moment(fechaHoySola, "DD/MM/YYYY").format(
+                    "DD/MM/YYYY"
                   );
+                  let fechaCalendario = moment(date).format("DD/MM/YYYY");
+
+                  if (fechaCalendario === fechaHoy) {
+                    return (bandera = true);
+                  }
+                });
+
+                if (bandera === true) {
+                  return(
+                    <Badge color="#56b43c" content={Badge.dot} />
+                  )  
                 }
               }}
-              // onChange={(val) => handleChange(val)}
+              onChange={(val) => handleChange(val)}
             />
           </div>
           <div>
