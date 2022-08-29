@@ -62,8 +62,12 @@
   --color: #56b43c;
 }
 
-/* .burbuja-tareas {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-} */
+.adm-calendar{
+  background-color: white;
+}
+
+.adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected{
+  background-color: white;
+  color:#56b43c;
+  border: solid 1px #56b43c;
+}

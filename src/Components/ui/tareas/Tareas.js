@@ -9,8 +9,6 @@ import { GlobalContext } from "../../context/GlobalContext";
 import dayjs from "dayjs";
 
 const Tareas = () => {
-  const [fechaSelect, setFechaSelect] = useState(moment());
-
   const ItemListaTarea = [
     {
       id: 1,
@@ -190,6 +188,16 @@ const Tareas = () => {
       prioridad: "ALTA",
       tipoTarea: "Visita de campo",
     },
+    {
+      id: 13,
+      contacto: "Aida Campos",
+      cliente: "Darregueira",
+      fechaHora: "05/10/2022 11:00",
+      estado: 1,
+      asunto: "Venta Trigo",
+      prioridad: "ALTA",
+      tipoTarea: "Visita de campo",
+    },
   ];
 
   let today = moment().format("DD/MM/YYYY");
@@ -352,9 +360,9 @@ const Tareas = () => {
                 });
 
                 if (bandera === true) {
-                  return(
-                    <Badge color="#56b43c" content={Badge.dot} />
-                  )  
+                  return (
+                    <p style={{ fontSize: "25px", color: "#56b43c", margin:"0px" }}>•</p>
+                  );
                 }
               }}
               onChange={(val) => handleChange(val)}
