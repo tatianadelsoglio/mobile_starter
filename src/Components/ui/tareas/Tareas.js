@@ -1,13 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { Badge, Calendar, CapsuleTabs } from "antd-mobile";
+import { Calendar, CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
-import { useEffect, useState } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
-import dayjs from "dayjs";
-
+import { useState } from "react";
 const Tareas = () => {
   const ItemListaTarea = [
     {
@@ -210,10 +207,6 @@ const Tareas = () => {
   const handleChange = (val) => {
     let fechaSelec = moment(val).format("DD/MM/YYYY");
     setFecha(fechaSelec);
-  };
-
-  const renderbadge = (val) => {
-    <Badge color="#56b43c" content={Badge.dot} />;
   };
 
   //*TAB 1 - SECCION CALENDARIO
