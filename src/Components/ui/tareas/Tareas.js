@@ -355,7 +355,15 @@ const Tareas = () => {
 
                 if (bandera === true) {
                   return (
-                    <p style={{ fontSize: "25px", color: "#56b43c", margin:"0px" }}>•</p>
+                    <p
+                      style={{
+                        fontSize: "25px",
+                        color: "#56b43c",
+                        margin: "0px",
+                      }}
+                    >
+                      •
+                    </p>
                   );
                 }
               }}
