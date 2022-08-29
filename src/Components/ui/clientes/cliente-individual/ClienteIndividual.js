@@ -1,26 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { CapsuleTabs } from "antd-mobile"
-import { useEffect, useState } from "react";
+import { CapsuleTabs, SwipeAction } from "antd-mobile"
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { GlobalContext } from "../../../context/GlobalContext";
 import InfoCliente from "../../infoCliente/InfoCliente"
 import { ListaNegocios } from "../../negocios/ListaNegocios"
+import { TareaNegocio } from "../../tareaNegocio/TareaNegocio";
 import "./clienteIndividual.css";
 
 
 export const ClienteIndividual = () => {
 
+  const { listaTareas } = useContext(GlobalContext);
+
   const location = useLocation();
 
   const [cliente, setCliente] = useState({});
 
-  useEffect(() => {
+  const [ tareasXCliente, setTareasXCliente ] = useState();
 
+  const tareasHandler = () => {
+    setTareasXCliente(listaTareas.filter(tarea => tarea.cliente === cliente.empresa));
+  }
+
+
+  useEffect(() => {
     const clienteSelect = location.state[0];
-    console.log(clienteSelect);
-    setCliente(clienteSelect)
+
+    setCliente(clienteSelect);
 
   }, []);
 
+  useEffect(() => {
+    tareasHandler();
+
+  }, [cliente]);
+
+  useEffect(() => {
+
+  }, [tareasXCliente]);
 
   return (
     <div className="contenedor-cliente-individual">
@@ -29,7 +47,14 @@ export const ClienteIndividual = () => {
               <InfoCliente clienteSelect={cliente}/>
             </CapsuleTabs.Tab>
             <CapsuleTabs.Tab title="Tareas" key="2">
-              <h1>Lista de tareas filtrada por cliente</h1>
+              {tareasXCliente?.map( tarea => {
+                return(
+                  <SwipeAction >
+                    <TareaNegocio tarea={tarea} origen = "ListaTareas"/>
+
+                  </SwipeAction>
+                )
+              })}
             </CapsuleTabs.Tab>
             <CapsuleTabs.Tab title="Negocios" key="3">
               <ListaNegocios />

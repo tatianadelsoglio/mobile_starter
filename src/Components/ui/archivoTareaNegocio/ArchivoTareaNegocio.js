@@ -2,11 +2,12 @@ import { LinkOutline } from "antd-mobile-icons";
 import moment from "moment";
 import "./archivoTareaNegocio.css";
 
-export const ArchivoTareaNegocio = ({ archivo, interno=false, display=true}) => {
+export const ArchivoTareaNegocio = ({ archivo, origen="", interno=false, display=true}) => {
 
   if(display === true) {
     return (
-      <div className={interno ? "archivo-tarea-wrapper-interno" : "archivo-tarea-wrapper"} >
+      
+      <div className={origen ? "archivo-tarea-wrapper-lista-negocio" : interno ? "archivo-tarea-wrapper-interno" : "archivo-tarea-wrapper"} >
         <div className="archivo-tarea-imagen">
           <img height={"50px"} width={"50px"} alt="#" src="https://cdn-icons-png.flaticon.com/512/136/136524.png" />
         </div>
