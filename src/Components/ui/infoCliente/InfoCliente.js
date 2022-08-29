@@ -30,25 +30,14 @@ const InfoCliente = ({ clienteSelect }) => {
   return (
     <>
       <div className="lista_infoClient">
-        <Card className="card_empresa">
-          <div
-            className="div_emp"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
-          </div>
-        </Card>
-        <div className="div_contacto" style={{ marginTop: "5px" }}>
+        <div className="div_contacto">
           <Card className="card_empresa">
             <div
               className="div_emp"
               style={{ display: "flex", flexDirection: "column" }}
             >
+              <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
+
               <a
                 className="numCel p_info"
                 href={"tel:+54" + clienteSelect.telefono}
@@ -67,7 +56,7 @@ const InfoCliente = ({ clienteSelect }) => {
         </div>
 
         <div className="div_contacto">
-          <Card title="contactos" className="card_contactos">
+          <Card title="CONTACTOS" className="card_contactos">
             <div className="div_contacto_lista">
               {contactos.map((contacto) => (
                 <Card className="border">

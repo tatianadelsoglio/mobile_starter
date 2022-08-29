@@ -1,7 +1,6 @@
 @import "antd-mobile/bundle/css-vars-patch.css";
 
 .lista_infoClient{
-    margin-top: 1em;;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,7 +14,6 @@
 .p_info{
     font-size: 16px;
     margin-top: 10px;
-    
 }
 
 .p_infoEmpresa{
@@ -23,6 +21,8 @@
     font-weight: bold;
     color: #56b43c;
     text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
 .p_infoContacto{
@@ -59,24 +59,3 @@
     font-weight: 600;
     color:rgb(66, 66, 66);
 }
-
-
-/* .div_enlace{
-    border: solid 1px #56b43c;
-    border-radius: 4px;
-    height: 50px;
-    width: 50px;
-    padding: 7px 12px;
-    margin: 0px;
-    position: relative;
-    color: #56b43c;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} */
-
-/* .div_content_enlace{
-    display: flex;
-    flex-direction: row;
-} */
