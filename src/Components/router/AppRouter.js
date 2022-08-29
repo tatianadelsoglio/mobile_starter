@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
-import CalendarioView from "../../views/CalendarioView";
 import ClienteIndividualView from "../../views/ClienteIndividualView";
 import ClientesView from "../../views/ClientesView";
 import ConfiguracionView from "../../views/ConfiguracionView";
@@ -21,8 +20,6 @@ const AppRouter = () => {
         <PublicRoute exact path="/" component={LoginView}/>
 
         <PrivateRoute exact path="/home" component={HomeView}/>
-
-        <PrivateRoute exact path="/calendario" component={CalendarioView}/>
 
         <PrivateRoute exact path="/configuracion" component={ConfiguracionView}/>
 
