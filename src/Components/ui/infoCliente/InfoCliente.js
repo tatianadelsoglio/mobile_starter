@@ -1,11 +1,6 @@
 import { Card } from "antd-mobile";
 import React from "react";
-import {
-  PhonebookOutline,
-  MailOutline,
-  ShopbagOutline,
-  UserOutline,
-} from "antd-mobile-icons";
+import { PhonebookOutline, MailOutline } from "antd-mobile-icons";
 import "./InfoCliente.css";
 
 const InfoCliente = ({ clienteSelect }) => {
@@ -41,13 +36,6 @@ const InfoCliente = ({ clienteSelect }) => {
             style={{ display: "flex", flexDirection: "column" }}
           >
             <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
-
-            {/* <p className="p_info">
-              <PhonebookOutline /> {clienteSelect.telefono}
-            </p>
-            <p className="p_info">
-              <MailOutline /> {clienteSelect.email}
-            </p> */}
           </div>
         </Card>
         <div className="div_contacto" style={{ marginTop: "5px" }}>
@@ -74,58 +62,32 @@ const InfoCliente = ({ clienteSelect }) => {
         </div>
 
         <div className="div_contacto">
-          <Card className="card_contactos">
+          <Card title="contactos" className="card_contactos">
             <div className="div_contacto_lista">
               {contactos.map((contacto) => (
                 <Card className="border">
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <p className="p_infoContacto">{contacto.nombre_contacto}</p>
-                    {/* <div className="div_content_enlace">
-                      <p style={{ display: "inline", marginRight: "10px" }}>
-                        <a
-                          className="numCel"
-                          href={"tel:+54" + contacto.telefono_contacto}
-                        >
-                          <div className="div_enlace">
-                            <PhonebookOutline style={{ fontSize: "3rem" }} />
-                            <p style={{ margin: "0px" }}>Llamar</p>
-                          </div>
-                        </a>
-                      </p>
-                      <p style={{ display: "inline" }}>
-                        <a
-                          className="numCel"
-                          href={"mailto:" + contacto.email_contacto}
-                        >
-                          <div className="div_enlace">
-                            <MailOutline style={{ fontSize: "3rem" }} />
-                            <p style={{ margin: "0px" }}>Enviar</p>
-                          </div>
-                        </a>
-                      </p>
-                    </div> */}
+                  <Card>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems:"flex-start" }}>
+                      <div>
+                        <p className="p_infoContacto">
+                          {contacto.nombre_contacto}
+                        </p>
+                      </div>
+                      <a
+                        className="numCel p_info"
+                        href={"tel:+54" + contacto.telefono_contacto}
+                      >
+                        <PhonebookOutline /> {contacto.telefono_contacto}
+                      </a>
 
-                    <a
-                      className="numCel p_info"
-                      href={"tel:+54" + contacto.telefono_contacto}
-                    >
-                      <PhonebookOutline /> {contacto.telefono_contacto}
-                    </a>
-
-                    <a
-                      className="numCel p_info"
-                      href={"mailto:" + contacto.email_contacto}
-                    >
-                      <MailOutline /> {contacto.email_contacto}
-                    </a>
-
-                    {/* <p className="p_info">
-                      <PhonebookOutline /> {contacto.telefono_contacto}
-                    </p>
-                    <p className="p_info">
-                      <MailOutline /> {contacto.email_contacto}
-                    </p> */}
-                  </div>
+                      <a
+                        className="numCel p_info"
+                        href={"mailto:" + contacto.email_contacto}
+                      >
+                        <MailOutline /> {contacto.email_contacto}
+                      </a>
+                    </div>
+                  </Card>
                 </Card>
               ))}
             </div>
