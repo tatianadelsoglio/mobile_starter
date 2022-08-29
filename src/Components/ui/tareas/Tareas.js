@@ -1,11 +1,14 @@
-import { CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
+import { CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CalendarioModal } from "../calendarioModal/CalendarioModal";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Tareas = () => {
+
   const [fechaSelect, setFechaSelect] = useState(moment());
 
   const ItemListaTarea = [
@@ -13,7 +16,7 @@ const Tareas = () => {
       id: 1,
       contacto: "Adrian Sabo",
       cliente: "La Ganadera",
-      fechaHora: "26/08/2022 08:30",
+      fechaHora: "22/08/2022 08:30",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "ALTA",
@@ -42,7 +45,7 @@ const Tareas = () => {
       id: 2,
       contacto: "Horacio Mercol",
       cliente: "La Ganadera",
-      fechaHora: "24/08/2022 08:40",
+      fechaHora: "05/09/2022 08:40",
       estado: 1,
       asunto: "Visitar Campo Oeste",
       prioridad: "ALTA",
@@ -71,7 +74,7 @@ const Tareas = () => {
       id: 3,
       contacto: "Jorge Mayorga",
       cliente: "La Ganadera",
-      fechaHora: "25/08/2022 10:00",
+      fechaHora: "06/09/2022 10:00",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
       prioridad: "MEDIA",
@@ -91,7 +94,7 @@ const Tareas = () => {
       id: 4,
       contacto: "Aida Campos",
       cliente: "La Ganadera",
-      fechaHora: "26/08/2022 11:15",
+      fechaHora: "29/08/2022 11:15",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -154,7 +157,7 @@ const Tareas = () => {
       fechaHora: "17/08/2022 10:00",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "BAJA",
+      prioridad: "MEDIA",
       tipoTarea: "Visita de campo",
     },
     {
@@ -174,7 +177,7 @@ const Tareas = () => {
       fechaHora: "18/08/2022 10:30",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
-      prioridad: "BAJA",
+      prioridad: "ALTA",
       tipoTarea: "Visita de campo",
     },
     {
@@ -184,41 +187,29 @@ const Tareas = () => {
       fechaHora: "16/08/2022 11:00",
       estado: 1,
       asunto: "Venta Trigo",
-      prioridad: "BAJA",
+      prioridad: "ALTA",
       tipoTarea: "Visita de campo",
     },
   ];
 
-  let hoy = [];
+  const listaTareasHoy = () => { ItemListaTarea.map((tarea) => {
+    let fechaSola = tarea.fechaHora.split(" ");
+    fechaSola = fechaSola[0];
+    let fecha = moment(fechaSola, "DD/MM/YYYY");
 
-  const listaTareasHoy = () => {
-    ItemListaTarea.map((tarea) => {
-      let fechaFormato = tarea.fechaHora.split(" ");
-      fechaFormato = fechaFormato[0];
+    let fechaHoy = moment();
+    fechaHoy = moment(fechaHoy, "DD/MM/YYYY")
+    console.log(fechaHoy);
 
-      let fechaSeleccionada = moment(fechaSelect).format("DD/MM/YYYY");
-
-      fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
-      console.log(
-        "Fecha select: ",
-        fechaSeleccionada,
-        "fechaFormato: ",
-        fechaFormato
-      );
-
-      if (fechaFormato === fechaSeleccionada) {
-        hoy.push(tarea);
-      } else {
-        return false;
-      }
-    });
-  };
-
+    if (fecha === fechaHoy) {
+      console.log("true")
+    }  
+    return "Prueba lista tareas"
+  })};
   listaTareasHoy();
-  let arrayHoy = hoy;
-  hoy = [];
 
-  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 1
+
+  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
 
   let ES = [];
   let StartES = moment().startOf("isoWeek").format("DD/MM/YYYY");
@@ -237,17 +228,20 @@ const Tareas = () => {
       if (fecha >= StartES) {
         if (fecha <= EndES) {
           ES.push(tarea);
+          console.log(tarea);
         }
       }
       return "Prueba lista tareas";
     });
   };
 
-  listaTareasES();
-  let arrayES = ES;
-  ES = [];
-  // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
+listaTareasES();
+let arrayES = ES;
+ES = [];
+// console.log("Lista de tareas ESTA SEMANA: ", arrayES);
+//! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
+
+
 
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
@@ -268,20 +262,21 @@ const Tareas = () => {
       StartSP = moment(StartSP, "DD/MM/YYYY");
       EndSP = moment(EndSP, "DD/MM/YYYY");
 
-      if (fecha >= StartSP) {
-        if (fecha <= EndSP) {
-          SP.push(tarea);
-        }
-      }
-      return "Prueba lista tareas";
-    });
-  };
+    if (fecha >= StartSP) {
+      if (fecha <= EndSP) {  
 
-  listaTareasSP();
-  let arraySP = SP;
-  SP = [];
-  // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
+        SP.push(tarea);
+      }
+    }  
+    return "Prueba lista tareas"
+  })};
+
+listaTareasSP();
+let arraySP = SP;
+SP = [];
+// console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
+//! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
+
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
 
@@ -293,7 +288,7 @@ const Tareas = () => {
       fechaSola = fechaSola[0];
       let fecha = moment(fechaSola, "DD/MM/YYYY");
 
-      StartES = moment(StartES, "DD/MM/YYYY");
+    StartES = moment(StartES, "DD/MM/YYYY");
 
       if (fecha <= StartES) {
         VC.push(tarea);
@@ -324,8 +319,10 @@ const Tareas = () => {
         </FloatingBubble>
       </CapsuleTabs.Tab>
 
+
       {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Esta Semana" key="2">
+
         <ListaTarea ItemListaTarea={arrayES} />
       </CapsuleTabs.Tab>
 

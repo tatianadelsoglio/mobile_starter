@@ -18,16 +18,13 @@ const DetalleTarea = () => {
   const handleFecha = (fecha) => {
     fecha = fecha.split(" ");
 
-    fecha = moment(fecha[0]).format("YYYY-MM-DD");
-    console.log(fecha);
+    fecha = moment(fecha[0], "DD/MM/YYYY").format("YYYY-MM-DD");
 
     return fecha;
   };
 
   const handleHora = (hora) => {
     hora = hora.split(" ");
-
-    console.log(hora[1]);
 
     return hora[1];
   };
@@ -88,7 +85,7 @@ const DetalleTarea = () => {
     asunto: tarea.asunto,
     fecha: handleFecha(tarea.fechaHora),
     hora: handleHora(tarea.fechaHora),
-    nota: tarea.anexo.map((anexo) => {
+    nota: tarea.anexo?.map((anexo) => {
       if (anexo.tipo === "#N") {
         return anexo.texto;
       }
