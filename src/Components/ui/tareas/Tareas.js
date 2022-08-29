@@ -1,32 +1,22 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Badge,
-  Calendar,
-  CapsuleTabs,
-  FloatingBubble,
-  Modal,
-} from "antd-mobile";
+import { Badge, Calendar, CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useEffect, useState } from "react";
-import { CalendarioModal } from "../calendarioModal/CalendarioModal";
 import { GlobalContext } from "../../context/GlobalContext";
 import dayjs from "dayjs";
 
 const Tareas = () => {
-  const [fechaSelect, setFechaSelect] = useState(moment().format("DD/MM/YYYY"));
-  const [fechaSelecCalendar, setFechaCalendar] = useState();
+  const [fechaSelect, setFechaSelect] = useState(moment());
 
   const ItemListaTarea = [
     {
       id: 1,
       contacto: "Adrian Sabo",
       cliente: "La Ganadera",
-      fechaHora: "05/09/2022 08:30",
+      fechaHora: "22/08/2022 08:30",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
       prioridad: "ALTA",
@@ -208,18 +198,6 @@ const Tareas = () => {
   const [fechaConfirmada, setFechaConfirmada] = useState(fecha);
   const [track, setTrack] = useState("comienzo");
 
-  const fechaHandler = async () => {
-    setTrack("comienzo");
-    setTimeout(() => {
-      setTrack("terminado");
-    }, 500);
-  };
-
-  useEffect(() => {
-    if (track === "terminado") {
-      setFechaConfirmada(fechaSelect);
-    }
-  }, [track]);
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -250,15 +228,13 @@ const Tareas = () => {
         return false;
       }
     });
+
+    return "Prueba lista tareas";
   };
 
   listaTareasHoy();
   let arrayHoy = hoy;
   hoy = [];
-
-  //*TAB 1 - SECCION LISTA TAREA
-
-  //! FIN FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
 
@@ -279,6 +255,7 @@ const Tareas = () => {
       if (fecha >= StartES) {
         if (fecha <= EndES) {
           ES.push(tarea);
+          console.log(tarea);
         }
       }
       return "Prueba lista tareas";
@@ -289,9 +266,9 @@ const Tareas = () => {
   let arrayES = ES;
   ES = [];
   // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
+  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
 
-  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 3
+  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
   let SP = [];
   let StartSP = moment()
@@ -323,9 +300,9 @@ const Tareas = () => {
   let arraySP = SP;
   SP = [];
   // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 3
+  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
 
-  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 4
+  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
 
   let VC = [];
 
@@ -351,47 +328,49 @@ const Tareas = () => {
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
   return (
-    <CapsuleTabs defaultActiveKey="1">
-      {/* PESTAÑA TAREAS HOY */}
-      <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
-        <div>
-          <Calendar
-            selectionMode="single"
-            // defaultValue={defaultSingle}
-            // renderLabel={(val) => renderbadge(val)}
-            renderLabel={(date) => {
-              if (dayjs(date).isSame(today, "day")) return "hoy";
-              if (date.getDay() === 0 || date.getDay() === 6) {
-                return (
-                  <>
-                    <Badge color="#56b43c" content={Badge.dot} />
-                  </>
-                );
-              }
-            }}
-            // onChange={(val) => handleChange(val)}
-          />
-        </div>
-        <div>
-          <ListaTarea ItemListaTarea={arrayHoy} />
-        </div>
-      </CapsuleTabs.Tab>
+    <>
+      <CapsuleTabs defaultActiveKey="1">
+        {/* PESTAÑA TAREAS HOY */}
+        <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
+          <div>
+            <Calendar
+              selectionMode="single"
+              // defaultValue={defaultSingle}
+              // renderLabel={(val) => renderbadge(val)}
+              renderLabel={(date) => {
+                if (dayjs(date).isSame(today, "day")) return "hoy";
+                if (date.getDay() === 0 || date.getDay() === 6) {
+                  return (
+                    <>
+                      <Badge color="#56b43c" content={Badge.dot} />
+                    </>
+                  );
+                }
+              }}
+              // onChange={(val) => handleChange(val)}
+            />
+          </div>
+          <div>
+            <ListaTarea ItemListaTarea={arrayHoy} />
+          </div>
+        </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS SEMANA */}
-      <CapsuleTabs.Tab title="Semana" key="2">
-        <ListaTarea ItemListaTarea={arrayES} />
-      </CapsuleTabs.Tab>
+        {/* PESTAÑA TAREAS ESTA SEMANA */}
+        <CapsuleTabs.Tab title="Esta Semana" key="2">
+          <ListaTarea ItemListaTarea={arrayES} />
+        </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS SEMANA PROXIMA */}
-      <CapsuleTabs.Tab title="Semana Prox." key="3">
-        <ListaTarea ItemListaTarea={arraySP} />
-      </CapsuleTabs.Tab>
+        {/* PESTAÑA TAREAS SEMANA PROXIMA */}
+        <CapsuleTabs.Tab title="Semana Prox." key="3">
+          <ListaTarea ItemListaTarea={arraySP} />
+        </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS VENCIDAS */}
-      <CapsuleTabs.Tab title="Vencido" key="4">
-        <ListaTarea ItemListaTarea={arrayVC} />
-      </CapsuleTabs.Tab>
-    </CapsuleTabs>
+        {/* PESTAÑA TAREAS VENCIDAS */}
+        <CapsuleTabs.Tab title="Vencido" key="4">
+          <ListaTarea ItemListaTarea={arrayVC} />
+        </CapsuleTabs.Tab>
+      </CapsuleTabs>
+    </>
   );
 };
 
