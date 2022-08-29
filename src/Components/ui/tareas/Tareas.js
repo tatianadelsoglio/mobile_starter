@@ -1,7 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Calendar, CapsuleTabs, FloatingBubble, Modal } from "antd-mobile";
+import {
+  Badge,
+  Calendar,
+  CapsuleTabs,
+  FloatingBubble,
+  Modal,
+} from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -11,6 +17,7 @@ import { CalendarioModal } from "../calendarioModal/CalendarioModal";
 
 const Tareas = () => {
   const [fechaSelect, setFechaSelect] = useState(moment().format("DD/MM/YYYY"));
+  const [fechaSelecCalendar, setFechaCalendar] = useState();
 
   const ItemListaTarea = [
     {
@@ -95,7 +102,7 @@ const Tareas = () => {
       id: 4,
       contacto: "Aida Campos",
       cliente: "La Ganadera",
-      fechaHora: "07/09/2022 11:15",
+      fechaHora: "29/08/2022 11:15",
       estado: 1,
       asunto: "Venta Trigo",
       prioridad: "BAJA",
@@ -158,7 +165,7 @@ const Tareas = () => {
       fechaHora: "17/08/2022 10:00",
       estado: 1,
       asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "BAJA",
+      prioridad: "MEDIA",
       tipoTarea: "Visita de campo",
     },
     {
@@ -178,7 +185,7 @@ const Tareas = () => {
       fechaHora: "18/08/2022 10:30",
       estado: 1,
       asunto: "Llamar a Jorge para Venta de Herbicidas",
-      prioridad: "BAJA",
+      prioridad: "ALTA",
       tipoTarea: "Visita de campo",
     },
     {
@@ -188,14 +195,11 @@ const Tareas = () => {
       fechaHora: "16/08/2022 11:00",
       estado: 1,
       asunto: "Venta Trigo",
-      prioridad: "BAJA",
+      prioridad: "ALTA",
       tipoTarea: "Visita de campo",
     },
   ];
 
-  //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
-
-  let hoy = [];
 
   let today = moment().format("DD/MM/YYYY");
 
@@ -215,6 +219,22 @@ const Tareas = () => {
       setFechaConfirmada(fechaSelect);
     }
   }, [track]);
+
+
+    //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
+
+    //*TAB 1 - SECCION CALENDARIO
+
+    const handleChange = (val) => {
+      let fechaSelecCalendar = moment(val).format("DD/MM/YYYY");
+      setFechaCalendar(fechaSelecCalendar);
+    }
+
+    //*TAB 1 - SECCION CALENDARIO
+
+    //*TAB 1 - SECCION LISTA TAREA  
+
+    let hoy = [];
 
   const listaTareasHoy = () => {
     ItemListaTarea.map((tarea) => {
@@ -236,6 +256,8 @@ const Tareas = () => {
   listaTareasHoy();
   let arrayHoy = hoy;
   hoy = [];
+
+  //*TAB 1 - SECCION LISTA TAREA
 
   //! FIN FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -329,37 +351,25 @@ const Tareas = () => {
   // console.log("Lista de tareas VENCIDAS: ", arrayVC);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
+  const renderbadge = (val) => {
+    <Badge color="#56b43c" content={Badge.dot} />;
+  };
+
   return (
     <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
         <div>
           <Calendar
-            selectionMode="range"
+            selectionMode="single"
             // defaultValue={defaultSingle}
-            // renderLabel={(val) => renderbadge(val)}
-            // onChange={(val) => handleChange(val)}
+            renderLabel={(val) => renderbadge(val)}
+            onChange={(val) => handleChange(val)}
           />
         </div>
-        <ListaTarea ItemListaTarea={arrayHoy} />
-        {/* <FloatingBubble
-          style={{
-            "--initial-position-bottom": "70px",
-            "--initial-position-right": "24px",
-            "--edge-distance": "24px",
-          }}
-          onClick={() => {
-            Modal.confirm({
-              content: <CalendarioModal fechaCalendario={setFechaSelect} />,
-              confirmText: "Confirmar",
-              cancelText: "Cancelar",
-              closeOnMaskClick: true,
-              onConfirm: fechaHandler,
-            });
-          }}
-        >
-          <CalendarOutline fontSize={24} />
-        </FloatingBubble> */}
+        <div>
+          <ListaTarea ItemListaTarea={arrayHoy} />
+        </div>
       </CapsuleTabs.Tab>
 
       {/* PESTAÑA TAREAS SEMANA */}

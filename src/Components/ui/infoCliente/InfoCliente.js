@@ -1,6 +1,11 @@
 import { Card } from "antd-mobile";
 import React from "react";
-import { PhonebookOutline, MailOutline } from "antd-mobile-icons";
+import {
+  PhonebookOutline,
+  MailOutline,
+  ShopbagOutline,
+  UserOutline,
+} from "antd-mobile-icons";
 import "./InfoCliente.css";
 
 const InfoCliente = ({ clienteSelect }) => {
@@ -35,7 +40,7 @@ const InfoCliente = ({ clienteSelect }) => {
             className="div_emp"
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <p className="p_infoEmpresa"> {clienteSelect.empresa} </p>
+            <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
 
             {/* <p className="p_info">
               <PhonebookOutline /> {clienteSelect.telefono}
@@ -45,7 +50,7 @@ const InfoCliente = ({ clienteSelect }) => {
             </p> */}
           </div>
         </Card>
-        <div className="div_contacto" style={{marginTop:"5px"}}>
+        <div className="div_contacto" style={{ marginTop: "5px" }}>
           <Card className="card_empresa">
             <div
               className="div_emp"
