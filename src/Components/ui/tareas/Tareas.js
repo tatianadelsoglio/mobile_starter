@@ -15,6 +15,7 @@ import "./Tareas.css";
 import { useEffect, useState } from "react";
 import { CalendarioModal } from "../calendarioModal/CalendarioModal";
 import { GlobalContext } from "../../context/GlobalContext";
+import dayjs from "dayjs";
 
 const Tareas = () => {
   const [fechaSelect, setFechaSelect] = useState(moment().format("DD/MM/YYYY"));
@@ -201,7 +202,6 @@ const Tareas = () => {
     },
   ];
 
-
   let today = moment().format("DD/MM/YYYY");
 
   const [fecha, setFecha] = useState(today);
@@ -221,21 +221,19 @@ const Tareas = () => {
     }
   }, [track]);
 
+  //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
-    //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
+  //*TAB 1 - SECCION CALENDARIO
 
-    //*TAB 1 - SECCION CALENDARIO
+  const renderbadge = (val) => {
+    <Badge color="#56b43c" content={Badge.dot} />;
+  };
 
-    const handleChange = (val) => {
-      let fechaSelecCalendar = moment(val).format("DD/MM/YYYY");
-      setFechaCalendar(fechaSelecCalendar);
-    }
+  //*TAB 1 - SECCION CALENDARIO
 
-    //*TAB 1 - SECCION CALENDARIO
+  //*TAB 1 - SECCION LISTA TAREA
 
-    //*TAB 1 - SECCION LISTA TAREA  
-
-    let hoy = [];
+  let hoy = [];
 
   const listaTareasHoy = () => {
     ItemListaTarea.map((tarea) => {
@@ -352,10 +350,6 @@ const Tareas = () => {
   // console.log("Lista de tareas VENCIDAS: ", arrayVC);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
-  const renderbadge = (val) => {
-    <Badge color="#56b43c" content={Badge.dot} />;
-  };
-
   return (
     <CapsuleTabs defaultActiveKey="1">
       {/* PESTAÑA TAREAS HOY */}
@@ -364,8 +358,18 @@ const Tareas = () => {
           <Calendar
             selectionMode="single"
             // defaultValue={defaultSingle}
-            renderLabel={(val) => renderbadge(val)}
-            onChange={(val) => handleChange(val)}
+            // renderLabel={(val) => renderbadge(val)}
+            renderLabel={(date) => {
+              if (dayjs(date).isSame(today, "day")) return "hoy";
+              if (date.getDay() === 0 || date.getDay() === 6) {
+                return (
+                  <>
+                    <Badge color="#56b43c" content={Badge.dot} />
+                  </>
+                );
+              }
+            }}
+            // onChange={(val) => handleChange(val)}
           />
         </div>
         <div>
