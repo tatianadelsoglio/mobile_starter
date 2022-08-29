@@ -14,6 +14,7 @@ import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useEffect, useState } from "react";
 import { CalendarioModal } from "../calendarioModal/CalendarioModal";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Tareas = () => {
   const [fechaSelect, setFechaSelect] = useState(moment().format("DD/MM/YYYY"));
