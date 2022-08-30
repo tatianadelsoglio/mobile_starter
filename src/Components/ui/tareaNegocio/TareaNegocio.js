@@ -146,8 +146,8 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               ) : (
                 ""
               )}
-              <div className="tarea-negocio-linea-inferior">
-                <div className="tarea-contenedor-horario prioridad-fuente">
+              <div className="tarea-negocio-linea-inferior prioridad-fuente">
+                <div className="tarea-contenedor-horario">
                   <ClockCircleOutline
                     style={{
                       color: dateHandler(tarea.fechaHora),
@@ -161,7 +161,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                     {handleHora(tarea.fechaHora)} hs
                   </p>
                 </div>
-                <div className="tarea-contenedor-horario prioridad-fuente">
+                <div className="tarea-contenedor-horario">
                   {tarea.prioridad === "ALTA" ? (
                     <div
                       style={{
@@ -220,7 +220,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                     </div>
                   ) : null}
                 </div>
-                <div className="fuente">
+                <div className="tarea-contenedor-horario">
                   <p
                     style={{
                       display: "flex",
