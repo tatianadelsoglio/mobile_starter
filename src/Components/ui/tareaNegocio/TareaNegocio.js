@@ -286,7 +286,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             )}
             <div className="tarea-contenedor-horario">
               <ClockCircleOutline
-                style={{ color: "white", fontSize: "0.8rem" }}
+                style={{ fontSize: "0.8rem" }}
               />
               <p className="texto-tarea-horario">{tarea.cierreEstimado}</p>
               <p className="texto-tarea-horario">{tarea.hora} hs</p>
