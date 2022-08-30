@@ -7,13 +7,14 @@
 
 .contenedor-titulo-cliente {
   background-color: white;
-  width: calc(100% - 18px);
+  width: calc(100% - 20px);
   margin: 5px 9px 0px 9px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
+  border: 1px solid rgba(153, 153, 153, 0.2);
 }
 
 .titulo-cliente-tareas {
