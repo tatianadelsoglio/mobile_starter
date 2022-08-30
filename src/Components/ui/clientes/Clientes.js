@@ -45,11 +45,13 @@ const Clientes = () => {
   };
 
   const handleChange = (value) => {
+
     let filtro = clientes.filter((item) => {
-      if (item.empresa.includes(value)) {
+      if (item.empresa.toUpperCase().includes(value.toUpperCase())) {
         return item;
       }
     });
+    
     setBusqueda(filtro);
 
     if(value === "" || value === null){
