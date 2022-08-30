@@ -47,6 +47,9 @@ export const ClienteIndividual = () => {
               <InfoCliente clienteSelect={cliente}/>
             </CapsuleTabs.Tab>
             <CapsuleTabs.Tab title="Tareas" key="2">
+              <div className="contenedor-titulo-cliente">
+                <p className="titulo-cliente-tareas">{cliente.empresa}</p>
+              </div>
               {tareasXCliente?.map( tarea => {
                 return(
                   <SwipeAction style={{marginLeft:"-3px"}}>

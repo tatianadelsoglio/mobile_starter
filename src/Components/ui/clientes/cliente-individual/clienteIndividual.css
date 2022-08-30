@@ -1,6 +1,27 @@
 @import "antd-mobile/bundle/css-vars-patch.css";
 
 .contenedor-cliente-individual {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
+}
+
+.contenedor-titulo-cliente {
+  background-color: white;
+  width: calc(100% - 18px);
+  margin: 5px 9px 0px 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
+
+.titulo-cliente-tareas {
+  color: #56b43c;
+  font-size: 1.5rem;
+  padding: 5px 0px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
 }
