@@ -1,5 +1,5 @@
-import { List } from "antd-mobile";
-import React from "react";
+import { List, SearchBar } from "antd-mobile";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Clientes.css";
 
@@ -31,6 +31,7 @@ const clientes = [
 ];
 
 const Clientes = () => {
+  const [busqueda, setBusqueda] = useState("");
 
   let history = useHistory();
 
@@ -43,17 +44,49 @@ const Clientes = () => {
     });
   };
 
+  const handleChange = (value) => {
+    let filtro = clientes.filter((item) => {
+      if (item.empresa.includes(value)) {
+        return item;
+      }
+    });
+    setBusqueda(filtro);
+
+    if(value === "" || value === null){
+      return handleClear();
+    }
+
+  };
+
+  const handleClear = () => {
+    setBusqueda("");
+  };
+
   return (
     <div style={{ textAlign: "start" }}>
-      <List header="Clientes">
-        {clientes.map((cliente) => (
-          <List.Item
-            key={cliente.id}
-            onClick={() => redirecInfo(cliente.id)}
-          >
-            <div className="div_empresa">{cliente.empresa}</div>
-          </List.Item>
-        ))}
+      <List
+        header={
+          <SearchBar
+            placeholder="Ingrese Cliente"
+            style={{ "--background": "#ffffff" }}
+            onChange={(value) => handleChange(value)}
+            onClear={handleClear}
+          />
+        }
+      >
+
+        {busqueda.length === 0 ? (
+          clientes.map((cliente) => (
+            <List.Item key={cliente.id} onClick={() => redirecInfo(cliente.id)}>
+              <div className="div_empresa">{cliente.empresa}</div>
+            </List.Item>
+          ))
+        ) : (
+            <List.Item key={busqueda[0].id} onClick={() => redirecInfo(busqueda[0].id)}>
+                <div className="div_empresa">{busqueda[0].empresa}</div>
+            </List.Item>
+        )}
+
       </List>
     </div>
   );
