@@ -15,12 +15,16 @@ export const ListaNegocios = () => {
 
   const dateHandler = (fecha) => {
     let fechaParametro = moment(fecha, "DD/MM/YYYY");
-    console.log(fechaParametro);
 
-    if (fechaParametro <= fechaActual) {
-      return true;
+    const diff = moment(fechaParametro).diff(fechaActual, "days");
+    
+    if(diff <= 0) {
+      return "#F44336";
+    } else if (diff > 0 && diff <= 5) {
+      return "#FAAD14";
+    } else {
+      return "#00b33c";
     }
-    return false;
   };
 
   const data = [
@@ -30,7 +34,7 @@ export const ListaNegocios = () => {
       cliente: "A.P.I.N.T.A.",
       importe: 12500,
       fechaInicio: "27/07/22",
-      cierreEstimado: "20/08/2022",
+      cierreEstimado: "27/08/2022",
       moneda: "USD",
       contacto: "",
       embudo: "ESTIMULUS",
@@ -51,7 +55,7 @@ export const ListaNegocios = () => {
       cliente: "Tres Arroyos",
       importe: 500,
       fechaInicio: "27/07/22",
-      cierreEstimado: "16/08/2022",
+      cierreEstimado: "31/08/2022",
       moneda: "USD",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
@@ -72,7 +76,7 @@ export const ListaNegocios = () => {
       cliente: "SABO ADRIAN",
       importe: 850,
       fechaInicio: "27/07/22",
-      cierreEstimado: "20/07/2022",
+      cierreEstimado: "01/09/2022",
       moneda: "ARS",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
@@ -93,7 +97,7 @@ export const ListaNegocios = () => {
       cliente: "SABO ADRIAN",
       importe: 1,
       fechaInicio: "27/07/22",
-      cierreEstimado: "20/08/2022",
+      cierreEstimado: "06/09/2022",
       moneda: "ARS",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
@@ -167,10 +171,10 @@ export const ListaNegocios = () => {
                     mode="dark"
                   >
                     <ClockCircleOutline
-                      className={
-                        dateHandler(negocio.cierreEstimado) && "reloj-rojo"
-                      }
-                      style={{ marginLeft: "1rem" }}
+                      // className={
+                      //   dateHandler(negocio.cierreEstimado) && "reloj-rojo"
+                      // }
+                      style={{ marginLeft: "1rem", color:dateHandler(negocio.cierreEstimado)}}
                     />
                   </Popover>
                 </div>

@@ -61,6 +61,26 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     });
   };
 
+  let fechaActual = moment();
+
+  const dateHandler = (fecha) => {
+
+    console.log(fecha);
+    let fechaParametro = moment(fecha, "DD/MM/YYYY");
+
+    const diff = moment(fechaParametro).diff(fechaActual, "days");
+
+    console.log(diff, fechaParametro, fechaActual);
+    
+    if(diff <= 0) {
+      return "#F44336";
+    } else if (diff > 0 && diff <= 5) {
+      return "#FAAD14";
+    } else {
+      return "#00b33c";
+    }
+  };
+
   if (origen === "ListaTareas") {
     return (
       <SwipeAction
@@ -130,7 +150,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 <div className="tarea-contenedor-horario prioridad-fuente">
                   <ClockCircleOutline
                     style={{
-                      color: "green",
+                      color: dateHandler(tarea.fechaHora),
                       fontSize: "0.8rem",
                     }}
                   />
@@ -285,7 +305,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             )}
             <div className="tarea-contenedor-horario">
               <ClockCircleOutline
-                style={{ color: "green", fontSize: "0.8rem" }}
+                style={{ color:dateHandler(tarea.cierreEstimado), fontSize: "0.8rem" }}
               />
               <p className="texto-tarea-horario">{tarea.cierreEstimado}</p>
               <p className="texto-tarea-horario">{tarea.hora} hs</p>
