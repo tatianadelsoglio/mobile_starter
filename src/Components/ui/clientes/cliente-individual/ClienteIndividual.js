@@ -49,9 +49,8 @@ export const ClienteIndividual = () => {
             <CapsuleTabs.Tab title="Tareas" key="2">
               {tareasXCliente?.map( tarea => {
                 return(
-                  <SwipeAction >
+                  <SwipeAction style={{marginLeft:"-3px"}}>
                     <TareaNegocio tarea={tarea} origen = "ListaTareas"/>
-
                   </SwipeAction>
                 )
               })}
