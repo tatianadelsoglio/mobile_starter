@@ -3,6 +3,7 @@
 import { CapsuleTabs, Ellipsis, Steps } from "antd-mobile";
 import {
   UserCircleOutline,
+  ShopbagOutline,
   UserOutline,
   FilterOutline,
   CalendarOutline,
@@ -185,7 +186,7 @@ export const NegocioCompleto = () => {
             })}
         </p>
         <div className="negocio-completo-header-linea-cliente">
-          <UserCircleOutline />
+          <ShopbagOutline />
           <p className="negocio-completo-header-texto">{negocio.cliente}</p>
         </div>
         {negocio.contacto.length > 0 && (

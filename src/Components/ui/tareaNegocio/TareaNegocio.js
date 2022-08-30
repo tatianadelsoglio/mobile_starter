@@ -4,7 +4,7 @@ import moment from "moment";
 import "./tareaNegocio.css";
 import {
   CheckOutline,
-  ShopbagOutline,
+  UserOutline,
   InformationCircleOutline,
   ClockCircleOutline,
   EditSOutline,
@@ -112,7 +112,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             <div className="tarea-negocio-linea-inferior cliente-tipo">
               {tarea.contacto ? (
                 <div className="tarea-negocio-item">
-                  <ShopbagOutline style={{ color: "#00B33C" }} />
+                  <UserOutline style={{ color: "#00B33C" }} />
                   <p className="tarea-negocio-contacto">{tarea.cliente}</p>
                 </div>
               ) : (
@@ -132,7 +132,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                     style={{
                       color: "green",
                       fontSize: "0.8rem",
-                      marginBottom: "3px",
                     }}
                   />
                   <p className="texto-tarea-horario">
@@ -270,7 +269,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             </p>
             {tarea.contacto ? (
               <div className="tarea-negocio-item">
-                <ShopbagOutline style={{ color: "#00B33C" }} />{" "}
+                <UserOutline style={{ color: "#00B33C" }} />{" "}
                 <p className="tarea-negocio-contacto">{tarea.contacto}</p>
               </div>
             ) : (
@@ -286,7 +285,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             )}
             <div className="tarea-contenedor-horario">
               <ClockCircleOutline
-                style={{ fontSize: "0.8rem" }}
+                style={{ color: "green", fontSize: "0.8rem" }}
               />
               <p className="texto-tarea-horario">{tarea.cierreEstimado}</p>
               <p className="texto-tarea-horario">{tarea.hora} hs</p>

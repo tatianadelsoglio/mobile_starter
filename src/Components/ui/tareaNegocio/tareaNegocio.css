@@ -13,7 +13,7 @@
     margin-left: 5px;
     width: 100%;
     border: 1px solid rgba(153, 153, 153, 0.2);
-    border-radius: 3px;
+    border-radius: 2px;
     background-color: white;
 }
 
@@ -52,14 +52,12 @@
 .tarea-negocio-contacto {
     margin: 0px 5px;
     text-transform: uppercase;
-    margin-top: 0.5px;
 }
 
 .tarea-negocio-tipoTarea {
     margin: 0px 5px;
     text-transform: uppercase;
     color: #00B33C;
-    margin-top: 0.5px;
 }
 
 .tarea-negocio-item {
@@ -69,10 +67,9 @@
 }
 
 .tarea-contenedor-horario {
-    /* background-color: rgb(244, 67, 54); */
     padding: 4px 8px;
     color: gray;
-    border-radius: 3px;
+    border-radius: 2px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -109,10 +106,7 @@
 }
 
 .wrapper_lista{
-    /* margin: 1% !important; */
     width: calc(100% - 5px);
-    
-
 }
 
 .adm-swipe-action-content {

@@ -2,7 +2,7 @@ import "./listaNegocios.css";
 import {
   UserOutline,
   ClockCircleOutline,
-  UserCircleOutline,
+  ShopbagOutline,
 } from "antd-mobile-icons";
 import moment from "moment";
 import { Popover } from "antd-mobile";
@@ -129,7 +129,7 @@ export const ListaNegocios = () => {
               <p className="card-negocio-asunto">{negocio.asunto}</p>
               <p className="card-negocio-cliente">
                 <span className="span-negocio-cliente">
-                  <UserCircleOutline />
+                  <ShopbagOutline />
                 </span>
                 {negocio.cliente}
               </p>
