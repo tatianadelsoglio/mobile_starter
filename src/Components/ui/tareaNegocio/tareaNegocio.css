@@ -25,12 +25,20 @@
     justify-content: space-between;
 }
 
+.tarea-negocio-linea-intermedia {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 5px 0px 0px 0px;
+}
+
 .tarea-negocio-linea-inferior {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    margin: 0.5rem 0px;
+    margin: 5px 0px 0px 0px;
 }
 
 .tarea-negocio-fecha {
@@ -39,7 +47,7 @@
 }
 
 .tarea-negocio-titulo {
-    margin: 6px 0px;
+    margin: 6px 0px 3px 0px;
     font-size: 1rem;
     color:rgba(0,0,0, 0.65);
     font-weight: bold;
@@ -85,24 +93,6 @@
 
 .adm-swipe-action{
     background-color: #f4f4f4;
-}
-
-.asunto{
-    margin-bottom: -3px;
-}
-
-.cliente-tipo{
-    margin-bottom: -3px;
-}
-
-.prioridad-fuente{
-    margin-top: -3px;
-}
-
-.fuente{
-    font-weight: bold;
-    margin-left: -10px;
-    margin-top: -7.8px;
 }
 
 .wrapper_lista{

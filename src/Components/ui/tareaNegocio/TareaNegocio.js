@@ -64,15 +64,14 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
   let fechaActual = moment();
 
   const dateHandler = (fecha) => {
-
     console.log(fecha);
     let fechaParametro = moment(fecha, "DD/MM/YYYY");
 
     const diff = moment(fechaParametro).diff(fechaActual, "days");
 
     console.log(diff, fechaParametro, fechaActual);
-    
-    if(diff <= 0) {
+
+    if (diff <= 0) {
       return "#F44336";
     } else if (diff > 0 && diff <= 5) {
       return "#FAAD14";
@@ -119,7 +118,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
           >
             <div className="tarea-negocio-linea-superior">
               <Ellipsis
-                className="asunto tarea-negocio-titulo"
+                className="tarea-negocio-titulo"
                 style={{
                   fontWeight: "bold",
                   width: "90%",
@@ -129,7 +128,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 content={tarea.asunto}
               />
             </div>
-            <div className="tarea-negocio-linea-inferior cliente-tipo">
+            <div className="tarea-negocio-linea-intermedia">
               {tarea.contacto ? (
                 <div className="tarea-negocio-item">
                   <UserOutline style={{ color: "#00B33C" }} />
@@ -146,100 +145,98 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               ) : (
                 ""
               )}
-              <div className="tarea-negocio-linea-inferior prioridad-fuente">
-                <div className="tarea-contenedor-horario">
-                  <ClockCircleOutline
+              <div className="tarea-contenedor-horario">
+                <ClockCircleOutline
+                  style={{
+                    color: dateHandler(tarea.fechaHora),
+                    fontSize: "0.8rem",
+                  }}
+                />
+                <p className="texto-tarea-horario">
+                  {handleFechaVer(tarea.fechaHora)}
+                </p>
+                <p className="texto-tarea-horario">
+                  {handleHora(tarea.fechaHora)} hs
+                </p>
+              </div>
+              <div className="tarea-contenedor-horario">
+                {tarea.prioridad === "ALTA" ? (
+                  <div
                     style={{
-                      color: dateHandler(tarea.fechaHora),
-                      fontSize: "0.8rem",
-                    }}
-                  />
-                  <p className="texto-tarea-horario">
-                    {handleFechaVer(tarea.fechaHora)}
-                  </p>
-                  <p className="texto-tarea-horario">
-                    {handleHora(tarea.fechaHora)} hs
-                  </p>
-                </div>
-                <div className="tarea-contenedor-horario">
-                  {tarea.prioridad === "ALTA" ? (
-                    <div
-                      style={{
-                        height: "20px",
-                        width: "40px",
-                        fontSize: "12px",
-                        backgroundColor: "#da4453",
-                        color: "white",
-                        border: "solid 1px #da4453",
-                        borderRadius: "4px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        padding: "2px 5px",
-                      }}
-                    >
-                      ALTA
-                    </div>
-                  ) : null}
-                  {tarea.prioridad === "MEDIA" ? (
-                    <div
-                      style={{
-                        height: "20px",
-                        width: "40px",
-                        fontSize: "12px",
-                        backgroundColor: "#f7c560",
-                        color: "white",
-                        border: "solid 1px #f7c560",
-                        borderRadius: "4px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        padding: "2px 5px",
-                      }}
-                    >
-                      MEDIA
-                    </div>
-                  ) : null}
-                  {tarea.prioridad === "BAJA" ? (
-                    <div
-                      style={{
-                        height: "20px",
-                        width: "40px",
-                        fontSize: "12px",
-                        backgroundColor: "#8cc152",
-                        color: "white",
-                        border: "solid 1px #8cc152",
-                        borderRadius: "4px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        padding: "2px 5px",
-                      }}
-                    >
-                      BAJA
-                    </div>
-                  ) : null}
-                </div>
-                <div className="tarea-contenedor-horario">
-                  <p
-                    style={{
+                      height: "20px",
+                      width: "40px",
+                      fontSize: "12px",
+                      backgroundColor: "#da4453",
+                      color: "white",
+                      border: "solid 1px #da4453",
+                      borderRadius: "4px",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      border: "solid 1px #f4f4f4",
-                      height: "22px",
-                      width: "auto",
-                      fontSize: "12px",
-                      color: "#7cb305",
-                      borderColor: "#eaff8f",
-                      backgroundColor: "#fcffe6",
                       padding: "2px 5px",
-                      borderRadius: "4px",
                     }}
                   >
-                    NEGOCIO
-                  </p>
-                </div>
+                    ALTA
+                  </div>
+                ) : null}
+                {tarea.prioridad === "MEDIA" ? (
+                  <div
+                    style={{
+                      height: "20px",
+                      width: "40px",
+                      fontSize: "12px",
+                      backgroundColor: "#f7c560",
+                      color: "white",
+                      border: "solid 1px #f7c560",
+                      borderRadius: "4px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "2px 5px",
+                    }}
+                  >
+                    MEDIA
+                  </div>
+                ) : null}
+                {tarea.prioridad === "BAJA" ? (
+                  <div
+                    style={{
+                      height: "20px",
+                      width: "40px",
+                      fontSize: "12px",
+                      backgroundColor: "#8cc152",
+                      color: "white",
+                      border: "solid 1px #8cc152",
+                      borderRadius: "4px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "2px 5px",
+                    }}
+                  >
+                    BAJA
+                  </div>
+                ) : null}
+              </div>
+              <div className="tarea-contenedor-horario">
+                <p
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    border: "solid 1px #f4f4f4",
+                    height: "22px",
+                    width: "auto",
+                    fontSize: "12px",
+                    color: "#7cb305",
+                    borderColor: "#eaff8f",
+                    backgroundColor: "#fcffe6",
+                    padding: "2px 5px",
+                    borderRadius: "4px",
+                  }}
+                >
+                  NEGOCIO
+                </p>
               </div>
             </div>
           </div>
@@ -305,7 +302,10 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             )}
             <div className="tarea-contenedor-horario">
               <ClockCircleOutline
-                style={{ color:dateHandler(tarea.cierreEstimado), fontSize: "0.8rem" }}
+                style={{
+                  color: dateHandler(tarea.cierreEstimado),
+                  fontSize: "0.8rem",
+                }}
               />
               <p className="texto-tarea-horario">{tarea.cierreEstimado}</p>
               <p className="texto-tarea-horario">{tarea.hora} hs</p>
