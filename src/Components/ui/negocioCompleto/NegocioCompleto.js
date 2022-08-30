@@ -8,6 +8,7 @@ import {
   CalendarOutline,
   FileOutline,
   PictureOutline,
+  TagOutline,
 } from "antd-mobile-icons";
 import { Step } from "antd-mobile/es/components/steps/step";
 import moment from "moment";
@@ -197,6 +198,11 @@ export const NegocioCompleto = () => {
         <div className="negocio-completo-header-linea">
           <FilterOutline />
           <p className="negocio-completo-header-texto">{negocio.embudo}</p>
+          <TagOutline style={{marginLeft: "15px"}}/>
+          <p className="negocio-completo-header-texto">{negocio.etapa}</p>
+        </div>
+        <div className="negocio-completo-header-linea">
+          <p className="negocio-completo-header-fecha">{"Fecha de creacion: " + negocio.fechaInicio}</p>
         </div>
         <div className="negocio-completo-header-linea">
           {/* <BellOutline /> */}
@@ -204,6 +210,7 @@ export const NegocioCompleto = () => {
             {"Fecha de cierre estimada: " + negocio.cierreEstimado}
           </p>
         </div>
+        
       </div>
       <CapsuleTabs className="capsuletabs-negocio">
         <CapsuleTabs.Tab title="Info" key="1">

@@ -34,6 +34,7 @@ export const ListaNegocios = () => {
       moneda: "USD",
       contacto: "",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
@@ -54,6 +55,7 @@ export const ListaNegocios = () => {
       moneda: "USD",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
@@ -74,6 +76,7 @@ export const ListaNegocios = () => {
       moneda: "ARS",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
@@ -94,6 +97,7 @@ export const ListaNegocios = () => {
       moneda: "ARS",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
