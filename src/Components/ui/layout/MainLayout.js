@@ -8,7 +8,8 @@ const MainLayout = ({ children, titulo = "", modo = "" }) => {
     <>
       <SafeArea position="top" style={{background:"white"}} />
         <div className="vista_home_wrapper">
-          <div className="vista_home_content1" />
+          {/* <div className="vista_home_content1" /> */}
+
           <div className="vista_home_content">
             <div className="home_nav">
               <Nav titulo={titulo} modo={modo} />
@@ -18,9 +19,10 @@ const MainLayout = ({ children, titulo = "", modo = "" }) => {
               <Menu />
             </div>
           </div>
-          <div className="vista_home_content1" />
+
+          {/* <div className="vista_home_content1" /> */}
         </div>
-      <SafeArea position="bottom" style={{background:"white"}} />
+      <SafeArea position="bottom" style={{background:"white", "--multiple":"3"}} />
     </>
   );
 };

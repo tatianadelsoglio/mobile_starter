@@ -119,3 +119,10 @@
     margin-left: 4px;
     margin-top: 5px;
 }
+
+.div_lista{
+    display: block;
+    height: 75vh !important;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
