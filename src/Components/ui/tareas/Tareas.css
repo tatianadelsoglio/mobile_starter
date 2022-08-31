@@ -74,18 +74,15 @@
 
 .div_lista_calendario{
   display: block;
-  height: 250px;
+  height: 30vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
 
 .div_lista{
   display: block;
-  height: 660px;
+  height: 75vh !important;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
 
-.capsule_fix{
-  position: fixed;
-}

@@ -208,7 +208,7 @@ p {
 
 .div_lista {
   display: block;
-  height: 30rem;
+  height: 55vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
