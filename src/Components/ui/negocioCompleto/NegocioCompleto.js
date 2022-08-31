@@ -244,7 +244,7 @@ export const NegocioCompleto = () => {
       </div>
       <CapsuleTabs className="capsuletabs-negocio">
         <CapsuleTabs.Tab title="Info" key="1">
-          <div className="div_lista">
+          <div className="div_lista_nrg">
             <div className="negocio-completo-caja-grafica">
               <div className="negocio-grafica-linea">
                 <p className="negocio-antiguedad">Antigüedad del negocio</p>
@@ -287,7 +287,7 @@ export const NegocioCompleto = () => {
           </div>
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Planificado" key="2">
-          <div className="div_lista">
+          <div className="div_lista_neg">
             <div className="negocio-linea-tiempo-contenedor">
               <Steps direction="vertical">
                 {tareas.map((tarea) => {
@@ -322,7 +322,7 @@ export const NegocioCompleto = () => {
           </div>
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
-          <div className="div_lista">
+          <div className="div_lista_neg">
             <div className="negocio-linea-tiempo-contenedor">
               <Steps direction="vertical">
                 {tareas.map((tarea) => {

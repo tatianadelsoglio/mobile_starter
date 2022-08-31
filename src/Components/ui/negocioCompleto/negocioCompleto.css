@@ -206,7 +206,7 @@ p {
   padding-bottom: 12px;
 }
 
-.div_lista {
+.div_lista_neg {
   display: block;
   height: 55vh;
   overflow-y: scroll;
