@@ -37,7 +37,7 @@ const Menu = () => {
   ];
   return (
     <>
-      <TabBar activeKey={pathname} onChange={(key) => history.push(key)}>        
+      <TabBar activeKey={pathname} onChange={(key) => history.push(key)} className="menu_tabs">        
         {tabs.map((item) => (
             <TabBar.Item key={item.key} icon={item.icon}/>
         ))}

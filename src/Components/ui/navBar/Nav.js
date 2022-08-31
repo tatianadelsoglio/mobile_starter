@@ -33,14 +33,7 @@ const Nav = ({ titulo, modo }) => {
       <Space style={{ "--gap": "16px" }}>
         <AddOutline
           color="#56b43c"
-          onClick={async () => {
-            await Dialog.confirm({
-              content: "¿Crear una nueva tarea?",
-              cancelText: "Cancelar",
-              confirmText: "Crear",
-              onConfirm: handleModalCrearTarea,
-            });
-          }}
+          onClick={() => handleModalCrearTarea()}
         />
         <MoreOutline
           style={{ transform: "rotate(90deg)" }}
@@ -64,7 +57,8 @@ const Nav = ({ titulo, modo }) => {
         {titulo ? (
           titulo
         ) : (
-          <Image src={duo} width={100} height={50} style={{}} />
+          null
+          // <Image src={duo} width={100} height={50} style={{}} />
         )}
       </NavBar>
     );
@@ -74,7 +68,8 @@ const Nav = ({ titulo, modo }) => {
         {titulo ? (
           titulo
         ) : (
-          <Image src={duo} width={100} height={50} style={{}} />
+          null
+          // <Image src={duo} width={100} height={50} style={{}} />
         )}
       </NavBar>
     );
@@ -84,7 +79,8 @@ const Nav = ({ titulo, modo }) => {
         {titulo ? (
           titulo
         ) : (
-          <Image src={duo} width={100} height={50} style={{}} />
+          null
+          // <Image src={duo} width={100} height={50} style={{}} />
         )}
       </NavBar>
     );

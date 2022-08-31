@@ -71,3 +71,21 @@
   color:#56b43c;
   border: solid 1px #56b43c;
 }
+
+.div_lista_calendario{
+  display: block;
+  height: 250px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.div_lista{
+  display: block;
+  height: 660px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.capsule_fix{
+  position: fixed;
+}

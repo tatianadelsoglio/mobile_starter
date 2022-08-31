@@ -53,3 +53,12 @@
     width: 100vw;
     background-color: white;
 }
+
+.adm-safe-area{
+    --multiple:3;
+}
+
+body{
+    position: fixed;
+    height: 100%;
+}
