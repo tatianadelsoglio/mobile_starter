@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { List, SearchBar } from "antd-mobile";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
