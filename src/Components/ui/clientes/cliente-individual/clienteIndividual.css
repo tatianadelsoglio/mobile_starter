@@ -1,6 +1,18 @@
 @import "antd-mobile/bundle/css-vars-patch.css";
 
 .contenedor-cliente-individual {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+}
+
+.div_lista_l {
+  display: block;
+  height: 40rem;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.capsule_fix {
+  position: fixed;
 }

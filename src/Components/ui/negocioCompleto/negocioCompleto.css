@@ -7,6 +7,7 @@
   align-items: center;
   margin: 0px;
   padding: 0px;
+  position: fixed;
 }
 
 .negocio-completo-header {
@@ -203,4 +204,11 @@ p {
 
 .adm-steps-vertical .adm-step .adm-step-content {
   padding-bottom: 12px;
+}
+
+.div_lista {
+  display: block;
+  height: 30rem;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
