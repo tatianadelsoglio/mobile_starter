@@ -12,7 +12,7 @@
     background-color: white;
     margin: 1vh 2vw 1vh 2vw;
     padding: 0px 2vw;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .contenedor-negocios {
@@ -68,10 +68,6 @@
     justify-self: end;
     padding-right: 1rem;
     color: rgb(0, 179, 60);
-}
-
-.reloj-rojo {
-    color: rgb(244, 67, 54);
 }
 
 .popover-negocios {

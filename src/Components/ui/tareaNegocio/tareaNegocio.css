@@ -13,7 +13,7 @@
     margin-left: 5px;
     width: 100%;
     border: 1px solid rgba(153, 153, 153, 0.2);
-    border-radius: 3px;
+    border-radius: 2px;
     background-color: white;
 }
 
@@ -25,12 +25,20 @@
     justify-content: space-between;
 }
 
+.tarea-negocio-linea-intermedia {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 5px 0px 0px 0px;
+}
+
 .tarea-negocio-linea-inferior {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    margin: 0.5rem 0px;
+    margin: 5px 0px 0px 0px;
 }
 
 .tarea-negocio-fecha {
@@ -39,7 +47,7 @@
 }
 
 .tarea-negocio-titulo {
-    margin: 6px 0px;
+    margin: 6px 0px 3px 0px;
     font-size: 1rem;
     color:rgba(0,0,0, 0.65);
     font-weight: bold;
@@ -52,14 +60,12 @@
 .tarea-negocio-contacto {
     margin: 0px 5px;
     text-transform: uppercase;
-    margin-top: 0.5px;
 }
 
 .tarea-negocio-tipoTarea {
     margin: 0px 5px;
     text-transform: uppercase;
     color: #00B33C;
-    margin-top: 0.5px;
 }
 
 .tarea-negocio-item {
@@ -69,48 +75,28 @@
 }
 
 .tarea-contenedor-horario {
-    /* background-color: rgb(244, 67, 54); */
-    padding: 4px 8px;
+    padding: 4px 5px;
     color: gray;
-    border-radius: 3px;
+    border-radius: 2px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     align-items: center;
     font-weight: bold;
-    margin: 5px;
-    margin-left: -2px;
+    margin: 5px 0px;
 }
 
 .texto-tarea-horario {
     margin: 1px 0px 1px 5px;
+    font-size: 0.8rem;
 }
 
 .adm-swipe-action{
     background-color: #f4f4f4;
 }
 
-.asunto{
-    margin-bottom: -3px;
-}
-
-.cliente-tipo{
-    margin-bottom: -3px;
-}
-
-.prioridad-fuente{
-    margin-top: -3px;
-}
-
-.fuente{
-    font-weight: bold;
-    margin-left: -10px;
-    margin-top: -7.8px;
-}
-
 .wrapper_lista{
-    width: calc(100% - 5px);    
-
+    width: calc(100% - 5px);
 }
 
 .adm-swipe-action-content {

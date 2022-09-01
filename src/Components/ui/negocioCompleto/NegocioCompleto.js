@@ -1,13 +1,14 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable default-case */
-import { CapsuleTabs, Ellipsis, Steps } from "antd-mobile";
+import { CapsuleTabs, Steps } from "antd-mobile";
 import {
-  UserCircleOutline,
+  ShopbagOutline,
   UserOutline,
   FilterOutline,
   CalendarOutline,
   FileOutline,
   PictureOutline,
+  TagOutline,
 } from "antd-mobile-icons";
 import { Step } from "antd-mobile/es/components/steps/step";
 import moment from "moment";
@@ -223,7 +224,7 @@ export const NegocioCompleto = () => {
             })}
         </p>
         <div className="negocio-completo-header-linea-cliente">
-          <UserCircleOutline />
+          <ShopbagOutline />
           <p className="negocio-completo-header-texto">{negocio.cliente}</p>
         </div>
         {negocio.contacto.length > 0 && (
@@ -235,6 +236,11 @@ export const NegocioCompleto = () => {
         <div className="negocio-completo-header-linea">
           <FilterOutline />
           <p className="negocio-completo-header-texto">{negocio.embudo}</p>
+          <TagOutline style={{marginLeft: "15px"}}/>
+          <p className="negocio-completo-header-texto">{negocio.etapa}</p>
+        </div>
+        <div className="negocio-completo-header-linea">
+          <p className="negocio-completo-header-fecha">{"Fecha de creacion: " + negocio.fechaInicio}</p>
         </div>
         <div className="negocio-completo-header-linea">
           {/* <BellOutline /> */}
@@ -242,6 +248,7 @@ export const NegocioCompleto = () => {
             {"Fecha de cierre estimada: " + negocio.cierreEstimado}
           </p>
         </div>
+        
       </div>
       <CapsuleTabs className="capsuletabs-negocio">
         <CapsuleTabs.Tab title="Info" key="1">

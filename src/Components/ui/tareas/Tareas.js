@@ -6,7 +6,6 @@ import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-import dayjs from "dayjs";
 
 const Tareas = () => {
   const { listaTareas, setListaTareas } = useContext(GlobalContext);

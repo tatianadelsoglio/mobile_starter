@@ -2,7 +2,7 @@ import "./listaNegocios.css";
 import {
   UserOutline,
   ClockCircleOutline,
-  UserCircleOutline,
+  ShopbagOutline,
 } from "antd-mobile-icons";
 import moment from "moment";
 import { Popover } from "antd-mobile";
@@ -15,12 +15,18 @@ export const ListaNegocios = () => {
 
   const dateHandler = (fecha) => {
     let fechaParametro = moment(fecha, "DD/MM/YYYY");
-    console.log(fechaParametro);
 
-    if (fechaParametro <= fechaActual) {
-      return true;
+    const diff = moment(fechaParametro).diff(fechaActual, "days");
+
+    switch (true) {
+      case diff <= 0:
+        return "#F44336";
+      case diff > 0 && diff <= 5:
+        return "#faad14";
+
+      default:
+        return "#00b33c";
     }
-    return false;
   };
 
   const data = [
@@ -30,10 +36,11 @@ export const ListaNegocios = () => {
       cliente: "A.P.I.N.T.A.",
       importe: 12500,
       fechaInicio: "27/07/22",
-      cierreEstimado: "20/08/2022",
+      cierreEstimado: "27/08/2022",
       moneda: "USD",
       contacto: "",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
@@ -50,10 +57,11 @@ export const ListaNegocios = () => {
       cliente: "Tres Arroyos",
       importe: 500,
       fechaInicio: "27/07/22",
-      cierreEstimado: "16/08/2022",
+      cierreEstimado: "31/08/2022",
       moneda: "USD",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
@@ -70,10 +78,11 @@ export const ListaNegocios = () => {
       cliente: "SABO ADRIAN",
       importe: 850,
       fechaInicio: "27/07/22",
-      cierreEstimado: "20/07/2022",
+      cierreEstimado: "01/09/2022",
       moneda: "ARS",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
@@ -90,10 +99,11 @@ export const ListaNegocios = () => {
       cliente: "SABO ADRIAN",
       importe: 1,
       fechaInicio: "27/07/22",
-      cierreEstimado: "20/08/2022",
+      cierreEstimado: "06/09/2022",
       moneda: "ARS",
       contacto: "ADRIAN SABO",
       embudo: "ESTIMULUS",
+      etapa: "Etapa 1",
       tareas: [
         "Cotización",
         "Visita de campo",
@@ -107,12 +117,11 @@ export const ListaNegocios = () => {
   ];
 
   const onCardClick = (id) => {
-
-    let negocio = data.filter(negocio => negocio.id === id);
+    let negocio = data.filter((negocio) => negocio.id === id);
 
     return history.push({
       pathname: `/negocio-completo/${id}`,
-      state:{...negocio}
+      state: { ...negocio },
     });
   };
 
@@ -129,7 +138,7 @@ export const ListaNegocios = () => {
               <p className="card-negocio-asunto">{negocio.asunto}</p>
               <p className="card-negocio-cliente">
                 <span className="span-negocio-cliente">
-                  <UserCircleOutline />
+                  <ShopbagOutline />
                 </span>
                 {negocio.cliente}
               </p>
@@ -163,10 +172,13 @@ export const ListaNegocios = () => {
                     mode="dark"
                   >
                     <ClockCircleOutline
-                      className={
-                        dateHandler(negocio.cierreEstimado) && "reloj-rojo"
-                      }
-                      style={{ marginLeft: "1rem" }}
+                      // className={
+                      //   dateHandler(negocio.cierreEstimado) && "reloj-rojo"
+                      // }
+                      style={{
+                        marginLeft: "1rem",
+                        color: dateHandler(negocio.cierreEstimado),
+                      }}
                     />
                   </Popover>
                 </div>
