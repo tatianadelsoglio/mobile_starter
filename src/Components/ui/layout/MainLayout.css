@@ -3,11 +3,12 @@
 
 .vista_home_wrapper{
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     justify-content: center;
     align-items: center;
     text-align: center;
     height: 100vh;
+    
 }
 
 .vista_home_content1{
@@ -19,7 +20,7 @@
 
 .vista_home_content{
     background-color: #f8f8f8;
-    width: 80vw;
+    width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -52,4 +53,13 @@
     z-index: 1;
     width: 100vw;
     background-color: white;
+}
+
+.adm-safe-area{
+    --multiple:3;
+}
+
+body{
+    position: fixed;
+    height: 100%;
 }

@@ -93,8 +93,45 @@ export const NegocioCompleto = () => {
       peso: "2035 Kb",
     },
     {
-      id:5,
-    }
+      id: 5,
+      nombre: "paisaje-02",
+      descripcion: "foto de la entrada al campo",
+      fecha: "20/08/2022 13:45",
+      tipo: "#A",
+      peso: "2035 Kb",
+    },
+    {
+      id: 6,
+      nombre: "paisaje-02",
+      descripcion: "foto de la entrada al campo",
+      fecha: "20/08/2022 13:45",
+      tipo: "#A",
+      peso: "2035 Kb",
+    },
+    {
+      id: 7,
+      nombre: "paisaje-02",
+      descripcion: "foto de la entrada al campo",
+      fecha: "20/08/2022 13:45",
+      tipo: "#T",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "22/08/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "20/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
   ];
 
   const getColor = (i) => {
@@ -175,7 +212,8 @@ export const NegocioCompleto = () => {
   }, []);
 
   return (
-    <div className="contenedor-negocio-completo">
+    // <div className="contenedor-negocio-completo">
+    <>
       <div className="negocio-completo-header">
         <p className="negocio-completo-header-asunto">{negocio.asunto}</p>
         <p className="negocio-completo-header-importe">
@@ -214,118 +252,140 @@ export const NegocioCompleto = () => {
       </div>
       <CapsuleTabs className="capsuletabs-negocio">
         <CapsuleTabs.Tab title="Info" key="1">
-          <div className="negocio-completo-caja-grafica">
-            <div className="negocio-grafica-linea">
-              <p className="negocio-antiguedad">Antigüedad del negocio</p>
-              <p className="negocio-antiguedad-dias">
-                {moment(negocio.fechaInicio, "DD/MM/YYYY").fromNow()}
-              </p>
-            </div>
-            <div className="negocio-grafico-degrade"></div>
-            <p className="negocio-tareas">Tareas</p>
-            <div className="negocio-grafico-tareas">
-              {tareasDefinitivo.map((tarea) => {
-                return (
-                  <span
-                    className="negocio-caja-tarea-grafico"
-                    style={{
-                      backgroundColor: `${getColor(tarea.orden)}`,
-                      width: `${(tarea.count / tarea.suma) * 100}%`,
-                    }}
-                  ></span>
-                );
-              })}
-            </div>
-            <div className="negocio-grafico-referencias">
-              {tareasDefinitivo.map((tarea) => {
-                return (
-                  <div className="negocio-grafico-referencias-linea">
+          <div className="div_lista_nrg">
+            <div className="negocio-completo-caja-grafica">
+              <div className="negocio-grafica-linea">
+                <p className="negocio-antiguedad">Antigüedad del negocio</p>
+                <p className="negocio-antiguedad-dias">
+                  {moment(negocio.fechaInicio, "DD/MM/YYYY").fromNow()}
+                </p>
+              </div>
+              <div className="negocio-grafico-degrade"></div>
+              <p className="negocio-tareas">Tareas</p>
+              <div className="negocio-grafico-tareas">
+                {tareasDefinitivo.map((tarea) => {
+                  return (
                     <span
-                      className="negocio-grafico-referencia-cuadrito"
-                      style={{ backgroundColor: `${getColor(tarea.orden)}` }}
+                      className="negocio-caja-tarea-grafico"
+                      style={{
+                        backgroundColor: `${getColor(tarea.orden)}`,
+                        width: `${(tarea.count / tarea.suma) * 100}%`,
+                      }}
                     ></span>
-                    <p className="negocio-tarea-texto">{`${tarea.task} (${tarea.count})`}</p>
-                    <p className="negocio-tarea-texto">{`- ${Math.round(
-                      (tarea.count / tarea.suma) * 100
-                    )}%`}</p>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+              <div className="negocio-grafico-referencias">
+                {tareasDefinitivo.map((tarea) => {
+                  return (
+                    <div className="negocio-grafico-referencias-linea">
+                      <span
+                        className="negocio-grafico-referencia-cuadrito"
+                        style={{ backgroundColor: `${getColor(tarea.orden)}` }}
+                      ></span>
+                      <p className="negocio-tarea-texto">{`${tarea.task} (${tarea.count})`}</p>
+                      <p className="negocio-tarea-texto">{`- ${Math.round(
+                        (tarea.count / tarea.suma) * 100
+                      )}%`}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Planificado" key="2">
-          <div className="negocio-linea-tiempo-contenedor">
-            <Steps direction="vertical">
-              {tareas.map((tarea) => {
-                switch (tarea.tipo) {
-                  case "#T":
-                    return (
-                      <Step
-                        description={<TareaNegocio tarea={tarea} />}
-                        icon={<CalendarOutline style={{ color: "#00B33C" }} />}
-                      />
-                    );
-                  case "#N":
-                    return (
-                      <Step
-                        description={<NotaTareaNegocio nota={tarea} />}
-                        icon={<FileOutline style={{ color: "#00B33C" }} />}
-                      />
-                    );
-                  case "#A":
-                    return (
-                      <Step
-                        description={<ArchivoTareaNegocio archivo={tarea} />}
-                        icon={<PictureOutline style={{ color: "#00B33C" }} />}
-                      />
-                    );
-                }
-              })}
-            </Steps>
+          <div className="div_lista_neg">
+            <div className="negocio-linea-tiempo-contenedor">
+              <Steps direction="vertical">
+                {tareas.map((tarea) => {
+                  switch (tarea.tipo) {
+                    case "#T":
+                      return (
+                        <Step
+                          description={<TareaNegocio tarea={tarea} />}
+                          icon={
+                            <CalendarOutline style={{ color: "#00B33C" }} />
+                          }
+                        />
+                      );
+                    case "#N":
+                      return (
+                        <Step
+                          description={<NotaTareaNegocio nota={tarea} />}
+                          icon={<FileOutline style={{ color: "#00B33C" }} />}
+                        />
+                      );
+                    case "#A":
+                      return (
+                        <Step
+                          description={<ArchivoTareaNegocio archivo={tarea} />}
+                          icon={<PictureOutline style={{ color: "#00B33C" }} />}
+                        />
+                      );
+                  }
+                })}
+              </Steps>
+            </div>
           </div>
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
-          <div className="negocio-linea-tiempo-contenedor">
-            <Steps direction="vertical">
-              {tareas.map((tarea) => {
-                switch (tarea.tipo) {
-                  case "#T":
-                    return (
-                      <Step
-                        description={<TareaNegocio tarea={tarea} />}
-                        icon={<CalendarOutline style={{ color: "#00B33C" }} />}
-                      />
-                    );
-                  case "#N":
-                    return (
-                      <Step
-                        description={<NotaTareaNegocio nota={tarea} />}
-                        icon={<FileOutline style={{ color: "#00B33C" }} />}
-                      />
-                    );
-                  case "#A":
-                    return (
-                      <Step
-                        description={<ArchivoTareaNegocio archivo={tarea} />}
-                        icon={<PictureOutline style={{ color: "#00B33C" }} />}
-                      />
-                    );
-                  default:
-                    return (
-                      <Step
-                        description={
-                        <p> <span className="detailItem"> Fecha de Cierre: </span> <span className="strikeThrough"> 2022-06-20 </span> <span className="middleDot"> · </span> <span className="modifiedItem" > 2022-06-24 </span> </p>
-                        }
-                        
-                      />
-                    )
-                }
-              })}
-            </Steps>
+          <div className="div_lista_neg">
+            <div className="negocio-linea-tiempo-contenedor">
+              <Steps direction="vertical">
+                {tareas.map((tarea) => {
+                  switch (tarea.tipo) {
+                    case "#T":
+                      return (
+                        <Step
+                          description={<TareaNegocio tarea={tarea} />}
+                          icon={
+                            <CalendarOutline style={{ color: "#00B33C" }} />
+                          }
+                        />
+                      );
+                    case "#N":
+                      return (
+                        <Step
+                          description={<NotaTareaNegocio nota={tarea} />}
+                          icon={<FileOutline style={{ color: "#00B33C" }} />}
+                        />
+                      );
+                    case "#A":
+                      return (
+                        <Step
+                          description={<ArchivoTareaNegocio archivo={tarea} />}
+                          icon={<PictureOutline style={{ color: "#00B33C" }} />}
+                        />
+                      );
+                    default:
+                      return (
+                        <Step
+                          description={
+                            <p>
+                              {" "}
+                              <span className="detailItem">
+                                {" "}
+                                Fecha de Cierre:{" "}
+                              </span>{" "}
+                              <span className="strikeThrough">
+                                {" "}
+                                2022-06-20{" "}
+                              </span>{" "}
+                              <span className="middleDot"> · </span>{" "}
+                              <span className="modifiedItem"> 2022-06-24 </span>{" "}
+                            </p>
+                          }
+                        />
+                      );
+                  }
+                })}
+              </Steps>
+            </div>
           </div>
         </CapsuleTabs.Tab>
       </CapsuleTabs>
-    </div>
+      </>
+    // </div>
   );
 };

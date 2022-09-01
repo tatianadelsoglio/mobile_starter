@@ -3,6 +3,7 @@
 .contenedor-cliente-individual {
   height: 100vh;
   width: 100vw;
+<<<<<<< HEAD
 }
 
 .contenedor-titulo-cliente {
@@ -24,4 +25,22 @@
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
+=======
+  position: fixed;
+}
+
+.div_lista_l {
+  display: block;
+  height: 81vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.capsule_fix {
+  position: fixed;
+}
+
+.div_lista_l .swipe_clienteTarea{
+  margin-bottom: -6px;
+>>>>>>> origin/feature/cliente/buscador
 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Calendar, CapsuleTabs } from "antd-mobile";
+import { Calendar, CapsuleTabs, SafeArea } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -8,10 +8,125 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const Tareas = () => {
-
   const { listaTareas, setListaTareas } = useContext(GlobalContext);
 
   const ItemListaTarea = [
+    {
+      id: 23,
+      contacto: "Adrian Sabo",
+      cliente: "La Ganadera",
+      fechaHora: "01/09/2022 08:30",
+      estado: 1,
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
+      prioridad: "BAJA",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+      origen: "NEGOCIO",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "01/09/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "01/09/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
+    {
+      id: 22,
+      contacto: "Adrian Sabo",
+      cliente: "La Ganadera",
+      fechaHora: "01/09/2022 08:30",
+      estado: 1,
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
+      prioridad: "ALTA",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+      origen: "NEGOCIO",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "01/09/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "01/09/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
+    {
+      id: 21,
+      contacto: "Adrian Sabo",
+      cliente: "La Ganadera",
+      fechaHora: "22/08/2022 08:30",
+      estado: 1,
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
+      prioridad: "ALTA",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+      origen: "NEGOCIO",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "23/08/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "24/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
+    {
+      id: 20,
+      contacto: "Adrian Sabo",
+      cliente: "La Ganadera",
+      fechaHora: "22/08/2022 08:30",
+      estado: 1,
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
+      prioridad: "ALTA",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+      origen: "NEGOCIO",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "23/08/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "24/08/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
     {
       id: 1,
       contacto: "Adrian Sabo",
@@ -204,8 +319,7 @@ const Tareas = () => {
 
   useEffect(() => {
     setListaTareas(ItemListaTarea);
-  }, [])
-  
+  }, []);
 
   let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
@@ -339,7 +453,7 @@ const Tareas = () => {
 
   return (
     <>
-      <CapsuleTabs defaultActiveKey="1">
+      <CapsuleTabs className="capsule_contenedor" defaultActiveKey="1">
         {/* PESTAÑA TAREAS HOY */}
         <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
           <div>
@@ -364,31 +478,45 @@ const Tareas = () => {
 
                 if (bandera === true) {
                   return (
-                    <p style={{ fontSize: "25px", color: "#56b43c", margin:"0px" }}>•</p>
+                    <p
+                      style={{
+                        fontSize: "25px",
+                        color: "#56b43c",
+                        margin: "0px",
+                      }}
+                    >
+                      •
+                    </p>
                   );
                 }
               }}
               onChange={(val) => handleChange(val)}
             />
           </div>
-          <div>
+          <div className="div_lista_calendario">
             <ListaTarea ItemListaTarea={arrayHoy} />
           </div>
         </CapsuleTabs.Tab>
 
         {/* PESTAÑA TAREAS ESTA SEMANA */}
         <CapsuleTabs.Tab title="Semana" key="2">
-          <ListaTarea ItemListaTarea={arrayES} />
+          <div className="div_lista">
+            <ListaTarea ItemListaTarea={arrayES} />
+          </div>
         </CapsuleTabs.Tab>
 
         {/* PESTAÑA TAREAS SEMANA PROXIMA */}
         <CapsuleTabs.Tab title="Semana Prox." key="3">
-          <ListaTarea ItemListaTarea={arraySP} />
+          <div className="div_lista">
+            <ListaTarea ItemListaTarea={arraySP} />
+          </div>
         </CapsuleTabs.Tab>
 
         {/* PESTAÑA TAREAS VENCIDAS */}
         <CapsuleTabs.Tab title="Vencido" key="4">
-          <ListaTarea ItemListaTarea={arrayVC} />
+          <div className="div_lista">
+            <ListaTarea ItemListaTarea={arrayVC} />
+          </div>
         </CapsuleTabs.Tab>
       </CapsuleTabs>
     </>

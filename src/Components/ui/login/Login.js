@@ -94,7 +94,7 @@ const Login = () => {
                 name="username"
                 rules={[
                   {
-                    required: true,
+                    required: false,
                     message: "Por Favor Ingrese Usuario!",
                   },
                 ]}
@@ -111,7 +111,7 @@ const Login = () => {
                 name="password"
                 rules={[
                   {
-                    required: true,
+                    required: false,
                     message: "Por Favor Ingrese Contraseña!",
                   },
                 ]}

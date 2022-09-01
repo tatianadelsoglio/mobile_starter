@@ -60,7 +60,7 @@ const InfoCliente = ({ clienteSelect }) => {
             <div className="div_contacto_lista">
               {contactos.map((contacto) => (
                 <Card className="border">
-                  <Card>
+                  <Card className="cards_internas">
                     <div
                       style={{
                         display: "flex",
@@ -73,6 +73,7 @@ const InfoCliente = ({ clienteSelect }) => {
                           {contacto.nombre_contacto}
                         </p>
                       </div>
+
                       <a
                         className="numCel p_info"
                         href={"tel:+54" + contacto.telefono_contacto}
