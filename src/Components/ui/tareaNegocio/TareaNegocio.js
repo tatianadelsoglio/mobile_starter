@@ -71,12 +71,14 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
     console.log(diff, fechaParametro, fechaActual);
 
-    if (diff <= 0) {
-      return "#F44336";
-    } else if (diff > 0 && diff <= 5) {
-      return "#FAAD14";
-    } else {
-      return "#00b33c";
+    switch (true) {
+      case diff <= 0:
+        return "#F44336";
+      case diff > 0 && diff <= 5:
+        return "#faad14";
+
+      default:
+        return "#00b33c";
     }
   };
 

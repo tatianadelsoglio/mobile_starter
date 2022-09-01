@@ -17,13 +17,15 @@ export const ListaNegocios = () => {
     let fechaParametro = moment(fecha, "DD/MM/YYYY");
 
     const diff = moment(fechaParametro).diff(fechaActual, "days");
-    
-    if(diff <= 0) {
-      return "#F44336";
-    } else if (diff > 0 && diff <= 5) {
-      return "#FAAD14";
-    } else {
-      return "#00b33c";
+
+    switch (true) {
+      case diff <= 0:
+        return "#F44336";
+      case diff > 0 && diff <= 5:
+        return "#faad14";
+
+      default:
+        return "#00b33c";
     }
   };
 
@@ -115,12 +117,11 @@ export const ListaNegocios = () => {
   ];
 
   const onCardClick = (id) => {
-
-    let negocio = data.filter(negocio => negocio.id === id);
+    let negocio = data.filter((negocio) => negocio.id === id);
 
     return history.push({
       pathname: `/negocio-completo/${id}`,
-      state:{...negocio}
+      state: { ...negocio },
     });
   };
 
@@ -174,7 +175,10 @@ export const ListaNegocios = () => {
                       // className={
                       //   dateHandler(negocio.cierreEstimado) && "reloj-rojo"
                       // }
-                      style={{ marginLeft: "1rem", color:dateHandler(negocio.cierreEstimado)}}
+                      style={{
+                        marginLeft: "1rem",
+                        color: dateHandler(negocio.cierreEstimado),
+                      }}
                     />
                   </Popover>
                 </div>

@@ -181,7 +181,7 @@ export const NegocioCompleto = () => {
         <p className="negocio-completo-header-importe">
           {negocio.moneda +
             " " +
-            negocio.importe.toLocaleString("de-DE", {
+            negocio.importe.toLocaleString("", {
               minimumFractionDigits: 0,
             })}
         </p>
