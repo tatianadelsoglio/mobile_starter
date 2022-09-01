@@ -64,12 +64,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
   let fechaActual = moment();
 
   const dateHandler = (fecha) => {
-    console.log(fecha);
     let fechaParametro = moment(fecha, "DD/MM/YYYY");
 
     const diff = moment(fechaParametro).diff(fechaActual, "days");
-
-    console.log(diff, fechaParametro, fechaActual);
 
     switch (true) {
       case diff <= 0:

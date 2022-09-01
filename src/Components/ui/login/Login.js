@@ -43,7 +43,6 @@ const Login = () => {
   const onFinish = (values) => {
     let usuario = base64.encode(values.username);
     let contrasena = base64.encode(values.password);
-    console.log(usuario, contrasena);
 
     loginIframeResolver({
       variables: { credentials: { username: usuario, password: contrasena } },

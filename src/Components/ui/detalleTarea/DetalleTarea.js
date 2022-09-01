@@ -76,7 +76,6 @@ const DetalleTarea = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log(values);
   };
 
   const valoresIniciales = {

@@ -70,7 +70,6 @@ const NuevaTarea = () => {
   ];
 
   const handleFormSubmit = (values) => {
-    console.log(values);
   };
 
   return (

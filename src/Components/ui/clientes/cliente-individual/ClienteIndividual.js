@@ -36,51 +36,26 @@ export const ClienteIndividual = () => {
   useEffect(() => {}, [tareasXCliente]);
 
   return (
-    <div className="contenedor-cliente-individual">
-<<<<<<< HEAD
-        <CapsuleTabs>
-            <CapsuleTabs.Tab title="Info" key="1">
-              <InfoCliente clienteSelect={cliente}/>
-            </CapsuleTabs.Tab>
-            <CapsuleTabs.Tab title="Tareas" key="2">
-              <div className="contenedor-titulo-cliente">
-                <p className="titulo-cliente-tareas">{cliente.empresa}</p>
-              </div>
-              {tareasXCliente?.map( tarea => {
-                return(
-                  <SwipeAction style={{marginLeft:"-3px"}}>
-                    <TareaNegocio tarea={tarea} origen = "ListaTareas"/>
-                  </SwipeAction>
-                )
-              })}
-            </CapsuleTabs.Tab>
-            <CapsuleTabs.Tab title="Negocios" key="3">
-              <ListaNegocios />
-            </CapsuleTabs.Tab>
-        </CapsuleTabs>
-=======
-      <CapsuleTabs>
-        <CapsuleTabs.Tab title="Info" key="1">
-            <InfoCliente clienteSelect={cliente} />
-        </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Tareas" key="2">
-          <div className="div_lista_l">
-            {tareasXCliente?.map((tarea) => {
-              return (
-                <SwipeAction className="swipe_clienteTarea">
-                  <TareaNegocio tarea={tarea} origen="ListaTareas" />
-                </SwipeAction>
-              );
-            })}
-          </div>
-        </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Negocios" key="3">
-          <div className="div_lista_l">
-            <ListaNegocios />
-          </div>
-        </CapsuleTabs.Tab>
-      </CapsuleTabs>
->>>>>>> origin/feature/cliente/buscador
-    </div>
+    <CapsuleTabs>
+      <CapsuleTabs.Tab title="Info" key="1">
+        <InfoCliente clienteSelect={cliente} />
+      </CapsuleTabs.Tab>
+      <CapsuleTabs.Tab title="Tareas" key="2">
+        <div className="div_lista_l">
+          {tareasXCliente?.map((tarea) => {
+            return (
+              <SwipeAction className="swipe_clienteTarea">
+                <TareaNegocio tarea={tarea} origen="ListaTareas" />
+              </SwipeAction>
+            );
+          })}
+        </div>
+      </CapsuleTabs.Tab>
+      <CapsuleTabs.Tab title="Negocios" key="3">
+        <div className="div_lista_l">
+          <ListaNegocios />
+        </div>
+      </CapsuleTabs.Tab>
+    </CapsuleTabs>
   );
 };
