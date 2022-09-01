@@ -1,21 +1,21 @@
 @import "antd-mobile/bundle/css-vars-patch.css";
 
 .contenedor-cliente-individual {
-  height: 100vh;
+  height: calc(100% - 95px);
   width: 100vw;
   position: fixed;
 }
 
 .div_lista_l {
   display: block;
-  height: 81vh;
+  height: calc(100%);
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
 
-.capsule_fix {
+/* .capsule_fix {
   position: fixed;
-}
+} */
 
 .div_lista_l .swipe_clienteTarea{
   margin-bottom: -6px;

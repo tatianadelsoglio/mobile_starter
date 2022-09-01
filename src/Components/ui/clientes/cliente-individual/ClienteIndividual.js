@@ -36,8 +36,8 @@ export const ClienteIndividual = () => {
   useEffect(() => {}, [tareasXCliente]);
 
   return (
-    <div className="contenedor-cliente-individual">
-      <CapsuleTabs>
+    // <div className="contenedor-cliente-individual">
+      <CapsuleTabs className="contenedor-cliente-individual">
         <CapsuleTabs.Tab title="Info" key="1">
             <InfoCliente clienteSelect={cliente} />
         </CapsuleTabs.Tab>
@@ -58,6 +58,6 @@ export const ClienteIndividual = () => {
           </div>
         </CapsuleTabs.Tab>
       </CapsuleTabs>
-    </div>
+    // </div>
   );
 };

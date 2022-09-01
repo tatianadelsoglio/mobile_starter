@@ -48,7 +48,7 @@
 }
 
 .div_contacto_lista{
-    height: 54vh;
+    height: calc(100% - 150px);
     display: block;
     overflow-y: scroll;
     scroll-behavior: smooth;
