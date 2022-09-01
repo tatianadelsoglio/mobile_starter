@@ -13,6 +13,64 @@ const Tareas = () => {
 
   const ItemListaTarea = [
     {
+      id: 23,
+      contacto: "Adrian Sabo",
+      cliente: "La Ganadera",
+      fechaHora: "01/09/2022 08:30",
+      estado: 1,
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
+      prioridad: "BAJA",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+      origen: "NEGOCIO",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "01/09/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "01/09/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
+    {
+      id: 22,
+      contacto: "Adrian Sabo",
+      cliente: "La Ganadera",
+      fechaHora: "01/09/2022 08:30",
+      estado: 1,
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
+      prioridad: "ALTA",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+      origen: "NEGOCIO",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "01/09/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "01/09/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
+    {
       id: 21,
       contacto: "Adrian Sabo",
       cliente: "La Ganadera",
@@ -396,7 +454,7 @@ const Tareas = () => {
 
   return (
     <>
-      <CapsuleTabs defaultActiveKey="1">
+      <CapsuleTabs className="capsule_contenedor" defaultActiveKey="1">
         {/* PESTAÑA TAREAS HOY */}
         <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
           <div>

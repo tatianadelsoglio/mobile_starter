@@ -1,20 +1,22 @@
 .contenedor-negocio-completo {
   width: 100%;
+  height: 100%;
   background-color: #f8f8f8;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin: 0px;
   padding: 0px;
-  position: fixed;
+  /* position: fixed; */
 }
 
 .negocio-completo-header {
   width: 100%;
+  height: 136px;
   background-color: white;
-  padding: 0.5rem;
-  display: flex;
+  padding-top: 8px;
+  display: block;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -142,23 +144,24 @@
 }
 
 .negocio-linea-tiempo-contenedor {
-    width: 100%;
-    background-color: #f8f8f8;
-    padding: 0px 6px;
-    box-sizing: border-box;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 0px 6px;
+  box-sizing: border-box;
+  height: 100%;
 }
 
 .negocio-linea-tiempo-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .negocio-descripcion {
-    margin-left: 10px;
-    width: 95%;
-    border: 2px solid rgba(153, 153, 153, 0.2);
-    border-radius: 5px;
+  margin-left: 10px;
+  width: 95%;
+  border: 2px solid rgba(153, 153, 153, 0.2);
+  border-radius: 5px;
 }
 
 .adm-steps-vertical {
@@ -166,32 +169,32 @@
 }
 
 .bullet p {
-	line-height: 10px;
+  line-height: 10px;
 }
 
 span.detailItem {
-	font-weight: 500;
-	margin-right: 5px;
+  font-weight: 500;
+  margin-right: 5px;
   font-size: 0.9rem;
 }
 
 span.strikeThrough {
-	text-decoration: line-through;
-	color: #bbb;
-	margin-right: 5px;
+  text-decoration: line-through;
+  color: #bbb;
+  margin-right: 5px;
   font-size: 0.9rem;
 }
 
 span.modifiedItem {
-	margin-left: 5px;
+  margin-left: 5px;
   font-size: 0.9rem;
 }
 
 span.middleDot {
-	font-size: 1.3rem;
-	font-weight: 500;
-	line-height: 0;
-	color: #bbb;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 0;
+  color: #bbb;
 }
 
 p {
@@ -207,8 +210,12 @@ p {
 }
 
 .div_lista_neg {
-  display: block;
-  height: 55vh;
+  /* display: block; */
+  height:100%;
   overflow-y: scroll;
   scroll-behavior: smooth;
+}
+
+.capsuletabs-negocio {
+  height: calc(100% - 144px);
 }

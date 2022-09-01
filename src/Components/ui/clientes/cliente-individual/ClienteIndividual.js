@@ -45,7 +45,7 @@ export const ClienteIndividual = () => {
           <div className="div_lista_l">
             {tareasXCliente?.map((tarea) => {
               return (
-                <SwipeAction style={{ marginLeft: "-3px" }}>
+                <SwipeAction className="swipe_clienteTarea">
                   <TareaNegocio tarea={tarea} origen="ListaTareas" />
                 </SwipeAction>
               );

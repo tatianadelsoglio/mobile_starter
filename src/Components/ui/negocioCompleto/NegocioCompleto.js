@@ -211,7 +211,8 @@ export const NegocioCompleto = () => {
   }, []);
 
   return (
-    <div className="contenedor-negocio-completo">
+    // <div className="contenedor-negocio-completo">
+    <>
       <div className="negocio-completo-header">
         <p className="negocio-completo-header-asunto">{negocio.asunto}</p>
         <p className="negocio-completo-header-importe">
@@ -377,6 +378,7 @@ export const NegocioCompleto = () => {
           </div>
         </CapsuleTabs.Tab>
       </CapsuleTabs>
-    </div>
+      </>
+    // </div>
   );
 };

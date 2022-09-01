@@ -9,13 +9,11 @@ const ListaTarea = ({ ItemListaTarea }) => {
 
   return (
     <>
-      <div className="div_lista_tareas">
-        <div>
+        {/* <div> */}
           {ItemListaTarea.map((ItemListaTarea) => (
             <TareaNegocio tarea={ItemListaTarea} origen="ListaTareas" />
           ))}
-        </div>
-      </div>
+        {/* </div> */}
     </>
   );
 };

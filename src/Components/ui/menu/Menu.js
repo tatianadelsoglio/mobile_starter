@@ -26,10 +26,6 @@ const Menu = () => {
       key: "/clientes",
       icon: <UserOutline />,
     },
-    // {
-    //   key: "/calendario",
-    //   icon: <CalendarOutline />,
-    // },
     {
       key: "/configuracion",
       icon: <SetOutline />,
@@ -39,7 +35,7 @@ const Menu = () => {
     <>
       <TabBar activeKey={pathname} onChange={(key) => history.push(key)} className="menu_tabs">        
         {tabs.map((item) => (
-            <TabBar.Item key={item.key} icon={item.icon}/>
+            <TabBar.Item key={item.key} icon={item.icon} className="menu_items"/>
         ))}
       </TabBar>
     </>
