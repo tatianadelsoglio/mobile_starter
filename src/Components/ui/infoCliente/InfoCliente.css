@@ -51,12 +51,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: calc(100% - 200px);
+    height: calc(100% - 140px);
 } 
 
 .card_contactos {
     margin-bottom: -1rem;
-    height: calc(100% + 5px);
+    height: 100%;
 }
 .card_contactos .adm-card-header-title{
     font-size: 20px;
@@ -73,6 +73,7 @@
 
 .div_contacto2 .adm-card-body{
     height: calc(100% - 80px);
+    padding: 12px 0px 0px 0px;
 }
 
 .numCel{
