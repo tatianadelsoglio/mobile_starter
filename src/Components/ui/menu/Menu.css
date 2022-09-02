@@ -3,10 +3,10 @@
 .adm-tab-bar-item-active{
     color:#56b43c !important;
 }
-/* 
+
 .menu_tabs{
-    margin-bottom: 20px;
-} */
+    height: 60px;
+}
 
 /* .menu_items{
     margin-top: -15px;

@@ -63,3 +63,9 @@ body{
     position: fixed;
     height: 100%;
 }
+
+.espacio-blanco {
+    width: 100%;
+    height: 20px;
+    background-color: white;
+}
