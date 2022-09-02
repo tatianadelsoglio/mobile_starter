@@ -29,7 +29,7 @@ const InfoCliente = ({ clienteSelect }) => {
 
   return (
     <>
-      <div className="lista_infoClient">
+      {/* <div className="lista_infoClient"> */}
         <div className="div_contacto">
           <Card className="card_empresa">
             <div
@@ -55,7 +55,7 @@ const InfoCliente = ({ clienteSelect }) => {
           </Card>
         </div>
 
-        <div className="div_contacto">
+        <div className="div_contacto2">
           <Card title="CONTACTOS" className="card_contactos">
             <div className="div_contacto_lista">
               {contactos.map((contacto) => (
@@ -94,7 +94,7 @@ const InfoCliente = ({ clienteSelect }) => {
             </div>
           </Card>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };

@@ -37,27 +37,30 @@ export const ClienteIndividual = () => {
 
   return (
     // <div className="contenedor-cliente-individual">
-      <CapsuleTabs className="contenedor-cliente-individual">
-        <CapsuleTabs.Tab title="Info" key="1">
-            <InfoCliente clienteSelect={cliente} />
-        </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Tareas" key="2">
-          <div className="div_lista_l">
-            {tareasXCliente?.map((tarea) => {
-              return (
-                <SwipeAction className="swipe_clienteTarea">
-                  <TareaNegocio tarea={tarea} origen="ListaTareas" />
-                </SwipeAction>
-              );
-            })}
-          </div>
-        </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Negocios" key="3">
-          <div className="div_lista_l">
-            <ListaNegocios />
-          </div>
-        </CapsuleTabs.Tab>
-      </CapsuleTabs>
+    <CapsuleTabs className="contenedor-cliente-individual">
+      <CapsuleTabs.Tab title="Info" key="1">
+        <InfoCliente clienteSelect={cliente} />
+      </CapsuleTabs.Tab>
+      <CapsuleTabs.Tab title="Tareas" key="2">
+        <div className="contenedor-titulo-cliente">
+          <p className="titulo-cliente-tareas">{cliente.empresa}</p>
+        </div>
+        <div className="div_lista_l">
+          {tareasXCliente?.map((tarea) => {
+            return (
+              <SwipeAction className="swipe_clienteTarea">
+                <TareaNegocio tarea={tarea} origen="ListaTareas" />
+              </SwipeAction>
+            );
+          })}
+        </div>
+      </CapsuleTabs.Tab>
+      <CapsuleTabs.Tab title="Negocios" key="3">
+        <div className="div_lista_l">
+          <ListaNegocios />
+        </div>
+      </CapsuleTabs.Tab>
+    </CapsuleTabs>
     // </div>
   );
 };

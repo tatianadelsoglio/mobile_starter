@@ -20,7 +20,6 @@ const App = () => {
   const [tareaSeleccionada, setTareaSeleccionada] = useState({});
   const [listaTareas, setListaTareas] = useState({});
 
-
   return (
     <AuthProvider>
       <ApolloProvider client={Client}>

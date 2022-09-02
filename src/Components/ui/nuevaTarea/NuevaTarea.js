@@ -12,10 +12,8 @@ import {
   TextArea,
 } from "antd-mobile";
 import React, { useState } from "react";
-import dayjs from "dayjs";
 import "./NuevaTarea.css";
 import { CheckOutline } from "antd-mobile-icons";
-import Nav from "../navBar/Nav";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
@@ -70,7 +68,6 @@ const NuevaTarea = () => {
   ];
 
   const handleFormSubmit = (values) => {
-    console.log(values);
   };
 
   return (

@@ -1,10 +1,8 @@
 @import "antd-mobile/bundle/css-vars-patch.css";
 
 .lista_infoClient{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    height: calc(100% - 20px) !important;
 }
 
 .card_empresa{
@@ -41,6 +39,23 @@
 
 .div_contacto{
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div_contacto2{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_contactos{
+    /* height: 60vh; */
+    height: calc(100% - 200px) !important;
 }
 
 .card_contactos .adm-card-header-title{
@@ -48,11 +63,11 @@
 }
 
 .div_contacto_lista{
-    height: calc(100% - 150px);
     display: block;
     overflow-y: scroll;
     scroll-behavior: smooth;
     width: 90vw;
+    height: calc(100% - 200px) !important;
 }
 
 .numCel{
