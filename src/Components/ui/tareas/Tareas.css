@@ -75,7 +75,7 @@
 
 .div_lista_calendario{
   display: block;
-  height: calc(100% - 320px);
+  height: calc(100% - 318px);
   overflow-y: scroll;
   scroll-behavior: smooth;
   z-index: 999;
