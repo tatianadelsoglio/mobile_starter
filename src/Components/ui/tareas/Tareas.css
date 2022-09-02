@@ -92,3 +92,26 @@
 .capsule_contenedor{
   height: 100%;
 }
+
+.adm-calendar .adm-calendar-header .adm-calendar-title {
+  font-size: 16px !important;
+}
+
+.adm-calendar .adm-calendar-header a.adm-calendar-arrow-button {
+  font-size: 0px;
+}
+.adm-calendar .adm-calendar-header a.adm-calendar-arrow-button svg {
+  height: 16px;
+}
+
+.adm-calendar-mark {
+  height: 36px !important;
+}
+
+.adm-calendar-cell {
+  height: 36px;
+}
+
+.adm-calendar-cell .adm-calendar-cell-top {
+  font-size: 14px;
+}
