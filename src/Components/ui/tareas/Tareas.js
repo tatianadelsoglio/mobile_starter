@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 import { Calendar, CapsuleTabs, SafeArea } from "antd-mobile";
 import moment from "moment";
@@ -416,7 +417,7 @@ const Tareas = () => {
           SP.push(tarea);
         }
       }
-      return "Prueba lista tareas";
+      return "";
     });
   };
 
@@ -429,19 +430,30 @@ const Tareas = () => {
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
 
   let VC = [];
+  let horaActual = moment().format("LT");
 
   const listaTareasVC = () => {
     ItemListaTarea.map((tarea) => {
       let fechaSola = tarea.fechaHora.split(" ");
+      let hora = fechaSola[1];
       fechaSola = fechaSola[0];
       let fecha = moment(fechaSola, "DD/MM/YYYY");
+      hora = moment(hora, "LT");
 
-      StartES = moment(StartES, "DD/MM/YYYY");
+      horaActual = moment(horaActual, "LT");
+      today = moment(today, "DD/MM/YYYY");
 
-      if (fecha <= StartES) {
+      if (fecha < today) {
         VC.push(tarea);
       }
-      return "Prueba lista tareas";
+      if (fecha === today) {
+        if (hora < horaActual) {
+          console.log(hora);
+          console.log(horaActual);
+          VC.push(tarea);
+        }
+      }
+      return "";
     });
   };
 

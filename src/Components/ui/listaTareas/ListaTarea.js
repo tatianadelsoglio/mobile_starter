@@ -6,15 +6,12 @@ import "moment/locale/es";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 
 const ListaTarea = ({ ItemListaTarea }) => {
-
   return (
-    <>
-        {/* <div> */}
-          {ItemListaTarea.map((ItemListaTarea) => (
-            <TareaNegocio tarea={ItemListaTarea} origen="ListaTareas" />
-          ))}
-        {/* </div> */}
-    </>
+    <div>
+      {ItemListaTarea.map((ItemListaTarea) => (
+        <TareaNegocio tarea={ItemListaTarea} origen="ListaTareas" />
+      ))}
+    </div>
   );
 };
 

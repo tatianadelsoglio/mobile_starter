@@ -35,8 +35,8 @@ export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true 
     );
   }
   else {
-    <>
-    </>
+    <div style={{display:"none"}}>
+    </div>
   }
   
 };

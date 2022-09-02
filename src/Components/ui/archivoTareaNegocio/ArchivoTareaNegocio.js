@@ -27,8 +27,8 @@ export const ArchivoTareaNegocio = ({ archivo, origen="", interno=false, display
       </div>
     );
   } else {
-    <>
-    </>
+    <div style={{display:"none"}}>
+    </div>
   }
   
 };

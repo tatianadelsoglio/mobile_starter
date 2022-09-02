@@ -28,74 +28,69 @@ const InfoCliente = ({ clienteSelect }) => {
   ];
 
   return (
-    <>
-      {/* <div className="lista_infoClient"> */}
-        <div className="div_contacto">
-          <Card className="card_empresa">
-            <div
-              className="div_emp"
-              style={{ display: "flex", flexDirection: "column" }}
+    <div>
+      <div className="div_contacto">
+        <Card className="card_empresa">
+          <div
+            className="div_emp"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
+
+            <a
+              className="numCel p_info"
+              href={"tel:+54" + clienteSelect.telefono}
             >
-              <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
+              <PhonebookOutline /> {clienteSelect.telefono}
+            </a>
 
-              <a
-                className="numCel p_info"
-                href={"tel:+54" + clienteSelect.telefono}
-              >
-                <PhonebookOutline /> {clienteSelect.telefono}
-              </a>
+            <a className="numCel p_info" href={"mailto:" + clienteSelect.email}>
+              <MailOutline /> {clienteSelect.email}
+            </a>
+          </div>
+        </Card>
+      </div>
 
-              <a
-                className="numCel p_info"
-                href={"mailto:" + clienteSelect.email}
-              >
-                <MailOutline /> {clienteSelect.email}
-              </a>
-            </div>
-          </Card>
-        </div>
-
-        <div className="div_contacto2">
-          <Card title="CONTACTOS" className="card_contactos">
-            <div className="div_contacto_lista">
-              {contactos.map((contacto) => (
-                <Card className="border">
-                  <Card className="cards_internas">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <div>
-                        <p className="p_infoContacto">
-                          {contacto.nombre_contacto}
-                        </p>
-                      </div>
-
-                      <a
-                        className="numCel p_info"
-                        href={"tel:+54" + contacto.telefono_contacto}
-                      >
-                        <PhonebookOutline /> {contacto.telefono_contacto}
-                      </a>
-
-                      <a
-                        className="numCel p_info"
-                        href={"mailto:" + contacto.email_contacto}
-                      >
-                        <MailOutline /> {contacto.email_contacto}
-                      </a>
+      <div className="div_contacto2">
+        <Card title="CONTACTOS" className="card_contactos">
+          <div className="div_contacto_lista">
+            {contactos.map((contacto) => (
+              <Card className="border">
+                <Card className="cards_internas">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <div>
+                      <p className="p_infoContacto">
+                        {contacto.nombre_contacto}
+                      </p>
                     </div>
-                  </Card>
+
+                    <a
+                      className="numCel p_info"
+                      href={"tel:+54" + contacto.telefono_contacto}
+                    >
+                      <PhonebookOutline /> {contacto.telefono_contacto}
+                    </a>
+
+                    <a
+                      className="numCel p_info"
+                      href={"mailto:" + contacto.email_contacto}
+                    >
+                      <MailOutline /> {contacto.email_contacto}
+                    </a>
+                  </div>
                 </Card>
-              ))}
-            </div>
-          </Card>
-        </div>
-      {/* </div> */}
-    </>
+              </Card>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
   );
 };
 

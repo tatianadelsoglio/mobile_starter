@@ -9,10 +9,7 @@ import { TabBar } from "antd-mobile";
 import "./Menu.css";
 import { useHistory, useLocation } from "react-router-dom";
 
-
-
 const Menu = () => {
-
   let history = useHistory();
   const location = useLocation();
   const { pathname } = location;
@@ -32,13 +29,15 @@ const Menu = () => {
     },
   ];
   return (
-    <>
-      <TabBar activeKey={pathname} onChange={(key) => history.push(key)} className="menu_tabs">        
-        {tabs.map((item) => (
-            <TabBar.Item key={item.key} icon={item.icon} className="menu_items"/>
-        ))}
-      </TabBar>
-    </>
+    <TabBar
+      activeKey={pathname}
+      onChange={(key) => history.push(key)}
+      className="menu_tabs"
+    >
+      {tabs.map((item) => (
+        <TabBar.Item key={item.key} icon={item.icon} className="menu_items" />
+      ))}
+    </TabBar>
   );
 };
 

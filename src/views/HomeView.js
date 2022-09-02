@@ -3,11 +3,9 @@ import Tareas from "../Components/ui/tareas/Tareas";
 
 const HomeView = () => {
   return (
-    <>
-      <MainLayout modo="sinBack">
-        <Tareas />
-      </MainLayout>
-    </>
+    <MainLayout modo="sinBack">
+      <Tareas />
+    </MainLayout>
   );
 };
 

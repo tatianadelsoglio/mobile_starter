@@ -3,11 +3,9 @@ import NuevaTarea from "../Components/ui/nuevaTarea/NuevaTarea";
 
 const NuevaTareaView = () => {
   return (
-    <>
-      <MainLayout titulo="Nueva Tarea" modo="sinOp">
-        <NuevaTarea />
-      </MainLayout>
-    </>
+    <MainLayout titulo="Nueva Tarea" modo="sinOp">
+      <NuevaTarea />
+    </MainLayout>
   );
 };
 
