@@ -28,7 +28,7 @@ const InfoCliente = ({ clienteSelect }) => {
   ];
 
   return (
-    <div>
+    <div className="div_contenedor_info">
       <div className="div_contacto">
         <Card className="card_empresa">
           <div
