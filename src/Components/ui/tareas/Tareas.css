@@ -79,6 +79,7 @@
   height: calc(100% - 407px);
   overflow-y: scroll;
   scroll-behavior: smooth;
+  z-index: 999;
 }
 
 .div_lista{
