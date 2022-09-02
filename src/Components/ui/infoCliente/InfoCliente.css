@@ -55,7 +55,8 @@
 } 
 
 .card_contactos {
-    height: calc(100% - 5px);
+    margin-bottom: -1rem;
+    height: calc(100% + 5px);
 }
 .card_contactos .adm-card-header-title{
     font-size: 20px;
@@ -67,6 +68,7 @@
     scroll-behavior: smooth;
     width: 90vw;
     height: 100%;
+    
 }
 
 .div_contacto2 .adm-card-body{
@@ -79,4 +81,6 @@
     color:rgb(66, 66, 66);
 }
 
-
+.div_contenedor_info{
+    height: calc(100% - 16px);
+}
