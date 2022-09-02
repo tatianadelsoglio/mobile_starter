@@ -8,7 +8,7 @@
 
 .div_lista_l {
   display: block;
-  height: calc(100%);
+  height: calc(100% - 45px);
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
