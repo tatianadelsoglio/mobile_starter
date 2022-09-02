@@ -67,111 +67,108 @@ const NuevaTarea = () => {
     },
   ];
 
-  const handleFormSubmit = (values) => {
-  };
+  const handleFormSubmit = (values) => {};
 
   return (
-    <>
-      <div className="detalle-tarea-contenedor">
-        <Form
-          layout="vertical"
-          onFinish={(values) => handleFormSubmit(values)}          
-          footer={
-            <Button
-              block
-              type="submit"
-              color="primary"
-              size="large"
-              onClick={() => {
-                Modal.alert({
-                  header: (
-                    <CheckOutline
-                      style={{
-                        fontSize: 64,
-                        color: "var(--adm-color-primary)",
-                      }}
-                    />
-                  ),
-                  title: "Tarea Cargada Correctamente",
-                  confirmText: "Cerrar",
-                });
-              }}
-            >
-              Cargar Tarea
-            </Button>
-          }
-        >
-          <Form.Item label="Cliente" name="cliente">
-            <select className="select_nueva_tarea" required>
-              <option value="" disabled selected hidden>
-                Seleccione un cliente
-              </option>
-              <option value="La Ganadera">La Ganadera</option>
-            </select>
-          </Form.Item>
-          <Form.Item label="Asunto" name="asunto">
-            <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
-          </Form.Item>
-          <Form.Item label="Tipo de Tarea" name="tipoTarea">
-            <select className="select_nueva_tarea" required>
-              <option value="" disabled selected hidden>
-                Seleccione tipo de tarea
-              </option>
-              <option value="Visita de Campo">Visita de Campo</option>
-            </select>
-          </Form.Item>
-          <Form.Item label="Fuente" name="fuente">
-            <select className="select_nueva_tarea" required>
-              <option value="" disabled selected hidden>
-                Seleccione fuente
-              </option>
-              <option value="Negocio">Negocio</option>
-            </select>
-          </Form.Item>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+    <div className="detalle-tarea-contenedor">
+      <Form
+        layout="vertical"
+        onFinish={(values) => handleFormSubmit(values)}
+        footer={
+          <Button
+            block
+            type="submit"
+            color="primary"
+            size="large"
+            onClick={() => {
+              Modal.alert({
+                header: (
+                  <CheckOutline
+                    style={{
+                      fontSize: 64,
+                      color: "var(--adm-color-primary)",
+                    }}
+                  />
+                ),
+                title: "Tarea Cargada Correctamente",
+                confirmText: "Cerrar",
+              });
             }}
           >
-            <div>
-              <Form.Item label="Vencimiento" name="vencimiento">
-                <input
-                  className="input-fechaHora"
-                  type="date"
-                  placeholder="Seleccione Fecha"
-                />
-              </Form.Item>
-            </div>
-            <div>
-              <Form.Item label="Hora" name="hora">
-                <input
-                  className="input-fechaHora"
-                  type="time"
-                  placeholder="Seleccione Hora"
-                />
-              </Form.Item>
-            </div>
+            Cargar Tarea
+          </Button>
+        }
+      >
+        <Form.Item label="Cliente" name="cliente">
+          <select className="select_nueva_tarea" required>
+            <option value="" disabled selected hidden>
+              Seleccione un cliente
+            </option>
+            <option value="La Ganadera">La Ganadera</option>
+          </select>
+        </Form.Item>
+        <Form.Item label="Asunto" name="asunto">
+          <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
+        </Form.Item>
+        <Form.Item label="Tipo de Tarea" name="tipoTarea">
+          <select className="select_nueva_tarea" required>
+            <option value="" disabled selected hidden>
+              Seleccione tipo de tarea
+            </option>
+            <option value="Visita de Campo">Visita de Campo</option>
+          </select>
+        </Form.Item>
+        <Form.Item label="Fuente" name="fuente">
+          <select className="select_nueva_tarea" required>
+            <option value="" disabled selected hidden>
+              Seleccione fuente
+            </option>
+            <option value="Negocio">Negocio</option>
+          </select>
+        </Form.Item>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <Form.Item label="Vencimiento" name="vencimiento">
+              <input
+                className="input-fechaHora"
+                type="date"
+                placeholder="Seleccione Fecha"
+              />
+            </Form.Item>
           </div>
-          <Form.Item label="Prioridad" name="prioridad">
-            <Selector
-              style={{
-                "--border-radius": "10px",
-                "--border": "none",
-                "--checked-border": "none",
-                "--padding": "0px",
-                fontSize: "16px",
-              }}
-              showCheckMark={false}
-              label="Prioridad"
-              options={prioridad}
-              onChange={(v) => setIdSelector(v[0])}
-            />
-          </Form.Item>
-        </Form>
-      </div>
-    </>
+          <div>
+            <Form.Item label="Hora" name="hora">
+              <input
+                className="input-fechaHora"
+                type="time"
+                placeholder="Seleccione Hora"
+              />
+            </Form.Item>
+          </div>
+        </div>
+        <Form.Item label="Prioridad" name="prioridad">
+          <Selector
+            style={{
+              "--border-radius": "10px",
+              "--border": "none",
+              "--checked-border": "none",
+              "--padding": "0px",
+              fontSize: "16px",
+            }}
+            showCheckMark={false}
+            label="Prioridad"
+            options={prioridad}
+            onChange={(v) => setIdSelector(v[0])}
+          />
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 

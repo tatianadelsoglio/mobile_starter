@@ -12,7 +12,7 @@ export default function PublicRoute({ component: Component, ...rest }) {
   } else estado = false;
 
   return (
-    <>
+    <div>
       {estado && auth.isLogged() ? (
         <Redirect to={{ pathname: "/home", state: { from: location } }} />
       ) : (
@@ -20,6 +20,6 @@ export default function PublicRoute({ component: Component, ...rest }) {
           <Component />
         </Route>
       )}
-    </>
+    </div>
   );
 }

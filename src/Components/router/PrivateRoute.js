@@ -6,14 +6,12 @@ export default function PrivateRoute({ component: Component, ...rest }) {
   const location = useLocation();
 
   return (
-    <>
-      <Route {...rest}>
-        {auth.isLogged() ? (
-          <Component />
-        ) : (
-          <Redirect to={{ pathname: "/", state: { from: location } }} />
-        )}
-      </Route>
-    </>
+    <Route {...rest}>
+      {auth.isLogged() ? (
+        <Component />
+      ) : (
+        <Redirect to={{ pathname: "/", state: { from: location } }} />
+      )}
+    </Route>
   );
 }

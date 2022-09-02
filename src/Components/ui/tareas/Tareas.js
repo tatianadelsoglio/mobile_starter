@@ -446,9 +446,10 @@ const Tareas = () => {
       if (fecha < today) {
         VC.push(tarea);
       }
-
       if (fecha === today) {
         if (hora < horaActual) {
+          console.log(hora);
+          console.log(horaActual);
           VC.push(tarea);
         }
       }
@@ -463,74 +464,72 @@ const Tareas = () => {
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
   return (
-    <>
-      <CapsuleTabs className="capsule_contenedor" defaultActiveKey="1">
-        {/* PESTAÑA TAREAS HOY */}
-        <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
-          <div>
-            <Calendar
-              selectionMode="single"
-              // defaultValue={defaultSingle}
-              renderLabel={(date) => {
-                let bandera = false;
+    <CapsuleTabs className="capsule_contenedor" defaultActiveKey="1">
+      {/* PESTAÑA TAREAS HOY */}
+      <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
+        <div>
+          <Calendar
+            selectionMode="single"
+            // defaultValue={defaultSingle}
+            renderLabel={(date) => {
+              let bandera = false;
 
-                ItemListaTarea.map((tarea) => {
-                  let fechaHoySola = tarea.fechaHora.split(" ");
-                  fechaHoySola = fechaHoySola[0];
-                  let fechaHoy = moment(fechaHoySola, "DD/MM/YYYY").format(
-                    "DD/MM/YYYY"
-                  );
-                  let fechaCalendario = moment(date).format("DD/MM/YYYY");
+              ItemListaTarea.map((tarea) => {
+                let fechaHoySola = tarea.fechaHora.split(" ");
+                fechaHoySola = fechaHoySola[0];
+                let fechaHoy = moment(fechaHoySola, "DD/MM/YYYY").format(
+                  "DD/MM/YYYY"
+                );
+                let fechaCalendario = moment(date).format("DD/MM/YYYY");
 
-                  if (fechaCalendario === fechaHoy) {
-                    return (bandera = true);
-                  }
-                });
-
-                if (bandera === true) {
-                  return (
-                    <p
-                      style={{
-                        fontSize: "25px",
-                        color: "#56b43c",
-                        margin: "0px",
-                      }}
-                    >
-                      •
-                    </p>
-                  );
+                if (fechaCalendario === fechaHoy) {
+                  return (bandera = true);
                 }
-              }}
-              onChange={(val) => handleChange(val)}
-            />
-          </div>
-          <div className="div_lista_calendario">
-            <ListaTarea ItemListaTarea={arrayHoy} />
-          </div>
-        </CapsuleTabs.Tab>
+              });
 
-        {/* PESTAÑA TAREAS ESTA SEMANA */}
-        <CapsuleTabs.Tab title="Semana" key="2">
-          <div className="div_lista">
-            <ListaTarea ItemListaTarea={arrayES} />
-          </div>
-        </CapsuleTabs.Tab>
+              if (bandera === true) {
+                return (
+                  <p
+                    style={{
+                      fontSize: "25px",
+                      color: "#56b43c",
+                      margin: "0px",
+                    }}
+                  >
+                    •
+                  </p>
+                );
+              }
+            }}
+            onChange={(val) => handleChange(val)}
+          />
+        </div>
+        <div className="div_lista_calendario">
+          <ListaTarea ItemListaTarea={arrayHoy} />
+        </div>
+      </CapsuleTabs.Tab>
 
-        {/* PESTAÑA TAREAS SEMANA PROXIMA */}
-        <CapsuleTabs.Tab title="Semana Prox." key="3">
-          <div className="div_lista">
-            <ListaTarea ItemListaTarea={arraySP} />
-          </div>
-        </CapsuleTabs.Tab>
+      {/* PESTAÑA TAREAS ESTA SEMANA */}
+      <CapsuleTabs.Tab title="Semana" key="2">
+        <div className="div_lista">
+          <ListaTarea ItemListaTarea={arrayES} />
+        </div>
+      </CapsuleTabs.Tab>
 
-        {/* PESTAÑA TAREAS VENCIDAS */}
-        <CapsuleTabs.Tab title="Vencido" key="4">
-          <div className="div_lista">
-            <ListaTarea ItemListaTarea={arrayVC} />
-          </div>
-        </CapsuleTabs.Tab>
-      </CapsuleTabs>
-    </>
+      {/* PESTAÑA TAREAS SEMANA PROXIMA */}
+      <CapsuleTabs.Tab title="Semana Prox." key="3">
+        <div className="div_lista">
+          <ListaTarea ItemListaTarea={arraySP} />
+        </div>
+      </CapsuleTabs.Tab>
+
+      {/* PESTAÑA TAREAS VENCIDAS */}
+      <CapsuleTabs.Tab title="Vencido" key="4">
+        <div className="div_lista">
+          <ListaTarea ItemListaTarea={arrayVC} />
+        </div>
+      </CapsuleTabs.Tab>
+    </CapsuleTabs>
   );
 };
 
