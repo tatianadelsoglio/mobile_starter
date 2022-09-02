@@ -15,7 +15,6 @@ const Menu = () => {
   const { pathname } = location;
 
   const { plataforma } = useContext(GlobalContext);
-  console.log(plataforma);
 
   const tabs = [
     {

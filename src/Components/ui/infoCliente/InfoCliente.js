@@ -25,6 +25,16 @@ const InfoCliente = ({ clienteSelect }) => {
       telefono_contacto: "353321888",
       email_contacto: "Ciro@Heiz.com",
     },
+    {
+      nombre_contacto: "Ciro Heiz",
+      telefono_contacto: "353321888",
+      email_contacto: "Ciro@Heiz.com",
+    },
+    {
+      nombre_contacto: "Ciro Heiz",
+      telefono_contacto: "353321888",
+      email_contacto: "Ciro@Heiz.com",
+    },
   ];
 
   return (
