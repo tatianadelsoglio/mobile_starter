@@ -1,14 +1,31 @@
 @import "antd-mobile/bundle/css-vars-patch.css";
 
 .contenedor-cliente-individual {
-  height: 100vh;
+  height: calc(100% - 95px);
   width: 100vw;
+  position: fixed;
+}
+
+.div_lista_l {
+  display: block;
+  height: calc(100%);
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+/* .capsule_fix {
+  position: fixed;
+} */
+
+.div_lista_l .swipe_clienteTarea{
+  margin-bottom: -6px;
+  margin-left: -4px;
 }
 
 .contenedor-titulo-cliente {
   background-color: white;
-  width: calc(100% - 18px);
-  margin: 5px 9px 0px 9px;
+  width: calc(100% - 16px);
+  margin: 5px 8px 0px 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,19 +42,4 @@
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-}
-
-.div_lista_l {
-  display: block;
-  height: 81vh;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-}
-
-.capsule_fix {
-  position: fixed;
-}
-
-.div_lista_l .swipe_clienteTarea{
-  margin-bottom: -6px;
 }
