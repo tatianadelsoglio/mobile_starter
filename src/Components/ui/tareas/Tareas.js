@@ -13,6 +13,35 @@ const Tareas = () => {
 
   const ItemListaTarea = [
     {
+      id: 24,
+      contacto: "Adrian Sabo",
+      cliente: "La Ganadera",
+      fechaHora: "02/09/2022 13:15",
+      estado: 1,
+      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
+      prioridad: "BAJA",
+      tipoTarea: "Visita de campo",
+      tipo: "#T",
+      origen: "NEGOCIO",
+      anexo: [
+        {
+          id: 3,
+          texto: "nota numero 1, primera prueba",
+          fecha: "01/09/2022",
+          prioridad: "ALTA",
+          tipo: "#N",
+        },
+        {
+          id: 4,
+          nombre: "paisaje-02",
+          descripcion: "foto de la entrada al campo",
+          fecha: "01/09/2022 13:45",
+          tipo: "#A",
+          peso: "2035 Kb",
+        },
+      ],
+    },
+    {
       id: 23,
       contacto: "Adrian Sabo",
       cliente: "La Ganadera",
@@ -441,15 +470,14 @@ const Tareas = () => {
       hora = moment(hora, "LT");
 
       horaActual = moment(horaActual, "LT");
-      today = moment(today, "DD/MM/YYYY");
+      let hoyVC = moment(today, "DD/MM/YYYY").add(1, "day");
 
       if (fecha < today) {
         VC.push(tarea);
       }
-      if (fecha === today) {
+
+      if (fecha < hoyVC) {
         if (hora < horaActual) {
-          console.log(hora);
-          console.log(horaActual);
           VC.push(tarea);
         }
       }
