@@ -19,6 +19,13 @@ const App = () => {
   const [infoUser, setInfoUser] = useState({});
   const [tareaSeleccionada, setTareaSeleccionada] = useState({});
   const [listaTareas, setListaTareas] = useState({});
+  const [plataforma, setPlataforma] = useState();
+
+  if (navigator.userAgent.toUpperCase().includes("IOS")) {
+    setPlataforma("IOS");
+  } else {
+    setPlataforma("OTRO");
+  }
 
   return (
     <AuthProvider>
@@ -36,6 +43,7 @@ const App = () => {
               setTareaSeleccionada,
               listaTareas,
               setListaTareas,
+              plataforma,
             }}
           >
             <AppRouter />
