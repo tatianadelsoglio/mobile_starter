@@ -7,7 +7,7 @@
 
 .contenedor-titulo-cliente {
   background-color: white;
-  width: calc(100% - 20px);
+  width: calc(100% - 18px);
   margin: 5px 9px 0px 9px;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,7 @@
   align-items: center;
   border-radius: 2px;
   border: 1px solid rgba(153, 153, 153, 0.2);
+  box-sizing: border-box;
 }
 
 .titulo-cliente-tareas {
@@ -24,7 +25,6 @@
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-  position: fixed;
 }
 
 .div_lista_l {

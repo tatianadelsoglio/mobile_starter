@@ -41,6 +41,9 @@ export const ClienteIndividual = () => {
         <InfoCliente clienteSelect={cliente} />
       </CapsuleTabs.Tab>
       <CapsuleTabs.Tab title="Tareas" key="2">
+        <div className="contenedor-titulo-cliente">
+          <p className="titulo-cliente-tareas">{cliente.empresa}</p>
+        </div>
         <div className="div_lista_l">
           {tareasXCliente?.map((tarea) => {
             return (
