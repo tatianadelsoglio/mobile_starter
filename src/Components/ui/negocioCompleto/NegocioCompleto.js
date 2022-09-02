@@ -213,7 +213,7 @@ export const NegocioCompleto = () => {
 
   return (
     // <div className="contenedor-negocio-completo">
-    <div>
+    <div className="div_contenedor_negocioC">
       <div className="negocio-completo-header">
         <p className="negocio-completo-header-asunto">{negocio.asunto}</p>
         <p className="negocio-completo-header-importe">
