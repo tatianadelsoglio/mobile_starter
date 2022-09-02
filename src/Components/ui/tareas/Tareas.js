@@ -417,7 +417,7 @@ const Tareas = () => {
           SP.push(tarea);
         }
       }
-      return "Prueba lista tareas";
+      return "";
     });
   };
 
@@ -444,15 +444,15 @@ const Tareas = () => {
       today = moment(today, "DD/MM/YYYY");
 
       if (fecha < today) {
-        return VC.push(tarea);
+        VC.push(tarea);
       }
 
       if (fecha === today) {
         if (hora < horaActual) {
-          return VC.push(tarea);
+          VC.push(tarea);
         }
       }
-      
+      return "";
     });
   };
 
