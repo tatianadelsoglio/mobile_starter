@@ -1,9 +1,13 @@
 import { SafeArea } from "antd-mobile";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 import Menu from "../menu/Menu";
 import Nav from "../navBar/Nav";
 import "./MainLayout.css";
 
 const MainLayout = ({ children, titulo = "", modo = "" }) => {
+
+  const {plataforma} = useContext(GlobalContext)
   return (
     <>
       <SafeArea position="top" style={{background:"white"}} />
@@ -12,7 +16,7 @@ const MainLayout = ({ children, titulo = "", modo = "" }) => {
 
           <div className="vista_home_content">
             <div className="home_nav">
-              <Nav titulo={titulo} modo={modo} />
+              <Nav titulo={plataforma} modo={modo} />
             </div>
             <div className="home_contenido">{children}</div>
             <div className="home_menuInf">

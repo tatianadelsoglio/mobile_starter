@@ -83,7 +83,7 @@
 
 .div_lista{
   display: block;
-  height: 81vh !important;
+  height: 100%;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }

@@ -4,8 +4,7 @@ import "./App.css";
 import AppRouter from "./Components/router/AppRouter";
 import es_ES from "antd-mobile/es/locales/es-ES";
 import { GlobalContext } from "./Components/context/GlobalContext";
-import React, { useState } from "react";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
 import AuthProvider from "./auth/AuthProvider";
 import { ApolloProvider } from "@apollo/client";
 import Client from "./config/apolloClientConfig";
@@ -21,11 +20,15 @@ const App = () => {
   const [listaTareas, setListaTareas] = useState({});
   const [plataforma, setPlataforma] = useState();
 
-  if (navigator.userAgent.toUpperCase().includes("IOS")) {
-    setPlataforma("IOS");
-  } else {
-    setPlataforma("OTRO");
-  }
+  useEffect(() => {
+    if (navigator.userAgent.toUpperCase().includes("IPHONE")) {
+      setPlataforma("IPHONE");
+    } else {
+      setPlataforma("OTRO");
+    }
+  }, [])
+  
+  
 
   return (
     <AuthProvider>
