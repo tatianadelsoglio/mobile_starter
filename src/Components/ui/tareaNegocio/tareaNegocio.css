@@ -39,6 +39,26 @@
     flex-wrap: wrap;
     align-items: center;
     margin: 5px 0px 0px 0px;
+    justify-content: space-between;
+}
+
+.tarea-negocio-linea-inferior-uno{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 5px 0px 0px 0px;
+    justify-content: flex-start;
+    width: 90%;
+}
+.tarea-negocio-linea-inferior-dos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 5px 0px 0px 0px;
+    justify-content: center;
+    width: 10%;
 }
 
 .tarea-negocio-fecha {
@@ -104,5 +124,8 @@
     margin-top: 5px;
 }
 
-
-
+.VerMas{
+    padding: 4px 5px;
+    margin: 5px 0px;
+    text-align: center;
+}

@@ -472,6 +472,8 @@ const Tareas = () => {
       horaActual = moment(horaActual, "LT");
       let hoyVC = moment(today, "DD/MM/YYYY").add(1, "day");
 
+      today = moment(today, "DD/MM/YYYY");
+
       if (fecha < today) {
         VC.push(tarea);
       }

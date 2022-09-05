@@ -8,6 +8,7 @@ import {
   InformationCircleOutline,
   ClockCircleOutline,
   EditSOutline,
+  DownOutline,
 } from "antd-mobile-icons";
 import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
@@ -144,98 +145,109 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               ) : (
                 ""
               )}
-              <div className="tarea-contenedor-horario">
-                <ClockCircleOutline
-                  style={{
-                    color: dateHandler(tarea.fechaHora),
-                    fontSize: "0.8rem",
-                  }}
-                />
-                <p className="texto-tarea-horario">
-                  {handleFechaVer(tarea.fechaHora)}
-                </p>
-                <p className="texto-tarea-horario">
-                  {handleHora(tarea.fechaHora)} hs
-                </p>
+            </div>
+            <div className="tarea-negocio-linea-inferior">
+              <div className="tarea-negocio-linea-inferior-uno">
+                <div className="tarea-contenedor-horario">
+                  <ClockCircleOutline
+                    style={{
+                      color: dateHandler(tarea.fechaHora),
+                      fontSize: "0.8rem",
+                    }}
+                  />
+                  <p className="texto-tarea-horario">
+                    {handleFechaVer(tarea.fechaHora)}
+                  </p>
+                  <p className="texto-tarea-horario">
+                    {handleHora(tarea.fechaHora)} hs
+                  </p>
+                </div>
+                <div className="tarea-contenedor-horario">
+                  {tarea.prioridad === "ALTA" ? (
+                    <div
+                      style={{
+                        height: "20px",
+                        width: "40px",
+                        fontSize: "12px",
+                        backgroundColor: "#da4453",
+                        color: "white",
+                        border: "solid 1px #da4453",
+                        borderRadius: "4px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "2px 5px",
+                      }}
+                    >
+                      ALTA
+                    </div>
+                  ) : null}
+                  {tarea.prioridad === "MEDIA" ? (
+                    <div
+                      style={{
+                        height: "20px",
+                        width: "40px",
+                        fontSize: "12px",
+                        backgroundColor: "#f7c560",
+                        color: "white",
+                        border: "solid 1px #f7c560",
+                        borderRadius: "4px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "2px 5px",
+                      }}
+                    >
+                      MEDIA
+                    </div>
+                  ) : null}
+                  {tarea.prioridad === "BAJA" ? (
+                    <div
+                      style={{
+                        height: "20px",
+                        width: "40px",
+                        fontSize: "12px",
+                        backgroundColor: "#8cc152",
+                        color: "white",
+                        border: "solid 1px #8cc152",
+                        borderRadius: "4px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "2px 5px",
+                      }}
+                    >
+                      BAJA
+                    </div>
+                  ) : null}
+                </div>
+                <div className="tarea-contenedor-horario">
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      border: "solid 1px #f4f4f4",
+                      height: "22px",
+                      width: "auto",
+                      fontSize: "12px",
+                      color: "#7cb305",
+                      borderColor: "#eaff8f",
+                      backgroundColor: "#fcffe6",
+                      padding: "2px 5px",
+                      borderRadius: "4px",
+                      marginLeft: "-2px",
+                      marginRight: "3px",
+                    }}
+                  >
+                    NEGOCIO
+                  </p>
+                </div>
               </div>
-              <div className="tarea-contenedor-horario">
-                {tarea.prioridad === "ALTA" ? (
-                  <div
-                    style={{
-                      height: "20px",
-                      width: "40px",
-                      fontSize: "12px",
-                      backgroundColor: "#da4453",
-                      color: "white",
-                      border: "solid 1px #da4453",
-                      borderRadius: "4px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "2px 5px",
-                    }}
-                  >
-                    ALTA
-                  </div>
-                ) : null}
-                {tarea.prioridad === "MEDIA" ? (
-                  <div
-                    style={{
-                      height: "20px",
-                      width: "40px",
-                      fontSize: "12px",
-                      backgroundColor: "#f7c560",
-                      color: "white",
-                      border: "solid 1px #f7c560",
-                      borderRadius: "4px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "2px 5px",
-                    }}
-                  >
-                    MEDIA
-                  </div>
-                ) : null}
-                {tarea.prioridad === "BAJA" ? (
-                  <div
-                    style={{
-                      height: "20px",
-                      width: "40px",
-                      fontSize: "12px",
-                      backgroundColor: "#8cc152",
-                      color: "white",
-                      border: "solid 1px #8cc152",
-                      borderRadius: "4px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "2px 5px",
-                    }}
-                  >
-                    BAJA
-                  </div>
-                ) : null}
-              </div>
-              <div className="tarea-contenedor-horario">
-                <p
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    border: "solid 1px #f4f4f4",
-                    height: "22px",
-                    width: "auto",
-                    fontSize: "12px",
-                    color: "#7cb305",
-                    borderColor: "#eaff8f",
-                    backgroundColor: "#fcffe6",
-                    padding: "2px 5px",
-                    borderRadius: "4px",
-                  }}
-                >
-                  NEGOCIO
-                </p>
+              <div className="tarea-negocio-linea-inferior-dos">
+                <div className="VerMas">
+                  {tarea.anexo ? <DownOutline /> : null}
+                </div>
               </div>
             </div>
           </div>
