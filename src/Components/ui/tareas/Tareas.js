@@ -7,22 +7,26 @@ import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { GET_TAREAS } from "../../../graphql/queries/Tarea";
-
+import * as base64 from "base-64";
 
 const Tareas = () => {
-  const { tareas } = useContext(GlobalContext);
+  const { tareas, userId } = useContext(GlobalContext);
 
   const [tareasDiarias, setTareasDiarias] = useState();
   const [tareasSemana, setTareasSemana] = useState();
   const [tareasSemanaProxima, setTareasSemanaProxima] = useState();
   const [tareasVencidas, setTareasVencidas] = useState();
 
-  const { loading, error, data } = useQuery(GET_TAREAS, { variables: {idUsuario:1,filtroFecha:"d2Vlaw==",fecha: "MjAyMjMy", estado: 1,
-  idUsuarioFiltro: ""}});
+  /*Estados de consulta */
+  const [filtroFecha, setFlitroFecha] = useState();
+  const [fechaConsulta, setFechaConsulta] = useState();
 
-  if(data) {
+  const [getTareasIframeResolver, { loading, error, data }] = useLazyQuery(
+    GET_TAREAS);
+
+  if (data) {
     console.log(JSON.parse(data.getTareasIframeResolver));
   }
 
@@ -31,12 +35,48 @@ const Tareas = () => {
 
   useEffect(() => {
     if (tareas) {
-      listaTareasHoy();
+      // listaTareasHoy();
       listaTareasES();
       listaTareasSP();
       listaTareasVC();
     }
   }, [tareas, fecha]);
+
+  useEffect(() => { setTareasDiarias(data)}, [data]);
+
+  useEffect(() => {
+    console.log(tareasDiarias)
+
+  }, [tareasDiarias])
+
+  const handleFiltro = (key) => {
+    switch (true) {
+      case key === "1":
+        let d = moment(fecha).format("YYYY-MM-DD");
+        getTareasIframeResolver({
+          variables: {
+            idUsuario: userId,
+            filtroFecha: base64.encode("date"),
+            fecha: base64.encode(d),
+            estado: 1,
+            idUsuarioFiltro: "",
+          },
+        });
+        console.log("diario");
+        break;
+      case key === "2":
+        console.log("Semana");
+        break;
+      case key === "3":
+        console.log("Semana Prox");
+        break;
+      case key === "4":
+        break;
+
+      default:
+        break;
+    }
+  };
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -51,24 +91,24 @@ const Tareas = () => {
 
   //*TAB 1 - SECCION LISTA TAREA
 
-  const listaTareasHoy = () => {
-    let hoy = [];
+  // const listaTareasHoy = () => {
+  //   let hoy = [];
 
-    tareas.map((tarea) => {
-      let fechaFormato = tarea.fechaHora.split(" ");
-      fechaFormato = fechaFormato[0];
+  //   tareas.map((tarea) => {
+  //     let fechaFormato = tarea.fechaHora.split(" ");
+  //     fechaFormato = fechaFormato[0];
 
-      fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
+  //     fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
 
-      if (fechaFormato === fecha) {
-        hoy.push(tarea);
-      }
-    });
+  //     if (fechaFormato === fecha) {
+  //       hoy.push(tarea);
+  //     }
+  //   });
 
-    setTareasDiarias(hoy);
+  //   setTareasDiarias(hoy);
 
-    return 1;
-  };
+  //   return 1;
+  // };
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
 
@@ -136,11 +176,9 @@ const Tareas = () => {
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
 
-  
   let horaActual = moment().format("LT");
 
   const listaTareasVC = () => {
-
     let VC = [];
     tareas.map((tarea) => {
       let fechaSola = tarea.fechaHora.split(" ");
@@ -171,7 +209,11 @@ const Tareas = () => {
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
   return (
-    <CapsuleTabs className="capsule_contenedor" defaultActiveKey="1">
+    <CapsuleTabs
+      className="capsule_contenedor"
+      defaultActiveKey="1"
+      onChange={(key) => handleFiltro(key)}
+    >
       {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
         <div>

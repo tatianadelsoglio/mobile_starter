@@ -17,7 +17,7 @@ import { useLazyQuery } from "@apollo/client";
 const Login = () => {
   let history = useHistory();
   const auth = useAuth();
-  const { userData, setUserData } = useContext(GlobalContext);
+  const { userData, setUserData, userId, setUserId } = useContext(GlobalContext);
 
   const [visible, setVisible] = useState(false);
   const [switchChecked, setSwitchChecked] = useState(false);
@@ -27,10 +27,9 @@ const Login = () => {
     useLazyQuery(LOGIN_AUTHENTICATION);
 
   useEffect(() => {
-    console.log(loading)
-    console.log(error)
     if (data) {
       if (data.loginIframeResolver.status === 200) {
+        setUserId(data.loginIframeResolver.idUser);
         if (switchChecked) {
           saveDataInStorage("userInfo", userData);
         }
