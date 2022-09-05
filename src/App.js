@@ -6,12 +6,15 @@ import es_ES from "antd-mobile/es/locales/es-ES";
 import { GlobalContext } from "./Components/context/GlobalContext";
 import React, { useEffect, useState } from "react";
 import AuthProvider from "./auth/AuthProvider";
-import { ApolloProvider } from "@apollo/client";
+import { ApolloProvider, useQuery } from "@apollo/client";
 import Client from "./config/apolloClientConfig";
+import { GET_TAREAS } from "./graphql/queries/Tarea";
 
 
 
 const App = () => {
+
+
   //*States creados para utilizarlos globalmente
   const [userData, setUserData] = useState({});
   const [logoutAlert, setLogoutAlert] = useState(false);

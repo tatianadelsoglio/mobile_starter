@@ -7,9 +7,12 @@ import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
+import { useQuery } from "@apollo/client";
+import { GET_TAREAS } from "../../../graphql/queries/Tarea";
 
 const Tareas = () => {
   const { listaTareas, setListaTareas } = useContext(GlobalContext);
+
 
   const ItemListaTarea = [
     {
