@@ -205,7 +205,7 @@ const Tareas = () => {
         </div>
         {tareasDiarias && (
           <div className="div_lista_calendario">
-            <ListaTarea ItemListaTarea={tareasDiarias} />
+            <ListaTarea itemListaTarea={tareasDiarias} />
           </div>
         )}
       </CapsuleTabs.Tab>
@@ -213,7 +213,7 @@ const Tareas = () => {
       <CapsuleTabs.Tab title="Semana" key="2">
         {tareasSemana && (
           <div className="div_lista">
-            <ListaTarea ItemListaTarea={tareasSemana} />
+            <ListaTarea itemListaTarea={tareasSemana} />
           </div>
         )}
       </CapsuleTabs.Tab>
@@ -221,7 +221,7 @@ const Tareas = () => {
       <CapsuleTabs.Tab title="Semana Prox." key="3">
         {tareasSemanaProxima && (
           <div className="div_lista">
-            <ListaTarea ItemListaTarea={tareasSemanaProxima} />
+            <ListaTarea itemListaTarea={tareasSemanaProxima} />
           </div>
         )}
       </CapsuleTabs.Tab>
@@ -229,7 +229,7 @@ const Tareas = () => {
       <CapsuleTabs.Tab title="Vencido" key="4">
         {tareasVencidas && (
           <div className="div_lista">
-            <ListaTarea ItemListaTarea={tareasVencidas} />
+            <ListaTarea itemListaTarea={tareasVencidas} />
           </div>
         )}
       </CapsuleTabs.Tab>

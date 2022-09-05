@@ -5,11 +5,11 @@ import "../tareaNegocio/tareaNegocio.css";
 import "moment/locale/es";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 
-const ListaTarea = ({ ItemListaTarea }) => {
+const ListaTarea = ({ itemListaTarea }) => {
   return (
     <div>
-      {ItemListaTarea.map((ItemListaTarea) => (
-        <TareaNegocio tarea={ItemListaTarea} origen="ListaTareas" />
+      {itemListaTarea.map((tarea) => (
+        <TareaNegocio tarea={tarea} origen="ListaTareas" />
       ))}
     </div>
   );
