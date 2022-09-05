@@ -20,7 +20,6 @@ const Tareas = () => {
   let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
 
-
   useEffect(() => {
     if (tareas) {
       listaTareasHoy();
@@ -142,7 +141,7 @@ const Tareas = () => {
       hora = moment(hora, "LT");
 
       horaActual = moment(horaActual, "LT");
-      
+
       let hoyVC = moment(today, "DD/MM/YYYY").add(1, "day");
 
       today = moment(today, "DD/MM/YYYY");

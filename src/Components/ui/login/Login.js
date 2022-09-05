@@ -27,6 +27,8 @@ const Login = () => {
     useLazyQuery(LOGIN_AUTHENTICATION);
 
   useEffect(() => {
+    console.log(loading)
+    console.log(error)
     if (data) {
       if (data.loginIframeResolver.status === 200) {
         if (switchChecked) {
