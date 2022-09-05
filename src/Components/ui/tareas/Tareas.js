@@ -347,6 +347,7 @@ const Tareas = () => {
     },
   ];
 
+
   useEffect(() => {
     setListaTareas(ItemListaTarea);
   }, []);
