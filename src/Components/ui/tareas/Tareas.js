@@ -22,7 +22,9 @@ const Tareas = () => {
   const { loading, error, data } = useQuery(GET_TAREAS, { variables: {idUsuario:1,filtroFecha:"d2Vlaw==",fecha: "MjAyMjMy", estado: 1,
   idUsuarioFiltro: ""}});
 
-  console.log(JSON.parse(data.getTareasIframeResolver));
+  if(data) {
+    console.log(JSON.parse(data.getTareasIframeResolver));
+  }
 
   let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
