@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
-import { Calendar, CapsuleTabs, SafeArea } from "antd-mobile";
+import { Calendar, CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -8,322 +8,27 @@ import "./Tareas.css";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
+
 const Tareas = () => {
-  const { listaTareas, setListaTareas } = useContext(GlobalContext);
+  const { tareas } = useContext(GlobalContext);
 
-  const ItemListaTarea = [
-    {
-      id: 23,
-      contacto: "Adrian Sabo",
-      cliente: "La Ganadera",
-      fechaHora: "01/09/2022 08:30",
-      estado: 1,
-      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "BAJA",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      origen: "NEGOCIO",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "01/09/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "01/09/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 22,
-      contacto: "Adrian Sabo",
-      cliente: "La Ganadera",
-      fechaHora: "01/09/2022 08:30",
-      estado: 1,
-      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      origen: "NEGOCIO",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "01/09/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "01/09/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 21,
-      contacto: "Adrian Sabo",
-      cliente: "La Ganadera",
-      fechaHora: "22/08/2022 08:30",
-      estado: 1,
-      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      origen: "NEGOCIO",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "23/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "24/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 20,
-      contacto: "Adrian Sabo",
-      cliente: "La Ganadera",
-      fechaHora: "22/08/2022 08:30",
-      estado: 1,
-      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      origen: "NEGOCIO",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "23/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "24/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 1,
-      contacto: "Adrian Sabo",
-      cliente: "La Ganadera",
-      fechaHora: "22/08/2022 08:30",
-      estado: 1,
-      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      origen: "NEGOCIO",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "23/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "24/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 2,
-      contacto: "Horacio Mercol",
-      cliente: "La Ganadera",
-      fechaHora: "05/09/2022 08:40",
-      estado: 1,
-      asunto: "Visitar Campo Oeste",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      origen: "MAIL",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "22/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "20/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 3,
-      contacto: "Jorge Mayorga",
-      cliente: "La Ganadera",
-      fechaHora: "06/09/2022 10:00",
-      estado: 1,
-      asunto: "Llamar a Jorge para Venta de Herbicidas",
-      prioridad: "MEDIA",
-      tipoTarea: "Visita de campo",
-      origen: "TELEFONO",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "22/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-      ],
-    },
-    {
-      id: 4,
-      contacto: "Aida Campos",
-      cliente: "La Ganadera",
-      fechaHora: "29/08/2022 11:15",
-      estado: 1,
-      asunto: "Venta Trigo",
-      prioridad: "BAJA",
-      tipoTarea: "Visita de campo",
-      anexo: [
-        {
-          id: 4,
-          nombre: "paisaje/02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "20/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 5,
-      contacto: "Adrian Sabo",
-      cliente: "Vitalforce",
-      fechaHora: "30/08/2022 09:30",
-      estado: 1,
-      asunto: "Venta de Maíz",
-      prioridad: "MEDIA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 6,
-      contacto: "Florencia Caverzasi",
-      cliente: "Vitalforce",
-      fechaHora: "31/08/2022 09:30",
-      estado: 1,
-      asunto: "Venta de Soja",
-      prioridad: "MEDIA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 7,
-      contacto: "Adrian Sabo",
-      cliente: "Vitalforce",
-      fechaHora: "01/09/2022 09:40",
-      estado: 1,
-      asunto: "Venta de Maíz para temporada 2223",
-      prioridad: "MEDIA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 8,
-      contacto: "Edgar jazz",
-      cliente: "Vitalforce",
-      fechaHora: "02/09/2022 10:00",
-      estado: 1,
-      asunto: "Llamar para conversar sobre nuevos insumos",
-      prioridad: "BAJA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 9,
-      contacto: "Adrian Sabo",
-      cliente: "Darregueira",
-      fechaHora: "17/08/2022 10:00",
-      estado: 1,
-      asunto: "Llamar a Adrian, conversar sobre nuevos insumos",
-      prioridad: "MEDIA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 10,
-      contacto: "Horacio Mercol",
-      cliente: "Darregueira",
-      fechaHora: "17/08/2022 10:00",
-      estado: 1,
-      asunto: "Visitar Campo Oeste",
-      prioridad: "BAJA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 11,
-      contacto: "Jorge Mayorga",
-      cliente: "Darregueira",
-      fechaHora: "18/08/2022 10:30",
-      estado: 1,
-      asunto: "Llamar a Jorge para Venta de Herbicidas",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 12,
-      contacto: "Aida Campos",
-      cliente: "Darregueira",
-      fechaHora: "16/08/2022 11:00",
-      estado: 1,
-      asunto: "Venta Trigo",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-    },
-    {
-      id: 13,
-      contacto: "Aida Campos",
-      cliente: "Darregueira",
-      fechaHora: "05/10/2022 11:00",
-      estado: 1,
-      asunto: "Venta Trigo",
-      prioridad: "ALTA",
-      tipoTarea: "Visita de campo",
-    },
-  ];
-
-  useEffect(() => {
-    setListaTareas(ItemListaTarea);
-  }, []);
+  const [tareasDiarias, setTareasDiarias] = useState();
+  const [tareasSemana, setTareasSemana] = useState();
+  const [tareasSemanaProxima, setTareasSemanaProxima] = useState();
+  const [tareasVencidas, setTareasVencidas] = useState();
 
   let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
+
+
+  useEffect(() => {
+    if (tareas) {
+      listaTareasHoy();
+      listaTareasES();
+      listaTareasSP();
+      listaTareasVC();
+    }
+  }, [tareas, fecha]);
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -338,10 +43,10 @@ const Tareas = () => {
 
   //*TAB 1 - SECCION LISTA TAREA
 
-  let hoy = [];
-
   const listaTareasHoy = () => {
-    ItemListaTarea.map((tarea) => {
+    let hoy = [];
+
+    tareas.map((tarea) => {
       let fechaFormato = tarea.fechaHora.split(" ");
       fechaFormato = fechaFormato[0];
 
@@ -349,28 +54,23 @@ const Tareas = () => {
 
       if (fechaFormato === fecha) {
         hoy.push(tarea);
-        return hoy;
-      } else {
-        return false;
       }
     });
 
-    return "Prueba lista tareas";
-  };
+    setTareasDiarias(hoy);
 
-  listaTareasHoy();
-  let arrayHoy = hoy;
-  hoy = [];
+    return 1;
+  };
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
 
-  let ES = [];
   let StartES = moment().startOf("isoWeek").format("DD/MM/YYYY");
 
   let EndES = moment().endOf("isoWeek").format("DD/MM/YYYY");
 
   const listaTareasES = () => {
-    ItemListaTarea.map((tarea) => {
+    let ES = [];
+    tareas.map((tarea) => {
       let fechaSola = tarea.fechaHora.split(" ");
       fechaSola = fechaSola[0];
       let fecha = moment(fechaSola, "DD/MM/YYYY");
@@ -383,19 +83,17 @@ const Tareas = () => {
           ES.push(tarea);
         }
       }
-      return "Prueba lista tareas";
+      return 1;
     });
+
+    setTareasSemana(ES);
   };
 
-  listaTareasES();
-  let arrayES = ES;
-  ES = [];
-  // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
+  // // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
 
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
-  let SP = [];
   let StartSP = moment()
     .add(1, "weeks")
     .startOf("isoWeek")
@@ -404,7 +102,9 @@ const Tareas = () => {
   let EndSP = moment().add(1, "weeks").endOf("isoWeek").format("DD/MM/YYYY");
 
   const listaTareasSP = () => {
-    ItemListaTarea.map((tarea) => {
+    let SP = [];
+
+    tareas.map((tarea) => {
       let fechaSola = tarea.fechaHora.split(" ");
       fechaSola = fechaSola[0];
       let fecha = moment(fechaSola, "DD/MM/YYYY");
@@ -417,23 +117,24 @@ const Tareas = () => {
           SP.push(tarea);
         }
       }
-      return "";
+      return 1;
     });
+
+    setTareasSemanaProxima(SP);
   };
 
-  listaTareasSP();
-  let arraySP = SP;
-  SP = [];
-  // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
+  // // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
 
-  let VC = [];
+  
   let horaActual = moment().format("LT");
 
   const listaTareasVC = () => {
-    ItemListaTarea.map((tarea) => {
+
+    let VC = [];
+    tareas.map((tarea) => {
       let fechaSola = tarea.fechaHora.split(" ");
       let hora = fechaSola[1];
       fechaSola = fechaSola[0];
@@ -441,26 +142,24 @@ const Tareas = () => {
       hora = moment(hora, "LT");
 
       horaActual = moment(horaActual, "LT");
+      
+      let hoyVC = moment(today, "DD/MM/YYYY").add(1, "day");
+
       today = moment(today, "DD/MM/YYYY");
 
       if (fecha < today) {
         VC.push(tarea);
-      }
-      if (fecha === today) {
+      } else if (fecha < hoyVC) {
         if (hora < horaActual) {
-          console.log(hora);
-          console.log(horaActual);
           VC.push(tarea);
         }
       }
       return "";
     });
+
+    setTareasVencidas(VC);
   };
 
-  listaTareasVC();
-  let arrayVC = VC;
-  VC = [];
-  // console.log("Lista de tareas VENCIDAS: ", arrayVC);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
   return (
@@ -474,7 +173,7 @@ const Tareas = () => {
             renderLabel={(date) => {
               let bandera = false;
 
-              ItemListaTarea.map((tarea) => {
+              tareas.map((tarea) => {
                 let fechaHoySola = tarea.fechaHora.split(" ");
                 fechaHoySola = fechaHoySola[0];
                 let fechaHoy = moment(fechaHoySola, "DD/MM/YYYY").format(
@@ -504,30 +203,35 @@ const Tareas = () => {
             onChange={(val) => handleChange(val)}
           />
         </div>
-        <div className="div_lista_calendario">
-          <ListaTarea ItemListaTarea={arrayHoy} />
-        </div>
+        {tareasDiarias && (
+          <div className="div_lista_calendario">
+            <ListaTarea ItemListaTarea={tareasDiarias} />
+          </div>
+        )}
       </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS ESTA SEMANA */}
       <CapsuleTabs.Tab title="Semana" key="2">
-        <div className="div_lista">
-          <ListaTarea ItemListaTarea={arrayES} />
-        </div>
+        {tareasSemana && (
+          <div className="div_lista">
+            <ListaTarea ItemListaTarea={tareasSemana} />
+          </div>
+        )}
       </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS SEMANA PROXIMA */}
       <CapsuleTabs.Tab title="Semana Prox." key="3">
-        <div className="div_lista">
-          <ListaTarea ItemListaTarea={arraySP} />
-        </div>
+        {tareasSemanaProxima && (
+          <div className="div_lista">
+            <ListaTarea ItemListaTarea={tareasSemanaProxima} />
+          </div>
+        )}
       </CapsuleTabs.Tab>
 
-      {/* PESTAÑA TAREAS VENCIDAS */}
       <CapsuleTabs.Tab title="Vencido" key="4">
-        <div className="div_lista">
-          <ListaTarea ItemListaTarea={arrayVC} />
-        </div>
+        {tareasVencidas && (
+          <div className="div_lista">
+            <ListaTarea ItemListaTarea={tareasVencidas} />
+          </div>
+        )}
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );

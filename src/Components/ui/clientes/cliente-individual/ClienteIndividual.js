@@ -9,7 +9,7 @@ import { TareaNegocio } from "../../tareaNegocio/TareaNegocio";
 import "./clienteIndividual.css";
 
 export const ClienteIndividual = () => {
-  const { listaTareas } = useContext(GlobalContext);
+  const { tareas } = useContext(GlobalContext);
 
   const location = useLocation();
 
@@ -18,8 +18,9 @@ export const ClienteIndividual = () => {
   const [tareasXCliente, setTareasXCliente] = useState();
 
   const tareasHandler = () => {
+
     setTareasXCliente(
-      listaTareas.filter((tarea) => tarea.cliente === cliente.empresa)
+      tareas.filter((tarea) => tarea.cliente === cliente.empresa)
     );
   };
 
@@ -31,9 +32,11 @@ export const ClienteIndividual = () => {
 
   useEffect(() => {
     tareasHandler();
-  }, [cliente]);
+  }, [tareas, cliente]);
 
-  useEffect(() => {}, [tareasXCliente]);
+  useEffect(() => {
+    console.log(tareas, tareasXCliente)
+  }, [tareasXCliente]);
 
   return (
     // <div className="contenedor-cliente-individual">
