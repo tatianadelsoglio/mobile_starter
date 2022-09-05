@@ -12,7 +12,7 @@ import duo from "../login/logo-crm-prod.svg";
 const Nav = ({ titulo, modo }) => {
   let history = useHistory();
   const auth = useAuth();
-  const { setUserData, setLogoutAlert, logoutAlert } =
+  const { setUserData, setLogoutAlert, logoutAlert, userId } =
     useContext(GlobalContext);
 
   const handleModalSalir = () => {
@@ -59,6 +59,7 @@ const Nav = ({ titulo, modo }) => {
         ) : (
           null
           // <Image src={duo} width={100} height={50} style={{}} />
+          
         )}
       </NavBar>
     );
