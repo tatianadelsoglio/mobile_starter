@@ -25,12 +25,13 @@ export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true 
           <p className="nota-tarea-fecha">{nota.fecha}</p>
           <div
             className="nota-tarea-prioridad"
-            style={{ backgroundColor: colorPrioridad(nota.prioridad) }}
+            style={{ backgroundColor: colorPrioridad(nota.pri_desc) }}
           >
-            <p style={{ margin: "0px" }}>{nota.prioridad}</p>
+            <p style={{ margin: "0px" }}>{nota.pri_desc}</p>
           </div>
         </div>
-        <p className="nota-tarea-texto">{nota.texto}</p>
+        {nota.not_desc}
+        {/* <p className="nota-tarea-texto">{nota.texto}</p> */}
       </div>
     );
   }

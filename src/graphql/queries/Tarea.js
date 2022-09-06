@@ -6,4 +6,3 @@ export const GET_TAREAS = gql `
 
   	}	
 `;
-	
