@@ -80,6 +80,7 @@ const Tareas = () => {
 
   useEffect(() => {
     if(data) {
+      console.log(JSON.parse(data.getTareasIframeResolver));
       setTareas(JSON.parse(data.getTareasIframeResolver));
     }
 
