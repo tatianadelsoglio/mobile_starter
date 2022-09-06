@@ -1,4 +1,5 @@
-// import { Empty, Spin } from "antd";
+
+import { Empty, SpinLoading } from "antd-mobile";
 import "./index.css";
 
 const QueryResult = ({ loading, error, data, children }) => {
@@ -8,7 +9,7 @@ const QueryResult = ({ loading, error, data, children }) => {
   if (loading) {
     return (
       <div className="center-wrapper">
-        <Spin />
+        <SpinLoading />
       </div>
     );
   }
