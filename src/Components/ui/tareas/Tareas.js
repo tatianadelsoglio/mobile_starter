@@ -14,9 +14,7 @@ import * as base64 from "base-64";
 const Tareas = () => {
   const { tareas, userId } = useContext(GlobalContext);
 
-
-
-  console.log(userId)
+  console.log(userId);
 
   let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
@@ -25,8 +23,6 @@ const Tareas = () => {
   const [tareasSemana, setTareasSemana] = useState();
   const [tareasSemanaProxima, setTareasSemanaProxima] = useState();
   const [tareasVencidas, setTareasVencidas] = useState();
-
-  let d = moment(fecha).format("YYYY-MM-DD");
 
   /*Estados de consulta */
   const [filtroFecha, setFlitroFecha] = useState({
@@ -50,11 +46,8 @@ const Tareas = () => {
   }
 
   const tabHandleChange = (key) => {
-    console.log(key);
     switch (true) {
       case key === "2":
-
-      console.log("hola")
         const b = moment().year();
         const a = moment().week();
         const c = `${b}${a}`;
@@ -87,7 +80,6 @@ const Tareas = () => {
     }
   };
 
-
   useEffect(() => {
     setTareasDiarias(data);
   }, [data]);
@@ -110,13 +102,11 @@ const Tareas = () => {
     });
   };
 
-
   return (
     <CapsuleTabs
       className="capsule_contenedor"
       defaultActiveKey="1"
-      onChange={(key) => 
-        tabHandleChange(key)}
+      onChange={(key) => tabHandleChange(key)}
     >
       {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
@@ -154,14 +144,12 @@ const Tareas = () => {
                 );
               }
             }}
-            onChange={(val) =>handleChange(val)}
+            onChange={(val) => handleChange(val)}
           />
         </div>
-        {/* {tareasDiarias && (
-          <div className="div_lista_calendario">
-            <ListaTarea itemListaTarea={tareasDiarias} />
-          </div>
-        )} */}
+        {/* <div className="div_lista_calendario">
+          <ListaTarea itemListaTarea={tareasDiarias} />
+        </div> */}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana" key="2">
