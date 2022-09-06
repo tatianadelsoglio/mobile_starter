@@ -88,10 +88,7 @@ const Tareas = () => {
     }
   }, [data, dataCalendario]);
 
-  useEffect(() => {
-    console.log(tareas);
-    console.log(tareasCalendario);
-  }, [tareas, tareasCalendario]);
+
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -156,27 +153,27 @@ const Tareas = () => {
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana" key="2">
-        {/* {tareas && (
+        {tareas && (
           <div className="div_lista">
             <ListaTarea itemListaTarea={tareas} />
           </div>
-        )} */}
+        )}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana Prox." key="3">
-        {/* {tareas && (
+        {tareas && (
           <div className="div_lista">
             <ListaTarea itemListaTarea={tareas} />
           </div>
-        )} */}
+        )}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Vencido" key="4">
-        {/* {tareas && (
+        {tareas && (
           <div className="div_lista">
             <ListaTarea itemListaTarea={tareas} />
           </div>
-        )} */}
+        )}
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );
