@@ -13,8 +13,9 @@ import { GET_TAREAS } from "../../../graphql/queries/Tarea";
 const Tareas = () => {
   const { tareas, userId } = useContext(GlobalContext);
 
-  let today = moment().format("DD/MM/YYYY");
+  console.log(userId)
 
+  let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
 
   const [tareasDiarias, setTareasDiarias] = useState();
@@ -22,101 +23,95 @@ const Tareas = () => {
   const [tareasSemanaProxima, setTareasSemanaProxima] = useState();
   const [tareasVencidas, setTareasVencidas] = useState();
 
-  /*Estados de consulta */
-  const [filtro, setFiltro] = useState({
-    idUsuario: userId,
-    filtroFecha: "date",
-    fecha: today,
-    estado: 1,
-    idUsuarioFiltro: "",
-  });
+  let d = moment(fecha).format("YYYY-MM-DD");
 
-  // const [filtroFecha, setFiltroFecha] = useState("date");
-  // const [fechaConsulta, setFechaConsulta] = useState(fecha);
+  /*Estados de consulta */
+  const [filtroFecha, setFlitroFecha] = useState({
+    typeDate: "date",
+    filterDate: moment().format("YYYY-MM-DD"),
+  });
+  const [estado, setEstado] = useState(1);
+
+  const { loading, error, data } = useQuery(GET_TAREAS, {
+    variables: {
+      idUsuario: userId,
+      filtroFecha: filtroFecha.typeDate,
+      fecha: filtroFecha.filterDate,
+      estado: estado,
+      idUsuarioFiltro: "",
+    },
+  });
 
   console.log(filtro);
 
-  const { loading, error, data } = useQuery(GET_TAREAS, {
-    variables: { filtro },
-  });
+  const tabHandleChange = (key) => {
+    console.log(key);
+    switch (true) {
+      case key === "2":
+
+      console.log("hola")
+        const b = moment().year();
+        const a = moment().week();
+        const c = `${b}${a}`;
+        setFlitroFecha({
+          typeDate: "week",
+          filterDate: c,
+        });
+        break;
+      case key === "3":
+        const b1 = moment().year();
+        const a1 = moment().week();
+        const nextWeek = Number(a1) + 1;
+        const c1 = `${b1}${nextWeek}`;
+
+        setFlitroFecha({ typeDate: "week", filterDate: c1 });
+        break;
+      case key === "4":
+        setFlitroFecha({
+          typeDate: "expired",
+          filterDate: moment().format("YYYY-MM-DD"),
+        });
+        break;
+
+        break;
+      default:
+        setFlitroFecha({
+          typeDate: "date",
+          filterDate: moment().format("YYYY-MM-DD"),
+        });
+        break;
+    }
+  };
 
   useEffect(() => {
-    if (data) {
-      console.log(JSON.parse(data.getTareasIframeResolver));
-    }
+    setTareasDiarias(data);
   }, [data]);
 
   useEffect(() => {
     console.log(tareasDiarias);
   }, [tareasDiarias]);
 
-  const handleFiltro = (key) => {
-    switch (true) {
-      case key === "1":
-        setFiltro({
-          idUsuario: userId,
-          filtroFecha: "date",
-          fecha: fecha,
-          estado: 1,
-          idUsuarioFiltro: "",
-        });
-        break;
-      case key === "2":
-        setFiltro({
-          idUsuario: userId,
-          filtroFecha: "date",
-          fecha: fecha,
-          estado: 1,
-          idUsuarioFiltro: "",
-        });
-        // setFiltroFecha("week");
-
-        break;
-      case key === "3":
-        // setFiltroFecha("week");
-
-        break;
-      case key === "4":
-        // setFiltroFecha("date");
-
-        break;
-      default:
-        break;
-    }
-  };
-
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   //*TAB 1 - SECCION CALENDARIO
 
   const handleChange = (val) => {
-    let fechaSelec = moment(val).format("DD/MM/YYYY");
-    setFecha(fechaSelec);
+    // let fechaSelec = moment(val).format("DD/MM/YYYY");
+    // setFecha(fechaSelec);
+
+    setFlitroFecha({
+      typeDate: "date",
+      filterDate: moment(val).format("YYYY-MM-DD"),
+    });
   };
 
-  //*TAB 1 - SECCION CALENDARIO
-
-  //*TAB 1 - SECCION LISTA TAREA
-
-  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
-
-  // // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
-
-  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
-
-  // // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
-
-  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
-
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
   return (
     <CapsuleTabs
       className="capsule_contenedor"
       defaultActiveKey="1"
-      onChange={(key) => handleFiltro(key)}
+      onChange={(key) => 
+        tabHandleChange(key)}
     >
       {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
@@ -154,14 +149,14 @@ const Tareas = () => {
                 );
               }
             }}
-            onChange={(val) => handleChange(val)}
+            onChange={(val) =>handleChange(val)}
           />
         </div>
-        {tareasDiarias && (
+        {/* {tareasDiarias && (
           <div className="div_lista_calendario">
             <ListaTarea itemListaTarea={tareas} />
           </div>
-        )}
+        )} */}
       </CapsuleTabs.Tab>
 
       {/* <CapsuleTabs.Tab title="Semana" key="2">

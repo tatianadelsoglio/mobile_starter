@@ -27,11 +27,18 @@ const Login = () => {
     useLazyQuery(LOGIN_AUTHENTICATION);
 
   useEffect(() => {
+
+
+
     if (data) {
       if (data.loginIframeResolver.status === 200) {
         setUserId(data.loginIframeResolver.idUser);
         if (switchChecked) {
-          saveDataInStorage("userInfo", userData);
+
+          const x ={
+            ...userData, idUsuario:data.loginIframeResolver.idUser
+          }
+          saveDataInStorage("userInfo", x);
         }
 
         auth.login(userData);
