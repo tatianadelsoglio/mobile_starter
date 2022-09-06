@@ -10,6 +10,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { useQuery } from "@apollo/client";
 import { GET_TAREAS } from "../../../graphql/queries/Tarea";
 import { GET_TAREAS_CALENDARIO } from "../../../graphql/queries/TareaCalendario";
+import QueryResult from "../../queryResult/QueryResult";
 
 const Tareas = () => {
   const { tareas, setTareas, userId } = useContext(GlobalContext);
@@ -41,8 +42,8 @@ const Tareas = () => {
     variables: {
       idUsuario: userId,
       fecha: "1900-01-01",
-    }
-  })
+    },
+  });
 
   const tabHandleChange = (key) => {
     switch (true) {
@@ -79,16 +80,18 @@ const Tareas = () => {
   };
 
   useEffect(() => {
-    if(data) {
+    if (data) {
       console.log(JSON.parse(data.getTareasIframeResolver));
       setTareas(JSON.parse(data.getTareasIframeResolver));
     }
 
-    if(dataCalendario) {
-      setTareasCalendario((JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver)).fechasVenc);
+    if (dataCalendario) {
+      setTareasCalendario(
+        JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver)
+          .fechasVenc
+      );
     }
   }, [data, dataCalendario]);
-
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -103,7 +106,6 @@ const Tareas = () => {
     });
   };
 
-
   return (
     <CapsuleTabs
       className="capsule_contenedor"
@@ -116,64 +118,74 @@ const Tareas = () => {
           <Calendar
             selectionMode="single"
             // defaultValue={defaultSingle}
-            renderLabel={tareasCalendario && ((date) => {
-              let bandera = false;
+            renderLabel={
+              tareasCalendario &&
+              ((date) => {
+                let bandera = false;
 
-              tareasCalendario.map((tarea) => {
-                
-                let fechaCalendario = moment(date).format("YYYY-MM-DD");
+                tareasCalendario.map((tarea) => {
+                  let fechaCalendario = moment(date).format("YYYY-MM-DD");
 
-                if (fechaCalendario === tarea.tar_vencimiento) {
-                  return (bandera = true);
+                  if (fechaCalendario === tarea.tar_vencimiento) {
+                    return (bandera = true);
+                  }
+                });
+
+                if (bandera === true) {
+                  return (
+                    <p
+                      style={{
+                        fontSize: "25px",
+                        color: "#56b43c",
+                        margin: "0px",
+                      }}
+                    >
+                      •
+                    </p>
+                  );
                 }
-              });
-
-              if (bandera === true) {
-                return (
-                  <p
-                    style={{
-                      fontSize: "25px",
-                      color: "#56b43c",
-                      margin: "0px",
-                    }}
-                  >
-                    •
-                  </p>
-                );
-              }
-            })}
-            onChange={(val) =>handleChange(val)}
+              })
+            }
+            onChange={(val) => handleChange(val)}
           />
         </div>
-        {tareas && (
-          <div className="div_lista_calendario">
-            <ListaTarea itemListaTarea={tareas} />
-          </div>
-        )}
+        <QueryResult loading={loading} error={error} data={data}>
+          {tareas && (
+            <div className="div_lista_calendario">
+              <ListaTarea itemListaTarea={tareas} />
+            </div>
+          )}
+        </QueryResult>
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana" key="2">
-        {tareas && (
-          <div className="div_lista">
-            <ListaTarea itemListaTarea={tareas} />
-          </div>
-        )}
+        <QueryResult loading={loading} error={error} data={data}>
+          {tareas && (
+            <div className="div_lista">
+              <ListaTarea itemListaTarea={tareas} />
+            </div>
+          )}
+        </QueryResult>
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana Prox." key="3">
-        {tareas && (
-          <div className="div_lista">
-            <ListaTarea itemListaTarea={tareas} />
-          </div>
-        )}
+        <QueryResult>
+          {tareas && (
+            <div className="div_lista">
+              <ListaTarea itemListaTarea={tareas} />
+            </div>
+          )}
+        </QueryResult>
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Vencido" key="4">
-        {tareas && (
-          <div className="div_lista">
-            <ListaTarea itemListaTarea={tareas} />
-          </div>
-        )}
+        <QueryResult loading={loading} error={error} data={data}>
+          {tareas && (
+            <div className="div_lista">
+              <ListaTarea itemListaTarea={tareas} />
+            </div>
+          )}
+        </QueryResult>
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );
