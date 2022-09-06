@@ -6,7 +6,6 @@ import "moment/locale/es";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 
 const ListaTarea = ({ itemListaTarea }) => {
-  console.log(itemListaTarea);
   return (
     <div>
       {itemListaTarea.map((tarea) => (
