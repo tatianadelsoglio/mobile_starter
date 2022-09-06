@@ -7,12 +7,15 @@ import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_TAREAS } from "../../../graphql/queries/Tarea";
-import * as base64 from "base-64";
 
 const Tareas = () => {
   const { tareas, userId } = useContext(GlobalContext);
+
+  let today = moment().format("DD/MM/YYYY");
+
+  const [fecha, setFecha] = useState(today);
 
   const [tareasDiarias, setTareasDiarias] = useState();
   const [tareasSemana, setTareasSemana] = useState();
@@ -20,59 +23,63 @@ const Tareas = () => {
   const [tareasVencidas, setTareasVencidas] = useState();
 
   /*Estados de consulta */
-  const [filtroFecha, setFlitroFecha] = useState();
-  const [fechaConsulta, setFechaConsulta] = useState();
+  const [filtro, setFiltro] = useState({
+    idUsuario: userId,
+    filtroFecha: "date",
+    fecha: today,
+    estado: 1,
+    idUsuarioFiltro: "",
+  });
 
-  const [getTareasIframeResolver, { loading, error, data }] = useLazyQuery(
-    GET_TAREAS);
+  // const [filtroFecha, setFiltroFecha] = useState("date");
+  // const [fechaConsulta, setFechaConsulta] = useState(fecha);
 
-  if (data) {
-    console.log(JSON.parse(data.getTareasIframeResolver));
-  }
+  console.log(filtro);
 
-  let today = moment().format("DD/MM/YYYY");
-  const [fecha, setFecha] = useState(today);
+  const { loading, error, data } = useQuery(GET_TAREAS, {
+    variables: { filtro },
+  });
 
   useEffect(() => {
-    if (tareas) {
-      // listaTareasHoy();
-      listaTareasES();
-      listaTareasSP();
-      listaTareasVC();
+    if (data) {
+      console.log(JSON.parse(data.getTareasIframeResolver));
     }
-  }, [tareas, fecha]);
-
-  useEffect(() => { setTareasDiarias(data)}, [data]);
+  }, [data]);
 
   useEffect(() => {
-    console.log(tareasDiarias)
-
-  }, [tareasDiarias])
+    console.log(tareasDiarias);
+  }, [tareasDiarias]);
 
   const handleFiltro = (key) => {
     switch (true) {
       case key === "1":
-        let d = moment(fecha).format("YYYY-MM-DD");
-        getTareasIframeResolver({
-          variables: {
-            idUsuario: userId,
-            filtroFecha: base64.encode("date"),
-            fecha: base64.encode(d),
-            estado: 1,
-            idUsuarioFiltro: "",
-          },
+        setFiltro({
+          idUsuario: userId,
+          filtroFecha: "date",
+          fecha: fecha,
+          estado: 1,
+          idUsuarioFiltro: "",
         });
-        console.log("diario");
         break;
       case key === "2":
-        console.log("Semana");
+        setFiltro({
+          idUsuario: userId,
+          filtroFecha: "date",
+          fecha: fecha,
+          estado: 1,
+          idUsuarioFiltro: "",
+        });
+        // setFiltroFecha("week");
+
         break;
       case key === "3":
-        console.log("Semana Prox");
+        // setFiltroFecha("week");
+
         break;
       case key === "4":
-        break;
+        // setFiltroFecha("date");
 
+        break;
       default:
         break;
     }
@@ -91,120 +98,17 @@ const Tareas = () => {
 
   //*TAB 1 - SECCION LISTA TAREA
 
-  // const listaTareasHoy = () => {
-  //   let hoy = [];
-
-  //   tareas.map((tarea) => {
-  //     let fechaFormato = tarea.fechaHora.split(" ");
-  //     fechaFormato = fechaFormato[0];
-
-  //     fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
-
-  //     if (fechaFormato === fecha) {
-  //       hoy.push(tarea);
-  //     }
-  //   });
-
-  //   setTareasDiarias(hoy);
-
-  //   return 1;
-  // };
-
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
-
-  let StartES = moment().startOf("isoWeek").format("DD/MM/YYYY");
-
-  let EndES = moment().endOf("isoWeek").format("DD/MM/YYYY");
-
-  const listaTareasES = () => {
-    let ES = [];
-    tareas.map((tarea) => {
-      let fechaSola = tarea.fechaHora.split(" ");
-      fechaSola = fechaSola[0];
-      let fecha = moment(fechaSola, "DD/MM/YYYY");
-
-      StartES = moment(StartES, "DD/MM/YYYY");
-      EndES = moment(EndES, "DD/MM/YYYY");
-
-      if (fecha >= StartES) {
-        if (fecha <= EndES) {
-          ES.push(tarea);
-        }
-      }
-      return 1;
-    });
-
-    setTareasSemana(ES);
-  };
 
   // // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
 
   //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
 
-  let StartSP = moment()
-    .add(1, "weeks")
-    .startOf("isoWeek")
-    .format("DD/MM/YYYY");
-
-  let EndSP = moment().add(1, "weeks").endOf("isoWeek").format("DD/MM/YYYY");
-
-  const listaTareasSP = () => {
-    let SP = [];
-
-    tareas.map((tarea) => {
-      let fechaSola = tarea.fechaHora.split(" ");
-      fechaSola = fechaSola[0];
-      let fecha = moment(fechaSola, "DD/MM/YYYY");
-
-      StartSP = moment(StartSP, "DD/MM/YYYY");
-      EndSP = moment(EndSP, "DD/MM/YYYY");
-
-      if (fecha >= StartSP) {
-        if (fecha <= EndSP) {
-          SP.push(tarea);
-        }
-      }
-      return 1;
-    });
-
-    setTareasSemanaProxima(SP);
-  };
-
   // // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
 
   //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
-
-  let horaActual = moment().format("LT");
-
-  const listaTareasVC = () => {
-    let VC = [];
-    tareas.map((tarea) => {
-      let fechaSola = tarea.fechaHora.split(" ");
-      let hora = fechaSola[1];
-      fechaSola = fechaSola[0];
-      let fecha = moment(fechaSola, "DD/MM/YYYY");
-      hora = moment(hora, "LT");
-
-      horaActual = moment(horaActual, "LT");
-
-      let hoyVC = moment(today, "DD/MM/YYYY").add(1, "day");
-
-      today = moment(today, "DD/MM/YYYY");
-
-      if (fecha < today) {
-        VC.push(tarea);
-      } else if (fecha < hoyVC) {
-        if (hora < horaActual) {
-          VC.push(tarea);
-        }
-      }
-      return "";
-    });
-
-    setTareasVencidas(VC);
-  };
 
   //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
@@ -255,12 +159,12 @@ const Tareas = () => {
         </div>
         {tareasDiarias && (
           <div className="div_lista_calendario">
-            <ListaTarea itemListaTarea={tareasDiarias} />
+            <ListaTarea itemListaTarea={tareas} />
           </div>
         )}
       </CapsuleTabs.Tab>
 
-      <CapsuleTabs.Tab title="Semana" key="2">
+      {/* <CapsuleTabs.Tab title="Semana" key="2">
         {tareasSemana && (
           <div className="div_lista">
             <ListaTarea itemListaTarea={tareasSemana} />
@@ -282,7 +186,7 @@ const Tareas = () => {
             <ListaTarea itemListaTarea={tareasVencidas} />
           </div>
         )}
-      </CapsuleTabs.Tab>
+      </CapsuleTabs.Tab> */}
     </CapsuleTabs>
   );
 };
