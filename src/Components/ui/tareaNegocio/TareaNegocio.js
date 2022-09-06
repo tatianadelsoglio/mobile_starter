@@ -157,9 +157,11 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   <p className="texto-tarea-horario">
                     {handleFechaVer(tarea.fechavencimiento)}
                   </p>
-                  <p className="texto-tarea-horario">
-                    {handleHora(tarea.tar_horavencimiento)} hs
-                  </p>
+                  {tarea.tar_horavencimiento && (
+                    <p className="texto-tarea-horario">
+                      {handleHora(tarea.tar_horavencimiento)} hs
+                    </p>
+                  )}
                 </div>
                 <div className="tarea-contenedor-horario">
                   {tarea.pri_desc === "ALTA" ? (
@@ -310,9 +312,11 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 }}
               />
               <p className="texto-tarea-horario">{tarea.fechavencimiento}</p>
-              <p className="texto-tarea-horario">
-                {tarea.tar_horavencimiento} hs
-              </p>
+              {tarea.tar_horavencimiento && (
+                <p className="texto-tarea-horario">
+                  {handleHora(tarea.tar_horavencimiento)} hs
+                </p>
+              )}
             </div>
           </div>
         </div>

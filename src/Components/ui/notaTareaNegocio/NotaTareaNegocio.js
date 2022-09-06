@@ -1,3 +1,4 @@
+import moment from "moment";
 import "./notaTareaNegocio.css";
 
 export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true }) => {
@@ -18,11 +19,14 @@ export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true 
     return color;
   };
 
+  let notaFecha = moment(nota.not_fechahora, "YYYY-MM-DD").format("LL");
+ 
+
   if(display===true) {
     return (
       <div className={origen ? "nota-tarea-wrapper-lista-negocio" : interno ? "nota-tarea-wrapper-interno" : "nota-tarea-wrapper"} >
         <div className="nota-tarea-linea-superior">
-          <p className="nota-tarea-fecha">{nota.fecha}</p>
+          <p className="nota-tarea-fecha">{notaFecha}</p>
           <div
             className="nota-tarea-prioridad"
             style={{ backgroundColor: colorPrioridad(nota.pri_desc) }}

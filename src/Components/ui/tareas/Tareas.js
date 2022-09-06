@@ -19,6 +19,7 @@ const Tareas = () => {
 
   const [tareasCalendario, setTareasCalendario] = useState();
 
+
   /*Estados de consulta */
   const [filtroFecha, setFlitroFecha] = useState({
     typeDate: "date",
@@ -79,7 +80,6 @@ const Tareas = () => {
 
   useEffect(() => {
     if(data) {
-      console.log(JSON.parse(data.getTareasIframeResolver));
       setTareas(JSON.parse(data.getTareasIframeResolver));
     }
 
@@ -89,20 +89,19 @@ const Tareas = () => {
   }, [data, dataCalendario]);
 
 
-
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   //*TAB 1 - SECCION CALENDARIO
 
   const handleChange = (val) => {
-    // let fechaSelec = moment(val).format("DD/MM/YYYY");
-    // setFecha(fechaSelec);
+
 
     setFlitroFecha({
       typeDate: "date",
       filterDate: moment(val).format("YYYY-MM-DD"),
     });
   };
+
 
   return (
     <CapsuleTabs
