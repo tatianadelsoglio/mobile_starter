@@ -7,212 +7,116 @@ import { CalendarOutline } from "antd-mobile-icons";
 import "./Tareas.css";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_TAREAS } from "../../../graphql/queries/Tarea";
 import * as base64 from "base-64";
 
 const Tareas = () => {
   const { tareas, userId } = useContext(GlobalContext);
 
+
+
+  console.log(userId)
+
+  let today = moment().format("DD/MM/YYYY");
+  const [fecha, setFecha] = useState(today);
+
   const [tareasDiarias, setTareasDiarias] = useState();
   const [tareasSemana, setTareasSemana] = useState();
   const [tareasSemanaProxima, setTareasSemanaProxima] = useState();
   const [tareasVencidas, setTareasVencidas] = useState();
 
-  /*Estados de consulta */
-  const [filtroFecha, setFlitroFecha] = useState();
-  const [fechaConsulta, setFechaConsulta] = useState();
+  let d = moment(fecha).format("YYYY-MM-DD");
 
-  const [getTareasIframeResolver, { loading, error, data }] = useLazyQuery(
-    GET_TAREAS);
+  /*Estados de consulta */
+  const [filtroFecha, setFlitroFecha] = useState({
+    typeDate: "date",
+    filterDate: moment().format("YYYY-MM-DD"),
+  });
+  const [estado, setEstado] = useState(1);
+
+  const { loading, error, data } = useQuery(GET_TAREAS, {
+    variables: {
+      idUsuario: userId,
+      filtroFecha: filtroFecha.typeDate,
+      fecha: filtroFecha.filterDate,
+      estado: estado,
+      idUsuarioFiltro: "",
+    },
+  });
 
   if (data) {
     console.log(JSON.parse(data.getTareasIframeResolver));
   }
 
-  let today = moment().format("DD/MM/YYYY");
-  const [fecha, setFecha] = useState(today);
-
-  useEffect(() => {
-    if (tareas) {
-      // listaTareasHoy();
-      listaTareasES();
-      listaTareasSP();
-      listaTareasVC();
-    }
-  }, [tareas, fecha]);
-
-  useEffect(() => { setTareasDiarias(data)}, [data]);
-
-  useEffect(() => {
-    console.log(tareasDiarias)
-
-  }, [tareasDiarias])
-
-  const handleFiltro = (key) => {
+  const tabHandleChange = (key) => {
+    console.log(key);
     switch (true) {
-      case key === "1":
-        let d = moment(fecha).format("YYYY-MM-DD");
-        getTareasIframeResolver({
-          variables: {
-            idUsuario: userId,
-            filtroFecha: base64.encode("date"),
-            fecha: base64.encode(d),
-            estado: 1,
-            idUsuarioFiltro: "",
-          },
-        });
-        console.log("diario");
-        break;
       case key === "2":
-        console.log("Semana");
+
+      console.log("hola")
+        const b = moment().year();
+        const a = moment().week();
+        const c = `${b}${a}`;
+        setFlitroFecha({
+          typeDate: "week",
+          filterDate: c,
+        });
         break;
       case key === "3":
-        console.log("Semana Prox");
+        const b1 = moment().year();
+        const a1 = moment().week();
+        const nextWeek = Number(a1) + 1;
+        const c1 = `${b1}${nextWeek}`;
+
+        setFlitroFecha({ typeDate: "week", filterDate: c1 });
         break;
       case key === "4":
+        setFlitroFecha({
+          typeDate: "expired",
+          filterDate: moment().format("YYYY-MM-DD"),
+        });
         break;
 
       default:
+        setFlitroFecha({
+          typeDate: "date",
+          filterDate: moment().format("YYYY-MM-DD"),
+        });
         break;
     }
   };
+
+
+  useEffect(() => {
+    setTareasDiarias(data);
+  }, [data]);
+
+  useEffect(() => {
+    console.log(tareasDiarias);
+  }, [tareasDiarias]);
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
   //*TAB 1 - SECCION CALENDARIO
 
   const handleChange = (val) => {
-    let fechaSelec = moment(val).format("DD/MM/YYYY");
-    setFecha(fechaSelec);
-  };
+    // let fechaSelec = moment(val).format("DD/MM/YYYY");
+    // setFecha(fechaSelec);
 
-  //*TAB 1 - SECCION CALENDARIO
-
-  //*TAB 1 - SECCION LISTA TAREA
-
-  // const listaTareasHoy = () => {
-  //   let hoy = [];
-
-  //   tareas.map((tarea) => {
-  //     let fechaFormato = tarea.fechaHora.split(" ");
-  //     fechaFormato = fechaFormato[0];
-
-  //     fechaFormato = moment(fechaFormato, "DD/MM/YYYY").format("DD/MM/YYYY");
-
-  //     if (fechaFormato === fecha) {
-  //       hoy.push(tarea);
-  //     }
-  //   });
-
-  //   setTareasDiarias(hoy);
-
-  //   return 1;
-  // };
-
-  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 2
-
-  let StartES = moment().startOf("isoWeek").format("DD/MM/YYYY");
-
-  let EndES = moment().endOf("isoWeek").format("DD/MM/YYYY");
-
-  const listaTareasES = () => {
-    let ES = [];
-    tareas.map((tarea) => {
-      let fechaSola = tarea.fechaHora.split(" ");
-      fechaSola = fechaSola[0];
-      let fecha = moment(fechaSola, "DD/MM/YYYY");
-
-      StartES = moment(StartES, "DD/MM/YYYY");
-      EndES = moment(EndES, "DD/MM/YYYY");
-
-      if (fecha >= StartES) {
-        if (fecha <= EndES) {
-          ES.push(tarea);
-        }
-      }
-      return 1;
+    setFlitroFecha({
+      typeDate: "date",
+      filterDate: moment(val).format("YYYY-MM-DD"),
     });
-
-    setTareasSemana(ES);
   };
 
-  // // console.log("Lista de tareas ESTA SEMANA: ", arrayES);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 1
-
-  //! FILTRO POR SEMANA LISTA DE TAREAS - INICIO DEL METODO TAB 2
-
-  let StartSP = moment()
-    .add(1, "weeks")
-    .startOf("isoWeek")
-    .format("DD/MM/YYYY");
-
-  let EndSP = moment().add(1, "weeks").endOf("isoWeek").format("DD/MM/YYYY");
-
-  const listaTareasSP = () => {
-    let SP = [];
-
-    tareas.map((tarea) => {
-      let fechaSola = tarea.fechaHora.split(" ");
-      fechaSola = fechaSola[0];
-      let fecha = moment(fechaSola, "DD/MM/YYYY");
-
-      StartSP = moment(StartSP, "DD/MM/YYYY");
-      EndSP = moment(EndSP, "DD/MM/YYYY");
-
-      if (fecha >= StartSP) {
-        if (fecha <= EndSP) {
-          SP.push(tarea);
-        }
-      }
-      return 1;
-    });
-
-    setTareasSemanaProxima(SP);
-  };
-
-  // // console.log("Lista de tareas SEMANA PROXIMA: ", arraySP);
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 2
-
-  //! FILTRO POR SEMANA LISTA DE TAREAS / INICIO DEL METODO TAB 3
-
-  let horaActual = moment().format("LT");
-
-  const listaTareasVC = () => {
-    let VC = [];
-    tareas.map((tarea) => {
-      let fechaSola = tarea.fechaHora.split(" ");
-      let hora = fechaSola[1];
-      fechaSola = fechaSola[0];
-      let fecha = moment(fechaSola, "DD/MM/YYYY");
-      hora = moment(hora, "LT");
-
-      horaActual = moment(horaActual, "LT");
-
-      let hoyVC = moment(today, "DD/MM/YYYY").add(1, "day");
-
-      today = moment(today, "DD/MM/YYYY");
-
-      if (fecha < today) {
-        VC.push(tarea);
-      } else if (fecha < hoyVC) {
-        if (hora < horaActual) {
-          VC.push(tarea);
-        }
-      }
-      return "";
-    });
-
-    setTareasVencidas(VC);
-  };
-
-  //! FIN DE METODO PARA FILTRADO POR SEMANA TAB 4
 
   return (
     <CapsuleTabs
       className="capsule_contenedor"
       defaultActiveKey="1"
-      onChange={(key) => handleFiltro(key)}
+      onChange={(key) => 
+        tabHandleChange(key)}
     >
       {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
@@ -250,14 +154,14 @@ const Tareas = () => {
                 );
               }
             }}
-            onChange={(val) => handleChange(val)}
+            onChange={(val) =>handleChange(val)}
           />
         </div>
-        {tareasDiarias && (
+        {/* {tareasDiarias && (
           <div className="div_lista_calendario">
             <ListaTarea itemListaTarea={tareasDiarias} />
           </div>
-        )}
+        )} */}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana" key="2">

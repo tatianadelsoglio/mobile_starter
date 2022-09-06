@@ -9,6 +9,7 @@ import AuthProvider from "./auth/AuthProvider";
 import { ApolloProvider, useQuery } from "@apollo/client";
 import Client from "./config/apolloClientConfig";
 import { GET_TAREAS } from "./graphql/queries/Tarea";
+import { getDataInStorage } from "./Components/storage/manageStorage";
 
 
 const itemListaTarea = [
@@ -328,9 +329,26 @@ const App = () => {
   const [tareaSeleccionada, setTareaSeleccionada] = useState({});
   const [tareas, setTareas] = useState(itemListaTarea);
   const [plataforma, setPlataforma] = useState();
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
+
+    getDataInStorage("userInfo").then((res) => {
+      if (res) {
+        console.log(res);
+        setUserData(res);
+        setUserId(res.idUsuario);
+
+        
+      } else {
+        setUserData({});
+      }
+    });
+
+
+
+
+
     if (navigator.userAgent.toUpperCase().includes("IPHONE")) {
       setPlataforma("IPHONE");
     } else {
