@@ -9,19 +9,15 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useQuery } from "@apollo/client";
 import { GET_TAREAS } from "../../../graphql/queries/Tarea";
+import { GET_TAREAS_CALENDARIO } from "../../../graphql/queries/TareaCalendario";
 
 const Tareas = () => {
-  const { tareas, userId } = useContext(GlobalContext);
-
-  console.log(userId)
+  const { tareas, setTareas, userId } = useContext(GlobalContext);
 
   let today = moment().format("DD/MM/YYYY");
   const [fecha, setFecha] = useState(today);
 
-  const [tareasDiarias, setTareasDiarias] = useState();
-  const [tareasSemana, setTareasSemana] = useState();
-  const [tareasSemanaProxima, setTareasSemanaProxima] = useState();
-  const [tareasVencidas, setTareasVencidas] = useState();
+  const [tareasCalendario, setTareasCalendario] = useState();
 
   let d = moment(fecha).format("YYYY-MM-DD");
 
@@ -42,14 +38,17 @@ const Tareas = () => {
     },
   });
 
-  console.log(filtro);
+  const { data: dataCalendario } = useQuery(GET_TAREAS_CALENDARIO, {
+    variables: {
+      idUsuario: userId,
+      fecha: "1900-01-01",
+    }
+  })
 
   const tabHandleChange = (key) => {
-    console.log(key);
     switch (true) {
       case key === "2":
 
-      console.log("hola")
         const b = moment().year();
         const a = moment().week();
         const c = `${b}${a}`;
@@ -72,8 +71,6 @@ const Tareas = () => {
           filterDate: moment().format("YYYY-MM-DD"),
         });
         break;
-
-        break;
       default:
         setFlitroFecha({
           typeDate: "date",
@@ -84,12 +81,20 @@ const Tareas = () => {
   };
 
   useEffect(() => {
-    setTareasDiarias(data);
-  }, [data]);
+    if(data) {
+      console.log(JSON.parse(data.getTareasIframeResolver));
+      setTareas(JSON.parse(data.getTareasIframeResolver));
+    }
+
+    if(dataCalendario) {
+      setTareasCalendario((JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver)).fechasVenc);
+    }
+  }, [data, dataCalendario]);
 
   useEffect(() => {
-    console.log(tareasDiarias);
-  }, [tareasDiarias]);
+    console.log(tareas);
+    console.log(tareasCalendario);
+  }, [tareas, tareasCalendario]);
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
 
@@ -119,18 +124,14 @@ const Tareas = () => {
           <Calendar
             selectionMode="single"
             // defaultValue={defaultSingle}
-            renderLabel={(date) => {
+            renderLabel={tareasCalendario && ((date) => {
               let bandera = false;
 
-              tareas.map((tarea) => {
-                let fechaHoySola = tarea.fechaHora.split(" ");
-                fechaHoySola = fechaHoySola[0];
-                let fechaHoy = moment(fechaHoySola, "DD/MM/YYYY").format(
-                  "DD/MM/YYYY"
-                );
-                let fechaCalendario = moment(date).format("DD/MM/YYYY");
+              tareasCalendario.map((tarea) => {
+                
+                let fechaCalendario = moment(date).format("YYYY-MM-DD");
 
-                if (fechaCalendario === fechaHoy) {
+                if (fechaCalendario === tarea.tar_vencimiento) {
                   return (bandera = true);
                 }
               });
@@ -148,40 +149,40 @@ const Tareas = () => {
                   </p>
                 );
               }
-            }}
+            })}
             onChange={(val) =>handleChange(val)}
           />
         </div>
-        {/* {tareasDiarias && (
+        {tareas && (
           <div className="div_lista_calendario">
+            <ListaTarea itemListaTarea={tareas} />
+          </div>
+        )}
+      </CapsuleTabs.Tab>
+
+      <CapsuleTabs.Tab title="Semana" key="2">
+        {/* {tareas && (
+          <div className="div_lista">
             <ListaTarea itemListaTarea={tareas} />
           </div>
         )} */}
       </CapsuleTabs.Tab>
 
-      {/* <CapsuleTabs.Tab title="Semana" key="2">
-        {tareasSemana && (
-          <div className="div_lista">
-            <ListaTarea itemListaTarea={tareasSemana} />
-          </div>
-        )}
-      </CapsuleTabs.Tab>
-
       <CapsuleTabs.Tab title="Semana Prox." key="3">
-        {tareasSemanaProxima && (
+        {/* {tareas && (
           <div className="div_lista">
-            <ListaTarea itemListaTarea={tareasSemanaProxima} />
+            <ListaTarea itemListaTarea={tareas} />
           </div>
-        )}
+        )} */}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Vencido" key="4">
-        {tareasVencidas && (
+        {/* {tareas && (
           <div className="div_lista">
-            <ListaTarea itemListaTarea={tareasVencidas} />
+            <ListaTarea itemListaTarea={tareas} />
           </div>
-        )}
-      </CapsuleTabs.Tab> */}
+        )} */}
+      </CapsuleTabs.Tab>
     </CapsuleTabs>
   );
 };

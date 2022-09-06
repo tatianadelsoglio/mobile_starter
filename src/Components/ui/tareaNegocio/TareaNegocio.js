@@ -33,8 +33,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
   };
 
   const handleHora = (val) => {
-    let horaSola = val.split(" ");
-    horaSola = horaSola[1];
+    let horaSola = moment(val, "HH:mm:ss").format("LT");
     return horaSola;
   };
 
@@ -42,7 +41,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     let cliente = tarea;
 
     return history.push({
-      pathname: `/detalletarea/${tarea.id}`,
+      pathname: `/detalletarea/${tarea.tar_id}`,
       state: { ...cliente },
     });
   };
@@ -125,22 +124,22 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   fontSize: "16px",
                 }}
                 direction="end"
-                content={tarea.asunto}
+                content={tarea.tar_asunto}
               />
             </div>
             <div className="tarea-negocio-linea-intermedia">
-              {tarea.contacto ? (
+              {tarea.cli_nombre ? (
                 <div className="tarea-negocio-item">
                   <UserOutline style={{ color: "#00B33C" }} />
-                  <p className="tarea-negocio-contacto">{tarea.cliente}</p>
+                  <p className="tarea-negocio-contacto">{tarea.cli_nombre}</p>
                 </div>
               ) : (
                 ""
               )}
-              {tarea.tipoTarea ? (
+              {tarea.tip_desc ? (
                 <div className="tarea-negocio-item">
                   <InformationCircleOutline style={{ color: "#00B33C" }} />
-                  <p className="tarea-negocio-tipoTarea">{tarea.tipoTarea}</p>
+                  <p className="tarea-negocio-tipoTarea">{tarea.tip_desc}</p>
                 </div>
               ) : (
                 ""
@@ -151,19 +150,19 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 <div className="tarea-contenedor-horario">
                   <ClockCircleOutline
                     style={{
-                      color: dateHandler(tarea.fechaHora),
+                      color: dateHandler(tarea.fechavencimiento),
                       fontSize: "0.8rem",
                     }}
                   />
                   <p className="texto-tarea-horario">
-                    {handleFechaVer(tarea.fechaHora)}
+                    {handleFechaVer(tarea.fechavencimiento)}
                   </p>
                   <p className="texto-tarea-horario">
-                    {handleHora(tarea.fechaHora)} hs
+                    {handleHora(tarea.tar_horavencimiento)} hs
                   </p>
                 </div>
                 <div className="tarea-contenedor-horario">
-                  {tarea.prioridad === "ALTA" ? (
+                  {tarea.pri_desc === "ALTA" ? (
                     <div
                       style={{
                         height: "20px",
@@ -182,7 +181,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                       ALTA
                     </div>
                   ) : null}
-                  {tarea.prioridad === "MEDIA" ? (
+                  {tarea.pri_desc === "MEDIA" ? (
                     <div
                       style={{
                         height: "20px",
@@ -201,7 +200,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                       MEDIA
                     </div>
                   ) : null}
-                  {tarea.prioridad === "BAJA" ? (
+                  {tarea.pri_desc === "BAJA" ? (
                     <div
                       style={{
                         height: "20px",
@@ -231,50 +230,42 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                       height: "22px",
                       width: "auto",
                       fontSize: "12px",
-                      color: "#7cb305",
-                      borderColor: "#eaff8f",
-                      backgroundColor: "#fcffe6",
+                      color: tarea.ori_color,
+                      borderColor: tarea.ori_color,
+                      backgroundColor: "white",
                       padding: "2px 5px",
                       borderRadius: "4px",
                       marginLeft: "-2px",
                       marginRight: "3px",
                     }}
                   >
-                    NEGOCIO
+                    {tarea.ori_desc}
                   </p>
                 </div>
               </div>
               <div className="tarea-negocio-linea-inferior-dos">
                 <div className="VerMas">
-                  {tarea.anexo ? <DownOutline /> : null}
+                  {tarea.not_id || tarea.up_id ? <DownOutline /> : null}
                 </div>
               </div>
             </div>
           </div>
-          {tarea.anexo
-            ? tarea.anexo.map((anexo) => {
-                switch (anexo.tipo) {
-                  case "#N":
-                    return (
-                      <NotaTareaNegocio
-                        nota={anexo}
-                        origen={origen}
-                        interno={true}
-                        display={mostrar}
-                      />
-                    );
-                  case "#A":
-                    return (
-                      <ArchivoTareaNegocio
-                        archivo={anexo}
-                        origen={origen}
-                        interno={true}
-                        display={mostrar}
-                      />
-                    );
-                }
-              })
-            : ""}
+          {tarea.not_id && (
+            <NotaTareaNegocio
+              nota={tarea}
+              origen={origen}
+              interno={true}
+              display={mostrar}
+            />
+          )}
+          {tarea.up_id && (
+            <ArchivoTareaNegocio
+              archivo={tarea}
+              origen={origen}
+              interno={true}
+              display={mostrar}
+            />
+          )}
         </div>
       </SwipeAction>
     );
@@ -286,27 +277,27 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
           onClick={() => setMostrar(!mostrar)}
         >
           <div className="tarea-negocio-linea-superior">
-            <p className="tarea-negocio-titulo">{tarea.asunto}</p>
+            <p className="tarea-negocio-titulo">{tarea.tar_asunto}</p>
             <CheckOutline
               style={{ color: "#00B33C", marginRight: "5px", fontSize: "1rem" }}
             />
           </div>
           <div className="tarea-negocio-linea-inferior">
             <p className="tarea-negocio-fecha">
-              {moment(tarea.fechaInicio, "DD/MM/YYYY").fromNow()}
+              {moment(tarea.fechacreacion, "DD/MM/YYYY").fromNow()}
             </p>
-            {tarea.contacto ? (
+            {tarea.cli_id ? (
               <div className="tarea-negocio-item">
                 <UserOutline style={{ color: "#00B33C" }} />{" "}
-                <p className="tarea-negocio-contacto">{tarea.contacto}</p>
+                <p className="tarea-negocio-contacto">{tarea.cli_nombre}</p>
               </div>
             ) : (
               ""
             )}
-            {tarea.tipoTarea ? (
+            {tarea.tip_desc ? (
               <div className="tarea-negocio-item">
                 <InformationCircleOutline style={{ color: "#00B33C" }} />{" "}
-                <p className="tarea-negocio-tipoTarea">{tarea.tipoTarea}</p>
+                <p className="tarea-negocio-tipoTarea">{tarea.tip_desc}</p>
               </div>
             ) : (
               ""
@@ -314,37 +305,23 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             <div className="tarea-contenedor-horario">
               <ClockCircleOutline
                 style={{
-                  color: dateHandler(tarea.cierreEstimado),
+                  color: dateHandler(tarea.fechavencimiento),
                   fontSize: "0.8rem",
                 }}
               />
-              <p className="texto-tarea-horario">{tarea.cierreEstimado}</p>
-              <p className="texto-tarea-horario">{tarea.hora} hs</p>
+              <p className="texto-tarea-horario">{tarea.fechavencimiento}</p>
+              <p className="texto-tarea-horario">
+                {tarea.tar_horavencimiento} hs
+              </p>
             </div>
           </div>
         </div>
-        {tarea.anexo
-          ? tarea.anexo.map((anexo) => {
-              switch (anexo.tipo) {
-                case "#N":
-                  return (
-                    <NotaTareaNegocio
-                      nota={anexo}
-                      interno={true}
-                      display={true}
-                    />
-                  );
-                case "#A":
-                  return (
-                    <ArchivoTareaNegocio
-                      archivo={anexo}
-                      interno={true}
-                      display={true}
-                    />
-                  );
-              }
-            })
-          : ""}
+        {tarea.not_id && (
+          <NotaTareaNegocio nota={tarea} interno={true} display={true} />
+        )}
+        {/* {tarea.up_id && (
+          <ArchivoTareaNegocio archivo={tarea} interno={true} display={true} />
+        )} */}
       </div>
     );
   }

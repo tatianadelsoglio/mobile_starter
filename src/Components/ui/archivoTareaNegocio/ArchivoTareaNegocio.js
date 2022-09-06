@@ -12,15 +12,15 @@ export const ArchivoTareaNegocio = ({ archivo, origen="", interno=false, display
           <img height={"50px"} width={"50px"} alt="#" src="https://cdn-icons-png.flaticon.com/512/136/136524.png" />
         </div>
         <div>
-          <p className="archivo-tarea-nombre">{archivo.nombre}</p>
+          <p className="archivo-tarea-nombre">{archivo.up_filename}</p>
           <div className="archivo-tarea-linea-inferior">
             <p className="archivo-tarea-hora">
               {moment(archivo.fecha, "DD/MM/YYYY").fromNow()}
             </p>
-            <p className="archivo-tarea-peso">{archivo.peso}</p>
+            <p className="archivo-tarea-peso">{archivo.up_size}</p>
             <div className="archivo-tarea-item">
               <LinkOutline />
-              <p className="archivo-tarea-peso">{archivo.descripcion}</p>
+              <p className="archivo-tarea-peso">{archivo.up_detalle}</p>
             </div>
           </div>
         </div>
