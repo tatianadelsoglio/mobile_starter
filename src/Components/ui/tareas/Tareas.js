@@ -49,7 +49,7 @@ const Tareas = () => {
       }) 
       setTareas(tareasOrdenadas);
     }
-    
+    console.log("anda?")
   }
 
   const tabHandleChange = (key) => {
