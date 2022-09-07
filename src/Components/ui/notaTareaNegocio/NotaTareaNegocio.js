@@ -1,6 +1,12 @@
+import moment from "moment";
 import "./notaTareaNegocio.css";
 
-export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true }) => {
+export const NotaTareaNegocio = ({
+  nota,
+  origen = "",
+  interno = false,
+  display = true,
+}) => {
   const colorPrioridad = (prioridad) => {
     let color = "";
 
@@ -18,11 +24,21 @@ export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true 
     return color;
   };
 
-  if(display===true) {
+  let notaFecha = moment(nota.not_fechahora, "YYYY-MM-DD").format("LL");
+
+  if (display === true) {
     return (
-      <div className={origen ? "nota-tarea-wrapper-lista-negocio" : interno ? "nota-tarea-wrapper-interno" : "nota-tarea-wrapper"} >
+      <div
+        className={
+          origen
+            ? "nota-tarea-wrapper-lista-negocio"
+            : interno
+            ? "nota-tarea-wrapper-interno"
+            : "nota-tarea-wrapper"
+        }
+      >
         <div className="nota-tarea-linea-superior">
-          <p className="nota-tarea-fecha">{nota.fecha}</p>
+          <p className="nota-tarea-fecha">{notaFecha}</p>
           <div
             className="nota-tarea-prioridad"
             style={{ backgroundColor: colorPrioridad(nota.pri_desc) }}
@@ -30,14 +46,15 @@ export const NotaTareaNegocio = ({ nota, origen="", interno=false, display=true 
             <p style={{ margin: "0px" }}>{nota.pri_desc}</p>
           </div>
         </div>
-        {nota.not_desc}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: nota.not_desc,
+          }}
+        ></div>
         {/* <p className="nota-tarea-texto">{nota.texto}</p> */}
       </div>
     );
+  } else {
+    <div style={{ display: "none" }}></div>;
   }
-  else {
-    <div style={{display:"none"}}>
-    </div>
-  }
-  
 };

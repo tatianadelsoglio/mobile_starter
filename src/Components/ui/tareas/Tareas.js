@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
-import { Calendar, CapsuleTabs } from "antd-mobile";
+import { Calendar, CapsuleTabs, Empty, SpinLoading } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -16,6 +16,7 @@ const Tareas = () => {
   const { tareas, setTareas, userId } = useContext(GlobalContext);
 
   const [tareasCalendario, setTareasCalendario] = useState();
+ 
 
   /*Estados de consulta */
   const [filtroFecha, setFlitroFecha] = useState({
@@ -100,16 +101,13 @@ const Tareas = () => {
 
   }, [data, dataCalendario]);
 
-  //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
-
-  //*TAB 1 - SECCION CALENDARIO
-
   const handleChange = (val) => {
     setFlitroFecha({
       typeDate: "date",
       filterDate: moment(val).format("YYYY-MM-DD"),
     });
   };
+
 
   return (
     <CapsuleTabs
