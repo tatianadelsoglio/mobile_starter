@@ -100,6 +100,10 @@ const Tareas = () => {
 
   }, [data, dataCalendario]);
 
+  useEffect(() => {
+
+  }, [tareas])
+
   const handleChange = (val) => {
     setFlitroFecha({
       typeDate: "date",
