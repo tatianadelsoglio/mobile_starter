@@ -15,12 +15,7 @@ import QueryResult from "../../queryResult/QueryResult";
 const Tareas = () => {
   const { tareas, setTareas, userId } = useContext(GlobalContext);
 
-  let today = moment().format("DD/MM/YYYY");
-  const [fecha, setFecha] = useState(today);
-
   const [tareasCalendario, setTareasCalendario] = useState();
-
-  let d = moment(fecha).format("YYYY-MM-DD");
 
   /*Estados de consulta */
   const [filtroFecha, setFlitroFecha] = useState({
@@ -45,6 +40,17 @@ const Tareas = () => {
       fecha: "1900-01-01",
     },
   });
+
+  const ordenarDatos = (tareas) => {
+    let tareasOrdenadas;
+    if (tareas) {
+      tareasOrdenadas = tareas.sort(function(a,b){
+        return (new Date(moment(b.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")) - new Date(moment(a.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")));
+      }) 
+      setTareas(tareasOrdenadas);
+    }
+    
+  }
 
   const tabHandleChange = (key) => {
     switch (true) {
@@ -82,8 +88,7 @@ const Tareas = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(JSON.parse(data.getTareasIframeResolver));
-      setTareas(JSON.parse(data.getTareasIframeResolver));
+      ordenarDatos(JSON.parse(data.getTareasIframeResolver))
     }
 
     if (dataCalendario) {
@@ -92,6 +97,7 @@ const Tareas = () => {
           .fechasVenc
       );
     }
+
   }, [data, dataCalendario]);
 
   //! FILTRO PARA HOY LISTA DE TAREAS / INICIO DEL METODO TAB 1
