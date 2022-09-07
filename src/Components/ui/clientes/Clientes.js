@@ -1,8 +1,11 @@
 /* eslint-disable array-callback-return */
 import { List, SearchBar } from "antd-mobile";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useContext } from "react-router-dom";
 import "./Clientes.css";
+import { useQuery } from "@apollo/client";
+import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const clientes = [
   {
@@ -30,6 +33,19 @@ const clientes = [
     email: "darregueira@darregueira.com.ar",
   },
 ];
+
+const { userId } = useContext(GlobalContext);
+
+const { loading, error, data } = useQuery(GET_CLIENTE, {
+  variables: {
+    cli_id:"",
+    cli_nombre:"",
+    cli_telefono1:"",
+    cli_email1:"",
+    idUsuario: userId,
+  },
+});
+
 
 const Clientes = () => {
   const [busqueda, setBusqueda] = useState("");

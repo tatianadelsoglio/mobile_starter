@@ -5,6 +5,8 @@ export const GET_CLIENTE = gql`
     getClientesLimitResolver(input: $input, idUsuario: $idUsuario) {
       cli_id
       cli_nombre
+      cli_telefono1
+      cli_email1
     }
   }
 `;
