@@ -144,13 +144,18 @@ const Tareas = () => {
             onChange={(val) => handleChange(val)}
           />
         </div>
-        <QueryResult loading={loading} error={error} data={data}>
+        <div className="div_lista_calendario">
+          <QueryResult loading={loading} error={error} data={data}>
+            {tareas && <ListaTarea itemListaTarea={tareas} />}
+          </QueryResult>
+        </div>
+        {/* <QueryResult loading={loading} error={error} data={data}>
           {tareas && (
             <div className="div_lista_calendario">
               <ListaTarea itemListaTarea={tareas} />
             </div>
           )}
-        </QueryResult>
+        </QueryResult> */}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana" key="2">
@@ -164,7 +169,7 @@ const Tareas = () => {
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana Prox." key="3">
-        <QueryResult>
+        <QueryResult loading={loading} error={error} data={data}>
           {tareas && (
             <div className="div_lista">
               <ListaTarea itemListaTarea={tareas} />
