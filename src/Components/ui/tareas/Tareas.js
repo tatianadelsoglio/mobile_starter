@@ -100,21 +100,6 @@ const Tareas = () => {
     });
   };
 
-  const [cargando, setCargando] = useState(false);
-
-  if (cargando){
-    return (
-      <SpinLoading color='primary' style={{ marginLeft:"48%", marginTop:"10%"}}/>
-    );
-  }
-
-  const cambioEstado = () => {
-    setCargando(true);
-    setTimeout(() => {
-      setCargando(true);
-    }, 5000);
-
-  }
 
   return (
     <CapsuleTabs

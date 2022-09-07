@@ -1,13 +1,9 @@
-
 import { Empty, SpinLoading } from "antd-mobile";
-import { useContext } from "react";
+import { useContext} from "react";
 import { GlobalContext } from "../context/GlobalContext";
-// import { useState } from "react";
 import "./index.css";
 
 const QueryResult = ({ loading, error, data, children }) => {
-
-  // const [cargando, setCargando] = useState(false);
   const { cargando, setCargando } = useContext(GlobalContext);
 
   const cambioEstado = () => {
@@ -15,11 +11,14 @@ const QueryResult = ({ loading, error, data, children }) => {
     setTimeout(() => {
       setCargando(false);
     }, 500);
-  }
+  };
 
-  if (cargando){
+  if (cargando) {
     return (
-      <SpinLoading color='primary' style={{ marginLeft:"48%", marginTop:"10%"}}/>
+      <SpinLoading
+        color="primary"
+        style={{ marginLeft: "48%", marginTop: "10%" }}
+      />
     );
   }
 
@@ -27,11 +26,7 @@ const QueryResult = ({ loading, error, data, children }) => {
     return <p>ERROR: {error.message}</p>;
   }
   if (loading) {
-    return (
-      <div className="center-wrapper">
-        {cambioEstado()}
-      </div>
-    );
+    return <div className="center-wrapper">{cambioEstado()}</div>;
   }
   if (!data || data.length === 0) {
     return (
@@ -41,7 +36,7 @@ const QueryResult = ({ loading, error, data, children }) => {
     );
   }
   if (data) {
-    return children;
+    return <>{children}</>;
   }
 };
 
