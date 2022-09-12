@@ -1,11 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable array-callback-return */
 import { List, SearchBar } from "antd-mobile";
-import React, { useState } from "react";
-import { useHistory, useContext } from "react-router-dom";
-import "./Clientes.css";
-import { useQuery } from "@apollo/client";
-import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
+import React, { useContext, useState, useQuery } from "react";
+import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
+import "./Clientes.css";
+import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 
 const clientes = [
   {
@@ -34,21 +34,21 @@ const clientes = [
   },
 ];
 
-const { userId } = useContext(GlobalContext);
-
-const { loading, error, data } = useQuery(GET_CLIENTE, {
-  variables: {
-    cli_id:"",
-    cli_nombre:"",
-    cli_telefono1:"",
-    cli_email1:"",
-    idUsuario: userId,
-  },
-});
-
-
 const Clientes = () => {
   const [busqueda, setBusqueda] = useState("");
+
+  const { userId } = useContext(GlobalContext);
+
+  const { loading, error, data } = useQuery(GET_CLIENTE, {
+    variables: {
+      // cli_id:"",
+      // cli_nombre:"",
+      // cli_telefono1:"",
+      // cli_email1:"",
+      input: busqueda,
+      idUsuario: userId,
+    },
+  });
 
   let history = useHistory();
 
@@ -62,19 +62,19 @@ const Clientes = () => {
   };
 
   const handleChange = (value) => {
+    // let filtro = clientes.filter((item) => {
+    //   if (item.empresa.toUpperCase().includes(value.toUpperCase())) {
+    //     return item;
+    //   }
+    // });
 
-    let filtro = clientes.filter((item) => {
-      if (item.empresa.toUpperCase().includes(value.toUpperCase())) {
-        return item;
-      }
-    });
-    
-    setBusqueda(filtro);
+    // setBusqueda(filtro);
 
-    if(value === "" || value === null){
+    setBusqueda(value);
+
+    if (value === "" || value === null) {
       return handleClear();
     }
-
   };
 
   const handleClear = () => {
@@ -93,8 +93,11 @@ const Clientes = () => {
           />
         }
       >
+        <List.Item >
+          <div className="div_empresa"></div>
+        </List.Item>
 
-        {busqueda.length === 0 ? (
+        {/* {busqueda.length === 0 ? (
           clientes.map((cliente) => (
             <List.Item key={cliente.id} onClick={() => redirecInfo(cliente.id)}>
               <div className="div_empresa">{cliente.empresa}</div>
@@ -104,8 +107,7 @@ const Clientes = () => {
             <List.Item key={busqueda[0].id} onClick={() => redirecInfo(busqueda[0].id)}>
                 <div className="div_empresa">{busqueda[0].empresa}</div>
             </List.Item>
-        )}
-
+        )} */}
       </List>
     </div>
   );
