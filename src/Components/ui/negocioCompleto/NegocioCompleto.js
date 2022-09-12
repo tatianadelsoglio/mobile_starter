@@ -15,19 +15,23 @@ import { Step } from "antd-mobile/es/components/steps/step";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { GET_COUNT_TAREAS, GET_NEGOCIO_CONTENT } from "../../../graphql/queries/NegocioContent";
+import {
+  GET_COUNT_TAREAS,
+  GET_NEGOCIO_CONTENT,
+} from "../../../graphql/queries/NegocioContent";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
 import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 import "./negocioCompleto.css";
 
 export const NegocioCompleto = () => {
+  const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
 
   const location = useLocation();
 
   const [negocio, setNegocio] = useState(location.state[0]);
 
-  console.log(location.state[0].neg_id)
+  console.log(location.state[0].neg_id);
   // const tareas = [
   //   {
   //     id: 1,
@@ -181,72 +185,30 @@ export const NegocioCompleto = () => {
 
   const { data } = useQuery(GET_NEGOCIO_CONTENT, {
     variables: {
-      idNegocio: location.state[0].neg_id
-    }
+      idNegocio: location.state[0].neg_id,
+    },
   });
 
   const { data: dataTareas } = useQuery(GET_COUNT_TAREAS, {
     variables: {
-      idNegocio: location.state[0].neg_id
-    }
-  })
+      idNegocio: location.state[0].neg_id,
+    },
+  });
 
   useEffect(() => {
-    if(data) {
+    if (data) {
       console.log(data);
-      console.log((JSON.parse(data.getNegocioByIdResolver)).dataNeg);
+      console.log(JSON.parse(data.getNegocioByIdResolver).dataNeg);
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
-    if(dataTareas) {
-      console.log(dataTareas);
-      // console.log(JSON.parse(dataTareas.tiposTareasCantidadResolver));
+    if (dataTareas) {
+      setTareasDefinitivo(dataTareas.tiposTareasCantidadResolver);
     }
-  }, [dataTareas])
-  
-  
-
-  // const tareasOrdenadas = (negocio) => {
-  //   let tareasParametro = negocio.tareas.sort(function (a, b) {
-  //     return a.localeCompare(b);
-  //   });
-
-  //   let palabra = negocio.tareas[0];
-
-  //   let objetoTareas = [];
-
-  //   let cantidad = 0;
-
-  //   let total = tareasParametro.length;
-
-  //   for (let i = 0; i <= tareasParametro.length; i++) {
-  //     if (tareasParametro[i] === palabra) {
-  //       cantidad += 1;
-  //     } else {
-  //       objetoTareas.push({
-  //         task: palabra,
-  //         count: cantidad,
-  //         suma: total,
-  //         orden: i,
-  //       });
-  //       cantidad = 1;
-  //       palabra = tareasParametro[i];
-  //     }
-  //   }
-  //   return objetoTareas;
-  // };
-
-  const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
-
-  
-
-  // useEffect(() => {
-  //   setTareasDefinitivo(tareasOrdenadas(negocio));
-  // }, []);
+  }, [dataTareas]);
 
   return (
-    // <div className="contenedor-negocio-completo">
     <div className="div_contenedor_negocioC">
       <div className="negocio-completo-header">
         <p className="negocio-completo-header-asunto">{negocio.neg_asunto}</p>
@@ -264,7 +226,9 @@ export const NegocioCompleto = () => {
         {negocio.con_nombre && (
           <div className="negocio-completo-header-linea">
             <UserOutline />
-            <p className="negocio-completo-header-texto">{negocio.con_nombre}</p>
+            <p className="negocio-completo-header-texto">
+              {negocio.con_nombre}
+            </p>
           </div>
         )}
         <div className="negocio-completo-header-linea">
@@ -275,13 +239,19 @@ export const NegocioCompleto = () => {
         </div>
         <div className="negocio-completo-header-linea">
           <p className="negocio-completo-header-fecha">
-            {"Fecha de creacion: " + moment(negocio.neg_fechacreacion, "YYYY-MM-DD").format("DD/MM/YYYY")}
+            {"Fecha de creacion: " +
+              moment(negocio.neg_fechacreacion, "YYYY-MM-DD").format(
+                "DD/MM/YYYY"
+              )}
           </p>
         </div>
         <div className="negocio-completo-header-linea">
           {/* <BellOutline /> */}
           <p className="negocio-completo-header-fecha">
-            {"Fecha de cierre estimada: " + moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format("DD/MM/YYYY")}
+            {"Fecha de cierre estimada: " +
+              moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format(
+                "DD/MM/YYYY"
+              )}
           </p>
         </div>
       </div>
@@ -297,40 +267,41 @@ export const NegocioCompleto = () => {
               </div>
               <div className="negocio-grafico-degrade"></div>
               <p className="negocio-tareas">Tareas</p>
-              {/* <div className="negocio-grafico-tareas">
+              <div className="negocio-grafico-tareas">
                 {tareasDefinitivo.map((tarea) => {
                   return (
                     <span
                       className="negocio-caja-tarea-grafico"
                       style={{
-                        backgroundColor: `${getColor(tarea.orden)}`,
-                        width: `${(tarea.count / tarea.suma) * 100}%`,
+                        backgroundColor: `${getColor(tarea.tip_id)}`,
+                        width: `${tarea.porcentajeTipoTarea}%`,
                       }}
                     ></span>
                   );
                 })}
               </div>
               <div className="negocio-grafico-referencias">
-                {tareasDefinitivo.map((tarea) => {
-                  return (
-                    <div className="negocio-grafico-referencias-linea">
-                      <span
-                        className="negocio-grafico-referencia-cuadrito"
-                        style={{ backgroundColor: `${getColor(tarea.orden)}` }}
-                      ></span>
-                      <p className="negocio-tarea-texto">{`${tarea.task} (${tarea.count})`}</p>
-                      <p className="negocio-tarea-texto">{`- ${Math.round(
-                        (tarea.count / tarea.suma) * 100
-                      )}%`}</p>
-                    </div>
-                  );
-                })}
-              </div> */}
+                {tareasDefinitivo &&
+                  tareasDefinitivo.map((tarea) => {
+                    return (
+                      <div className="negocio-grafico-referencias-linea">
+                        <span
+                          className="negocio-grafico-referencia-cuadrito"
+                          style={{
+                            backgroundColor: `${getColor(tarea.tip_id)}`,
+                          }}
+                        ></span>
+                        <p className="negocio-tarea-texto">{`${tarea.tip_desc} (${tarea.cantidadTipoTarea})`}</p>
+                        <p className="negocio-tarea-texto">{`- ${Math.round(tarea.porcentajeTipoTarea)}%`}</p>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           </div>
         </CapsuleTabs.Tab>
-        {/* <CapsuleTabs.Tab title="Planificado" key="2">
-          <div className="div_lista_neg">
+        <CapsuleTabs.Tab title="Planificado" key="2">
+          {/* <div className="div_lista_neg">
             <div className="negocio-linea-tiempo-contenedor">
               <Steps direction="vertical">
                 {tareas.map((tarea) => {
@@ -362,10 +333,10 @@ export const NegocioCompleto = () => {
                 })}
               </Steps>
             </div>
-          </div>
+          </div> */}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
-          <div className="div_lista_neg">
+          {/* <div className="div_lista_neg">
             <div className="negocio-linea-tiempo-contenedor">
               <Steps direction="vertical">
                 {tareas.map((tarea) => {
@@ -417,10 +388,9 @@ export const NegocioCompleto = () => {
                 })}
               </Steps>
             </div>
-          </div>
-        </CapsuleTabs.Tab> */}
+          </div> */}
+        </CapsuleTabs.Tab>
       </CapsuleTabs>
     </div>
-    // </div>
   );
 };
