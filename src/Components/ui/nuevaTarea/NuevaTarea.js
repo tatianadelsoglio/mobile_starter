@@ -11,9 +11,12 @@ import {
   Selector,
   TextArea,
 } from "antd-mobile";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./NuevaTarea.css";
 import { CheckOutline } from "antd-mobile-icons";
+import { GlobalContext } from "../../context/GlobalContext";
+import { useQuery } from "@apollo/client";
+import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
@@ -21,6 +24,26 @@ const NuevaTarea = () => {
   const [value, setValue] = useState([]);
 
   const [idSelector, setIdSelector] = useState();
+
+  const [clientes, setClientes] = useState([]);
+  const { userId } = useContext(GlobalContext);
+
+  const { loading, error, data } = useQuery(GET_CLIENTE, {
+    variables: {
+      input:"",
+      idUsuario: userId,
+    },
+  });
+
+  console.log(data)
+
+  useEffect(() => {
+    if (data) {
+      setClientes(data.getClientesLimitResolver);
+    }
+  }, [data]);
+
+  console.log(clientes)
 
   const prioridad = [
     {
@@ -104,7 +127,9 @@ const NuevaTarea = () => {
             <option value="" disabled selected hidden>
               Seleccione un cliente
             </option>
-            <option value="La Ganadera">La Ganadera</option>
+            {clientes && clientes.map((cliente) => (
+              <option value={cliente.cli_id}>{cliente.cli_nombre}</option>
+            ))}
           </select>
         </Form.Item>
         <Form.Item label="Asunto" name="asunto">
