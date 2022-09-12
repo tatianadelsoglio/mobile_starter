@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
-import { Calendar, CapsuleTabs, Empty, SpinLoading } from "antd-mobile";
+import { Calendar, CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
 import { CalendarOutline } from "antd-mobile-icons";
@@ -99,6 +99,10 @@ const Tareas = () => {
     }
 
   }, [data, dataCalendario]);
+
+  // useEffect(() => {
+
+  // }, [tareas])
 
   const handleChange = (val) => {
     setFlitroFecha({
