@@ -32,6 +32,7 @@ const Tareas = () => {
       fecha: filtroFecha.filterDate,
       estado: estado,
       idUsuarioFiltro: "",
+      idClienteFiltro: null
     },
   });
 
