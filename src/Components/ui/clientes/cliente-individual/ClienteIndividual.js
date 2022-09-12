@@ -45,6 +45,7 @@ export const ClienteIndividual = () => {
     },
   });
 
+
   const ordenarDatos = (tareas) => {
     let tareasOrdenadas;
     if (tareas) {

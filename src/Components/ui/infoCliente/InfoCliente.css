@@ -11,7 +11,8 @@
 
 .p_info{
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .p_infoEmpresa{
@@ -32,7 +33,6 @@
 
 .border{
     border: solid 1px #f4f4f4;
-    margin-bottom: 10px;
     margin-bottom: 0px;
     border-radius: 1px;
 }

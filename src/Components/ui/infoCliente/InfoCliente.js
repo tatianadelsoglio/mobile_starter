@@ -1,41 +1,28 @@
-import { Card } from "antd-mobile";
-import React from "react";
+/* eslint-disable no-unused-vars */
+import { Card, Empty } from "antd-mobile";
+import React, { useEffect, useState } from "react";
 import { PhonebookOutline, MailOutline } from "antd-mobile-icons";
 import "./InfoCliente.css";
+import { useQuery } from "@apollo/client";
+import { GET_CONTACTO } from "../../../graphql/queries/Contactos";
 
 const InfoCliente = ({ clienteSelect }) => {
-  const contactos = [
-    {
-      nombre_contacto: "Cosme Fulanito",
-      telefono_contacto: "353321159",
-      email_contacto: "cosme@fulanito.com",
+
+  const [contact, setContact] = useState([])
+
+  const { loading, error, data } = useQuery(GET_CONTACTO, {
+    variables: {
+      id:Number(clienteSelect.cli_id)
     },
-    {
-      nombre_contacto: "Pepito zecc",
-      telefono_contacto: "353374236",
-      email_contacto: "Pepito@zecc.com",
-    },
-    {
-      nombre_contacto: "Apolo Rey",
-      telefono_contacto: "353398999",
-      email_contacto: "Apolo@Rey.com",
-    },
-    {
-      nombre_contacto: "Ciro Heiz",
-      telefono_contacto: "353321888",
-      email_contacto: "Ciro@Heiz.com",
-    },
-    {
-      nombre_contacto: "Ciro Heiz",
-      telefono_contacto: "353321888",
-      email_contacto: "Ciro@Heiz.com",
-    },
-    {
-      nombre_contacto: "Ciro Heiz",
-      telefono_contacto: "353321888",
-      email_contacto: "Ciro@Heiz.com",
-    },
-  ];
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      setContact(data.getContactosResolver)
+    }
+  }, [data]);
+
 
   return (
     <div className="div_contenedor_info">
@@ -47,16 +34,22 @@ const InfoCliente = ({ clienteSelect }) => {
           >
             <p className="p_infoEmpresa">{clienteSelect.cli_nombre} </p>
 
-            <a
-              className="numCel p_info"
-              href={"tel:+54" + clienteSelect.telefono}
-            >
-              <PhonebookOutline /> {clienteSelect.telefono}
-            </a>
+            {clienteSelect.cli_telefono1 && clienteSelect.cli_telefono1 !== "" ? (
+              <a
+                className="numCel p_info"
+                href={"tel:+54" + clienteSelect.cli_telefono1}
+              >
+                <PhonebookOutline /> {clienteSelect.cli_telefono1}
+              </a>
 
-            <a className="numCel p_info" href={"mailto:" + clienteSelect.email}>
-              <MailOutline /> {clienteSelect.email}
-            </a>
+            ) : (<p className="numCel p_info" ><PhonebookOutline /> - </p>)}
+            
+            {clienteSelect.cli_email1 && clienteSelect.cli_email1 !== "" ? (
+              <a className="numCel p_info" href={"mailto:" + clienteSelect.cli_email1}>
+                <MailOutline /> {clienteSelect.cli_email1}
+              </a>
+            ) : (<p className="numCel p_info"> <MailOutline /> -</p>)}
+
           </div>
         </Card>
       </div>
@@ -64,7 +57,7 @@ const InfoCliente = ({ clienteSelect }) => {
       <div className="div_contacto2">
         <Card title="CONTACTOS" className="card_contactos">
           <div className="div_contacto_lista">
-            {contactos.map((contacto) => (
+            {contact.map((contact) => (
               <Card className="border">
                 <Card className="cards_internas">
                   <div
@@ -76,23 +69,30 @@ const InfoCliente = ({ clienteSelect }) => {
                   >
                     <div>
                       <p className="p_infoContacto">
-                        {contacto.nombre_contacto}
+                        {contact.con_nombre}
                       </p>
                     </div>
 
-                    <a
-                      className="numCel p_info"
-                      href={"tel:+54" + contacto.telefono_contacto}
-                    >
-                      <PhonebookOutline /> {contacto.telefono_contacto}
-                    </a>
+                    {contact.con_telefono1 && contact.con_telefono1 !== "" ? (
+                      <a
+                        className="numCel p_info"
+                        href={"tel:+54" + contact.con_telefono1}
+                      >
+                        <PhonebookOutline /> {contact.con_telefono1}
+                      </a>
 
-                    <a
-                      className="numCel p_info"
-                      href={"mailto:" + contacto.email_contacto}
-                    >
-                      <MailOutline /> {contacto.email_contacto}
-                    </a>
+                    ) : (<p className="numCel p_info" style={{marginLeft:"0px"}}> <PhonebookOutline /> - </p>)}
+
+                    {contact.con_email1 && contact.con_email1 !== "" ? (
+                      <a
+                        className="numCel p_info"
+                        href={"mailto:" + contact.con_email1}
+                      >
+                        <MailOutline /> {contact.con_email1}
+                      </a>
+
+                    ) : (<p className="numCel p_info" style={{marginLeft:"0px"}}> <MailOutline /> - </p>)} 
+
                   </div>
                 </Card>
               </Card>
