@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable default-case */
+import { useQuery } from "@apollo/client";
 import { CapsuleTabs, Steps } from "antd-mobile";
 import {
   ShopbagOutline,
@@ -14,125 +15,132 @@ import { Step } from "antd-mobile/es/components/steps/step";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { GET_COUNT_TAREAS, GET_NEGOCIO_CONTENT } from "../../../graphql/queries/NegocioContent";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
 import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
 import "./negocioCompleto.css";
 
 export const NegocioCompleto = () => {
-  const tareas = [
-    {
-      id: 1,
-      asunto: "Visitar para cerrar propuesta",
-      cliente: "Tres Arroyos",
-      fechaInicio: "27/07/22",
-      cierreEstimado: "24/08/2022",
-      hora: "14.30",
-      contacto: "ADRIAN SABO",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "22/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "20/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 2,
-      asunto: "Visita de seguimiento",
-      cliente: "Tres Arroyos",
-      fechaInicio: "28/07/22",
-      cierreEstimado: "24/08/2022",
-      hora: "10.30",
-      contacto: "ADRIAN SABO",
-      tipoTarea: "Visita de campo",
-      tipo: "#T",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "22/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "20/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-    {
-      id: 3,
-      texto: "nota numero 1, primera prueba",
-      fecha: "22/08/2022",
-      prioridad: "MEDIA",
-      tipo: "#N",
-    },
-    {
-      id: 4,
-      nombre: "paisaje-02",
-      descripcion: "foto de la entrada al campo",
-      fecha: "20/08/2022 13:45",
-      tipo: "#A",
-      peso: "2035 Kb",
-    },
-    {
-      id: 5,
-      nombre: "paisaje-02",
-      descripcion: "foto de la entrada al campo",
-      fecha: "20/08/2022 13:45",
-      tipo: "#A",
-      peso: "2035 Kb",
-    },
-    {
-      id: 6,
-      nombre: "paisaje-02",
-      descripcion: "foto de la entrada al campo",
-      fecha: "20/08/2022 13:45",
-      tipo: "#A",
-      peso: "2035 Kb",
-    },
-    {
-      id: 7,
-      nombre: "paisaje-02",
-      descripcion: "foto de la entrada al campo",
-      fecha: "20/08/2022 13:45",
-      tipo: "#T",
-      anexo: [
-        {
-          id: 3,
-          texto: "nota numero 1, primera prueba",
-          fecha: "22/08/2022",
-          prioridad: "ALTA",
-          tipo: "#N",
-        },
-        {
-          id: 4,
-          nombre: "paisaje-02",
-          descripcion: "foto de la entrada al campo",
-          fecha: "20/08/2022 13:45",
-          tipo: "#A",
-          peso: "2035 Kb",
-        },
-      ],
-    },
-  ];
+
+  const location = useLocation();
+
+  const [negocio, setNegocio] = useState(location.state[0]);
+
+  console.log(location.state[0].neg_id)
+  // const tareas = [
+  //   {
+  //     id: 1,
+  //     asunto: "Visitar para cerrar propuesta",
+  //     cliente: "Tres Arroyos",
+  //     fechaInicio: "27/07/22",
+  //     cierreEstimado: "24/08/2022",
+  //     hora: "14.30",
+  //     contacto: "ADRIAN SABO",
+  //     tipoTarea: "Visita de campo",
+  //     tipo: "#T",
+  //     anexo: [
+  //       {
+  //         id: 3,
+  //         texto: "nota numero 1, primera prueba",
+  //         fecha: "22/08/2022",
+  //         prioridad: "ALTA",
+  //         tipo: "#N",
+  //       },
+  //       {
+  //         id: 4,
+  //         nombre: "paisaje-02",
+  //         descripcion: "foto de la entrada al campo",
+  //         fecha: "20/08/2022 13:45",
+  //         tipo: "#A",
+  //         peso: "2035 Kb",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     asunto: "Visita de seguimiento",
+  //     cliente: "Tres Arroyos",
+  //     fechaInicio: "28/07/22",
+  //     cierreEstimado: "24/08/2022",
+  //     hora: "10.30",
+  //     contacto: "ADRIAN SABO",
+  //     tipoTarea: "Visita de campo",
+  //     tipo: "#T",
+  //     anexo: [
+  //       {
+  //         id: 3,
+  //         texto: "nota numero 1, primera prueba",
+  //         fecha: "22/08/2022",
+  //         prioridad: "ALTA",
+  //         tipo: "#N",
+  //       },
+  //       {
+  //         id: 4,
+  //         nombre: "paisaje-02",
+  //         descripcion: "foto de la entrada al campo",
+  //         fecha: "20/08/2022 13:45",
+  //         tipo: "#A",
+  //         peso: "2035 Kb",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     texto: "nota numero 1, primera prueba",
+  //     fecha: "22/08/2022",
+  //     prioridad: "MEDIA",
+  //     tipo: "#N",
+  //   },
+  //   {
+  //     id: 4,
+  //     nombre: "paisaje-02",
+  //     descripcion: "foto de la entrada al campo",
+  //     fecha: "20/08/2022 13:45",
+  //     tipo: "#A",
+  //     peso: "2035 Kb",
+  //   },
+  //   {
+  //     id: 5,
+  //     nombre: "paisaje-02",
+  //     descripcion: "foto de la entrada al campo",
+  //     fecha: "20/08/2022 13:45",
+  //     tipo: "#A",
+  //     peso: "2035 Kb",
+  //   },
+  //   {
+  //     id: 6,
+  //     nombre: "paisaje-02",
+  //     descripcion: "foto de la entrada al campo",
+  //     fecha: "20/08/2022 13:45",
+  //     tipo: "#A",
+  //     peso: "2035 Kb",
+  //   },
+  //   {
+  //     id: 7,
+  //     nombre: "paisaje-02",
+  //     descripcion: "foto de la entrada al campo",
+  //     fecha: "20/08/2022 13:45",
+  //     tipo: "#T",
+  //     anexo: [
+  //       {
+  //         id: 3,
+  //         texto: "nota numero 1, primera prueba",
+  //         fecha: "22/08/2022",
+  //         prioridad: "ALTA",
+  //         tipo: "#N",
+  //       },
+  //       {
+  //         id: 4,
+  //         nombre: "paisaje-02",
+  //         descripcion: "foto de la entrada al campo",
+  //         fecha: "20/08/2022 13:45",
+  //         tipo: "#A",
+  //         peso: "2035 Kb",
+  //       },
+  //     ],
+  //   },
+  // ];
 
   const getColor = (i) => {
     const colorList = [
@@ -171,83 +179,109 @@ export const NegocioCompleto = () => {
     return colorList[i];
   };
 
-  const tareasOrdenadas = (negocio) => {
-    let tareasParametro = negocio.tareas.sort(function (a, b) {
-      return a.localeCompare(b);
-    });
-
-    let palabra = negocio.tareas[0];
-
-    let objetoTareas = [];
-
-    let cantidad = 0;
-
-    let total = tareasParametro.length;
-
-    for (let i = 0; i <= tareasParametro.length; i++) {
-      if (tareasParametro[i] === palabra) {
-        cantidad += 1;
-      } else {
-        objetoTareas.push({
-          task: palabra,
-          count: cantidad,
-          suma: total,
-          orden: i,
-        });
-        cantidad = 1;
-        palabra = tareasParametro[i];
-      }
+  const { data } = useQuery(GET_NEGOCIO_CONTENT, {
+    variables: {
+      idNegocio: location.state[0].neg_id
     }
-    return objetoTareas;
-  };
+  });
+
+  const { data: dataTareas } = useQuery(GET_COUNT_TAREAS, {
+    variables: {
+      idNegocio: location.state[0].neg_id
+    }
+  })
+
+  useEffect(() => {
+    if(data) {
+      console.log(data);
+      console.log((JSON.parse(data.getNegocioByIdResolver)).dataNeg);
+    }
+  }, [data])
+
+  useEffect(() => {
+    if(dataTareas) {
+      console.log(dataTareas);
+      // console.log(JSON.parse(dataTareas.tiposTareasCantidadResolver));
+    }
+  }, [dataTareas])
+  
+  
+
+  // const tareasOrdenadas = (negocio) => {
+  //   let tareasParametro = negocio.tareas.sort(function (a, b) {
+  //     return a.localeCompare(b);
+  //   });
+
+  //   let palabra = negocio.tareas[0];
+
+  //   let objetoTareas = [];
+
+  //   let cantidad = 0;
+
+  //   let total = tareasParametro.length;
+
+  //   for (let i = 0; i <= tareasParametro.length; i++) {
+  //     if (tareasParametro[i] === palabra) {
+  //       cantidad += 1;
+  //     } else {
+  //       objetoTareas.push({
+  //         task: palabra,
+  //         count: cantidad,
+  //         suma: total,
+  //         orden: i,
+  //       });
+  //       cantidad = 1;
+  //       palabra = tareasParametro[i];
+  //     }
+  //   }
+  //   return objetoTareas;
+  // };
 
   const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
 
-  const location = useLocation();
+  
 
-  const [negocio, setNegocio] = useState(location.state[0]);
-
-  useEffect(() => {
-    setTareasDefinitivo(tareasOrdenadas(negocio));
-  }, []);
+  // useEffect(() => {
+  //   setTareasDefinitivo(tareasOrdenadas(negocio));
+  // }, []);
 
   return (
     // <div className="contenedor-negocio-completo">
     <div className="div_contenedor_negocioC">
       <div className="negocio-completo-header">
-        <p className="negocio-completo-header-asunto">{negocio.asunto}</p>
+        <p className="negocio-completo-header-asunto">{negocio.neg_asunto}</p>
         <p className="negocio-completo-header-importe">
-          {negocio.moneda +
+          {negocio.mon_iso +
             " " +
-            negocio.importe.toLocaleString("de-DE", {
+            negocio.neg_valor.toLocaleString("de-DE", {
               minimumFractionDigits: 0,
             })}
         </p>
         <div className="negocio-completo-header-linea-cliente">
           <ShopbagOutline />
-          <p className="negocio-completo-header-texto">{negocio.cliente}</p>
+          <p className="negocio-completo-header-texto">{negocio.cli_nombre}</p>
         </div>
-        {negocio.contacto.length > 0 && (
+        {negocio.con_nombre && (
           <div className="negocio-completo-header-linea">
             <UserOutline />
-            <p className="negocio-completo-header-texto">{negocio.contacto}</p>
+            <p className="negocio-completo-header-texto">{negocio.con_nombre}</p>
           </div>
         )}
         <div className="negocio-completo-header-linea">
-          <FilterOutline />
-          <p className="negocio-completo-header-texto">{negocio.embudo}</p>
-          <TagOutline style={{ marginLeft: "15px" }} />
-          <p className="negocio-completo-header-texto">{negocio.etapa}</p>
+          {/* <FilterOutline />
+          <p className="negocio-completo-header-texto">{negocio.embudo}</p> */}
+          <TagOutline style={{ marginLeft: "0px" }} />
+          <p className="negocio-completo-header-texto">{negocio.eta_id}</p>
         </div>
         <div className="negocio-completo-header-linea">
           <p className="negocio-completo-header-fecha">
-            {"Fecha de creacion: " + negocio.fechaInicio}
+            {"Fecha de creacion: " + moment(negocio.neg_fechacreacion, "YYYY-MM-DD").format("DD/MM/YYYY")}
           </p>
         </div>
         <div className="negocio-completo-header-linea">
           {/* <BellOutline /> */}
           <p className="negocio-completo-header-fecha">
-            {"Fecha de cierre estimada: " + negocio.cierreEstimado}
+            {"Fecha de cierre estimada: " + moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format("DD/MM/YYYY")}
           </p>
         </div>
       </div>
@@ -258,12 +292,12 @@ export const NegocioCompleto = () => {
               <div className="negocio-grafica-linea">
                 <p className="negocio-antiguedad">Antigüedad del negocio</p>
                 <p className="negocio-antiguedad-dias">
-                  {moment(negocio.fechaInicio, "DD/MM/YYYY").fromNow()}
+                  {moment(negocio.neg_fechacreacion, "YYYY-MM-DD").fromNow()}
                 </p>
               </div>
               <div className="negocio-grafico-degrade"></div>
               <p className="negocio-tareas">Tareas</p>
-              <div className="negocio-grafico-tareas">
+              {/* <div className="negocio-grafico-tareas">
                 {tareasDefinitivo.map((tarea) => {
                   return (
                     <span
@@ -291,11 +325,11 @@ export const NegocioCompleto = () => {
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
             </div>
           </div>
         </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Planificado" key="2">
+        {/* <CapsuleTabs.Tab title="Planificado" key="2">
           <div className="div_lista_neg">
             <div className="negocio-linea-tiempo-contenedor">
               <Steps direction="vertical">
@@ -384,7 +418,7 @@ export const NegocioCompleto = () => {
               </Steps>
             </div>
           </div>
-        </CapsuleTabs.Tab>
+        </CapsuleTabs.Tab> */}
       </CapsuleTabs>
     </div>
     // </div>
