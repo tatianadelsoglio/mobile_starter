@@ -53,7 +53,7 @@ export const ClienteNegocios = ({ cliente }) => {
   }, [negocios]);
 
   return (
-    <div className="div_lista_l">
+    <div className="div_lista_negocios">
       <ListaNegocios negocios={negocios} />
     </div>
   );

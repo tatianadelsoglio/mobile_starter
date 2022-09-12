@@ -13,6 +13,13 @@
   scroll-behavior: smooth;
 }
 
+.div_lista_negocios {
+  display: block;
+  height: 100%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
 /* .capsule_fix {
   position: fixed;
 } */
