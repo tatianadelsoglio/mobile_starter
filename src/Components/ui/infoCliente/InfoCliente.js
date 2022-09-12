@@ -45,7 +45,7 @@ const InfoCliente = ({ clienteSelect }) => {
             className="div_emp"
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <p className="p_infoEmpresa">{clienteSelect.empresa} </p>
+            <p className="p_infoEmpresa">{clienteSelect.cli_nombre} </p>
 
             <a
               className="numCel p_info"
