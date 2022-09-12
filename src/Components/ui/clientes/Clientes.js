@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable array-callback-return */
 import { useQuery } from "@apollo/client";
 import { List, SearchBar } from "antd-mobile";
@@ -13,7 +12,6 @@ const Clientes = () => {
   const [clientes, setClientes] = useState();
 
   const { userId } = useContext(GlobalContext);
-
 
   let history = useHistory();
 
