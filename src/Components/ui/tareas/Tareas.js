@@ -11,28 +11,28 @@ import { useQuery } from "@apollo/client";
 import { GET_TAREAS } from "../../../graphql/queries/Tarea";
 import { GET_TAREAS_CALENDARIO } from "../../../graphql/queries/TareaCalendario";
 import QueryResult from "../../queryResult/QueryResult";
+import { TareasSemana } from "../tareasSemana/TareasSemana";
+import { TareasSemanaProxima } from "../tareasSemanaProxima/TareasSemanaProxima";
+import { TareasVencidas } from "../tareasVencidas/TareasVencidas";
 
 const Tareas = () => {
   const { tareas, setTareas, userId } = useContext(GlobalContext);
 
   const [tareasCalendario, setTareasCalendario] = useState();
- 
+  const [activeKey, setActiveKey] = useState("1");
 
   /*Estados de consulta */
-  const [filtroFecha, setFlitroFecha] = useState({
-    typeDate: "date",
-    filterDate: moment().format("YYYY-MM-DD"),
-  });
+  const [filtroFecha, setFiltroFecha] = useState(moment().format("YYYY-MM-DD"));
   const [estado, setEstado] = useState(1);
 
   const { loading, error, data } = useQuery(GET_TAREAS, {
     variables: {
       idUsuario: userId,
-      filtroFecha: filtroFecha.typeDate,
-      fecha: filtroFecha.filterDate,
+      filtroFecha: "date",
+      fecha: filtroFecha,
       estado: estado,
       idUsuarioFiltro: "",
-      idClienteFiltro: null
+      idClienteFiltro: null,
     },
   });
 
@@ -46,50 +46,23 @@ const Tareas = () => {
   const ordenarDatos = (tareas) => {
     let tareasOrdenadas;
     if (tareas) {
-      tareasOrdenadas = tareas.sort(function(a,b){
-        return (new Date(moment(b.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")) - new Date(moment(a.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")));
-      }) 
+      tareasOrdenadas = tareas.sort(function (a, b) {
+        return (
+          new Date(
+            moment(b.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")
+          ) -
+          new Date(
+            moment(a.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")
+          )
+        );
+      });
       setTareas(tareasOrdenadas);
-    }
-  }
-
-  const tabHandleChange = (key) => {
-    switch (true) {
-      case key === "2":
-        const b = moment().year();
-        const a = moment().week();
-        const c = `${b}${a}`;
-        setFlitroFecha({
-          typeDate: "week",
-          filterDate: c,
-        });
-        break;
-      case key === "3":
-        const b1 = moment().year();
-        const a1 = moment().week();
-        const nextWeek = Number(a1) + 1;
-        const c1 = `${b1}${nextWeek}`;
-
-        setFlitroFecha({ typeDate: "week", filterDate: c1 });
-        break;
-      case key === "4":
-        setFlitroFecha({
-          typeDate: "expired",
-          filterDate: moment().format("YYYY-MM-DD"),
-        });
-        break;
-      default:
-        setFlitroFecha({
-          typeDate: "date",
-          filterDate: moment().format("YYYY-MM-DD"),
-        });
-        break;
     }
   };
 
   useEffect(() => {
     if (data) {
-      ordenarDatos(JSON.parse(data.getTareasIframeResolver))
+      ordenarDatos(JSON.parse(data.getTareasIframeResolver));
     }
 
     if (dataCalendario) {
@@ -98,106 +71,77 @@ const Tareas = () => {
           .fechasVenc
       );
     }
-
   }, [data, dataCalendario]);
 
-  // useEffect(() => {
-
-  // }, [tareas])
-
   const handleChange = (val) => {
-    setFlitroFecha({
-      typeDate: "date",
-      filterDate: moment(val).format("YYYY-MM-DD"),
-    });
+    setFiltroFecha(moment(val).format("YYYY-MM-DD"));
   };
 
+  useEffect(() => {}, [activeKey]);
 
   return (
     <CapsuleTabs
       className="capsule_contenedor"
       defaultActiveKey="1"
-      onChange={(key) => tabHandleChange(key)}
+      onChange={(v) => setActiveKey(v)}
     >
       {/* PESTAÑA TAREAS HOY */}
       <CapsuleTabs.Tab title={<CalendarOutline />} key="1">
-        <div>
-          <Calendar
-            selectionMode="single"
-            // defaultValue={defaultSingle}
-            renderLabel={
-              tareasCalendario &&
-              ((date) => {
-                let bandera = false;
+        {activeKey === "1" && (
+          <>
+            <div>
+              <Calendar
+                selectionMode="single"
+                renderLabel={
+                  tareasCalendario &&
+                  ((date) => {
+                    let bandera = false;
 
-                tareasCalendario.map((tarea) => {
-                  let fechaCalendario = moment(date).format("YYYY-MM-DD");
+                    tareasCalendario.map((tarea) => {
+                      let fechaCalendario = moment(date).format("YYYY-MM-DD");
 
-                  if (fechaCalendario === tarea.tar_vencimiento) {
-                    return (bandera = true);
-                  }
-                });
+                      if (fechaCalendario === tarea.tar_vencimiento) {
+                        return (bandera = true);
+                      }
+                    });
 
-                if (bandera === true) {
-                  return (
-                    <p
-                      style={{
-                        fontSize: "25px",
-                        color: "#56b43c",
-                        margin: "0px",
-                      }}
-                    >
-                      •
-                    </p>
-                  );
+                    if (bandera === true) {
+                      return (
+                        <p
+                          style={{
+                            fontSize: "25px",
+                            color: "#56b43c",
+                            margin: "0px",
+                          }}
+                        >
+                          •
+                        </p>
+                      );
+                    }
+                  })
                 }
-              })
-            }
-            onChange={(val) => handleChange(val)}
-          />
-        </div>
-        <div className="div_lista_calendario">
-          <QueryResult loading={loading} error={error} data={data}>
-            {tareas && <ListaTarea itemListaTarea={tareas} />}
-          </QueryResult>
-        </div>
-        {/* <QueryResult loading={loading} error={error} data={data}>
-          {tareas && (
-            <div className="div_lista_calendario">
-              <ListaTarea itemListaTarea={tareas} />
+                onChange={(val) => handleChange(val)}
+              />
             </div>
-          )}
-        </QueryResult> */}
+            <QueryResult loading={loading} error={error} data={data}>
+              <div className="div_lista_calendario">
+                {tareas && <ListaTarea itemListaTarea={tareas} />}
+              </div>
+            </QueryResult>
+          </>
+        )}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana" key="2">
-        <QueryResult loading={loading} error={error} data={data}>
-          {tareas && (
-            <div className="div_lista">
-              <ListaTarea itemListaTarea={tareas} />
-            </div>
-          )}
-        </QueryResult>
+        {activeKey === "2" && <TareasSemana />}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Semana Prox." key="3">
-        <QueryResult loading={loading} error={error} data={data}>
-          {tareas && (
-            <div className="div_lista">
-              <ListaTarea itemListaTarea={tareas} />
-            </div>
-          )}
-        </QueryResult>
+        {activeKey === "3" && <TareasSemanaProxima />}
       </CapsuleTabs.Tab>
 
       <CapsuleTabs.Tab title="Vencido" key="4">
-        <QueryResult loading={loading} error={error} data={data}>
-          {tareas && (
-            <div className="div_lista">
-              <ListaTarea itemListaTarea={tareas} />
-            </div>
-          )}
-        </QueryResult>
+        {activeKey === "4" && <TareasVencidas />}
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );
