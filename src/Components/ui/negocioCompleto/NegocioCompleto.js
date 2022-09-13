@@ -31,121 +31,6 @@ export const NegocioCompleto = () => {
 
   const [negocio, setNegocio] = useState(location.state[0]);
 
-  console.log(location.state[0].neg_id);
-  // const tareas = [
-  //   {
-  //     id: 1,
-  //     asunto: "Visitar para cerrar propuesta",
-  //     cliente: "Tres Arroyos",
-  //     fechaInicio: "27/07/22",
-  //     cierreEstimado: "24/08/2022",
-  //     hora: "14.30",
-  //     contacto: "ADRIAN SABO",
-  //     tipoTarea: "Visita de campo",
-  //     tipo: "#T",
-  //     anexo: [
-  //       {
-  //         id: 3,
-  //         texto: "nota numero 1, primera prueba",
-  //         fecha: "22/08/2022",
-  //         prioridad: "ALTA",
-  //         tipo: "#N",
-  //       },
-  //       {
-  //         id: 4,
-  //         nombre: "paisaje-02",
-  //         descripcion: "foto de la entrada al campo",
-  //         fecha: "20/08/2022 13:45",
-  //         tipo: "#A",
-  //         peso: "2035 Kb",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 2,
-  //     asunto: "Visita de seguimiento",
-  //     cliente: "Tres Arroyos",
-  //     fechaInicio: "28/07/22",
-  //     cierreEstimado: "24/08/2022",
-  //     hora: "10.30",
-  //     contacto: "ADRIAN SABO",
-  //     tipoTarea: "Visita de campo",
-  //     tipo: "#T",
-  //     anexo: [
-  //       {
-  //         id: 3,
-  //         texto: "nota numero 1, primera prueba",
-  //         fecha: "22/08/2022",
-  //         prioridad: "ALTA",
-  //         tipo: "#N",
-  //       },
-  //       {
-  //         id: 4,
-  //         nombre: "paisaje-02",
-  //         descripcion: "foto de la entrada al campo",
-  //         fecha: "20/08/2022 13:45",
-  //         tipo: "#A",
-  //         peso: "2035 Kb",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 3,
-  //     texto: "nota numero 1, primera prueba",
-  //     fecha: "22/08/2022",
-  //     prioridad: "MEDIA",
-  //     tipo: "#N",
-  //   },
-  //   {
-  //     id: 4,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#A",
-  //     peso: "2035 Kb",
-  //   },
-  //   {
-  //     id: 5,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#A",
-  //     peso: "2035 Kb",
-  //   },
-  //   {
-  //     id: 6,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#A",
-  //     peso: "2035 Kb",
-  //   },
-  //   {
-  //     id: 7,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#T",
-  //     anexo: [
-  //       {
-  //         id: 3,
-  //         texto: "nota numero 1, primera prueba",
-  //         fecha: "22/08/2022",
-  //         prioridad: "ALTA",
-  //         tipo: "#N",
-  //       },
-  //       {
-  //         id: 4,
-  //         nombre: "paisaje-02",
-  //         descripcion: "foto de la entrada al campo",
-  //         fecha: "20/08/2022 13:45",
-  //         tipo: "#A",
-  //         peso: "2035 Kb",
-  //       },
-  //     ],
-  //   },
-  // ];
-
   const getColor = (i) => {
     const colorList = [
       "#ff7f50",
@@ -183,11 +68,11 @@ export const NegocioCompleto = () => {
     return colorList[i];
   };
 
-  const { data } = useQuery(GET_NEGOCIO_CONTENT, {
-    variables: {
-      idNegocio: location.state[0].neg_id,
-    },
-  });
+  // const { data } = useQuery(GET_NEGOCIO_CONTENT, {
+  //   variables: {
+  //     idNegocio: location.state[0].neg_id,
+  //   },
+  // });
 
   const { data: dataTareas } = useQuery(GET_COUNT_TAREAS, {
     variables: {
@@ -195,12 +80,12 @@ export const NegocioCompleto = () => {
     },
   });
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-      console.log(JSON.parse(data.getNegocioByIdResolver).dataNeg);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     console.log(data);
+  //     console.log(JSON.parse(data.getNegocioByIdResolver).dataNeg);
+  //   }
+  // }, [data]);
 
   useEffect(() => {
     if (dataTareas) {

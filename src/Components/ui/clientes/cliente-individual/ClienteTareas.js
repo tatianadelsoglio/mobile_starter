@@ -4,49 +4,52 @@ import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { GET_TAREAS } from "../../../../graphql/queries/Tarea";
 import { GlobalContext } from "../../../context/GlobalContext";
+import QueryResult from "../../../queryResult/QueryResult";
 import { TareaNegocio } from "../../tareaNegocio/TareaNegocio";
 
 export const ClienteTareas = ({ cliente }) => {
-    console.log("entró en tareas");
 
-    const { userId } = useContext(GlobalContext);
+  const { userId } = useContext(GlobalContext);
   const [tareasXCliente, setTareasXCliente] = useState();
 
-  const { data } = useQuery(GET_TAREAS, {
+  const { loading, error, data } = useQuery(GET_TAREAS, {
     variables: {
       idUsuario: userId,
       filtroFecha: "",
       fecha: "",
       estado: 1,
       idUsuarioFiltro: "",
-      idClienteFiltro: parseInt(cliente.cli_id)
+      idClienteFiltro: parseInt(cliente.cli_id),
     },
   });
 
   const ordenarDatos = (tareas) => {
     let tareasOrdenadas;
     if (tareas) {
-      tareasOrdenadas = tareas.sort(function(a,b){
-        return (new Date(moment(b.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")) - new Date(moment(a.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")));
-      }) 
+      tareasOrdenadas = tareas.sort(function (a, b) {
+        return (
+          new Date(
+            moment(b.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")
+          ) -
+          new Date(
+            moment(a.fechavencimiento, "DD/MM/YYYY").format("YYYY,MM,DD")
+          )
+        );
+      });
       setTareasXCliente(tareasOrdenadas);
     }
-  }
+  };
 
   useEffect(() => {
-    if(data) {
-      console.log(JSON.parse(data.getTareasIframeResolver));
+    if (data) {
       ordenarDatos(JSON.parse(data.getTareasIframeResolver));
     }
   }, [data]);
 
-  useEffect(() => {
-
-  }, [tareasXCliente]);
-
+  useEffect(() => {}, [tareasXCliente]);
 
   return (
-    <>
+    <QueryResult loading={loading} error={error} data={data}>
       <div className="contenedor-titulo-cliente">
         <p className="titulo-cliente-tareas">{cliente.cli_nombre}</p>
       </div>
@@ -60,6 +63,6 @@ export const ClienteTareas = ({ cliente }) => {
             );
           })}
       </div>
-    </>
+    </QueryResult>
   );
 };

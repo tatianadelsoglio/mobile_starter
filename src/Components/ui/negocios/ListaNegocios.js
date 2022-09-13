@@ -10,7 +10,6 @@ import { useHistory } from "react-router-dom";
 
 export const ListaNegocios = ({ negocios }) => {
 
-  console.log("entró en negocios", negocios);
   let history = useHistory();
 
   let fechaActual = moment();
