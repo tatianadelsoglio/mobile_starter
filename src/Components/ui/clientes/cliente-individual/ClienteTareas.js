@@ -46,10 +46,8 @@ export const ClienteTareas = ({ cliente }) => {
     }
   }, [data]);
 
-  useEffect(() => {}, [tareasXCliente]);
-
   return (
-    <QueryResult loading={loading} error={error} data={data}>
+    <QueryResult loading={loading} error={error} data={tareasXCliente}>
       <div className="contenedor-titulo-cliente">
         <p className="titulo-cliente-tareas">{cliente.cli_nombre}</p>
       </div>

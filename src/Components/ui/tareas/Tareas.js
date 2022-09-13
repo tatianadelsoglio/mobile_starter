@@ -39,7 +39,7 @@ const Tareas = () => {
   const { data: dataCalendario } = useQuery(GET_TAREAS_CALENDARIO, {
     variables: {
       idUsuario: userId,
-      fecha: "1900-01-01",
+      fecha: "",
     },
   });
 
@@ -92,6 +92,7 @@ const Tareas = () => {
             <div>
               <Calendar
                 selectionMode="single"
+                defaultValue={filtroFecha}
                 renderLabel={
                   tareasCalendario &&
                   ((date) => {
@@ -123,7 +124,7 @@ const Tareas = () => {
                 onChange={(val) => handleChange(val)}
               />
             </div>
-            <QueryResult loading={loading} error={error} data={data}>
+            <QueryResult loading={loading} error={error} data={tareas}>
               <div className="div_lista_calendario">
                 {tareas && <ListaTarea itemListaTarea={tareas} />}
               </div>

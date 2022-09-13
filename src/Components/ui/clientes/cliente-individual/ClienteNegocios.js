@@ -54,7 +54,7 @@ export const ClienteNegocios = ({ cliente }) => {
   }, [negocios]);
 
   return (
-    <QueryResult loading={loading} error={error} data={data}>
+    <QueryResult loading={loading} error={error} data={negocios}>
       <div className="div_lista_negocios">
         <ListaNegocios negocios={negocios} />
       </div>

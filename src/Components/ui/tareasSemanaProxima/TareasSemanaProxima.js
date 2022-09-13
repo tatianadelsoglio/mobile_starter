@@ -55,7 +55,7 @@ export const TareasSemanaProxima = () => {
     <QueryResult
       loading={loading}
       error={error}
-      data={data && JSON.parse(data.getTareasIframeResolver)}
+      data={tareas}
     >
       {tareas && (
         <div className="div_lista">

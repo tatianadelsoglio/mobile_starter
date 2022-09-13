@@ -54,7 +54,7 @@ export const TareasSemana = () => {
     <QueryResult
       loading={loading}
       error={error}
-      data={data && JSON.parse(data.getTareasIframeResolver)}
+      data={tareas}
     >
       {tareas && (
         <div className="div_lista">
