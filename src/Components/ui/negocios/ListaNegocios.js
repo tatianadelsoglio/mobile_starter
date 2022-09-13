@@ -16,7 +16,7 @@ export const ListaNegocios = ({ negocios }) => {
   let fechaActual = moment();
 
   const dateHandler = (fecha) => {
-    let fechaParametro = moment(fecha, "DD/MM/YYYY");
+    let fechaParametro = moment(fecha, "YYYY-MM-DD");
 
     const diff = moment(fechaParametro).diff(fechaActual, "days");
 

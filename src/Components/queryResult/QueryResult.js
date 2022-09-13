@@ -4,6 +4,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import "./index.css";
 
 const QueryResult = ({ loading, error, data, children }) => {
+
   const { cargando, setCargando } = useContext(GlobalContext);
 
   const cambioEstado = () => {
