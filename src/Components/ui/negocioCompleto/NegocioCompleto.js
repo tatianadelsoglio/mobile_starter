@@ -1,28 +1,12 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable default-case */
 import { useQuery } from "@apollo/client";
-import { CapsuleTabs, Steps } from "antd-mobile";
-import {
-  ShopbagOutline,
-  UserOutline,
-  FilterOutline,
-  CalendarOutline,
-  FileOutline,
-  PictureOutline,
-  TagOutline,
-} from "antd-mobile-icons";
-import { Step } from "antd-mobile/es/components/steps/step";
+import { CapsuleTabs } from "antd-mobile";
+import { ShopbagOutline, UserOutline, TagOutline } from "antd-mobile-icons";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {
-  GET_COUNT_TAREAS,
-  GET_NEGOCIO_CONTENT,
-} from "../../../graphql/queries/NegocioContent";
-import QueryResult from "../../queryResult/QueryResult";
-import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
-import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
-import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
+import { GET_COUNT_TAREAS } from "../../../graphql/queries/NegocioContent";
 import { NegocioCompletado } from "./NegocioCompletado";
 import "./negocioCompleto.css";
 import { NegocioPlanificado } from "./NegocioPlanificado";
@@ -73,24 +57,11 @@ export const NegocioCompleto = () => {
     return colorList[i];
   };
 
-  // const { data } = useQuery(GET_NEGOCIO_CONTENT, {
-  //   variables: {
-  //     idNegocio: location.state[0].neg_id,
-  //   },
-  // });
-
   const { data: dataTareas } = useQuery(GET_COUNT_TAREAS, {
     variables: {
       idNegocio: location.state[0].neg_id,
     },
   });
-
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log(data);
-  //     console.log(JSON.parse(data.getNegocioByIdResolver).dataNeg);
-  //   }
-  // }, [data]);
 
   useEffect(() => {
     if (dataTareas) {
@@ -136,7 +107,6 @@ export const NegocioCompleto = () => {
           </p>
         </div>
         <div className="negocio-completo-header-linea">
-          {/* <BellOutline /> */}
           <p className="negocio-completo-header-fecha">
             {"Fecha de cierre estimada: " +
               moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format(
@@ -198,65 +168,14 @@ export const NegocioCompleto = () => {
           )}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Planificado" key="2">
-          {activeKey === "2" &&  <NegocioPlanificado neg_id={location.state[0].neg_id} />}
+          {activeKey === "2" && (
+            <NegocioPlanificado neg_id={location.state[0].neg_id} />
+          )}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
-          
-          {activeKey === "3" && 
-            <NegocioCompletado neg_id={location.state[0].neg_id} /> }
-          {/* <div className="div_lista_neg">
-            <div className="negocio-linea-tiempo-contenedor">
-              <Steps direction="vertical">
-                {tareas.map((tarea) => {
-                  switch (tarea.tipo) {
-                    case "#T":
-                      return (
-                        <Step
-                          description={<TareaNegocio tarea={tarea} />}
-                          icon={
-                            <CalendarOutline style={{ color: "#00B33C" }} />
-                          }
-                        />
-                      );
-                    case "#N":
-                      return (
-                        <Step
-                          description={<NotaTareaNegocio nota={tarea} />}
-                          icon={<FileOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                    case "#A":
-                      return (
-                        <Step
-                          description={<ArchivoTareaNegocio archivo={tarea} />}
-                          icon={<PictureOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                    default:
-                      return (
-                        <Step
-                          description={
-                            <p>
-                              {" "}
-                              <span className="detailItem">
-                                {" "}
-                                Fecha de Cierre:{" "}
-                              </span>{" "}
-                              <span className="strikeThrough">
-                                {" "}
-                                2022-06-20{" "}
-                              </span>{" "}
-                              <span className="middleDot"> · </span>{" "}
-                              <span className="modifiedItem"> 2022-06-24 </span>{" "}
-                            </p>
-                          }
-                        />
-                      );
-                  }
-                })}
-              </Steps>
-            </div>
-          </div> */}
+          {activeKey === "3" && (
+            <NegocioCompletado neg_id={location.state[0].neg_id} />
+          )}
         </CapsuleTabs.Tab>
       </CapsuleTabs>
     </div>
