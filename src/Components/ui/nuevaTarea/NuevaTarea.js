@@ -5,9 +5,11 @@ import {
   Divider,
   Form,
   Input,
+  List,
   Modal,
   Picker,
   PickerView,
+  SearchBar,
   Selector,
   TextArea,
 } from "antd-mobile";
@@ -28,14 +30,21 @@ const NuevaTarea = () => {
   const [clientes, setClientes] = useState([]);
   const { userId } = useContext(GlobalContext);
 
+  const [buscador, setBuscador] = useState("");
+
+  const handleChange = (value) => {
+    if (value === "" || value === null) {
+    }
+    console.log(value)
+    return setBuscador(value);
+  };
+
   const { loading, error, data } = useQuery(GET_CLIENTE, {
     variables: {
-      input:"",
+      input: buscador.length > 2 ? buscador : "",
       idUsuario: userId,
     },
   });
-
-  console.log(data)
 
   useEffect(() => {
     if (data) {
@@ -43,7 +52,13 @@ const NuevaTarea = () => {
     }
   }, [data]);
 
-  console.log(clientes)
+  useEffect(() => {
+    console.log(clientes);
+  }, [clientes]);
+
+  useEffect(() => {
+    console.log("Busqueda: ", buscador);
+  }, [buscador]);
 
   const prioridad = [
     {
@@ -90,6 +105,17 @@ const NuevaTarea = () => {
     },
   ];
 
+  const [searchVal, setSearchVal] = useState("");
+
+  const handleBuscador = (val) => {
+    let valor = clientes.filter((cliente) => cliente.cli_id === val);
+    console.log(valor[0].cli_nombre);
+
+    setSearchVal(valor[0].cli_nombre);
+
+    setBuscador("");
+  };
+
   const handleFormSubmit = (values) => {};
 
   return (
@@ -122,15 +148,63 @@ const NuevaTarea = () => {
           </Button>
         }
       >
-        <Form.Item label="Cliente" name="cliente">
-          <select className="select_nueva_tarea" required>
+        <Form.Item label="Cliente" name="cliente" className="nueva_tarea_buscador_cliente">
+          {/* <select className="select_nueva_tarea" required>
             <option value="" disabled selected hidden>
               Seleccione un cliente
             </option>
             {clientes && clientes.map((cliente) => (
               <option value={cliente.cli_id}>{cliente.cli_nombre}</option>
             ))}
-          </select>
+          </select> */}
+
+          
+
+          <SearchBar
+            className="select_nueva_tarea"
+            icon={null}
+            type="search"
+            list="clientes"
+            placeholder="Ingrese Cliente"
+            onClear={() => setSearchVal("")}
+            onChange={(value) => handleChange(value)}
+          />
+
+          {buscador !== "" ? (
+            <List>
+              {clientes &&
+                clientes.map((cliente) => (
+                  <List.Item
+                    key={cliente.cli_id}
+                    onClick={() => handleBuscador(cliente.cli_id)}
+                  >
+                    <div className="div_empresa">{cliente.cli_nombre}</div>
+                  </List.Item>
+                ))}
+            </List>
+          ) : (
+            ""
+          )}
+
+          {searchVal === "" || searchVal === null ? (
+            ""
+          ) : (
+            <div className="client_select">{searchVal}</div>
+          )}
+
+
+          {/* <input className="select_nueva_tarea" placeholder="Ingrese Cliente" type="search" list="clientes" onChange={(value) => handleChange(value)}/>
+          <datalist id="clientes" >
+            {clientes &&
+              clientes.map((cliente) => (
+                <option data-value={cliente.cli_id}>
+                  {cliente.cli_nombre}
+                </option>
+              ))}
+          </datalist> */}
+
+
+
         </Form.Item>
         <Form.Item label="Asunto" name="asunto">
           <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
