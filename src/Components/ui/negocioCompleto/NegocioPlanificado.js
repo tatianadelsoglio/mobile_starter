@@ -21,8 +21,11 @@ import QueryResult from "../../queryResult/QueryResult";
 export const NegocioPlanificado = ({ neg_id }) => {
   const [timeline, setTimeline] = useState();
 
-
-  const {loading, error, data: dataTimeline } = useQuery(GET_TIMELINE_POR_NEGOCIO, {
+  const {
+    loading,
+    error,
+    data: dataTimeline,
+  } = useQuery(GET_TIMELINE_POR_NEGOCIO, {
     variables: {
       idNegocio: parseInt(neg_id),
     },
@@ -43,7 +46,6 @@ export const NegocioPlanificado = ({ neg_id }) => {
       return linea.push(upload);
     });
 
-    console.log(linea);
     let lineaOrdenada;
 
     linea = linea.filter((tarea) => tarea.est_id === 1);

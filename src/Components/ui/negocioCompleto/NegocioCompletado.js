@@ -81,6 +81,7 @@ export const NegocioCompletado = ({ neg_id }) => {
           )
         );
       });
+      console.log(lineaOrdenada);
       setTimeline(lineaOrdenada);
     }
   };
@@ -129,12 +130,12 @@ export const NegocioCompletado = ({ neg_id }) => {
                   return (
                     <Step
                       key={tarea.his_id}
-                      description={
+                      description={tarea.his_detalle.startsWith("<p>") ?
                         <div
                           dangerouslySetInnerHTML={{
                             __html: tarea.his_detalle,
                           }}
-                        ></div>
+                        ></div> : <span className="detailItem">{tarea.his_detalle}</span>
                       }
                     />
                   );
