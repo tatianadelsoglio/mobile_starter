@@ -284,11 +284,11 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               style={{ color: "#00B33C", marginRight: "5px", fontSize: "1rem" }}
             />
           </div>
-          <div className="tarea-negocio-linea-inferior">
+          <div className="tarea-negocio-linea-inferior-timeline">
             <p className="tarea-negocio-fecha">
-              {moment(tarea.fechacreacion, "DD/MM/YYYY").fromNow()}
+              {moment(tarea.tar_fecha_ts, "YYYY-MM-DD").fromNow()}
             </p>
-            {tarea.cli_id ? (
+            {tarea.cli_nombre ? (
               <div className="tarea-negocio-item">
                 <UserOutline style={{ color: "#00B33C" }} />{" "}
                 <p className="tarea-negocio-contacto">{tarea.cli_nombre}</p>
@@ -311,7 +311,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   fontSize: "0.8rem",
                 }}
               />
-              <p className="texto-tarea-horario">{tarea.fechavencimiento}</p>
+              <p className="texto-tarea-horario">{moment(tarea.tar_vencimiento, "YYYY-MM-DD").format("DD/MM/YYYY")}</p>
               {tarea.tar_horavencimiento && (
                 <p className="texto-tarea-horario">
                   {handleHora(tarea.tar_horavencimiento)} hs
@@ -323,9 +323,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
         {tarea.not_id && (
           <NotaTareaNegocio nota={tarea} interno={true} display={true} />
         )}
-        {/* {tarea.up_id && (
+        {tarea.up_id && (
           <ArchivoTareaNegocio archivo={tarea} interno={true} display={true} />
-        )} */}
+        )}
       </div>
     );
   }

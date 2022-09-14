@@ -19,10 +19,13 @@ import {
   GET_COUNT_TAREAS,
   GET_NEGOCIO_CONTENT,
 } from "../../../graphql/queries/NegocioContent";
+import QueryResult from "../../queryResult/QueryResult";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
 import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
+import { NegocioCompletado } from "./NegocioCompletado";
 import "./negocioCompleto.css";
+import { NegocioPlanificado } from "./NegocioPlanificado";
 
 export const NegocioCompleto = () => {
   const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
@@ -30,6 +33,8 @@ export const NegocioCompleto = () => {
   const location = useLocation();
 
   const [negocio, setNegocio] = useState(location.state[0]);
+
+  const [activeKey, setActiveKey] = useState("1");
 
   const getColor = (i) => {
     const colorList = [
@@ -140,87 +145,65 @@ export const NegocioCompleto = () => {
           </p>
         </div>
       </div>
-      <CapsuleTabs className="capsuletabs-negocio">
+      <CapsuleTabs
+        className="capsuletabs-negocio"
+        onChange={(v) => setActiveKey(v)}
+      >
         <CapsuleTabs.Tab title="Info" key="1">
-          <div className="div_lista_nrg">
-            <div className="negocio-completo-caja-grafica">
-              <div className="negocio-grafica-linea">
-                <p className="negocio-antiguedad">Antigüedad del negocio</p>
-                <p className="negocio-antiguedad-dias">
-                  {moment(negocio.neg_fechacreacion, "YYYY-MM-DD").fromNow()}
-                </p>
-              </div>
-              <div className="negocio-grafico-degrade"></div>
-              <p className="negocio-tareas">Tareas</p>
-              <div className="negocio-grafico-tareas">
-                {tareasDefinitivo.map((tarea) => {
-                  return (
-                    <span
-                      className="negocio-caja-tarea-grafico"
-                      style={{
-                        backgroundColor: `${getColor(tarea.tip_id)}`,
-                        width: `${tarea.porcentajeTipoTarea}%`,
-                      }}
-                    ></span>
-                  );
-                })}
-              </div>
-              <div className="negocio-grafico-referencias">
-                {tareasDefinitivo &&
-                  tareasDefinitivo.map((tarea) => {
+          {activeKey === "1" && (
+            <div className="div_lista_nrg">
+              <div className="negocio-completo-caja-grafica">
+                <div className="negocio-grafica-linea">
+                  <p className="negocio-antiguedad">Antigüedad del negocio</p>
+                  <p className="negocio-antiguedad-dias">
+                    {moment(negocio.neg_fechacreacion, "YYYY-MM-DD").fromNow()}
+                  </p>
+                </div>
+                <div className="negocio-grafico-degrade"></div>
+                <p className="negocio-tareas">Tareas</p>
+                <div className="negocio-grafico-tareas">
+                  {tareasDefinitivo.map((tarea) => {
                     return (
-                      <div className="negocio-grafico-referencias-linea">
-                        <span
-                          className="negocio-grafico-referencia-cuadrito"
-                          style={{
-                            backgroundColor: `${getColor(tarea.tip_id)}`,
-                          }}
-                        ></span>
-                        <p className="negocio-tarea-texto">{`${tarea.tip_desc} (${tarea.cantidadTipoTarea})`}</p>
-                        <p className="negocio-tarea-texto">{`- ${Math.round(tarea.porcentajeTipoTarea)}%`}</p>
-                      </div>
+                      <span
+                        className="negocio-caja-tarea-grafico"
+                        style={{
+                          backgroundColor: `${getColor(tarea.tip_id)}`,
+                          width: `${tarea.porcentajeTipoTarea}%`,
+                        }}
+                      ></span>
                     );
                   })}
+                </div>
+                <div className="negocio-grafico-referencias">
+                  {tareasDefinitivo &&
+                    tareasDefinitivo.map((tarea) => {
+                      return (
+                        <div className="negocio-grafico-referencias-linea">
+                          <span
+                            className="negocio-grafico-referencia-cuadrito"
+                            style={{
+                              backgroundColor: `${getColor(tarea.tip_id)}`,
+                            }}
+                          ></span>
+                          <p className="negocio-tarea-texto">{`${tarea.tip_desc} (${tarea.cantidadTipoTarea})`}</p>
+                          <p className="negocio-tarea-texto">{`- ${Math.round(
+                            tarea.porcentajeTipoTarea
+                          )}%`}</p>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Planificado" key="2">
-          {/* <div className="div_lista_neg">
-            <div className="negocio-linea-tiempo-contenedor">
-              <Steps direction="vertical">
-                {tareas.map((tarea) => {
-                  switch (tarea.tipo) {
-                    case "#T":
-                      return (
-                        <Step
-                          description={<TareaNegocio tarea={tarea} />}
-                          icon={
-                            <CalendarOutline style={{ color: "#00B33C" }} />
-                          }
-                        />
-                      );
-                    case "#N":
-                      return (
-                        <Step
-                          description={<NotaTareaNegocio nota={tarea} />}
-                          icon={<FileOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                    case "#A":
-                      return (
-                        <Step
-                          description={<ArchivoTareaNegocio archivo={tarea} />}
-                          icon={<PictureOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                  }
-                })}
-              </Steps>
-            </div>
-          </div> */}
+          {activeKey === "2" &&  <NegocioPlanificado neg_id={location.state[0].neg_id} />}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
+          
+          {activeKey === "3" && 
+            <NegocioCompletado neg_id={location.state[0].neg_id} /> }
           {/* <div className="div_lista_neg">
             <div className="negocio-linea-tiempo-contenedor">
               <Steps direction="vertical">
