@@ -17,6 +17,8 @@ import { Dialog, Ellipsis, Modal, SwipeAction } from "antd-mobile";
 import { useHistory } from "react-router-dom";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
+
+  console.log(tarea);
   const [mostrar, setMostrar] = useState(false);
 
   const ref = useRef(null);
