@@ -6,14 +6,14 @@ import { CheckOutline } from "antd-mobile-icons";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
-import moment from "moment";
+import Select from "react-select";
+import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
+import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
 
   const [value, setValue] = useState([]);
-
-  const [form] = Form.useForm();
 
   const [idSelector, setIdSelector] = useState();
 
@@ -38,83 +38,6 @@ const NuevaTarea = () => {
       idUsuario: userId,
     },
   });
-
-  const onFinish = (v) => {
-    // // let inputAdjunto;
-
-    // const fechaVencimientoDefault = moment(v.tar_fecha._d).format("YYYY-MM-DD");
-    // const horaVencimientoDefault = moment(v.tar_horavencimiento._d).format(
-    //   "HH:mm"
-    // );
-
-    // // if (Object.keys(file).length) {
-    // //   const extension = file.originalname.split(".")[1];
-    // //   inputAdjunto = {
-    // //     up_filename: file.fileName,
-    // //     up_mimetype: extension,
-    // //     up_hashname: file.filename,
-    // //     usu_id: 1,
-    // //     up_detalle: v.adj_detalle,
-    // //     up_size: String(file.size),
-    // //   };
-    // // }
-
-    // const inputTarea = {
-    //   tar_asunto: v.tar_asunto,
-    //   tar_vencimiento: dateFrom || fechaVencimientoDefault,
-    //   tar_horavencimiento: timeFrom || horaVencimientoDefault,
-    //   est_id: 1,
-    //   usu_id: deal.usu_id,
-    //   cli_id: v.cli_id,
-    //   ale_id: Number(v.ale_id),
-    //   tar_alertanum: Number(v.tar_alertanum),
-    //   tip_id: Number(v.tip_id),
-    //   pri_id: priority,
-    // };
-
-    // let inputNota = {
-    //   not_desc: note === `<p><br></p>` ? "" : note,
-    //   not_importancia: priority,
-    // };
-
-    // if (inputNota.not_desc === "") {
-    //   inputNota = null;
-    // }
-
-    // if (fList.length === 0) {
-    //   inputAdjunto = null;
-    // }
-
-    // newTareaResolver({
-    //   variables: {
-    //     idNegocio: negId,
-    //     idUsuario: deal.usu_id,
-    //     idCliente: deal.cli_id,
-    //     idContacto: Number(v.con_id),
-    //     inputTarea,
-    //     inputNota,
-    //     inputAdjunto,
-    //     idUsuarioAsignado: v.usu_asig_id,
-    //   },
-    // }).then((tarea) => {
-    //   const idTarea = tarea.data.newTareaResolver;
-    //   const template = `####T_${idTarea}`;
-    //   const his_detalle = template;
-    //   setHistorial(
-    //     newHistorialNegocioResolver,
-    //     idUser,
-    //     negId,
-    //     Number(etaId),
-    //     his_detalle,
-    //     -1
-    //   );
-    // });
-
-    // setNote("");
-    // form.resetFields();
-    // setFlist([]);
-    // onClose();
-  };
 
   useEffect(() => {
     if (data) {
@@ -239,9 +162,8 @@ const NuevaTarea = () => {
   return (
     <div className="detalle-tarea-contenedor">
       <Form
-        form={form}
         layout="vertical"
-        onFinish={onFinish}
+        onFinish={(values) => handleFormSubmit(values)}
         footer={
           <Button
             block
