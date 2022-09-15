@@ -19,6 +19,7 @@ import { CheckOutline } from "antd-mobile-icons";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
+import Select from "react-select";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
@@ -30,13 +31,15 @@ const NuevaTarea = () => {
   const [clientes, setClientes] = useState([]);
   const { userId } = useContext(GlobalContext);
 
+  //TODO INICIO SECCION DE ELEGIR CLIENTE
+
   const [buscador, setBuscador] = useState("");
 
   const handleChange = (value) => {
     if (value === "" || value === null) {
     }
-    console.log(value)
-    return setBuscador(value);
+    console.log(value.target.value);
+    setBuscador(value.target.value);
   };
 
   const { loading, error, data } = useQuery(GET_CLIENTE, {
@@ -59,6 +62,27 @@ const NuevaTarea = () => {
   useEffect(() => {
     console.log("Busqueda: ", buscador);
   }, [buscador]);
+
+  const handleSelect = (value) => {
+    console.log(value)
+  }
+
+  // const [searchVal, setSearchVal] = useState("");
+
+  // const handleBuscador = (val) => {
+  //   let valor = clientes.filter((cliente) => cliente.cli_id === val);
+  //   console.log(valor[0].cli_nombre);
+
+  //   setSearchVal(valor[0].cli_nombre);
+
+  //   setBuscador("");
+  // };
+
+  //TODO FIN SECCION DE ELEGIR CLIENTE
+
+  //TODO INICIO SECCION DE ELEGIR TIPO TAREA
+
+  //TODO FIN SECCION DE ELEGIR TIPO TAREA
 
   const prioridad = [
     {
@@ -105,17 +129,6 @@ const NuevaTarea = () => {
     },
   ];
 
-  const [searchVal, setSearchVal] = useState("");
-
-  const handleBuscador = (val) => {
-    let valor = clientes.filter((cliente) => cliente.cli_id === val);
-    console.log(valor[0].cli_nombre);
-
-    setSearchVal(valor[0].cli_nombre);
-
-    setBuscador("");
-  };
-
   const handleFormSubmit = (values) => {};
 
   return (
@@ -148,19 +161,37 @@ const NuevaTarea = () => {
           </Button>
         }
       >
-        <Form.Item label="Cliente" name="cliente" className="nueva_tarea_buscador_cliente">
+        <Form.Item
+          label="Cliente"
+          name="cliente"
+          className="nueva_tarea_buscador_cliente"
+        >
           {/* <select className="select_nueva_tarea" required>
             <option value="" disabled selected hidden>
-              Seleccione un cliente
+              Seleccione Cliente
             </option>
-            {clientes && clientes.map((cliente) => (
-              <option value={cliente.cli_id}>{cliente.cli_nombre}</option>
-            ))}
+            {clientes &&
+              clientes.map((cliente) => (
+                <option value={cliente.cli_id}>
+                  {cliente.cli_nombre}
+                </option>
+              ))}
           </select> */}
 
-          
+          {/* <Select
+            className="select_nueva_tarea"
+            defaultValue={{ label: "Seleccione un cliente", value: "default" }}
+            options={
+              clientes &&
+              clientes.map((cliente) => ({
+                label: cliente.cli_nombre,
+                value: cliente.cli_id,
+              }))
+            }
+            onChange={(value) => handleChange(value)}
+          /> */}
 
-          <SearchBar
+          {/* <SearchBar
             className="select_nueva_tarea"
             icon={null}
             type="search"
@@ -190,8 +221,7 @@ const NuevaTarea = () => {
             ""
           ) : (
             <div className="client_select">{searchVal}</div>
-          )}
-
+          )} */}
 
           {/* <input className="select_nueva_tarea" placeholder="Ingrese Cliente" type="search" list="clientes" onChange={(value) => handleChange(value)}/>
           <datalist id="clientes" >
@@ -203,8 +233,35 @@ const NuevaTarea = () => {
               ))}
           </datalist> */}
 
-
-
+          <input
+            className="select_nueva_tarea"
+            placeholder="Ingrese Cliente"
+            type="search"
+            autoComplete="off"
+            onChange={(value) => handleChange(value)}
+          />
+          {clientes &&
+            clientes.map((cliente) => (
+              <>
+                {buscador !== "" ? (
+                  <>
+                    <input
+                      className="select_nueva_tarea"
+                      type="text"
+                      onSelect={(value) => handleSelect(value)}
+                      value={(cliente.cli_id, cliente.cli_nombre)}
+                    />
+                    <input
+                      className="select_nueva_tarea"
+                      type="hidden"
+                      value={cliente.cli_id}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
+              </>
+            ))}
         </Form.Item>
         <Form.Item label="Asunto" name="asunto">
           <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
