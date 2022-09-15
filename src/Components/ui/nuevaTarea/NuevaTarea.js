@@ -196,7 +196,7 @@ const NuevaTarea = () => {
         >
           {ocultarC !== true ? (
             <input
-              className="select_nueva_tarea"
+              className="select_nueva_tarea input_cliente"
               placeholder="Ingrese Cliente"
               type="search"
               autoComplete="off"
@@ -222,7 +222,7 @@ const NuevaTarea = () => {
             ))}
         </Form.Item>
         <Form.Item label="Asunto" name="asunto">
-          <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
+          <TextArea className="detalleTarea" autoSize={true} placeholder="Detalle de Tarea"></TextArea>
         </Form.Item>
         <Form.Item label="Tipo de Tarea" name="tipoTarea">
           <Select
