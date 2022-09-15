@@ -227,7 +227,7 @@ const NuevaTarea = () => {
         <Form.Item label="Tipo de Tarea" name="tipoTarea">
           <Select
             className="select_nueva_tarea"
-            defaultValue={{ label: "Seleccione Tipo de Tarea" }}
+            placeholder="Seleccione Tipo de Tarea" 
             options={
               tiposTareas &&
               tiposTareas.map((tipoTarea) => ({
@@ -241,7 +241,7 @@ const NuevaTarea = () => {
         <Form.Item label="Fuente" name="fuente">
           <Select
             className="select_nueva_tarea"
-            defaultValue={{ label: "Seleccione Fuente" }}
+            placeholder="Seleccione Fuente" 
             options={
               tiposOrigenes &&
               tiposOrigenes.map((tipoOrigen) => ({

@@ -85,3 +85,7 @@
 .detalleTarea{
   margin-left: 8px;
 }
+
+.detalleTarea ::placeholder{
+  color: #959595 !important;
+}
