@@ -7,6 +7,9 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 import moment from "moment";
+import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
+import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
+import Select from "react-select";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
