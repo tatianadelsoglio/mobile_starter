@@ -19,7 +19,6 @@ import { CheckOutline } from "antd-mobile-icons";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
-import Select from "react-select";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
