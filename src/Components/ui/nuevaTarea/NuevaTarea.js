@@ -24,6 +24,7 @@ const NuevaTarea = () => {
 
   const [buscador, setBuscador] = useState("");
   const [ocultarC, setOcultarC] = useState(false);
+  const [limpiar, setLimpiar] = useState(false);
 
   const handleChange = (value) => {
     if (value === "" || value === null) {
@@ -65,6 +66,19 @@ const NuevaTarea = () => {
       setOcultarC(true);
     }
   };
+
+  const handleLimpiar = (value) => {
+    if (limpiar === false) {
+      setLimpiar(true);
+      setOcultarC(false);
+    }
+    if (limpiar === true) {
+      setLimpiar(false);
+      setOcultarC(false);
+    }
+
+    setBuscador("");
+  };
   //TODO FIN SECCION DE ELEGIR CLIENTE
   //TODO INICIO SECCION DE ELEGIR TIPO TAREA
   const [tiposTareas, setTiposTareas] = useState([]);
@@ -85,17 +99,13 @@ const NuevaTarea = () => {
     console.log(tiposTareas);
   }, [tiposTareas]);
 
-
   const handleSelectTT = ({ value }) => {
     console.log(value);
   };
   //TODO FIN SECCION DE ELEGIR TIPO TAREA
   //TODO INICIO SECCION DE ELEGIR ORIGEN TAREA
   const [tiposOrigenes, setTiposOrigenes] = useState([]);
-  const [buscadorO, setBuscadorO] = useState("");
-
-  const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {
-  });
+  const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {});
 
   useEffect(() => {
     if (dataTipoOrigen) {
@@ -203,17 +213,21 @@ const NuevaTarea = () => {
               onChange={(value) => handleChange(value)}
             />
           ) : null}
+
           {clientes &&
             clientes.map((cliente) => (
               <>
                 {buscador !== "" ? (
                   <>
+                  <div className="div_clienteSelect_btn">
                     <input
-                      className="select_nueva_tarea"
+                      className="select_nueva_tarea input_cliente"
                       type="text"
                       onClick={(value) => handleSelect(value)}
                       value={cliente.cli_nombre}
                     />
+                    <Button className="btn_cliente" onClick={() => handleLimpiar()}>X</Button>
+                  </div>
                   </>
                 ) : (
                   ""
@@ -222,12 +236,16 @@ const NuevaTarea = () => {
             ))}
         </Form.Item>
         <Form.Item label="Asunto" name="asunto">
-          <TextArea className="detalleTarea" autoSize={true} placeholder="Detalle de Tarea"></TextArea>
+          <TextArea
+            className="detalleTarea"
+            autoSize={true}
+            placeholder="Detalle de Tarea"
+          ></TextArea>
         </Form.Item>
         <Form.Item label="Tipo de Tarea" name="tipoTarea">
           <Select
             className="select_nueva_tarea"
-            placeholder="Seleccione Tipo de Tarea" 
+            placeholder="Seleccione Tipo de Tarea"
             options={
               tiposTareas &&
               tiposTareas.map((tipoTarea) => ({
@@ -241,7 +259,7 @@ const NuevaTarea = () => {
         <Form.Item label="Fuente" name="fuente">
           <Select
             className="select_nueva_tarea"
-            placeholder="Seleccione Fuente" 
+            placeholder="Seleccione Fuente"
             options={
               tiposOrigenes &&
               tiposOrigenes.map((tipoOrigen) => ({

@@ -89,3 +89,22 @@
 .detalleTarea ::placeholder{
   color: #959595 !important;
 }
+
+.btn_cliente{
+  font-size: 12px;
+  margin-top: -2px;
+  padding-top: 11px;
+  padding-left: -5px;
+  height: 20px;
+  width: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div_clienteSelect_btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
