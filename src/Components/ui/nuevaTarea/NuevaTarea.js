@@ -1,18 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-  Button,
-  DatePicker,
-  Divider,
-  Form,
-  Input,
-  List,
-  Modal,
-  Picker,
-  PickerView,
-  SearchBar,
-  Selector,
-  TextArea,
-} from "antd-mobile";
+import { Button, Form, Modal, Selector, TextArea } from "antd-mobile";
 import React, { useContext, useEffect, useState } from "react";
 import "./NuevaTarea.css";
 import { CheckOutline } from "antd-mobile-icons";
@@ -36,6 +23,7 @@ const NuevaTarea = () => {
   //TODO INICIO SECCION DE ELEGIR CLIENTE
 
   const [buscador, setBuscador] = useState("");
+  const [ocultarC, setOcultarC] = useState(false);
 
   const handleChange = (value) => {
     if (value === "" || value === null) {
@@ -143,25 +131,63 @@ const NuevaTarea = () => {
   }, [buscador]);
 
   const handleSelect = (value) => {
-    console.log(value)
-  }
+    console.log("cliente: ", value.target.value);
+    setBuscador(value.target.value);
 
-  // const [searchVal, setSearchVal] = useState("");
+    if (ocultarC === true) {
+      setOcultarC(false);
+    }
 
-  // const handleBuscador = (val) => {
-  //   let valor = clientes.filter((cliente) => cliente.cli_id === val);
-  //   console.log(valor[0].cli_nombre);
-
-  //   setSearchVal(valor[0].cli_nombre);
-
-  //   setBuscador("");
-  // };
-
+    if (ocultarC === false) {
+      setOcultarC(true);
+    }
+  };
   //TODO FIN SECCION DE ELEGIR CLIENTE
-
   //TODO INICIO SECCION DE ELEGIR TIPO TAREA
+  const [tiposTareas, setTiposTareas] = useState([]);
 
+  const { data: dataTipoTarea } = useQuery(GET_TIPO_TAREA, {
+    variables: {
+      idCategoria: 1,
+    },
+  });
+
+  useEffect(() => {
+    if (dataTipoTarea) {
+      setTiposTareas(dataTipoTarea.getTiposTareaResolver);
+    }
+  }, [dataTipoTarea]);
+
+  useEffect(() => {
+    console.log(tiposTareas);
+  }, [tiposTareas]);
+
+
+  const handleSelectTT = ({ value }) => {
+    console.log(value);
+  };
   //TODO FIN SECCION DE ELEGIR TIPO TAREA
+  //TODO INICIO SECCION DE ELEGIR ORIGEN TAREA
+  const [tiposOrigenes, setTiposOrigenes] = useState([]);
+  const [buscadorO, setBuscadorO] = useState("");
+
+  const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {
+  });
+
+  useEffect(() => {
+    if (dataTipoOrigen) {
+      setTiposOrigenes(dataTipoOrigen.getOrigenesResolver);
+    }
+  }, [dataTipoOrigen]);
+
+  useEffect(() => {
+    console.log(tiposOrigenes);
+  }, [tiposOrigenes]);
+
+  const handleSelectO = ({ value }) => {
+    console.log(value);
+  };
+  //TODO FIN SECCION DE ELEGIR ORIGEN TAREA
 
   const prioridad = [
     {
@@ -246,80 +272,15 @@ const NuevaTarea = () => {
           name="cliente"
           className="nueva_tarea_buscador_cliente"
         >
-          {/* <select className="select_nueva_tarea" required>
-            <option value="" disabled selected hidden>
-              Seleccione Cliente
-            </option>
-            {clientes &&
-              clientes.map((cliente) => (
-                <option value={cliente.cli_id}>
-                  {cliente.cli_nombre}
-                </option>
-              ))}
-          </select> */}
-
-          {/* <Select
-            className="select_nueva_tarea"
-            defaultValue={{ label: "Seleccione un cliente", value: "default" }}
-            options={
-              clientes &&
-              clientes.map((cliente) => ({
-                label: cliente.cli_nombre,
-                value: cliente.cli_id,
-              }))
-            }
-            onChange={(value) => handleChange(value)}
-          /> */}
-
-          {/* <SearchBar
-            className="select_nueva_tarea"
-            icon={null}
-            type="search"
-            list="clientes"
-            placeholder="Ingrese Cliente"
-            onClear={() => setSearchVal("")}
-            onChange={(value) => handleChange(value)}
-          />
-
-          {buscador !== "" ? (
-            <List>
-              {clientes &&
-                clientes.map((cliente) => (
-                  <List.Item
-                    key={cliente.cli_id}
-                    onClick={() => handleBuscador(cliente.cli_id)}
-                  >
-                    <div className="div_empresa">{cliente.cli_nombre}</div>
-                  </List.Item>
-                ))}
-            </List>
-          ) : (
-            ""
-          )}
-
-          {searchVal === "" || searchVal === null ? (
-            ""
-          ) : (
-            <div className="client_select">{searchVal}</div>
-          )} */}
-
-          {/* <input className="select_nueva_tarea" placeholder="Ingrese Cliente" type="search" list="clientes" onChange={(value) => handleChange(value)}/>
-          <datalist id="clientes" >
-            {clientes &&
-              clientes.map((cliente) => (
-                <option data-value={cliente.cli_id}>
-                  {cliente.cli_nombre}
-                </option>
-              ))}
-          </datalist> */}
-
-          <input
-            className="select_nueva_tarea"
-            placeholder="Ingrese Cliente"
-            type="search"
-            autoComplete="off"
-            onChange={(value) => handleChange(value)}
-          />
+          {ocultarC !== true ? (
+            <input
+              className="select_nueva_tarea input_cliente"
+              placeholder="Ingrese Cliente"
+              type="search"
+              autoComplete="off"
+              onChange={(value) => handleChange(value)}
+            />
+          ) : null}
           {clientes &&
             clientes.map((cliente) => (
               <>
@@ -328,13 +289,8 @@ const NuevaTarea = () => {
                     <input
                       className="select_nueva_tarea"
                       type="text"
-                      onSelect={(value) => handleSelect(value)}
-                      value={(cliente.cli_id, cliente.cli_nombre)}
-                    />
-                    <input
-                      className="select_nueva_tarea"
-                      type="hidden"
-                      value={cliente.cli_id}
+                      onClick={(value) => handleSelect(value)}
+                      value={cliente.cli_nombre}
                     />
                   </>
                 ) : (
@@ -343,6 +299,7 @@ const NuevaTarea = () => {
               </>
             ))}
         </Form.Item>
+<<<<<<< HEAD
         <Form.Item label="Asunto" name="tar_asunto">
           <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
         </Form.Item>
@@ -353,14 +310,38 @@ const NuevaTarea = () => {
             </option>
             <option value="Visita de Campo">Visita de Campo</option>
           </select>
+=======
+        <Form.Item label="Asunto" name="asunto">
+          <TextArea className="detalleTarea" autoSize={true} placeholder="Detalle de Tarea"></TextArea>
+        </Form.Item>
+        <Form.Item label="Tipo de Tarea" name="tipoTarea">
+          <Select
+            className="select_nueva_tarea"
+            defaultValue={{ label: "Seleccione Tipo de Tarea" }}
+            options={
+              tiposTareas &&
+              tiposTareas.map((tipoTarea) => ({
+                label: tipoTarea.tip_desc,
+                value: tipoTarea.tip_id,
+              }))
+            }
+            onChange={handleSelectTT}
+          />
+>>>>>>> origin/feature/cliente/lista-contactos
         </Form.Item>
         <Form.Item label="Fuente" name="fuente">
-          <select className="select_nueva_tarea" required>
-            <option value="" disabled selected hidden>
-              Seleccione fuente
-            </option>
-            <option value="Negocio">Negocio</option>
-          </select>
+          <Select
+            className="select_nueva_tarea"
+            defaultValue={{ label: "Seleccione Fuente" }}
+            options={
+              tiposOrigenes &&
+              tiposOrigenes.map((tipoOrigen) => ({
+                label: tipoOrigen.ori_desc,
+                value: tipoOrigen.ori_id,
+              }))
+            }
+            onChange={handleSelectO}
+          />
         </Form.Item>
         <div
           style={{
