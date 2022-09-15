@@ -23,6 +23,8 @@ export const ArchivoTareaNegocio = ({ archivo, origen="", interno=false, display
     }
   };
 
+  console.log(archivo);
+
   if(display === true) {
     return (
       
