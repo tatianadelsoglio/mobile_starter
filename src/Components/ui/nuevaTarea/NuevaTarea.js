@@ -299,18 +299,6 @@ const NuevaTarea = () => {
               </>
             ))}
         </Form.Item>
-<<<<<<< HEAD
-        <Form.Item label="Asunto" name="tar_asunto">
-          <TextArea autoSize={true} placeholder="Detalle de Tarea"></TextArea>
-        </Form.Item>
-        <Form.Item label="Tipo de Tarea" name="tip_id">
-          <select className="select_nueva_tarea" required>
-            <option value="" disabled selected hidden>
-              Seleccione tipo de tarea
-            </option>
-            <option value="Visita de Campo">Visita de Campo</option>
-          </select>
-=======
         <Form.Item label="Asunto" name="asunto">
           <TextArea className="detalleTarea" autoSize={true} placeholder="Detalle de Tarea"></TextArea>
         </Form.Item>
@@ -327,7 +315,6 @@ const NuevaTarea = () => {
             }
             onChange={handleSelectTT}
           />
->>>>>>> origin/feature/cliente/lista-contactos
         </Form.Item>
         <Form.Item label="Fuente" name="fuente">
           <Select
