@@ -275,7 +275,7 @@ const NuevaTarea = () => {
         </Form.Item>
         <Form.Item label="Fuente" name="fuente">
           <Select
-            className="select_nueva_tarea"
+            className="select_nueva_tarea select_fuente"
             placeholder="Seleccione Fuente"
             options={
               tiposOrigenes &&
