@@ -1,5 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Button, Form, Modal, Selector, TextArea } from "antd-mobile";
+import {
+  Button,
+  Form,
+  Modal,
+  Selector,
+  SpinLoading,
+  TextArea,
+} from "antd-mobile";
 import React, { useContext, useEffect, useState } from "react";
 import "./NuevaTarea.css";
 import { CheckOutline } from "antd-mobile-icons";
@@ -167,7 +175,25 @@ const NuevaTarea = () => {
     },
   ];
 
-  const handleFormSubmit = (values) => {};
+  const handleFormSubmit = (values) => {
+
+    values.cliente = clientes
+    console.log(values)
+
+    Modal.alert({
+      header: (
+        <CheckOutline
+          style={{
+            fontSize: 64,
+            color: "var(--adm-color-primary)",
+          }}
+        />
+      ),
+      title: "Tarea Cargada Correctamente",
+      confirmText: "Cerrar",
+    });
+  };
+
 
   return (
     <div className="detalle-tarea-contenedor">
@@ -180,20 +206,6 @@ const NuevaTarea = () => {
             type="submit"
             color="primary"
             size="large"
-            onClick={() => {
-              Modal.alert({
-                header: (
-                  <CheckOutline
-                    style={{
-                      fontSize: 64,
-                      color: "var(--adm-color-primary)",
-                    }}
-                  />
-                ),
-                title: "Tarea Cargada Correctamente",
-                confirmText: "Cerrar",
-              });
-            }}
           >
             Cargar Tarea
           </Button>
@@ -219,15 +231,20 @@ const NuevaTarea = () => {
               <>
                 {buscador !== "" ? (
                   <>
-                  <div className="div_clienteSelect_btn">
-                    <input
-                      className="select_nueva_tarea input_cliente"
-                      type="text"
-                      onClick={(value) => handleSelect(value)}
-                      value={cliente.cli_nombre}
-                    />
-                    <Button className="btn_cliente" onClick={() => handleLimpiar()}>X</Button>
-                  </div>
+                    <div className="div_clienteSelect_btn">
+                      <input
+                        className="select_nueva_tarea input_cliente"
+                        type="text"
+                        onClick={(value) => handleSelect(value)}
+                        value={cliente.cli_nombre}
+                      />
+                      <Button
+                        className="btn_cliente"
+                        onClick={() => handleLimpiar()}
+                      >
+                        X
+                      </Button>
+                    </div>
                   </>
                 ) : (
                   ""
