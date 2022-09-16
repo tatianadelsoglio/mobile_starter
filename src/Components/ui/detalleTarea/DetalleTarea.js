@@ -240,7 +240,6 @@ const DetalleTarea = () => {
                 value: tipoTarea.tip_id,
               }))
             }
-            // onChange={handleSelectTT}
           />
         </Form.Item>
         <Form.Item label="Fuente" name="ori_id">
@@ -263,44 +262,37 @@ const DetalleTarea = () => {
             justifyContent: "space-between",
           }}
         >
-          <div>
-            {/* <Form.Item label="Vencimiento" name="tar_fecha" initialValue={moment(tarea.tar_vencimiento)}
-            format="DD/MM/YYYY">
-              <input className="input-fechaHora" type="date" name="tar_vencimiento" value={tarea.tar_vencimiento} />
-            </Form.Item> */}
-
-            {/* <Form.Item
-              initialValue={moment(tarea.tar_vencimiento)}
+          <div
+            style={{
+              width: "50%",
+            }}
+          >
+            <Form.Item
               label="Vencimiento"
-              format="DD/MM/YYYY"
-              name="tar_fecha"
-              rules={[
-                {
-                  required: true,
-                  message: "Campo obligatorio",
-                },
-              ]}
+              name="tar_vencimiento"
+              initialValue={tarea.tar_vencimiento}
             >
-              <DatePicker
-                // disabledDate={(current) =>
-                //   current.isBefore(
-                //     moment(tarea.tar_vencimiento).subtract(0, "day")
-                //   )
-                // }
-                style={{ width: "97%", marginRight: 4 }}
-                // locale={locale}
-                format="DD/MM/YYYY"
-                onChange={onChangeDateFrom}
-              />
-            </Form.Item> */}
+              <input className="input-fechaHora" type="date" />
+            </Form.Item>
           </div>
-          <div>
-            <Form.Item label="Hora" name="hora">
+          <div
+            style={{
+              width: "50%",
+            }}
+          >
+            <Form.Item
+              label="Hora"
+              name="tar_horavencimiento"
+              initialValue={moment(
+                tarea.tar_horavencimiento,
+                "HH:mm:ss"
+              ).format("LT")}
+            >
               <input className="input-fechaHora" type="time" />
             </Form.Item>
           </div>
         </div>
-        <Form.Item label="Nota" name="nota">
+        <Form.Item label="Nota" name="not_desc" initialValue={tarea.not_desc}>
           <TextArea autoSize={true} />
         </Form.Item>
         <Form.Item label="Prioridad" name="prioridad">
