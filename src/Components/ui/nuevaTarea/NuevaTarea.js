@@ -1,22 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Button, Form, Modal, Selector, TextArea } from "antd-mobile";
+import {
+  Button,
+  Form,
+  Modal,
+  Selector,
+  SpinLoading,
+  TextArea,
+} from "antd-mobile";
 import React, { useContext, useEffect, useState } from "react";
 import "./NuevaTarea.css";
 import { CheckOutline } from "antd-mobile-icons";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
-import moment from "moment";
+import Select from "react-select";
 import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
-import Select from "react-select";
 
 const NuevaTarea = () => {
   const [visible, setVisible] = useState(false);
 
   const [value, setValue] = useState([]);
-
-  const [form] = Form.useForm();
 
   const [idSelector, setIdSelector] = useState();
 
@@ -27,6 +32,7 @@ const NuevaTarea = () => {
 
   const [buscador, setBuscador] = useState("");
   const [ocultarC, setOcultarC] = useState(false);
+  const [limpiar, setLimpiar] = useState(false);
 
   const handleChange = (value) => {
     if (value === "" || value === null) {
@@ -41,83 +47,6 @@ const NuevaTarea = () => {
       idUsuario: userId,
     },
   });
-
-  const onFinish = (v) => {
-    // // let inputAdjunto;
-
-    // const fechaVencimientoDefault = moment(v.tar_fecha._d).format("YYYY-MM-DD");
-    // const horaVencimientoDefault = moment(v.tar_horavencimiento._d).format(
-    //   "HH:mm"
-    // );
-
-    // // if (Object.keys(file).length) {
-    // //   const extension = file.originalname.split(".")[1];
-    // //   inputAdjunto = {
-    // //     up_filename: file.fileName,
-    // //     up_mimetype: extension,
-    // //     up_hashname: file.filename,
-    // //     usu_id: 1,
-    // //     up_detalle: v.adj_detalle,
-    // //     up_size: String(file.size),
-    // //   };
-    // // }
-
-    // const inputTarea = {
-    //   tar_asunto: v.tar_asunto,
-    //   tar_vencimiento: dateFrom || fechaVencimientoDefault,
-    //   tar_horavencimiento: timeFrom || horaVencimientoDefault,
-    //   est_id: 1,
-    //   usu_id: deal.usu_id,
-    //   cli_id: v.cli_id,
-    //   ale_id: Number(v.ale_id),
-    //   tar_alertanum: Number(v.tar_alertanum),
-    //   tip_id: Number(v.tip_id),
-    //   pri_id: priority,
-    // };
-
-    // let inputNota = {
-    //   not_desc: note === `<p><br></p>` ? "" : note,
-    //   not_importancia: priority,
-    // };
-
-    // if (inputNota.not_desc === "") {
-    //   inputNota = null;
-    // }
-
-    // if (fList.length === 0) {
-    //   inputAdjunto = null;
-    // }
-
-    // newTareaResolver({
-    //   variables: {
-    //     idNegocio: negId,
-    //     idUsuario: deal.usu_id,
-    //     idCliente: deal.cli_id,
-    //     idContacto: Number(v.con_id),
-    //     inputTarea,
-    //     inputNota,
-    //     inputAdjunto,
-    //     idUsuarioAsignado: v.usu_asig_id,
-    //   },
-    // }).then((tarea) => {
-    //   const idTarea = tarea.data.newTareaResolver;
-    //   const template = `####T_${idTarea}`;
-    //   const his_detalle = template;
-    //   setHistorial(
-    //     newHistorialNegocioResolver,
-    //     idUser,
-    //     negId,
-    //     Number(etaId),
-    //     his_detalle,
-    //     -1
-    //   );
-    // });
-
-    // setNote("");
-    // form.resetFields();
-    // setFlist([]);
-    // onClose();
-  };
 
   useEffect(() => {
     if (data) {
@@ -145,6 +74,19 @@ const NuevaTarea = () => {
       setOcultarC(true);
     }
   };
+
+  const handleLimpiar = (value) => {
+    if (limpiar === false) {
+      setLimpiar(true);
+      setOcultarC(false);
+    }
+    if (limpiar === true) {
+      setLimpiar(false);
+      setOcultarC(false);
+    }
+
+    setBuscador("");
+  };
   //TODO FIN SECCION DE ELEGIR CLIENTE
   //TODO INICIO SECCION DE ELEGIR TIPO TAREA
   const [tiposTareas, setTiposTareas] = useState([]);
@@ -165,17 +107,13 @@ const NuevaTarea = () => {
     console.log(tiposTareas);
   }, [tiposTareas]);
 
-
   const handleSelectTT = ({ value }) => {
     console.log(value);
   };
   //TODO FIN SECCION DE ELEGIR TIPO TAREA
   //TODO INICIO SECCION DE ELEGIR ORIGEN TAREA
   const [tiposOrigenes, setTiposOrigenes] = useState([]);
-  const [buscadorO, setBuscadorO] = useState("");
-
-  const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {
-  });
+  const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {});
 
   useEffect(() => {
     if (dataTipoOrigen) {
@@ -237,34 +175,37 @@ const NuevaTarea = () => {
     },
   ];
 
-  const handleFormSubmit = (values) => {};
+  const handleFormSubmit = (values) => {
+
+    values.cliente = clientes
+    console.log(values)
+
+    Modal.alert({
+      header: (
+        <CheckOutline
+          style={{
+            fontSize: 64,
+            color: "var(--adm-color-primary)",
+          }}
+        />
+      ),
+      title: "Tarea Cargada Correctamente",
+      confirmText: "Cerrar",
+    });
+  };
+
 
   return (
     <div className="detalle-tarea-contenedor">
       <Form
-        form={form}
         layout="vertical"
-        onFinish={onFinish}
+        onFinish={(values) => handleFormSubmit(values)}
         footer={
           <Button
             block
             type="submit"
             color="primary"
             size="large"
-            onClick={() => {
-              Modal.alert({
-                header: (
-                  <CheckOutline
-                    style={{
-                      fontSize: 64,
-                      color: "var(--adm-color-primary)",
-                    }}
-                  />
-                ),
-                title: "Tarea Cargada Correctamente",
-                confirmText: "Cerrar",
-              });
-            }}
           >
             Cargar Tarea
           </Button>
@@ -284,17 +225,26 @@ const NuevaTarea = () => {
               onChange={(value) => handleChange(value)}
             />
           ) : null}
+
           {clientes &&
             clientes.map((cliente) => (
               <>
                 {buscador !== "" ? (
                   <>
-                    <input
-                      className="select_nueva_tarea"
-                      type="text"
-                      onClick={(value) => handleSelect(value)}
-                      value={cliente.cli_nombre}
-                    />
+                    <div className="div_clienteSelect_btn">
+                      <input
+                        className="select_nueva_tarea input_cliente"
+                        type="text"
+                        onClick={(value) => handleSelect(value)}
+                        value={cliente.cli_nombre}
+                      />
+                      <Button
+                        className="btn_cliente"
+                        onClick={() => handleLimpiar()}
+                      >
+                        X
+                      </Button>
+                    </div>
                   </>
                 ) : (
                   ""
@@ -303,12 +253,16 @@ const NuevaTarea = () => {
             ))}
         </Form.Item>
         <Form.Item label="Asunto" name="asunto">
-          <TextArea className="detalleTarea" autoSize={true} placeholder="Detalle de Tarea"></TextArea>
+          <TextArea
+            className="detalleTarea"
+            autoSize={true}
+            placeholder="Detalle de Tarea"
+          ></TextArea>
         </Form.Item>
         <Form.Item label="Tipo de Tarea" name="tipoTarea">
           <Select
             className="select_nueva_tarea"
-            defaultValue={{ label: "Seleccione Tipo de Tarea" }}
+            placeholder="Seleccione Tipo de Tarea"
             options={
               tiposTareas &&
               tiposTareas.map((tipoTarea) => ({
@@ -321,8 +275,8 @@ const NuevaTarea = () => {
         </Form.Item>
         <Form.Item label="Fuente" name="fuente">
           <Select
-            className="select_nueva_tarea"
-            defaultValue={{ label: "Seleccione Fuente" }}
+            className="select_nueva_tarea select_fuente"
+            placeholder="Seleccione Fuente"
             options={
               tiposOrigenes &&
               tiposOrigenes.map((tipoOrigen) => ({
@@ -340,22 +294,28 @@ const NuevaTarea = () => {
             justifyContent: "space-between",
           }}
         >
-          <div>
-            <Form.Item label="Vencimiento" name="vencimiento">
-              <input
-                className="input-fechaHora"
-                type="date"
-                placeholder="Seleccione Fecha"
-              />
+          <div
+            style={{
+              width: "50%",
+            }}
+          >
+            <Form.Item
+              label="Vencimiento"
+              name="tar_vencimiento"
+            >
+              <input className="input-fechaHora" type="date" />
             </Form.Item>
           </div>
-          <div>
-            <Form.Item label="Hora" name="hora">
-              <input
-                className="input-fechaHora"
-                type="time"
-                placeholder="Seleccione Hora"
-              />
+          <div
+            style={{
+              width: "50%",
+            }}
+          >
+            <Form.Item
+              label="Hora"
+              name="tar_horavencimiento"
+            >
+              <input className="input-fechaHora" type="time" />
             </Form.Item>
           </div>
         </div>
