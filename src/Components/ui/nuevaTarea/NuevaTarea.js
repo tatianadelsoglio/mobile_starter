@@ -294,22 +294,28 @@ const NuevaTarea = () => {
             justifyContent: "space-between",
           }}
         >
-          <div>
-            <Form.Item label="Vencimiento" name="vencimiento">
-              <input
-                className="input-fechaHora"
-                type="date"
-                placeholder="Seleccione Fecha"
-              />
+          <div
+            style={{
+              width: "50%",
+            }}
+          >
+            <Form.Item
+              label="Vencimiento"
+              name="tar_vencimiento"
+            >
+              <input className="input-fechaHora" type="date" />
             </Form.Item>
           </div>
-          <div>
-            <Form.Item label="Hora" name="hora">
-              <input
-                className="input-fechaHora"
-                type="time"
-                placeholder="Seleccione Hora"
-              />
+          <div
+            style={{
+              width: "50%",
+            }}
+          >
+            <Form.Item
+              label="Hora"
+              name="tar_horavencimiento"
+            >
+              <input className="input-fechaHora" type="time" />
             </Form.Item>
           </div>
         </div>
