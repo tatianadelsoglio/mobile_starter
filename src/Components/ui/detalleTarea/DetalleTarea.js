@@ -1,32 +1,101 @@
 /* eslint-disable array-callback-return */
 
-import { Form, Button, Selector, TextArea, Modal } from "antd-mobile";
+import {
+  Form,
+  Button,
+  Selector,
+  TextArea,
+  Modal,
+  DatePicker,
+} from "antd-mobile";
 import { CheckOutline } from "antd-mobile-icons";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
 import moment from "moment";
+import { GlobalContext } from "../../context/GlobalContext";
+import { useQuery } from "@apollo/client";
+import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
+import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
+import Select from "react-select";
+import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 
 const DetalleTarea = () => {
+  const { userId } = useContext(GlobalContext);
+
   const location = useLocation();
 
   const [tarea, setTarea] = useState(location.state);
 
-  const [idSelector, setIdSelector] = useState(tarea.prioridad);
+  const [idSelector, setIdSelector] = useState(tarea.pri_desc);
 
-  const handleFecha = (fecha) => {
-    fecha = fecha.split(" ");
+  const [clientes, setClientes] = useState([]);
 
-    fecha = moment(fecha[0], "DD/MM/YYYY").format("YYYY-MM-DD");
+  const [buscador, setBuscador] = useState("");
+  const [ocultarC, setOcultarC] = useState(false);
+  const [dateFrom, setDateFrom] = useState("");
 
-    return fecha;
+  const onChangeDateFrom = (v) => {
+    setDateFrom(moment(v));
   };
 
-  const handleHora = (hora) => {
-    hora = hora.split(" ");
-
-    return hora[1];
+  const handleChange = (value) => {
+    if (value === "" || value === null) {
+    }
+    console.log(value.target.value);
+    setBuscador(value.target.value);
   };
+
+  const { loading, error, data } = useQuery(GET_CLIENTE, {
+    variables: {
+      input: buscador.length > 2 ? buscador : "",
+      idUsuario: userId,
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      setClientes(data.getClientesLimitResolver);
+    }
+  }, [data]);
+
+  const handleSelect = (value) => {
+    console.log("cliente: ", value.target.value);
+    setBuscador(value.target.value);
+
+    if (ocultarC === true) {
+      setOcultarC(false);
+    }
+
+    if (ocultarC === false) {
+      setOcultarC(true);
+    }
+  };
+
+  const [tiposTareas, setTiposTareas] = useState([]);
+
+  const { data: dataTipoTarea } = useQuery(GET_TIPO_TAREA, {
+    variables: {
+      idCategoria: 1,
+    },
+  });
+
+  useEffect(() => {
+    if (dataTipoTarea) {
+      setTiposTareas(dataTipoTarea.getTiposTareaResolver);
+    }
+  }, [dataTipoTarea]);
+
+  const [tiposOrigenes, setTiposOrigenes] = useState([]);
+
+  const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {});
+
+  useEffect(() => {
+    if (dataTipoOrigen) {
+      setTiposOrigenes(dataTipoOrigen.getOrigenesResolver);
+    }
+  }, [dataTipoOrigen]);
+  console.log(tarea);
 
   const prioridad = [
     {
@@ -75,23 +144,18 @@ const DetalleTarea = () => {
 
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
-  };
+  const onFinish = (values) => {};
 
-  const valoresIniciales = {
-    cliente: tarea.cliente,
-    asunto: tarea.asunto,
-    fecha: handleFecha(tarea.fechaHora),
-    hora: handleHora(tarea.fechaHora),
-    nota: tarea.anexo?.map((anexo) => {
-      if (anexo.tipo === "#N") {
-        return anexo.texto;
-      }
-    }),
-    tipoTarea: tarea.tipoTarea,
-    fuente: tarea.origen,
-    prioridad: tarea.prioridad,
-  }
+  // const valoresIniciales = {
+  //   cli_id: tarea.cli_id,
+  //   tar_asunto: tarea.tar_asunto,
+  //   tar_vencimiento: tarea.tar_vencimiento,
+  //   tar_horavencimiento: moment(tarea.tar_horavencimiento, "HH:mm:ss").format("LT"),
+  //   not_desc: tarea.not_desc ? tarea.not_desc: null,
+  //   tip_id: tarea.tip_id,
+  //   ori_id: tarea.ori_id,
+  //   prioridad: tarea.pri_desc,
+  // }
 
   return (
     <div className="detalle-tarea-contenedor">
@@ -100,7 +164,7 @@ const DetalleTarea = () => {
         form={form}
         layout="vertical"
         onFinish={onFinish}
-        initialValues={valoresIniciales}
+        // initialValues={valoresIniciales}
         footer={
           <Button
             block
@@ -126,33 +190,71 @@ const DetalleTarea = () => {
           </Button>
         }
       >
-        <Form.Item label="Cliente"
-        name="cliente">
-          <select className="select_nueva_tarea" required>
-            <option value="1" selected>
-              {tarea.cliente}
-            </option>
-          </select>
+        <Form.Item
+          label="Cliente"
+          name="cli_id"
+          initialValue={{ label: tarea.cli_nombre, id: tarea.cli_id }}
+        >
+          {ocultarC !== true ? (
+            <input
+              className="select_nueva_tarea input_cliente"
+              placeholder="Ingrese Cliente"
+              type="search"
+              autoComplete="off"
+              onChange={(value) => handleChange(value)}
+            />
+          ) : null}
+          {clientes &&
+            clientes.map((cliente) => (
+              <>
+                {buscador !== "" ? (
+                  <>
+                    <input
+                      className="select_nueva_tarea"
+                      type="text"
+                      onClick={(value) => handleSelect(value)}
+                      value={cliente.cli_nombre}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
+              </>
+            ))}
         </Form.Item>
-        <Form.Item label="Asunto"
-        name="asunto">
+        <Form.Item
+          label="Asunto"
+          name="tar_asunto"
+          initialValue={tarea.tar_asunto}
+        >
           <TextArea autoSize={true} />
         </Form.Item>
-        <Form.Item label="Tipo de Tarea"
-        name="tipoTarea">
-          <select className="select_nueva_tarea" required>
-            <option value="1" selected>
-              {tarea.tipoTarea}
-            </option>
-          </select>
+        <Form.Item label="Tipo de Tarea" name="tip_id">
+          <Select
+            className="select_nueva_tarea"
+            defaultValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
+            options={
+              tiposTareas &&
+              tiposTareas.map((tipoTarea) => ({
+                label: tipoTarea.tip_desc,
+                value: tipoTarea.tip_id,
+              }))
+            }
+            // onChange={handleSelectTT}
+          />
         </Form.Item>
-        <Form.Item label="Fuente"
-        name="fuente">
-          <select className="select_nueva_tarea" required>
-            <option value="1" selected>
-              {tarea.origen}
-            </option>
-          </select>
+        <Form.Item label="Fuente" name="ori_id">
+          <Select
+            className="select_nueva_tarea"
+            defaultValue={{ label: tarea.ori_desc, value: tarea.ori_id }}
+            options={
+              tiposOrigenes &&
+              tiposOrigenes.map((tipoOrigen) => ({
+                label: tipoOrigen.ori_desc,
+                value: tipoOrigen.ori_id,
+              }))
+            }
+          />
         </Form.Item>
         <div
           style={{
@@ -162,29 +264,44 @@ const DetalleTarea = () => {
           }}
         >
           <div>
-            <Form.Item label="Vencimiento"
-            name="fecha">
-              <input
-                className="input-fechaHora"
-                type="date"
-                value={handleFecha(tarea.fechaHora)}
+            {/* <Form.Item label="Vencimiento" name="tar_fecha" initialValue={moment(tarea.tar_vencimiento)}
+            format="DD/MM/YYYY">
+              <input className="input-fechaHora" type="date" name="tar_vencimiento" value={tarea.tar_vencimiento} />
+            </Form.Item> */}
+
+            {/* <Form.Item
+              initialValue={moment(tarea.tar_vencimiento)}
+              label="Vencimiento"
+              format="DD/MM/YYYY"
+              name="tar_fecha"
+              rules={[
+                {
+                  required: true,
+                  message: "Campo obligatorio",
+                },
+              ]}
+            >
+              <DatePicker
+                // disabledDate={(current) =>
+                //   current.isBefore(
+                //     moment(tarea.tar_vencimiento).subtract(0, "day")
+                //   )
+                // }
+                style={{ width: "97%", marginRight: 4 }}
+                // locale={locale}
+                format="DD/MM/YYYY"
+                onChange={onChangeDateFrom}
               />
-            </Form.Item>
+            </Form.Item> */}
           </div>
           <div>
             <Form.Item label="Hora" name="hora">
-              <input
-                className="input-fechaHora"
-                type="time"
-                value={handleHora(tarea.fechaHora)}
-              />
+              <input className="input-fechaHora" type="time" />
             </Form.Item>
           </div>
         </div>
         <Form.Item label="Nota" name="nota">
-          <TextArea
-            autoSize={true}
-          />
+          <TextArea autoSize={true} />
         </Form.Item>
         <Form.Item label="Prioridad" name="prioridad">
           <Selector
