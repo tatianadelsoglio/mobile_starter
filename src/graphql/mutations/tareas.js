@@ -1,28 +1,22 @@
 import { gql } from "@apollo/client";
 
 export const NEW_TAREA = gql`
-  mutation newTareaResolver(
+  mutation newTareaIframe(
     $inputTarea: tareaInput
-    $idNegocio: Int
-    $idUsuario: Int
-    $idCliente: Int
     $inputNota: notaInput
     $inputAdjunto: uploadInput
-    $idContacto: Int
-    $idUsuarioAsignado: Int
+    $usuAsig: Int
   ) {
-    newTareaResolver(
+    newTareaIframeResolver(
       inputTarea: $inputTarea
-      idNegocio: $idNegocio
       inputNota: $inputNota
-      idUsuario: $idUsuario
-      idCliente: $idCliente
       inputAdjunto: $inputAdjunto
-      idContacto: $idContacto
-      idUsuarioAsignado: $idUsuarioAsignado
+      usuAsig: $usuAsig
     )
   }
 `;
+
+
 export const UPDATE_TAREA = gql`
   mutation updateTarea(
     $idTarea: Int
@@ -40,6 +34,7 @@ export const UPDATE_TAREA = gql`
     )
   }
 `;
+
 export const UPDATE_ESTADO_TAREA = gql`
   mutation estadoTarea($idTarea: Int, $idEstado: Int) {
     estadoTareaResolver(idTarea: $idTarea, idEstado: $idEstado)

@@ -25,8 +25,9 @@ const DetalleTarea = () => {
 
   const [clientes, setClientes] = useState([]);
 
-  const [buscador, setBuscador] = useState("");
-  const [ocultarC, setOcultarC] = useState(false);
+  const [buscador, setBuscador] = useState(`${tarea.cli_nombre}`);
+  const [ocultarC, setOcultarC] = useState(true);
+  const [limpiar, setLimpiar] = useState(false);
 
   const handleChange = (value) => {
     console.log(value.target.value);
@@ -44,12 +45,11 @@ const DetalleTarea = () => {
 
   useEffect(() => {
     if (data) {
-      let dataClientes= [];
+      let dataClientes = [];
 
       data.getClientesLimitResolver.map((cliente) => {
-        if(cliente.cli_id != tarea.cli_id)
-        dataClientes.push(cliente);
-      })
+        if (cliente.cli_id != tarea.cli_id) dataClientes.push(cliente);
+      });
 
       // let temp = Object.assign(data.getClientesLimitResolver, dataClientes);
       dataClientes.push({
@@ -59,7 +59,6 @@ const DetalleTarea = () => {
         cli_nombre: tarea.cli_nombre,
         cli_telefono1: null,
       });
-      console.log(dataClientes);
       setClientes(dataClientes);
     }
   }, [data]);
@@ -76,7 +75,18 @@ const DetalleTarea = () => {
     }
   };
 
-  
+  const handleLimpiar = (value) => {
+    if (limpiar === false) {
+      setLimpiar(true);
+      setOcultarC(false);
+    }
+    if (limpiar === true) {
+      setLimpiar(false);
+      setOcultarC(false);
+    }
+
+    setBuscador("");
+  };
 
   const [tiposTareas, setTiposTareas] = useState([]);
 
@@ -143,7 +153,9 @@ const DetalleTarea = () => {
 
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {};
+  const onFinish = (values) => {
+
+  };
 
   return (
     <div className="detalle-tarea-contenedor">
@@ -188,7 +200,7 @@ const DetalleTarea = () => {
               placeholder="Ingrese Cliente"
               type="search"
               autoComplete="off"
-              initialValue={{ label: tarea.cli_nombre, id: tarea.cli_id }}
+              // value={tarea.cli_nombre}
               onChange={(value) => handleChange(value)}
             />
           ) : null}
@@ -196,14 +208,20 @@ const DetalleTarea = () => {
             clientes.map((cliente) => (
               <>
                 {buscador !== "" ? (
-                  <>
+                  <div className="div_clienteSelect_btn">
                     <input
-                      className="select_nueva_tarea"
+                      className="select_nueva_tarea input_cliente"
                       type="text"
                       onClick={(value) => handleSelect(value)}
-                      initialValue={cliente.cli_nombre}
+                      value={cliente.cli_nombre}
                     />
-                  </>
+                    <Button
+                      className="btn_cliente"
+                      onClick={() => handleLimpiar()}
+                    >
+                      X
+                    </Button>
+                  </div>
                 ) : (
                   ""
                 )}
@@ -283,9 +301,6 @@ const DetalleTarea = () => {
         <Form.Item
           label="Nota"
           name="not_desc"
-          initialValue={
-            <div dangerouslySetInnerHTML={{ __html: tarea.not_desc }} />
-          }
         >
           <Note
             editValue={tarea.not_desc || ""}
