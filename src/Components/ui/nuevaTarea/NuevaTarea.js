@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import {
@@ -135,7 +136,7 @@ const NuevaTarea = () => {
       label: (
         <div
           className={
-            idSelector === "ALTA"
+            idSelector === 1
               ? "selector-alta seleccionado"
               : "selector-alta"
           }
@@ -143,13 +144,13 @@ const NuevaTarea = () => {
           <p className="selector-texto">ALTA</p>
         </div>
       ),
-      value: "ALTA",
+      value: 1,
     },
     {
       label: (
         <div
           className={
-            idSelector === "MEDIA"
+            idSelector === 2
               ? "selector-media seleccionado"
               : "selector-media"
           }
@@ -157,13 +158,13 @@ const NuevaTarea = () => {
           <p className="selector-texto">MEDIA</p>
         </div>
       ),
-      value: "MEDIA",
+      value: 2,
     },
     {
       label: (
         <div
           className={
-            idSelector === "BAJA"
+            idSelector === 3
               ? "selector-baja seleccionado"
               : "selector-baja"
           }
@@ -171,14 +172,22 @@ const NuevaTarea = () => {
           <p className="selector-texto">BAJA</p>
         </div>
       ),
-      value: "BAJA",
+      value: 3,
     },
   ];
 
   const handleFormSubmit = (values) => {
 
-    values.cliente = clientes
+    values.cli_id = clientes[0].cli_id
+    values.ori_id = values.ori_id.value
+    values.pri_id = values.pri_id[0]
+    values.tar_asunto = values.tar_asunto
+    values.tar_horavencimiento = values.tar_horavencimiento
+    values.tar_vencimiento = values.tar_vencimiento
+    values.tip_id = values.tip_id.value
     console.log(values)
+
+    
 
     Modal.alert({
       header: (
@@ -213,7 +222,7 @@ const NuevaTarea = () => {
       >
         <Form.Item
           label="Cliente"
-          name="cliente"
+          name="cli_id"
           className="nueva_tarea_buscador_cliente"
         >
           {ocultarC !== true ? (
@@ -252,14 +261,14 @@ const NuevaTarea = () => {
               </>
             ))}
         </Form.Item>
-        <Form.Item label="Asunto" name="asunto">
+        <Form.Item label="Asunto" name="tar_asunto">
           <TextArea
             className="detalleTarea"
             autoSize={true}
             placeholder="Detalle de Tarea"
           ></TextArea>
         </Form.Item>
-        <Form.Item label="Tipo de Tarea" name="tipoTarea">
+        <Form.Item label="Tipo de Tarea" name="tip_id">
           <Select
             className="select_nueva_tarea"
             placeholder="Seleccione Tipo de Tarea"
@@ -273,7 +282,7 @@ const NuevaTarea = () => {
             onChange={handleSelectTT}
           />
         </Form.Item>
-        <Form.Item label="Fuente" name="fuente">
+        <Form.Item label="Fuente" name="ori_id">
           <Select
             className="select_nueva_tarea select_fuente"
             placeholder="Seleccione Fuente"
@@ -319,7 +328,7 @@ const NuevaTarea = () => {
             </Form.Item>
           </div>
         </div>
-        <Form.Item label="Prioridad" name="prioridad">
+        <Form.Item label="Prioridad" name="pri_id">
           <Selector
             style={{
               "--border-radius": "10px",
