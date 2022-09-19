@@ -12,15 +12,16 @@ import {
 } from "antd-mobile-icons";
 import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Dialog, Ellipsis, Modal, SwipeAction } from "antd-mobile";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
-import { sleep } from 'antd-mobile/es/utils/sleep';
 import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
+import { GlobalContext } from "../../context/GlobalContext";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
-
+  const { pollTareas } = useContext(GlobalContext);
+  console.log(tarea);
   const [mostrar, setMostrar] = useState(false);
 
   const ref = useRef(null);
@@ -43,7 +44,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const handleModalDetalleTarea = (tarea) => {
     let cliente = tarea;
-    console.log("tarea selec para editar: ", tarea.tar_id)
+    console.log("tarea selec para editar: ", tarea.tar_id);
 
     return history.push({
       pathname: `/detalletarea/${tarea.tar_id}`,
@@ -51,33 +52,39 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     });
   };
 
-  const [updateEstadoTareaIframeResolver] = useMutation(UPDATE_ESTADO_TAREA);
+  const [updateEstadoTareaIframeResolver] = useMutation(UPDATE_ESTADO_TAREA, {
+    onCompleted: () => {
+
+      pollTareas.inicial(1000);
+      setTimeout(() => {
+        pollTareas.stop();
+      }, 1000);
+
+      Modal.alert({
+        header: (
+          <CheckOutline
+            style={{
+              fontSize: 64,
+              color: "var(--adm-color-primary)",
+            }}
+          />
+        ),
+        title: "Tarea Cerrada Correctamente",
+        confirmText: "Cerrar",
+        onConfirm: history.push("/tareas"),
+      });
+    },
+  });
 
   const handleModalCerrar = (tarea) => {
-
-     // escribe el resolver
-     updateEstadoTareaIframeResolver({
-      variables: { idTarea:tarea.tar_id,}
+    // escribe el resolver
+    updateEstadoTareaIframeResolver({
+      variables: { idTarea: tarea.tar_id },
     });
 
     // console.log(tarea.tar_id)
 
-    Modal.alert({
-      header: (
-        <CheckOutline
-          style={{
-            fontSize: 64,
-            color: "var(--adm-color-primary)",
-          }}
-        />
-      ),
-      title: "Tarea Cerrada Correctamente",
-      confirmText: "Cerrar",
-      onConfirm:(async() => 
-      {await sleep(1)
-        history.go(0)
-      })
-    });
+    
   };
 
   let fechaActual = moment();
@@ -122,7 +129,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 content: "¿Cerrar Tarea?",
                 cancelText: "Cancelar",
                 confirmText: "Aceptar",
-                onConfirm: (() => handleModalCerrar(tarea)),
+                onConfirm: () => handleModalCerrar(tarea),
               });
               ref.current?.close();
             },
@@ -330,7 +337,11 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   fontSize: "0.8rem",
                 }}
               />
-              <p className="texto-tarea-horario">{moment(tarea.tar_vencimiento, "YYYY-MM-DD").format("DD/MM/YYYY")}</p>
+              <p className="texto-tarea-horario">
+                {moment(tarea.tar_vencimiento, "YYYY-MM-DD").format(
+                  "DD/MM/YYYY"
+                )}
+              </p>
               {tarea.tar_horavencimiento && (
                 <p className="texto-tarea-horario">
                   {handleHora(tarea.tar_horavencimiento)} hs

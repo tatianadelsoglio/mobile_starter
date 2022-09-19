@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 import { Calendar, CapsuleTabs } from "antd-mobile";
@@ -15,8 +16,9 @@ import { TareasSemana } from "../tareasSemana/TareasSemana";
 import { TareasSemanaProxima } from "../tareasSemanaProxima/TareasSemanaProxima";
 import { TareasVencidas } from "../tareasVencidas/TareasVencidas";
 
+
 const Tareas = () => {
-  const { tareas, setTareas, userId } = useContext(GlobalContext);
+  const { tareas, setTareas, userId, setPollTareas } = useContext(GlobalContext);
 
   const [tareasCalendario, setTareasCalendario] = useState();
   const [activeKey, setActiveKey] = useState("1");
@@ -25,6 +27,7 @@ const Tareas = () => {
   const [filtroFecha, setFiltroFecha] = useState(moment().format("YYYY-MM-DD"));
   const [estado, setEstado] = useState(1);
 
+<<<<<<< HEAD
   const { loading, error, data } = useQuery(
     GET_TAREAS,
     {
@@ -38,8 +41,20 @@ const Tareas = () => {
       },
     }
   );
+=======
+  const { loading, error, data, startPolling, stopPolling } = useQuery(GET_TAREAS, {
+    variables: {
+      idUsuario: userId,
+      filtroFecha: "date",
+      fecha: filtroFecha,
+      estado: estado,
+      idUsuarioFiltro: "",
+      idClienteFiltro: null,
+    },
+  });
+>>>>>>> origin/feature/cliente/lista-contactos
 
-  const { data: dataCalendario } = useQuery(GET_TAREAS_CALENDARIO, {
+  const { data: dataCalendario, } = useQuery(GET_TAREAS_CALENDARIO, {
     variables: {
       idUsuario: userId,
       fecha: "",
@@ -64,17 +79,19 @@ const Tareas = () => {
   };
 
   useEffect(() => {
-    if (data) {
+
+    setPollTareas({inicial:startPolling, stop:stopPolling});
+
+    if (data) {     
       ordenarDatos(JSON.parse(data.getTareasIframeResolver));
     }
-
+  
     if (dataCalendario) {
       setTareasCalendario(
         JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver)
           .fechasVenc
       );
     }
-    // console.log(JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver))
   }, [data, dataCalendario]);
 
   const handleChange = (val) => {

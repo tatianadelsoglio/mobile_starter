@@ -22,6 +22,7 @@ const App = () => {
   const [userId, setUserId] = useState(null);
   const [cargando, setCargando] = useState(false);
   const [note, setNote] = useState();
+  const [pollTareas, setPollTareas] = useState();
 
   useEffect(() => {
 
@@ -64,7 +65,9 @@ const App = () => {
               cargando,
               setCargando,
               note,
-              setNote
+              setNote,
+              pollTareas,
+              setPollTareas,
             }}
           >
             <AppRouter />
