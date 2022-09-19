@@ -4,9 +4,9 @@
   padding: 5px 0px 10px 0px;
   display: flex;
   flex-direction: column;
-  margin-left: 5px;
+  margin-left: 2px;
   border: 1px solid rgba(153, 153, 153, 0.2);
-  border-radius: 1px;
+  border-radius: 2px;
   box-sizing: border-box;
 }
 
@@ -18,7 +18,19 @@
   flex-direction: column;
   margin-left: 15px;
   border: 1px solid rgba(153, 153, 153, 0.2);
-  border-radius: 1px;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.nota-tarea-wrapper-lista-negocio {
+  width: calc(100% - 13px);
+  background-color: #fffcdc;
+  padding: 5px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  border: 1px solid rgba(153, 153, 153, 0.2);
+  border-radius: 2px;
   box-sizing: border-box;
 }
 
@@ -39,7 +51,7 @@
   margin: 0px 5px;
   color: white;
   font-weight: bold;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .nota-tarea-linea-superior {

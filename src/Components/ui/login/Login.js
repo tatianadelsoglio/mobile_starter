@@ -17,7 +17,7 @@ import { useLazyQuery } from "@apollo/client";
 const Login = () => {
   let history = useHistory();
   const auth = useAuth();
-  const { userData, setUserData } = useContext(GlobalContext);
+  const { userData, setUserData, userId, setUserId } = useContext(GlobalContext);
 
   const [visible, setVisible] = useState(false);
   const [switchChecked, setSwitchChecked] = useState(false);
@@ -27,12 +27,20 @@ const Login = () => {
     useLazyQuery(LOGIN_AUTHENTICATION);
 
   useEffect(() => {
-    if(data) {
+
+
+
+    if (data) {
       if (data.loginIframeResolver.status === 200) {
+        setUserId(data.loginIframeResolver.idUser);
         if (switchChecked) {
-          saveDataInStorage("userInfo", userData);
+
+          const x ={
+            ...userData, idUsuario:data.loginIframeResolver.idUser
+          }
+          saveDataInStorage("userInfo", x);
         }
-  
+
         auth.login(userData);
       } else {
         alert(data.loginIframeResolver.message);
@@ -43,101 +51,98 @@ const Login = () => {
   const onFinish = (values) => {
     let usuario = base64.encode(values.username);
     let contrasena = base64.encode(values.password);
-    console.log(usuario, contrasena);
 
     loginIframeResolver({
       variables: { credentials: { username: usuario, password: contrasena } },
     });
 
-    setUserData({username: usuario, password: contrasena});
+    setUserData({ username: usuario, password: contrasena });
 
     const info = { usuario, contrasena };
   };
 
   return (
-    <>
-      <div className="vista_login_wrapper">
-        <div className="vista_login_content1"></div>
-        <div className="vista_login_content">
-          <div className="img_content">
-            <Image src={duo} width={150} height={150} />
-          </div>
-          <div className="form_login">
-            <Form
-              layout="horizontal"
-              onFinish={onFinish}
-              footer={
-                <>
-                  <div className="recordar">
-                    <div className="recordar_texto">
-                      <h3>Recordarme</h3>
-                    </div>
-                    <div className="recordar_check">
-                      <Checkbox
-                        onChange={() => {
-                          setSwitchChecked(!switchChecked);
-                        }}
-                      />
-                    </div>
+    <div className="vista_login_wrapper">
+      <div className="vista_login_content1"></div>
+      <div className="vista_login_content">
+        <div className="img_content">
+          <Image src={duo} width={150} height={150} />
+        </div>
+        <div className="form_login">
+          <Form
+            layout="horizontal"
+            onFinish={onFinish}
+            footer={
+              <>
+                <div className="recordar">
+                  <div className="recordar_texto">
+                    <h3>Recordarme</h3>
                   </div>
-                  <div className="btn_content">
-                    <Button className="btn_content_btn" type="submit">
-                      INICIAR
-                    </Button>
+                  <div className="recordar_check">
+                    <Checkbox
+                      onChange={() => {
+                        setSwitchChecked(!switchChecked);
+                      }}
+                    />
                   </div>
-                </>
+                </div>
+                <div className="btn_content">
+                  <Button className="btn_content_btn" type="submit">
+                    INICIAR
+                  </Button>
+                </div>
+              </>
+            }
+          >
+            <Form.Item
+              className="form_login_label"
+              label="Usuario"
+              name="username"
+              rules={[
+                {
+                  required: false,
+                  message: "Por Favor Ingrese Usuario!",
+                },
+              ]}
+            >
+              <Input
+                className="form_login_input"
+                placeholder="Ingrese Usuario"
+                clearable
+              />
+            </Form.Item>
+            <Form.Item
+              className="form_login_label"
+              label="Contraseña"
+              name="password"
+              rules={[
+                {
+                  required: false,
+                  message: "Por Favor Ingrese Contraseña!",
+                },
+              ]}
+              extra={
+                <div className="eye">
+                  {!visible ? (
+                    <EyeInvisibleOutline onClick={() => setVisible(true)} />
+                  ) : (
+                    <EyeOutline onClick={() => setVisible(false)} />
+                  )}
+                </div>
               }
             >
-              <Form.Item
-                className="form_login_label"
-                label="Usuario"
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por Favor Ingrese Usuario!",
-                  },
-                ]}
-              >
-                <Input
-                  className="form_login_input"
-                  placeholder="Ingrese Usuario"
-                  clearable
-                />
-              </Form.Item>
-              <Form.Item
-                className="form_login_label"
-                label="Contraseña"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por Favor Ingrese Contraseña!",
-                  },
-                ]}
-                extra={
-                  <div className="eye">
-                    {!visible ? (
-                      <EyeInvisibleOutline onClick={() => setVisible(true)} />
-                    ) : (
-                      <EyeOutline onClick={() => setVisible(false)} />
-                    )}
-                  </div>
-                }
-              >
-                <Input
-                  className="form_login_input"
-                  placeholder="Ingrese Contraseña"
-                  clearable
-                  type={visible ? "text" : "password"}
-                />
-              </Form.Item>
-            </Form>
-          </div>
+              <Input
+                className="form_login_input"
+                placeholder="Ingrese Contraseña"
+                clearable
+                type={visible ? "text" : "password"}
+              />
+            </Form.Item>
+          </Form>
         </div>
-        <div className="vista_login_content1"></div>
       </div>
-    </>
+      <div className="vista_login_content1"></div>
+    </div>
   );
 };
 

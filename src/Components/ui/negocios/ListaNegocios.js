@@ -2,150 +2,73 @@ import "./listaNegocios.css";
 import {
   UserOutline,
   ClockCircleOutline,
-  UserCircleOutline,
+  ShopbagOutline,
 } from "antd-mobile-icons";
 import moment from "moment";
 import { Popover } from "antd-mobile";
 import { useHistory } from "react-router-dom";
 
-export const ListaNegocios = () => {
+export const ListaNegocios = ({ negocios }) => {
+
   let history = useHistory();
 
   let fechaActual = moment();
 
   const dateHandler = (fecha) => {
-    let fechaParametro = moment(fecha, "DD/MM/YYYY");
-    console.log(fechaParametro);
+    let fechaParametro = moment(fecha, "YYYY-MM-DD");
 
-    if (fechaParametro <= fechaActual) {
-      return true;
+    const diff = moment(fechaParametro).diff(fechaActual, "days");
+
+    switch (true) {
+      case diff <= 0:
+        return "#F44336";
+      case diff > 0 && diff <= 5:
+        return "#faad14";
+
+      default:
+        return "#00b33c";
     }
-    return false;
   };
 
-  const data = [
-    {
-      id: 1,
-      asunto: "Venta de soja",
-      cliente: "A.P.I.N.T.A.",
-      importe: 12500,
-      fechaInicio: "27/07/22",
-      cierreEstimado: "20/08/2022",
-      moneda: "USD",
-      contacto: "",
-      embudo: "ESTIMULUS",
-      tareas: [
-        "Cotización",
-        "Visita de campo",
-        "Cotización",
-        "Visita de campo",
-        "Otro",
-        "Otro mas",
-        "Último",
-      ],
-    },
-    {
-      id: 2,
-      asunto: "Venta de trigo",
-      cliente: "Tres Arroyos",
-      importe: 500,
-      fechaInicio: "27/07/22",
-      cierreEstimado: "16/08/2022",
-      moneda: "USD",
-      contacto: "ADRIAN SABO",
-      embudo: "ESTIMULUS",
-      tareas: [
-        "Cotización",
-        "Visita de campo",
-        "Cotización",
-        "Visita de campo",
-        "Otro",
-        "Otro mas",
-        "Último",
-      ],
-    },
-    {
-      id: 3,
-      asunto: "Venta de soja",
-      cliente: "SABO ADRIAN",
-      importe: 850,
-      fechaInicio: "27/07/22",
-      cierreEstimado: "20/07/2022",
-      moneda: "ARS",
-      contacto: "ADRIAN SABO",
-      embudo: "ESTIMULUS",
-      tareas: [
-        "Cotización",
-        "Visita de campo",
-        "Cotización",
-        "Visita de campo",
-        "Otro",
-        "Otro mas",
-        "Último",
-      ],
-    },
-    {
-      id: 4,
-      asunto: "Venta de semillas",
-      cliente: "SABO ADRIAN",
-      importe: 1,
-      fechaInicio: "27/07/22",
-      cierreEstimado: "20/08/2022",
-      moneda: "ARS",
-      contacto: "ADRIAN SABO",
-      embudo: "ESTIMULUS",
-      tareas: [
-        "Cotización",
-        "Visita de campo",
-        "Cotización",
-        "Visita de campo",
-        "Otro",
-        "Otro mas",
-        "Último",
-      ],
-    },
-  ];
-
   const onCardClick = (id) => {
-
-    let negocio = data.filter(negocio => negocio.id === id);
+    let negocio = negocios.filter((negocio) => negocio.neg_id === id);
 
     return history.push({
       pathname: `/negocio-completo/${id}`,
-      state:{...negocio}
+      state: { ...negocio },
     });
   };
 
   return (
     <div className="contenedor-negocios-principal">
       <div className="contenedor-negocios">
-        {data.map((negocio) => {
+        {negocios && negocios.map((negocio) => {
           return (
             <div
               className="card-negocio"
-              key={negocio.id}
-              onClick={() => onCardClick(negocio.id)}
+              key={negocio.neg_id}
+              onClick={() => onCardClick(negocio.neg_id)}
             >
-              <p className="card-negocio-asunto">{negocio.asunto}</p>
+              <p className="card-negocio-asunto">{negocio.neg_asunto}</p>
               <p className="card-negocio-cliente">
                 <span className="span-negocio-cliente">
-                  <UserCircleOutline />
+                  <ShopbagOutline />
                 </span>
-                {negocio.cliente}
+                {negocio.cli_nombre}
               </p>
               <div className="card-negocio-footer">
                 <p className="footer-importe">
-                  {negocio.moneda +
+                  {negocio.mon_iso +
                     " " +
-                    negocio.importe.toLocaleString("de-DE", {
+                    negocio.neg_valor.toLocaleString("de-DE", {
                       minimumFractionDigits: 0,
                     })}
                 </p>
                 <div className="importe-iconos">
-                  {negocio.contacto.length > 0 && (
+                  {negocio.con_nombre && (
                     <Popover
                       content={
-                        <p className="popover-negocios">{negocio.contacto}</p>
+                        <p className="popover-negocios">{negocio.con_nombre}</p>
                       }
                       trigger="click"
                       mode="dark"
@@ -156,17 +79,17 @@ export const ListaNegocios = () => {
                   )}
                   <Popover
                     content={
-                      <p className="popover-negocios">{`Fecha de cierre: ${negocio.cierreEstimado}`}</p>
+                      <p className="popover-negocios">{`Fecha de cierre: ${negocio.neg_fechacierreestimado}`}</p>
                     }
                     placement="top-end"
                     trigger="click"
                     mode="dark"
                   >
                     <ClockCircleOutline
-                      className={
-                        dateHandler(negocio.cierreEstimado) && "reloj-rojo"
-                      }
-                      style={{ marginLeft: "1rem" }}
+                      style={{
+                        marginLeft: "1rem",
+                        color: dateHandler(negocio.neg_fechacierreestimado),
+                      }}
                     />
                   </Popover>
                 </div>

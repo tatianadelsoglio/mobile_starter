@@ -1,40 +1,22 @@
-import { List } from "antd-mobile";
-import React from "react";
+/* eslint-disable array-callback-return */
+import { useQuery } from "@apollo/client";
+import { List, SearchBar } from "antd-mobile";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
+import { GlobalContext } from "../../context/GlobalContext";
 import "./Clientes.css";
 
-const clientes = [
-  {
-    id: "1",
-    empresa: "La Ganadera",
-    telefono: "353987654",
-    email: "ganadera@ganadera.com.ar",
-  },
-  {
-    id: "2",
-    empresa: "Caverzasi",
-    telefono: "353654321",
-    email: "caverzasi@caverzasi.com.ar",
-  },
-  {
-    id: "3",
-    empresa: "Vitalforce",
-    telefono: "353456987",
-    email: "vitalforce@vitalfocer",
-  },
-  {
-    id: "4",
-    empresa: "Darregueira",
-    telefono: "353852963",
-    email: "darregueira@darregueira.com.ar",
-  },
-];
-
 const Clientes = () => {
+  const [inputBuscador, setInputBuscador] = useState("");
+  const [clientes, setClientes] = useState();
+
+  const { userId } = useContext(GlobalContext);
+
   let history = useHistory();
 
   const redirecInfo = (id) => {
-    let cliente = clientes.filter((cliente) => cliente.id === id);
+    let cliente = clientes.filter((cliente) => cliente.cli_id === id);
 
     return history.push({
       pathname: `/cliente-individual/${id}`,
@@ -42,17 +24,53 @@ const Clientes = () => {
     });
   };
 
+  const { loading, error, data } = useQuery(GET_CLIENTE, {
+    variables: {
+      input: inputBuscador.length > 2 ? inputBuscador : "",
+      idUsuario: userId,
+    },
+  });
+
+  const handleChange = (value) => {
+    if (value === "" || value === null) {
+    }
+    return setInputBuscador(value);
+  };
+
+  useEffect(() => {
+    if (data) {
+      setClientes(data.getClientesLimitResolver);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log(clientes);
+  }, [clientes]);
+
+  useEffect(() => {
+    console.log("Busqueda: ", inputBuscador);
+  }, [inputBuscador]);
+
   return (
     <div style={{ textAlign: "start" }}>
-      <List header="Clientes">
-        {clientes.map((cliente) => (
-          <List.Item
-            key={cliente.id}
-            onClick={() => redirecInfo(cliente.id)}
-          >
-            <div className="div_empresa">{cliente.empresa}</div>
-          </List.Item>
-        ))}
+      <List
+        header={
+          <SearchBar
+            placeholder="Ingrese Cliente"
+            style={{ "--background": "#ffffff" }}
+            onChange={(value) => handleChange(value)}
+          />
+        }
+      >
+        {clientes &&
+          clientes.map((cliente) => (
+            <List.Item
+              key={cliente.cli_id}
+              onClick={() => redirecInfo(cliente.cli_id)}
+            >
+              <div className="div_empresa">{cliente.cli_nombre}</div>
+            </List.Item>
+          ))}
       </List>
     </div>
   );

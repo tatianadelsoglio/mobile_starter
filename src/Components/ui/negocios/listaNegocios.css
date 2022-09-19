@@ -8,23 +8,14 @@
     padding: 0px;
 }
 
-.titulo-negocio {
-    font-size: 1.5rem;
-    color: #56b43c;
-    position: absolute;
-    top: 2.5rem;
-}
-
 .card-negocio {
     background-color: white;
-    width: 100vw;
-    margin: 1vh 0px 1vh 0px;
+    margin: 1vh 2vw 1vh 2vw;
     padding: 0px 2vw;
+    border-radius: 2px;
 }
 
 .contenedor-negocios {
-    position: absolute;
-    top: 3.5rem;
     width: 100%;
     background-color: #f4f4f4;
 }
@@ -77,10 +68,6 @@
     justify-self: end;
     padding-right: 1rem;
     color: rgb(0, 179, 60);
-}
-
-.reloj-rojo {
-    color: rgb(244, 67, 54);
 }
 
 .popover-negocios {
