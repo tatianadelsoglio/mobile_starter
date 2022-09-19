@@ -71,7 +71,9 @@ const Tareas = () => {
           .fechasVenc
       );
     }
+    // console.log(JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver))
   }, [data, dataCalendario]);
+
 
   const handleChange = (val) => {
     setFiltroFecha(moment(val).format("YYYY-MM-DD"));
