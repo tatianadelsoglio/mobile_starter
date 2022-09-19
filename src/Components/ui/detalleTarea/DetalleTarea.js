@@ -3,7 +3,7 @@
 import { Form, Button, Selector, TextArea, Modal } from "antd-mobile";
 import { CheckOutline } from "antd-mobile-icons";
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
 import moment from "moment";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -16,9 +16,11 @@ import Note from "../note/Note";
 import { UPDATE_TAREA } from "../../../graphql/mutations/tareas";
 
 const DetalleTarea = () => {
-  const { userId, note, setNote } = useContext(GlobalContext);
+  const { userId, note, setNote, pollTareas } = useContext(GlobalContext);
 
   const location = useLocation();
+
+  const history = useHistory()
 
   const [tarea, setTarea] = useState(location.state);
 
@@ -33,7 +35,29 @@ const DetalleTarea = () => {
   const [file, setFile] = useState({});
   const [fList, setFlist] = useState([]);
 
-  const [updateTareaResolver] = useMutation(UPDATE_TAREA);
+  const [updateTareaResolver] = useMutation(UPDATE_TAREA, {
+    onCompleted: () => {
+
+      pollTareas.inicial(1000);
+      setTimeout(() => {
+        pollTareas.stop();
+      }, 1000);
+
+      Modal.alert({
+        header: (
+          <CheckOutline
+            style={{
+              fontSize: 64,
+              color: "var(--adm-color-primary)",
+            }}
+          />
+        ),
+        title: "Tarea editada correctamente",
+        confirmText: "Cerrar",
+        onConfirm: history.goBack(),
+      });
+    },
+  });
 
   const handleChange = (value) => {
     if (value.target.value === "" || value.target.value === null) {
@@ -238,20 +262,6 @@ const DetalleTarea = () => {
             type="submit"
             color="primary"
             size="large"
-            onClick={() => {
-              Modal.alert({
-                header: (
-                  <CheckOutline
-                    style={{
-                      fontSize: 64,
-                      color: "#00b33c",
-                    }}
-                  />
-                ),
-                title: "Tarea editada correctamente",
-                confirmText: "Cerrar",
-              });
-            }}
           >
             Guardar
           </Button>

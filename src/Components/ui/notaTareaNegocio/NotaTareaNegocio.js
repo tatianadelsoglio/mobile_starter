@@ -12,13 +12,13 @@ export const NotaTareaNegocio = ({
 
     switch (prioridad) {
       case "ALTA":
-        color = "#f12d2d";
+        color = "rgb(241, 45, 45)";
         break;
       case "MEDIA":
-        color = "#e8bc0d";
+        color = "rgb(232, 188, 13)";
         break;
       default:
-        color = "#00b33c";
+        color = "rgb(0, 179, 60)";
         break;
     }
     return color;

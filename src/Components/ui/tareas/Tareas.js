@@ -27,21 +27,6 @@ const Tareas = () => {
   const [filtroFecha, setFiltroFecha] = useState(moment().format("YYYY-MM-DD"));
   const [estado, setEstado] = useState(1);
 
-<<<<<<< HEAD
-  const { loading, error, data } = useQuery(
-    GET_TAREAS,
-    {
-      variables: {
-        idUsuario: userId,
-        filtroFecha: "date",
-        fecha: filtroFecha,
-        estado: estado,
-        idUsuarioFiltro: "",
-        idClienteFiltro: null,
-      },
-    }
-  );
-=======
   const { loading, error, data, startPolling, stopPolling } = useQuery(GET_TAREAS, {
     variables: {
       idUsuario: userId,
@@ -52,7 +37,6 @@ const Tareas = () => {
       idClienteFiltro: null,
     },
   });
->>>>>>> origin/feature/cliente/lista-contactos
 
   const { data: dataCalendario, } = useQuery(GET_TAREAS_CALENDARIO, {
     variables: {
