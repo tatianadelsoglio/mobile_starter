@@ -20,14 +20,14 @@ import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 import { NEW_TAREA } from "../../../graphql/mutations/tareas";
 import { useHistory } from "react-router-dom";
-import { sleep } from 'antd-mobile/es/utils/sleep';
+import { sleep } from "antd-mobile/es/utils/sleep";
 
 const NuevaTarea = () => {
   let history = useHistory();
   const [idSelector, setIdSelector] = useState();
 
   const [clientes, setClientes] = useState([]);
-  const { userId } = useContext(GlobalContext);
+  const { userId, pollTareasCalendar, pollTareas } = useContext(GlobalContext);
 
   //TODO INICIO SECCION DE ELEGIR CLIENTE
 
@@ -172,15 +172,36 @@ const NuevaTarea = () => {
 
   //* INICIO SECCION CARGAR UNA NUEVA TAREA
 
-  const [newTareaIframeResolver] = useMutation(NEW_TAREA);
+  const [newTareaIframeResolver] = useMutation(NEW_TAREA, {
+    onCompleted: () => {
+
+      pollTareas.inicial(1000);
+      setTimeout(() => {
+        pollTareas.stop();
+      }, 1000);
+
+      Modal.alert({
+        header: (
+          <CheckOutline
+            style={{
+              fontSize: 64,
+              color: "var(--adm-color-primary)",
+            }}
+          />
+        ),
+        title: "Tarea Cargada Correctamente",
+        confirmText: "Cerrar",
+        onConfirm: history.goBack(),
+      });
+    },
+  });
 
   const handleFormSubmit = (values) => {
-
     const inputTarea = {
       tar_asunto: values.tar_asunto,
       tar_vencimiento: values.tar_vencimiento,
       tar_horavencimiento: values.tar_horavencimiento,
-      ori_id:values.ori_id.value,
+      ori_id: values.ori_id.value,
       est_id: 1,
       usu_id: userId,
       cli_id: Number(clientes[0].cli_id),
@@ -189,8 +210,6 @@ const NuevaTarea = () => {
       tip_id: values.tip_id.value,
       pri_id: values.pri_id[0],
     };
-
-    
 
     let inputNota = {
       not_desc: "",
@@ -203,30 +222,11 @@ const NuevaTarea = () => {
 
     let inputAdjunto = null;
 
-
-  // console.log("tarea: ",inputTarea,"nota: ", inputNota,"adjunto: ", inputAdjunto);
+    // console.log("tarea: ",inputTarea,"nota: ", inputNota,"adjunto: ", inputAdjunto);
 
     // escribe el resolver
     newTareaIframeResolver({
       variables: { inputTarea, inputNota, inputAdjunto, usuAsig: userId },
-    });
-
-    Modal.alert({
-      header: (
-        <CheckOutline
-          style={{
-            fontSize: 64,
-            color: "var(--adm-color-primary)",
-          }}
-        />
-      ),
-      title: "Tarea Cargada Correctamente",
-      confirmText: "Cerrar",
-      // onConfirm:(history.go(0))
-      onConfirm:(async() => 
-      {await sleep(1)
-        history.go(0)
-      })
     });
   };
 
