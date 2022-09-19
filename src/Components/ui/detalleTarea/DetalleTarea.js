@@ -26,8 +26,6 @@ const DetalleTarea = () => {
 
   const [clientes, setClientes] = useState([]);
 
-  const [cliente, setCliente] = useState();
-
   const [buscador, setBuscador] = useState(tarea.cli_nombre);
   const [ocultarC, setOcultarC] = useState(true);
   const [limpiar, setLimpiar] = useState(false);
@@ -75,6 +73,7 @@ const DetalleTarea = () => {
   }, [data]);
 
   const handleSelect = (value) => {
+    console.log(value);
     setBuscador(value.target.value);
 
     if (ocultarC === true) {
@@ -165,8 +164,10 @@ const DetalleTarea = () => {
   const [form] = Form.useForm();
 
   const onFinish = (v) => {
-    console.log(tarea);
-    console.log(v);
+    // console.log(tarea);
+    console.log("v", v);
+
+    console.log("cliente:", clientes[0]);
 
     let inputAdjunto;
     if (Object.keys(file).length) {
@@ -186,16 +187,16 @@ const DetalleTarea = () => {
       tar_vencimiento: v.tar_vencimiento,
       tar_horavencimiento: v.tar_horavencimiento,
       est_id: 1,
-      usu_id: tarea.usu_id,
-      cli_id: v.cli_id.id,
+      usu_id: userId,
+      cli_id: clientes[0] ? Number(clientes[0].cli_id) : tarea.cli_id,
       ale_id: null,
       tar_alertanum: null,
-      tip_id: Number(v.tip_id) ? Number(v.tip_id.value) : tarea.tip_id,
-      pri_id: v.pri_id ? v.pri_id.value : tarea.pri_id,
+      tip_id: v.tip_id ? v.tip_id.value : tarea.tip_id,
+      pri_id: v.pri_id ? Number(v.pri_id[0]) : tarea.pri_id,
     };
 
     let inputNota = {
-      not_desc: v.not_desc ? v.not_desc : "",
+      not_desc: v.not_desc ? v.not_desc : null,
       not_importancia: null,
       not_id: tarea.not_id,
     };
@@ -213,6 +214,10 @@ const DetalleTarea = () => {
         idUsuario: userId,
       },
     });
+
+    console.log("inputTarea", inputTarea);
+    console.log("inputAdjunto:", inputAdjunto);
+    console.log("inputNota:", inputNota)
 
     form.resetFields();
     setFlist([]);
@@ -288,27 +293,6 @@ const DetalleTarea = () => {
                 )}
               </>
             ))}
-
-          {/* {clientes &&
-            clientes.map((cliente) => {
-              return (
-                  <div className="div_clienteSelect_btn">
-                    <input
-                      className="select_nueva_tarea input_cliente"
-                      type="text"
-                      onClick={(value) => handleSelect(value)}
-                      value={cliente.cli_nombre}
-                    />
-                    <Button
-                      className="btn_cliente"
-                      onClick={() => handleLimpiar()}
-                    >
-                      X
-                    </Button>
-                  </div>
-                )
-            }
-            )} */}
         </Form.Item>
         <Form.Item
           label="Asunto"
@@ -330,7 +314,7 @@ const DetalleTarea = () => {
             }
           />
         </Form.Item>
-        <Form.Item label="Fuente" name="ori_id">
+        {/* <Form.Item label="Fuente" name="ori_id">
           <Select
             className="select_nueva_tarea"
             defaultValue={{ label: tarea.ori_desc, value: tarea.ori_id }}
@@ -342,7 +326,7 @@ const DetalleTarea = () => {
               }))
             }
           />
-        </Form.Item>
+        </Form.Item> */}
         <div
           style={{
             display: "flex",

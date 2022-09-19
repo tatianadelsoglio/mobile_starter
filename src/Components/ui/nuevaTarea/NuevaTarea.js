@@ -19,8 +19,11 @@ import Select from "react-select";
 import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 import { NEW_TAREA } from "../../../graphql/mutations/tareas";
+import { useHistory } from "react-router-dom";
+import { sleep } from 'antd-mobile/es/utils/sleep'
 
 const NuevaTarea = () => {
+  let history = useHistory();
   const [idSelector, setIdSelector] = useState();
 
   const [clientes, setClientes] = useState([]);
@@ -51,10 +54,6 @@ const NuevaTarea = () => {
       setClientes(data.getClientesLimitResolver);
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log(clientes);
-  }, [clientes]);
 
   useEffect(() => {
     console.log("Busqueda: ", buscador);
@@ -105,9 +104,9 @@ const NuevaTarea = () => {
     console.log(tiposTareas);
   }, [tiposTareas]);
 
-  const handleSelectTT = ({ value }) => {
-    console.log(value);
-  };
+  // const handleSelectTT = ({ value }) => {
+  //   console.log(value);
+  // };
   //TODO FIN SECCION DE ELEGIR TIPO TAREA
   //TODO INICIO SECCION DE ELEGIR ORIGEN TAREA
   const [tiposOrigenes, setTiposOrigenes] = useState([]);
@@ -123,9 +122,9 @@ const NuevaTarea = () => {
     console.log(tiposOrigenes);
   }, [tiposOrigenes]);
 
-  const handleSelectO = ({ value }) => {
-    console.log(value);
-  };
+  // const handleSelectO = ({ value }) => {
+  //   console.log(value);
+  // };
   //TODO FIN SECCION DE ELEGIR ORIGEN TAREA
 
   const prioridad = [
@@ -169,31 +168,22 @@ const NuevaTarea = () => {
 
   //* INICIO SECCION CARGAR UNA NUEVA TAREA
 
-  const [newTareaIframe] = useMutation(NEW_TAREA);
+  const [newTareaIframeResolver] = useMutation(NEW_TAREA);
 
   const handleFormSubmit = (values) => {
-    // let mod_id = 6;
-
-    values.cli_id = clientes[0].cli_id;
-    values.ori_id = values.ori_id.value;
-    values.pri_id = values.pri_id[0];
-    values.tar_asunto = values.tar_asunto;
-    values.tar_horavencimiento = values.tar_horavencimiento;
-    values.tar_vencimiento = values.tar_vencimiento;
-    values.tip_id = values.tip_id.value;
 
     const inputTarea = {
       tar_asunto: values.tar_asunto,
       tar_vencimiento: values.tar_vencimiento,
       tar_horavencimiento: values.tar_horavencimiento,
+      ori_id:values.ori_id.value,
       est_id: 1,
       usu_id: userId,
-      cli_id: values.cli_id,
+      cli_id: Number(clientes[0].cli_id),
       ale_id: null,
       tar_alertanum: null,
-      tip_id: values.tip_id,
-      pri_id: values.pri_id,
-      mod_id: 6,
+      tip_id: values.tip_id.value,
+      pri_id: values.pri_id[0],
     };
 
     
@@ -210,11 +200,11 @@ const NuevaTarea = () => {
     let inputAdjunto = null;
 
 
-    // console.log(inputTarea, inputNota, inputAdjunto);
+  // console.log("tarea: ",inputTarea,"nota: ", inputNota,"adjunto: ", inputAdjunto);
 
     // escribe el resolver
-    newTareaIframe({
-      variables: { inputTarea, inputNota, inputAdjunto, userAsig: userId },
+    newTareaIframeResolver({
+      variables: { inputTarea, inputNota, inputAdjunto, usuAsig: userId },
     });
 
     Modal.alert({
@@ -228,6 +218,11 @@ const NuevaTarea = () => {
       ),
       title: "Tarea Cargada Correctamente",
       confirmText: "Cerrar",
+      // onConfirm:(history.go(0))
+      onConfirm:(async() => 
+      {await sleep(1)
+        history.go(0)
+      })
     });
   };
 
@@ -301,7 +296,7 @@ const NuevaTarea = () => {
                 value: tipoTarea.tip_id,
               }))
             }
-            onChange={handleSelectTT}
+            // onChange={handleSelectTT}
           />
         </Form.Item>
         <Form.Item label="Fuente" name="ori_id">
@@ -315,7 +310,7 @@ const NuevaTarea = () => {
                 value: tipoOrigen.ori_id,
               }))
             }
-            onChange={handleSelectO}
+            // onChange={handleSelectO}
           />
         </Form.Item>
         <div
