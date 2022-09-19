@@ -20,6 +20,7 @@ import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 import { NEW_TAREA } from "../../../graphql/mutations/tareas";
 import { useHistory } from "react-router-dom";
+import { sleep } from 'antd-mobile/es/utils/sleep'
 
 const NuevaTarea = () => {
   let history = useHistory();
@@ -203,12 +204,12 @@ const NuevaTarea = () => {
     let inputAdjunto = null;
 
 
-  console.log("tarea: ",inputTarea,"nota: ", inputNota,"adjunto: ", inputAdjunto);
+  // console.log("tarea: ",inputTarea,"nota: ", inputNota,"adjunto: ", inputAdjunto);
 
     // escribe el resolver
-    // newTareaIframeResolver({
-    //   variables: { inputTarea, inputNota, inputAdjunto, usuAsig: userId },
-    // });
+    newTareaIframeResolver({
+      variables: { inputTarea, inputNota, inputAdjunto, usuAsig: userId },
+    });
 
     Modal.alert({
       header: (
@@ -221,7 +222,11 @@ const NuevaTarea = () => {
       ),
       title: "Tarea Cargada Correctamente",
       confirmText: "Cerrar",
-      onConfirm:(history.go(0))
+      // onConfirm:(history.go(0))
+      onConfirm:(async() => 
+      {await sleep(1)
+        history.go(0)
+      })
     });
   };
 
