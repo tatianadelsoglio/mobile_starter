@@ -15,8 +15,6 @@ export const NEW_TAREA = gql`
     )
   }
 `;
-
-
 export const UPDATE_TAREA = gql`
   mutation updateTarea(
     $idTarea: Int
@@ -34,7 +32,6 @@ export const UPDATE_TAREA = gql`
     )
   }
 `;
-
 export const UPDATE_ESTADO_TAREA = gql`
   mutation estadoTarea($idTarea: Int, $idEstado: Int) {
     estadoTareaResolver(idTarea: $idTarea, idEstado: $idEstado)

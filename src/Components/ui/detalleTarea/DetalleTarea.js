@@ -7,12 +7,13 @@ import { useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
 import moment from "moment";
 import { GlobalContext } from "../../context/GlobalContext";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import Select from "react-select";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 import Note from "../note/Note";
+import { UPDATE_TAREA } from "../../../graphql/mutations/tareas";
 
 const DetalleTarea = () => {
   const { userId } = useContext(GlobalContext);
@@ -21,17 +22,22 @@ const DetalleTarea = () => {
 
   const [tarea, setTarea] = useState(location.state);
 
-  const [idSelector, setIdSelector] = useState(tarea.pri_desc);
+  const [idSelector, setIdSelector] = useState(tarea.pri_id);
 
   const [clientes, setClientes] = useState([]);
 
-  const [buscador, setBuscador] = useState(`${tarea.cli_nombre}`);
+  const [buscador, setBuscador] = useState(tarea.cli_nombre);
   const [ocultarC, setOcultarC] = useState(true);
   const [limpiar, setLimpiar] = useState(false);
 
+  const [file, setFile] = useState({});
+  const [fList, setFlist] = useState([]);
+
+  const [updateTareaResolver] = useMutation(UPDATE_TAREA);
+
   const handleChange = (value) => {
     console.log(value.target.value);
-    if (value === "" || value === null) {
+    if (value.target.value === "" || value.target.value === null) {
     }
     setBuscador(value.target.value);
   };
@@ -45,6 +51,7 @@ const DetalleTarea = () => {
 
   useEffect(() => {
     if (data) {
+      console.log(data.getClientesLimitResolver)
       let dataClientes = [];
 
       data.getClientesLimitResolver.map((cliente) => {
@@ -52,19 +59,26 @@ const DetalleTarea = () => {
       });
 
       // let temp = Object.assign(data.getClientesLimitResolver, dataClientes);
-      dataClientes.push({
-        __typename: "Clientes",
-        cli_email: null,
-        cli_id: tarea.cli_id.toString(),
-        cli_nombre: tarea.cli_nombre,
-        cli_telefono1: null,
-      });
+      if(buscador){
+        dataClientes.push({
+          __typename: "Clientes",
+          cli_email: null,
+          cli_id: tarea.cli_id.toString(),
+          cli_nombre: tarea.cli_nombre,
+          cli_telefono1: null,
+        });
+      }
+
       setClientes(dataClientes);
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log(clientes);
+  }, [clientes])
+
   const handleSelect = (value) => {
-    setBuscador(value.target.value);
+    // setBuscador(value.target.value);
 
     if (ocultarC === true) {
       setOcultarC(false);
@@ -153,8 +167,58 @@ const DetalleTarea = () => {
 
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
+  const onFinish = (v) => {
+    console.log(tarea);
+    console.log(v);
 
+    let inputAdjunto;
+    if (Object.keys(file).length) {
+      const extension = file.originalname.split(".")[1];
+      inputAdjunto = {
+        up_filename: file.fileName,
+        up_mimetype: extension,
+        up_hashname: file.filename,
+        usu_id: 1,
+        up_detalle: v.adj_detalle,
+        up_size: String(file.size),
+      };
+    }
+
+    const inputTarea = {
+      tar_asunto: v.tar_asunto,
+      tar_vencimiento: v.tar_vencimiento,
+      tar_horavencimiento: v.tar_horavencimiento,
+      est_id: 1,
+      usu_id: tarea.usu_id,
+      cli_id: v.cli_id.id,
+      ale_id: null,
+      tar_alertanum: null,
+      tip_id: Number(v.tip_id) ? Number(v.tip_id.value) : tarea.tip_id,
+      pri_id: v.pri_id ? v.pri_id.value : tarea.pri_id,
+    };
+
+    let inputNota = {
+      not_desc: v.not_desc ? v.not_desc : "",
+      not_importancia: null,
+      not_id: tarea.not_id,
+    };
+
+    if (fList.length === 0) {
+      inputAdjunto = null;
+    }
+
+    updateTareaResolver({
+      variables: {
+        idTarea: tarea.tar_id,
+        inputTarea,
+        inputAdjunto,
+        inputNota,
+        idUsuario: userId,
+      },
+    });
+
+    form.resetFields();
+    setFlist([]);
   };
 
   return (
@@ -200,20 +264,19 @@ const DetalleTarea = () => {
               placeholder="Ingrese Cliente"
               type="search"
               autoComplete="off"
-              // value={tarea.cli_nombre}
               onChange={(value) => handleChange(value)}
             />
           ) : null}
+          
           {clientes &&
-            clientes.map((cliente) => (
-              <>
-                {buscador !== "" ? (
+            clientes.map((cliente) => {
+              return (
                   <div className="div_clienteSelect_btn">
                     <input
                       className="select_nueva_tarea input_cliente"
                       type="text"
-                      onClick={(value) => handleSelect(value)}
-                      value={cliente.cli_nombre}
+                      onClick={() => handleSelect()}
+                      defaultValue={cliente.cli_nombre}
                     />
                     <Button
                       className="btn_cliente"
@@ -222,11 +285,9 @@ const DetalleTarea = () => {
                       X
                     </Button>
                   </div>
-                ) : (
-                  ""
-                )}
-              </>
-            ))}
+                )
+            }
+            )}
         </Form.Item>
         <Form.Item
           label="Asunto"
@@ -309,7 +370,7 @@ const DetalleTarea = () => {
           ></Note>
         </Form.Item>
 
-        <Form.Item label="Prioridad" name="prioridad">
+        <Form.Item label="Prioridad" name="pri_id">
           <Selector
             style={{
               "--border-radius": "10px",
