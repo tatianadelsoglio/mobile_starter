@@ -8,20 +8,8 @@ export const NEW_TAREA = gql`
 
 
 export const UPDATE_TAREA = gql`
-  mutation updateTarea(
-    $idTarea: Int
-    $inputTarea: tareaInput
-    $inputAdjunto: uploadInput
-    $inputNota: notaInput
-    $idUsuario: Int
-  ) {
-    updateTareaResolver(
-      idTarea: $idTarea
-      inputTarea: $inputTarea
-      inputAdjunto: $inputAdjunto
-      inputNota: $inputNota
-      idUsuario: $idUsuario
-    )
+  mutation updateTarea($idTarea: Int,$inputTarea: tareaInput,$inputAdjunto: uploadInput,$inputNota: notaInput,$idUsuario: Int){
+    updateTareaResolver(idTarea: $idTarea,inputTarea: $inputTarea,inputAdjunto: $inputAdjunto,inputNota: $inputNota,idUsuario: $idUsuario)
   }
 `;
 
