@@ -13,17 +13,14 @@ import React, { useContext, useEffect, useState } from "react";
 import "./NuevaTarea.css";
 import { CheckOutline } from "antd-mobile-icons";
 import { GlobalContext } from "../../context/GlobalContext";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 import Select from "react-select";
 import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
+import { NEW_TAREA } from "../../../graphql/mutations/tareas";
 
 const NuevaTarea = () => {
-  const [visible, setVisible] = useState(false);
-
-  const [value, setValue] = useState([]);
-
   const [idSelector, setIdSelector] = useState();
 
   const [clientes, setClientes] = useState([]);
@@ -136,9 +133,7 @@ const NuevaTarea = () => {
       label: (
         <div
           className={
-            idSelector === 1
-              ? "selector-alta seleccionado"
-              : "selector-alta"
+            idSelector === 1 ? "selector-alta seleccionado" : "selector-alta"
           }
         >
           <p className="selector-texto">ALTA</p>
@@ -150,9 +145,7 @@ const NuevaTarea = () => {
       label: (
         <div
           className={
-            idSelector === 2
-              ? "selector-media seleccionado"
-              : "selector-media"
+            idSelector === 2 ? "selector-media seleccionado" : "selector-media"
           }
         >
           <p className="selector-texto">MEDIA</p>
@@ -164,9 +157,7 @@ const NuevaTarea = () => {
       label: (
         <div
           className={
-            idSelector === 3
-              ? "selector-baja seleccionado"
-              : "selector-baja"
+            idSelector === 3 ? "selector-baja seleccionado" : "selector-baja"
           }
         >
           <p className="selector-texto">BAJA</p>
@@ -176,18 +167,55 @@ const NuevaTarea = () => {
     },
   ];
 
-  const handleFormSubmit = (values) => {
+  //* INICIO SECCION CARGAR UNA NUEVA TAREA
 
-    values.cli_id = clientes[0].cli_id
-    values.ori_id = values.ori_id.value
-    values.pri_id = values.pri_id[0]
-    values.tar_asunto = values.tar_asunto
-    values.tar_horavencimiento = values.tar_horavencimiento
-    values.tar_vencimiento = values.tar_vencimiento
-    values.tip_id = values.tip_id.value
-    console.log(values)
+  const [newTareaIframe] = useMutation(NEW_TAREA);
+
+  const handleFormSubmit = (values) => {
+    // let mod_id = 6;
+
+    values.cli_id = clientes[0].cli_id;
+    values.ori_id = values.ori_id.value;
+    values.pri_id = values.pri_id[0];
+    values.tar_asunto = values.tar_asunto;
+    values.tar_horavencimiento = values.tar_horavencimiento;
+    values.tar_vencimiento = values.tar_vencimiento;
+    values.tip_id = values.tip_id.value;
+
+    const inputTarea = {
+      tar_asunto: values.tar_asunto,
+      tar_vencimiento: values.tar_vencimiento,
+      tar_horavencimiento: values.tar_horavencimiento,
+      est_id: 1,
+      usu_id: userId,
+      cli_id: values.cli_id,
+      ale_id: null,
+      tar_alertanum: null,
+      tip_id: values.tip_id,
+      pri_id: values.pri_id,
+      mod_id: 6,
+    };
 
     
+
+    let inputNota = {
+      not_desc: "",
+      not_importancia: "",
+    };
+
+    if (inputNota.not_desc === "") {
+      inputNota = null;
+    }
+
+    let inputAdjunto = null;
+
+
+    // console.log(inputTarea, inputNota, inputAdjunto);
+
+    // escribe el resolver
+    newTareaIframe({
+      variables: { inputTarea, inputNota, inputAdjunto, userAsig: userId },
+    });
 
     Modal.alert({
       header: (
@@ -203,6 +231,7 @@ const NuevaTarea = () => {
     });
   };
 
+  //* FIN SECCION CARGAR UNA NUEVA TAREA
 
   return (
     <div className="detalle-tarea-contenedor">
@@ -210,12 +239,7 @@ const NuevaTarea = () => {
         layout="vertical"
         onFinish={(values) => handleFormSubmit(values)}
         footer={
-          <Button
-            block
-            type="submit"
-            color="primary"
-            size="large"
-          >
+          <Button block type="submit" color="primary" size="large">
             Cargar Tarea
           </Button>
         }
@@ -306,10 +330,7 @@ const NuevaTarea = () => {
               width: "50%",
             }}
           >
-            <Form.Item
-              label="Vencimiento"
-              name="tar_vencimiento"
-            >
+            <Form.Item label="Vencimiento" name="tar_vencimiento">
               <input className="input-fechaHora" type="date" />
             </Form.Item>
           </div>
@@ -318,10 +339,7 @@ const NuevaTarea = () => {
               width: "50%",
             }}
           >
-            <Form.Item
-              label="Hora"
-              name="tar_horavencimiento"
-            >
+            <Form.Item label="Hora" name="tar_horavencimiento">
               <input className="input-fechaHora" type="time" />
             </Form.Item>
           </div>
