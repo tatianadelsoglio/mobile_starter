@@ -26,6 +26,8 @@ const DetalleTarea = () => {
 
   const [clientes, setClientes] = useState([]);
 
+  const [cliente, setCliente] = useState();
+
   const [buscador, setBuscador] = useState(tarea.cli_nombre);
   const [ocultarC, setOcultarC] = useState(true);
   const [limpiar, setLimpiar] = useState(false);
@@ -51,15 +53,14 @@ const DetalleTarea = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.getClientesLimitResolver)
+      console.log(data.getClientesLimitResolver);
       let dataClientes = [];
 
       data.getClientesLimitResolver.map((cliente) => {
         if (cliente.cli_id != tarea.cli_id) dataClientes.push(cliente);
       });
 
-      // let temp = Object.assign(data.getClientesLimitResolver, dataClientes);
-      if(buscador){
+      if (buscador === tarea.cli_nombre) {
         dataClientes.push({
           __typename: "Clientes",
           cli_email: null,
@@ -73,12 +74,8 @@ const DetalleTarea = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log(clientes);
-  }, [clientes])
-
   const handleSelect = (value) => {
-    // setBuscador(value.target.value);
+    setBuscador(value.target.value);
 
     if (ocultarC === true) {
       setOcultarC(false);
@@ -267,16 +264,40 @@ const DetalleTarea = () => {
               onChange={(value) => handleChange(value)}
             />
           ) : null}
-          
+
           {clientes &&
+            clientes.map((cliente) => (
+              <>
+                {buscador !== "" ? (
+                  <div className="div_clienteSelect_btn">
+                    <input
+                      className="select_nueva_tarea input_cliente"
+                      type="text"
+                      onClick={(value) => handleSelect(value)}
+                      value={cliente.cli_nombre}
+                    />
+                    <Button
+                      className="btn_cliente"
+                      onClick={() => handleLimpiar()}
+                    >
+                      X
+                    </Button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </>
+            ))}
+
+          {/* {clientes &&
             clientes.map((cliente) => {
               return (
                   <div className="div_clienteSelect_btn">
                     <input
                       className="select_nueva_tarea input_cliente"
                       type="text"
-                      onClick={() => handleSelect()}
-                      defaultValue={cliente.cli_nombre}
+                      onClick={(value) => handleSelect(value)}
+                      value={cliente.cli_nombre}
                     />
                     <Button
                       className="btn_cliente"
@@ -287,7 +308,7 @@ const DetalleTarea = () => {
                   </div>
                 )
             }
-            )}
+            )} */}
         </Form.Item>
         <Form.Item
           label="Asunto"
@@ -359,10 +380,7 @@ const DetalleTarea = () => {
             </Form.Item>
           </div>
         </div>
-        <Form.Item
-          label="Nota"
-          name="not_desc"
-        >
+        <Form.Item label="Nota" name="not_desc">
           <Note
             editValue={tarea.not_desc || ""}
             width="100%"
