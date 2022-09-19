@@ -5,7 +5,7 @@ export const GET_TIPO_ORIGEN = gql`
     getOrigenesResolver {
       ori_id
       ori_desc
-      ori_color
+
     }
   }
 `;

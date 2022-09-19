@@ -1,146 +1,24 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable default-case */
 import { useQuery } from "@apollo/client";
-import { CapsuleTabs, Steps } from "antd-mobile";
-import {
-  ShopbagOutline,
-  UserOutline,
-  FilterOutline,
-  CalendarOutline,
-  FileOutline,
-  PictureOutline,
-  TagOutline,
-} from "antd-mobile-icons";
-import { Step } from "antd-mobile/es/components/steps/step";
+import { CapsuleTabs } from "antd-mobile";
+import { ShopbagOutline, UserOutline, TagOutline } from "antd-mobile-icons";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { GET_COUNT_TAREAS, GET_NEGOCIO_CONTENT } from "../../../graphql/queries/NegocioContent";
-import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
-import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
-import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
+import { GET_COUNT_TAREAS } from "../../../graphql/queries/NegocioContent";
+import { NegocioCompletado } from "./NegocioCompletado";
 import "./negocioCompleto.css";
+import { NegocioPlanificado } from "./NegocioPlanificado";
 
 export const NegocioCompleto = () => {
+  const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
 
   const location = useLocation();
 
   const [negocio, setNegocio] = useState(location.state[0]);
 
-  console.log(location.state[0].neg_id)
-  // const tareas = [
-  //   {
-  //     id: 1,
-  //     asunto: "Visitar para cerrar propuesta",
-  //     cliente: "Tres Arroyos",
-  //     fechaInicio: "27/07/22",
-  //     cierreEstimado: "24/08/2022",
-  //     hora: "14.30",
-  //     contacto: "ADRIAN SABO",
-  //     tipoTarea: "Visita de campo",
-  //     tipo: "#T",
-  //     anexo: [
-  //       {
-  //         id: 3,
-  //         texto: "nota numero 1, primera prueba",
-  //         fecha: "22/08/2022",
-  //         prioridad: "ALTA",
-  //         tipo: "#N",
-  //       },
-  //       {
-  //         id: 4,
-  //         nombre: "paisaje-02",
-  //         descripcion: "foto de la entrada al campo",
-  //         fecha: "20/08/2022 13:45",
-  //         tipo: "#A",
-  //         peso: "2035 Kb",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 2,
-  //     asunto: "Visita de seguimiento",
-  //     cliente: "Tres Arroyos",
-  //     fechaInicio: "28/07/22",
-  //     cierreEstimado: "24/08/2022",
-  //     hora: "10.30",
-  //     contacto: "ADRIAN SABO",
-  //     tipoTarea: "Visita de campo",
-  //     tipo: "#T",
-  //     anexo: [
-  //       {
-  //         id: 3,
-  //         texto: "nota numero 1, primera prueba",
-  //         fecha: "22/08/2022",
-  //         prioridad: "ALTA",
-  //         tipo: "#N",
-  //       },
-  //       {
-  //         id: 4,
-  //         nombre: "paisaje-02",
-  //         descripcion: "foto de la entrada al campo",
-  //         fecha: "20/08/2022 13:45",
-  //         tipo: "#A",
-  //         peso: "2035 Kb",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 3,
-  //     texto: "nota numero 1, primera prueba",
-  //     fecha: "22/08/2022",
-  //     prioridad: "MEDIA",
-  //     tipo: "#N",
-  //   },
-  //   {
-  //     id: 4,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#A",
-  //     peso: "2035 Kb",
-  //   },
-  //   {
-  //     id: 5,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#A",
-  //     peso: "2035 Kb",
-  //   },
-  //   {
-  //     id: 6,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#A",
-  //     peso: "2035 Kb",
-  //   },
-  //   {
-  //     id: 7,
-  //     nombre: "paisaje-02",
-  //     descripcion: "foto de la entrada al campo",
-  //     fecha: "20/08/2022 13:45",
-  //     tipo: "#T",
-  //     anexo: [
-  //       {
-  //         id: 3,
-  //         texto: "nota numero 1, primera prueba",
-  //         fecha: "22/08/2022",
-  //         prioridad: "ALTA",
-  //         tipo: "#N",
-  //       },
-  //       {
-  //         id: 4,
-  //         nombre: "paisaje-02",
-  //         descripcion: "foto de la entrada al campo",
-  //         fecha: "20/08/2022 13:45",
-  //         tipo: "#A",
-  //         peso: "2035 Kb",
-  //       },
-  //     ],
-  //   },
-  // ];
+  const [activeKey, setActiveKey] = useState("1");
 
   const getColor = (i) => {
     const colorList = [
@@ -179,74 +57,19 @@ export const NegocioCompleto = () => {
     return colorList[i];
   };
 
-  const { data } = useQuery(GET_NEGOCIO_CONTENT, {
-    variables: {
-      idNegocio: location.state[0].neg_id
-    }
-  });
-
   const { data: dataTareas } = useQuery(GET_COUNT_TAREAS, {
     variables: {
-      idNegocio: location.state[0].neg_id
-    }
-  })
+      idNegocio: location.state[0].neg_id,
+    },
+  });
 
   useEffect(() => {
-    if(data) {
-      console.log(data);
-      console.log((JSON.parse(data.getNegocioByIdResolver)).dataNeg);
+    if (dataTareas) {
+      setTareasDefinitivo(dataTareas.tiposTareasCantidadResolver);
     }
-  }, [data])
-
-  useEffect(() => {
-    if(dataTareas) {
-      console.log(dataTareas);
-      // console.log(JSON.parse(dataTareas.tiposTareasCantidadResolver));
-    }
-  }, [dataTareas])
-  
-  
-
-  // const tareasOrdenadas = (negocio) => {
-  //   let tareasParametro = negocio.tareas.sort(function (a, b) {
-  //     return a.localeCompare(b);
-  //   });
-
-  //   let palabra = negocio.tareas[0];
-
-  //   let objetoTareas = [];
-
-  //   let cantidad = 0;
-
-  //   let total = tareasParametro.length;
-
-  //   for (let i = 0; i <= tareasParametro.length; i++) {
-  //     if (tareasParametro[i] === palabra) {
-  //       cantidad += 1;
-  //     } else {
-  //       objetoTareas.push({
-  //         task: palabra,
-  //         count: cantidad,
-  //         suma: total,
-  //         orden: i,
-  //       });
-  //       cantidad = 1;
-  //       palabra = tareasParametro[i];
-  //     }
-  //   }
-  //   return objetoTareas;
-  // };
-
-  const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
-
-  
-
-  // useEffect(() => {
-  //   setTareasDefinitivo(tareasOrdenadas(negocio));
-  // }, []);
+  }, [dataTareas]);
 
   return (
-    // <div className="contenedor-negocio-completo">
     <div className="div_contenedor_negocioC">
       <div className="negocio-completo-header">
         <p className="negocio-completo-header-asunto">{negocio.neg_asunto}</p>
@@ -264,7 +87,9 @@ export const NegocioCompleto = () => {
         {negocio.con_nombre && (
           <div className="negocio-completo-header-linea">
             <UserOutline />
-            <p className="negocio-completo-header-texto">{negocio.con_nombre}</p>
+            <p className="negocio-completo-header-texto">
+              {negocio.con_nombre}
+            </p>
           </div>
         )}
         <div className="negocio-completo-header-linea">
@@ -275,152 +100,84 @@ export const NegocioCompleto = () => {
         </div>
         <div className="negocio-completo-header-linea">
           <p className="negocio-completo-header-fecha">
-            {"Fecha de creacion: " + moment(negocio.neg_fechacreacion, "YYYY-MM-DD").format("DD/MM/YYYY")}
+            {"Fecha de creacion: " +
+              moment(negocio.neg_fechacreacion, "YYYY-MM-DD").format(
+                "DD/MM/YYYY"
+              )}
           </p>
         </div>
         <div className="negocio-completo-header-linea">
-          {/* <BellOutline /> */}
           <p className="negocio-completo-header-fecha">
-            {"Fecha de cierre estimada: " + moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format("DD/MM/YYYY")}
+            {"Fecha de cierre estimada: " +
+              moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format(
+                "DD/MM/YYYY"
+              )}
           </p>
         </div>
       </div>
-      <CapsuleTabs className="capsuletabs-negocio">
+      <CapsuleTabs
+        className="capsuletabs-negocio"
+        onChange={(v) => setActiveKey(v)}
+      >
         <CapsuleTabs.Tab title="Info" key="1">
-          <div className="div_lista_nrg">
-            <div className="negocio-completo-caja-grafica">
-              <div className="negocio-grafica-linea">
-                <p className="negocio-antiguedad">Antigüedad del negocio</p>
-                <p className="negocio-antiguedad-dias">
-                  {moment(negocio.neg_fechacreacion, "YYYY-MM-DD").fromNow()}
-                </p>
-              </div>
-              <div className="negocio-grafico-degrade"></div>
-              <p className="negocio-tareas">Tareas</p>
-              {/* <div className="negocio-grafico-tareas">
-                {tareasDefinitivo.map((tarea) => {
-                  return (
-                    <span
-                      className="negocio-caja-tarea-grafico"
-                      style={{
-                        backgroundColor: `${getColor(tarea.orden)}`,
-                        width: `${(tarea.count / tarea.suma) * 100}%`,
-                      }}
-                    ></span>
-                  );
-                })}
-              </div>
-              <div className="negocio-grafico-referencias">
-                {tareasDefinitivo.map((tarea) => {
-                  return (
-                    <div className="negocio-grafico-referencias-linea">
+          {activeKey === "1" && (
+            <div className="div_lista_nrg">
+              <div className="negocio-completo-caja-grafica">
+                <div className="negocio-grafica-linea">
+                  <p className="negocio-antiguedad">Antigüedad del negocio</p>
+                  <p className="negocio-antiguedad-dias">
+                    {moment(negocio.neg_fechacreacion, "YYYY-MM-DD").fromNow()}
+                  </p>
+                </div>
+                <div className="negocio-grafico-degrade"></div>
+                <p className="negocio-tareas">Tareas</p>
+                <div className="negocio-grafico-tareas">
+                  {tareasDefinitivo.map((tarea) => {
+                    return (
                       <span
-                        className="negocio-grafico-referencia-cuadrito"
-                        style={{ backgroundColor: `${getColor(tarea.orden)}` }}
+                        className="negocio-caja-tarea-grafico"
+                        style={{
+                          backgroundColor: `${getColor(tarea.tip_id)}`,
+                          width: `${tarea.porcentajeTipoTarea}%`,
+                        }}
                       ></span>
-                      <p className="negocio-tarea-texto">{`${tarea.task} (${tarea.count})`}</p>
-                      <p className="negocio-tarea-texto">{`- ${Math.round(
-                        (tarea.count / tarea.suma) * 100
-                      )}%`}</p>
-                    </div>
-                  );
-                })}
-              </div> */}
+                    );
+                  })}
+                </div>
+                <div className="negocio-grafico-referencias">
+                  {tareasDefinitivo &&
+                    tareasDefinitivo.map((tarea) => {
+                      return (
+                        <div className="negocio-grafico-referencias-linea">
+                          <span
+                            className="negocio-grafico-referencia-cuadrito"
+                            style={{
+                              backgroundColor: `${getColor(tarea.tip_id)}`,
+                            }}
+                          ></span>
+                          <p className="negocio-tarea-texto">{`${tarea.tip_desc} (${tarea.cantidadTipoTarea})`}</p>
+                          <p className="negocio-tarea-texto">{`- ${Math.round(
+                            tarea.porcentajeTipoTarea
+                          )}%`}</p>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </CapsuleTabs.Tab>
-        {/* <CapsuleTabs.Tab title="Planificado" key="2">
-          <div className="div_lista_neg">
-            <div className="negocio-linea-tiempo-contenedor">
-              <Steps direction="vertical">
-                {tareas.map((tarea) => {
-                  switch (tarea.tipo) {
-                    case "#T":
-                      return (
-                        <Step
-                          description={<TareaNegocio tarea={tarea} />}
-                          icon={
-                            <CalendarOutline style={{ color: "#00B33C" }} />
-                          }
-                        />
-                      );
-                    case "#N":
-                      return (
-                        <Step
-                          description={<NotaTareaNegocio nota={tarea} />}
-                          icon={<FileOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                    case "#A":
-                      return (
-                        <Step
-                          description={<ArchivoTareaNegocio archivo={tarea} />}
-                          icon={<PictureOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                  }
-                })}
-              </Steps>
-            </div>
-          </div>
+        <CapsuleTabs.Tab title="Planificado" key="2">
+          {activeKey === "2" && (
+            <NegocioPlanificado neg_id={location.state[0].neg_id} />
+          )}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
-          <div className="div_lista_neg">
-            <div className="negocio-linea-tiempo-contenedor">
-              <Steps direction="vertical">
-                {tareas.map((tarea) => {
-                  switch (tarea.tipo) {
-                    case "#T":
-                      return (
-                        <Step
-                          description={<TareaNegocio tarea={tarea} />}
-                          icon={
-                            <CalendarOutline style={{ color: "#00B33C" }} />
-                          }
-                        />
-                      );
-                    case "#N":
-                      return (
-                        <Step
-                          description={<NotaTareaNegocio nota={tarea} />}
-                          icon={<FileOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                    case "#A":
-                      return (
-                        <Step
-                          description={<ArchivoTareaNegocio archivo={tarea} />}
-                          icon={<PictureOutline style={{ color: "#00B33C" }} />}
-                        />
-                      );
-                    default:
-                      return (
-                        <Step
-                          description={
-                            <p>
-                              {" "}
-                              <span className="detailItem">
-                                {" "}
-                                Fecha de Cierre:{" "}
-                              </span>{" "}
-                              <span className="strikeThrough">
-                                {" "}
-                                2022-06-20{" "}
-                              </span>{" "}
-                              <span className="middleDot"> · </span>{" "}
-                              <span className="modifiedItem"> 2022-06-24 </span>{" "}
-                            </p>
-                          }
-                        />
-                      );
-                  }
-                })}
-              </Steps>
-            </div>
-          </div>
-        </CapsuleTabs.Tab> */}
+          {activeKey === "3" && (
+            <NegocioCompletado neg_id={location.state[0].neg_id} />
+          )}
+        </CapsuleTabs.Tab>
       </CapsuleTabs>
     </div>
-    // </div>
   );
 };

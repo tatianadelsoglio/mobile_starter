@@ -8,13 +8,11 @@ import "./clienteIndividual.css";
 import { ClienteNegocios } from "./ClienteNegocios";
 
 export const ClienteIndividual = () => {
-  const [activeKey, setActiveKey] = useState();
+  const [activeKey, setActiveKey] = useState("1");
 
   const location = useLocation();
 
-  useEffect(() => {
-
-  }, [activeKey]);
+  useEffect(() => {}, [activeKey]);
 
   return (
     <CapsuleTabs
@@ -22,13 +20,13 @@ export const ClienteIndividual = () => {
       onChange={(v) => setActiveKey(v)}
     >
       <CapsuleTabs.Tab title="Info" key="1">
-        <InfoCliente clienteSelect={location.state[0]} />
+        {activeKey === "1" && <InfoCliente clienteSelect={location.state[0]} />}
       </CapsuleTabs.Tab>
       <CapsuleTabs.Tab title="Tareas" key="2">
         {activeKey === "2" && <ClienteTareas cliente={location.state[0]} />}
       </CapsuleTabs.Tab>
       <CapsuleTabs.Tab title="Negocios" key="3">
-        {activeKey === "3" && <ClienteNegocios cliente={location.state[0]} /> }
+        {activeKey === "3" && <ClienteNegocios cliente={location.state[0]} />}
       </CapsuleTabs.Tab>
     </CapsuleTabs>
   );

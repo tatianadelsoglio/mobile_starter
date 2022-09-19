@@ -11,7 +11,7 @@ const returnExtIcon = (ext) => {
     case ext === "docx" || ext === "doc":
       return <DocIcon />;
 
-    case ext === "image/png":
+    case ext === "image/png" || ext === "png":
       return <PngIcon />;
 
     case ext === "application/pdf" || ext === "pdf":

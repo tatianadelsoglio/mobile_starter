@@ -10,13 +10,12 @@ import { useHistory } from "react-router-dom";
 
 export const ListaNegocios = ({ negocios }) => {
 
-  console.log("entró en negocios", negocios);
   let history = useHistory();
 
   let fechaActual = moment();
 
   const dateHandler = (fecha) => {
-    let fechaParametro = moment(fecha, "DD/MM/YYYY");
+    let fechaParametro = moment(fecha, "YYYY-MM-DD");
 
     const diff = moment(fechaParametro).diff(fechaActual, "days");
 

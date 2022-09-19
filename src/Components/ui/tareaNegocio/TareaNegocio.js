@@ -12,11 +12,16 @@ import {
 } from "antd-mobile-icons";
 import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Dialog, Ellipsis, Modal, SwipeAction } from "antd-mobile";
+import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
+import { GlobalContext } from "../../context/GlobalContext";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
+  const { pollTareas, pollTareasCalendar } = useContext(GlobalContext);
+  console.log(tarea);
   const [mostrar, setMostrar] = useState(false);
 
   const ref = useRef(null);
@@ -39,6 +44,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const handleModalDetalleTarea = (tarea) => {
     let cliente = tarea;
+    console.log("tarea selec para editar: ", tarea.tar_id);
 
     return history.push({
       pathname: `/detalletarea/${tarea.tar_id}`,
@@ -46,19 +52,39 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     });
   };
 
-  const handleModalCerrar = () => {
-    Modal.alert({
-      header: (
-        <CheckOutline
-          style={{
-            fontSize: 64,
-            color: "var(--adm-color-primary)",
-          }}
-        />
-      ),
-      title: "Tarea Cerrada Correctamente",
-      confirmText: "Cerrar",
+  const [updateEstadoTareaIframeResolver] = useMutation(UPDATE_ESTADO_TAREA, {
+    onCompleted: () => {
+
+      pollTareas.inicial(1000);
+      setTimeout(() => {
+        pollTareas.stop();
+      }, 1000);
+
+      Modal.alert({
+        header: (
+          <CheckOutline
+            style={{
+              fontSize: 64,
+              color: "var(--adm-color-primary)",
+            }}
+          />
+        ),
+        title: "Tarea Cerrada Correctamente",
+        confirmText: "Cerrar",
+        onConfirm: history.push("/tareas"),
+      });
+    },
+  });
+
+  const handleModalCerrar = (tarea) => {
+    // escribe el resolver
+    updateEstadoTareaIframeResolver({
+      variables: { idTarea: tarea.tar_id },
     });
+
+    // console.log(tarea.tar_id)
+
+    
   };
 
   let fechaActual = moment();
@@ -103,7 +129,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 content: "¿Cerrar Tarea?",
                 cancelText: "Cancelar",
                 confirmText: "Aceptar",
-                onConfirm: handleModalCerrar,
+                onConfirm: () => handleModalCerrar(tarea),
               });
               ref.current?.close();
             },
@@ -284,11 +310,11 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               style={{ color: "#00B33C", marginRight: "5px", fontSize: "1rem" }}
             />
           </div>
-          <div className="tarea-negocio-linea-inferior">
+          <div className="tarea-negocio-linea-inferior-timeline">
             <p className="tarea-negocio-fecha">
-              {moment(tarea.fechacreacion, "DD/MM/YYYY").fromNow()}
+              {moment(tarea.tar_fecha_ts, "YYYY-MM-DD").fromNow()}
             </p>
-            {tarea.cli_id ? (
+            {tarea.cli_nombre ? (
               <div className="tarea-negocio-item">
                 <UserOutline style={{ color: "#00B33C" }} />{" "}
                 <p className="tarea-negocio-contacto">{tarea.cli_nombre}</p>
@@ -311,7 +337,11 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                   fontSize: "0.8rem",
                 }}
               />
-              <p className="texto-tarea-horario">{tarea.fechavencimiento}</p>
+              <p className="texto-tarea-horario">
+                {moment(tarea.tar_vencimiento, "YYYY-MM-DD").format(
+                  "DD/MM/YYYY"
+                )}
+              </p>
               {tarea.tar_horavencimiento && (
                 <p className="texto-tarea-horario">
                   {handleHora(tarea.tar_horavencimiento)} hs
@@ -323,9 +353,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
         {tarea.not_id && (
           <NotaTareaNegocio nota={tarea} interno={true} display={true} />
         )}
-        {/* {tarea.up_id && (
+        {tarea.up_id && (
           <ArchivoTareaNegocio archivo={tarea} interno={true} display={true} />
-        )} */}
+        )}
       </div>
     );
   }
