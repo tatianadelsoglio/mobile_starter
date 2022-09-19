@@ -25,16 +25,19 @@ const Tareas = () => {
   const [filtroFecha, setFiltroFecha] = useState(moment().format("YYYY-MM-DD"));
   const [estado, setEstado] = useState(1);
 
-  const { loading, error, data } = useQuery(GET_TAREAS, {
-    variables: {
-      idUsuario: userId,
-      filtroFecha: "date",
-      fecha: filtroFecha,
-      estado: estado,
-      idUsuarioFiltro: "",
-      idClienteFiltro: null,
-    },
-  });
+  const { loading, error, data } = useQuery(
+    GET_TAREAS,
+    {
+      variables: {
+        idUsuario: userId,
+        filtroFecha: "date",
+        fecha: filtroFecha,
+        estado: estado,
+        idUsuarioFiltro: "",
+        idClienteFiltro: null,
+      },
+    }
+  );
 
   const { data: dataCalendario } = useQuery(GET_TAREAS_CALENDARIO, {
     variables: {
@@ -73,7 +76,6 @@ const Tareas = () => {
     }
     // console.log(JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver))
   }, [data, dataCalendario]);
-
 
   const handleChange = (val) => {
     setFiltroFecha(moment(val).format("YYYY-MM-DD"));

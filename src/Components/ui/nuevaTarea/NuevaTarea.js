@@ -55,6 +55,7 @@ const NuevaTarea = () => {
     }
   }, [data]);
 
+
   useEffect(() => {
     console.log("Busqueda: ", buscador);
   }, [buscador]);

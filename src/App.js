@@ -21,6 +21,7 @@ const App = () => {
   const [plataforma, setPlataforma] = useState();
   const [userId, setUserId] = useState(null);
   const [cargando, setCargando] = useState(false);
+  const [note, setNote] = useState();
 
   useEffect(() => {
 
@@ -62,6 +63,8 @@ const App = () => {
               setUserId,
               cargando,
               setCargando,
+              note,
+              setNote
             }}
           >
             <AppRouter />

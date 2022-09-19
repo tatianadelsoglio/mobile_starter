@@ -16,7 +16,7 @@ import Note from "../note/Note";
 import { UPDATE_TAREA } from "../../../graphql/mutations/tareas";
 
 const DetalleTarea = () => {
-  const { userId } = useContext(GlobalContext);
+  const { userId, note, setNote } = useContext(GlobalContext);
 
   const location = useLocation();
 
@@ -36,7 +36,6 @@ const DetalleTarea = () => {
   const [updateTareaResolver] = useMutation(UPDATE_TAREA);
 
   const handleChange = (value) => {
-    console.log(value.target.value);
     if (value.target.value === "" || value.target.value === null) {
     }
     setBuscador(value.target.value);
@@ -51,7 +50,6 @@ const DetalleTarea = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.getClientesLimitResolver);
       let dataClientes = [];
 
       data.getClientesLimitResolver.map((cliente) => {
@@ -73,7 +71,6 @@ const DetalleTarea = () => {
   }, [data]);
 
   const handleSelect = (value) => {
-    console.log(value);
     setBuscador(value.target.value);
 
     if (ocultarC === true) {
@@ -163,8 +160,12 @@ const DetalleTarea = () => {
 
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    console.log(note);
+  }, [note])
+
   const onFinish = (v) => {
-    // console.log(tarea);
+    console.log("tarea", tarea);
     console.log("v", v);
 
     console.log("cliente:", clientes[0]);
@@ -188,7 +189,7 @@ const DetalleTarea = () => {
       tar_horavencimiento: v.tar_horavencimiento,
       est_id: 1,
       usu_id: userId,
-      cli_id: clientes[0] ? Number(clientes[0].cli_id) : tarea.cli_id,
+      cli_id: tarea.cli_id,
       ale_id: null,
       tar_alertanum: null,
       tip_id: v.tip_id ? v.tip_id.value : tarea.tip_id,
@@ -196,8 +197,8 @@ const DetalleTarea = () => {
     };
 
     let inputNota = {
-      not_desc: v.not_desc ? v.not_desc : null,
-      not_importancia: null,
+      not_desc: note ? note : "",
+      not_importancia: v.pri_id ? Number(v.pri_id[0]) : tarea.pri_id,
       not_id: tarea.not_id,
     };
 
@@ -217,8 +218,9 @@ const DetalleTarea = () => {
 
     console.log("inputTarea", inputTarea);
     console.log("inputAdjunto:", inputAdjunto);
-    console.log("inputNota:", inputNota)
+    console.log("inputNota:", inputNota);
 
+    setNote("");
     form.resetFields();
     setFlist([]);
   };
@@ -260,16 +262,6 @@ const DetalleTarea = () => {
           name="cli_id"
           initialValue={{ label: tarea.cli_nombre, id: tarea.cli_id }}
         >
-          {ocultarC !== true ? (
-            <input
-              className="select_nueva_tarea input_cliente"
-              placeholder="Ingrese Cliente"
-              type="search"
-              autoComplete="off"
-              onChange={(value) => handleChange(value)}
-            />
-          ) : null}
-
           {clientes &&
             clientes.map((cliente) => (
               <>
@@ -278,15 +270,9 @@ const DetalleTarea = () => {
                     <input
                       className="select_nueva_tarea input_cliente"
                       type="text"
-                      onClick={(value) => handleSelect(value)}
                       value={cliente.cli_nombre}
+                      readOnly={true}
                     />
-                    <Button
-                      className="btn_cliente"
-                      onClick={() => handleLimpiar()}
-                    >
-                      X
-                    </Button>
                   </div>
                 ) : (
                   ""

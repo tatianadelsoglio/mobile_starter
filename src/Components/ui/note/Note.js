@@ -1,18 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
-// import { NoteContext } from "../../../context/NoteContext";
-// import { Col, Row } from "antd";
+
 import { useQuill } from "react-quilljs";
 
 import "react-quill/dist/quill.snow.css";
-// import "../../timeline.styles.scss";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Note = ({ editValue, width, height }) => {
+
+  const { note, setNote } = useContext(GlobalContext);
+
   const [value, setValue] = useState("");
-  const [note, setNote ] = useState();
+  
+
   var toolbarOptions = [
     ["bold", "italic", "underline"],
-    // [{ link: true }],
+    [{ link: true }],
     [{ list: "ordered" }, { list: "bullet" }],
     ["clean"],
   ];
@@ -49,7 +52,7 @@ const Note = ({ editValue, width, height }) => {
   return (
     <>
       <div style={{display:"flex", flexDirection:"row", width: "100%", marginLeft:"6px"}}>
-        <div style={{display:"flex", flexDirection:"column", width: "100%", height:"100%"}}>
+        <div style={{display:"flex", flexDirection:"column", width: "100%", height:"100%", marginBottom: "30px"}}>
           <div style={{ width: width }}>
             <div ref={quillRef} style={{ minHeight: height }} />
           </div>
