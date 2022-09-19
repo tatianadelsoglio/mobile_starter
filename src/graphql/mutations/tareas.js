@@ -6,29 +6,12 @@ export const NEW_TAREA = gql`
   }
 `;
 export const UPDATE_TAREA = gql`
-  mutation updateTarea(
-    $idTarea: Int
-    $inputTarea: tareaInput
-    $inputAdjunto: uploadInput
-    $inputNota: notaInput
-    $idUsuario: Int
-  ) {
-    updateTareaResolver(
-      idTarea: $idTarea
-      inputTarea: $inputTarea
-      inputAdjunto: $inputAdjunto
-      inputNota: $inputNota
-      idUsuario: $idUsuario
-    )
+  mutation updateTarea($idTarea: Int,$inputTarea: tareaInput,$inputAdjunto: uploadInput,$inputNota: notaInput,$idUsuario: Int){
+    updateTareaResolver(idTarea: $idTarea,inputTarea: $inputTarea,inputAdjunto: $inputAdjunto,inputNota: $inputNota,idUsuario: $idUsuario)
   }
 `;
-export const UPDATE_ESTADO_TAREA = gql`
-  mutation estadoTarea($idTarea: Int, $idEstado: Int) {
-    estadoTareaResolver(idTarea: $idTarea, idEstado: $idEstado)
-  }
-`;
-export const TAREA_ARCHIVADA = gql`
-  mutation tareasArchivada($idTarea: Int) {
-    tareaArchivadaResolver(idTarea: $idTarea)
-  }
+export const UPDATE_ESTADO_TAREA =gql`
+  mutation updateEstadoTareaIframe($idTarea: Int){
+  updateEstadoTareaIframeResolver(idTarea: $idTarea)
+}
 `;
