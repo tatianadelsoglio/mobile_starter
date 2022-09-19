@@ -14,7 +14,10 @@ import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
 import { useEffect, useRef, useState } from "react";
 import { Dialog, Ellipsis, Modal, SwipeAction } from "antd-mobile";
+import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import { sleep } from 'antd-mobile/es/utils/sleep';
+import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
 
@@ -41,6 +44,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const handleModalDetalleTarea = (tarea) => {
     let cliente = tarea;
+    console.log("tarea selec para editar: ", tarea.tar_id)
 
     return history.push({
       pathname: `/detalletarea/${tarea.tar_id}`,
@@ -48,7 +52,17 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     });
   };
 
-  const handleModalCerrar = () => {
+  const [updateEstadoTareaIframeResolver] = useMutation(UPDATE_ESTADO_TAREA);
+
+  const handleModalCerrar = (tarea) => {
+
+     // escribe el resolver
+     updateEstadoTareaIframeResolver({
+      variables: { idTarea:tarea.tar_id,}
+    });
+
+    // console.log(tarea.tar_id)
+
     Modal.alert({
       header: (
         <CheckOutline
@@ -60,6 +74,10 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
       ),
       title: "Tarea Cerrada Correctamente",
       confirmText: "Cerrar",
+      onConfirm:(async() => 
+      {await sleep(1)
+        history.go(0)
+      })
     });
   };
 
@@ -105,7 +123,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 content: "¿Cerrar Tarea?",
                 cancelText: "Cancelar",
                 confirmText: "Aceptar",
-                onConfirm: handleModalCerrar,
+                onConfirm: (() => handleModalCerrar(tarea)),
               });
               ref.current?.close();
             },
