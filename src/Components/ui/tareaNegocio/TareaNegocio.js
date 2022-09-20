@@ -153,7 +153,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 content={tarea.tar_asunto}
               /> */}
               <p style={{fontWeight: "bold",
-                  width: "90%",
+                  width: "100%",
                   fontSize: "16px",
                   marginTop: "4px",
                   color: "#454545"}}>{tarea.tar_asunto}</p>
