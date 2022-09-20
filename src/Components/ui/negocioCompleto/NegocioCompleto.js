@@ -92,12 +92,12 @@ export const NegocioCompleto = () => {
             </p>
           </div>
         )}
-        <div className="negocio-completo-header-linea">
-          {/* <FilterOutline />
-          <p className="negocio-completo-header-texto">{negocio.embudo}</p> */}
+        {/* <div className="negocio-completo-header-linea">
+          <FilterOutline />
+          <p className="negocio-completo-header-texto">{negocio.embudo}</p> 
           <TagOutline style={{ marginLeft: "0px" }} />
           <p className="negocio-completo-header-texto">{negocio.eta_id}</p>
-        </div>
+        </div> */}
         <div className="negocio-completo-header-linea">
           <p className="negocio-completo-header-fecha">
             {"Fecha de creacion: " +

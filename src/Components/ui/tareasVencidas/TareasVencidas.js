@@ -8,7 +8,7 @@ import ListaTarea from "../listaTareas/ListaTarea";
 
 export const TareasVencidas = () => {
   const [tareas, setTareas] = useState();
-  const [estado ] = useState(1);
+  const [estado] = useState(1);
 
   const { userId } = useContext(GlobalContext);
 
@@ -47,14 +47,11 @@ export const TareasVencidas = () => {
   }, [data]);
 
   return (
-    <QueryResult
-      loading={loading}
-      error={error}
-      data={tareas}
-    >
+    <QueryResult loading={loading} error={error} data={tareas}>
       {tareas && (
         <div className="div_lista">
-          <ListaTarea itemListaTarea={tareas} />
+          <ListaTarea itemListaTarea={tareas}>
+          </ListaTarea>
         </div>
       )}
     </QueryResult>

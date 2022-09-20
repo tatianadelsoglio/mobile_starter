@@ -184,15 +184,8 @@ const DetalleTarea = () => {
 
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    console.log(note);
-  }, [note])
-
   const onFinish = (v) => {
-    console.log("tarea", tarea);
-    console.log("v", v);
 
-    console.log("cliente:", clientes[0]);
 
     let inputAdjunto;
     if (Object.keys(file).length) {
@@ -239,10 +232,6 @@ const DetalleTarea = () => {
         idUsuario: userId,
       },
     });
-
-    console.log("inputTarea", inputTarea);
-    console.log("inputAdjunto:", inputAdjunto);
-    console.log("inputNota:", inputNota);
 
     setNote("");
     form.resetFields();

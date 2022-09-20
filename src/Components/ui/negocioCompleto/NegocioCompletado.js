@@ -81,7 +81,6 @@ export const NegocioCompletado = ({ neg_id }) => {
           )
         );
       });
-      console.log(lineaOrdenada);
       setTimeline(lineaOrdenada);
     }
   };
