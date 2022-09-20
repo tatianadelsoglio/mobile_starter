@@ -43,13 +43,6 @@ const Clientes = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log(clientes);
-  }, [clientes]);
-
-  useEffect(() => {
-    console.log("Busqueda: ", inputBuscador);
-  }, [inputBuscador]);
 
   return (
     <div style={{ textAlign: "start" }}>

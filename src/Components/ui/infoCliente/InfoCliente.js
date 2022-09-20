@@ -18,12 +18,9 @@ const InfoCliente = ({ clienteSelect }) => {
 
   useEffect(() => {
     if (data && data !== []) {
-      console.log(data);
       setContact(data.getContactosResolver)
     } else {setContact("")}
   }, [data]);
-
-  console.log(contact)
 
   return (
     <div className="div_contenedor_info">

@@ -38,7 +38,6 @@ const NuevaTarea = () => {
   const handleChange = (value) => {
     if (value === "" || value === null) {
     }
-    console.log(value.target.value);
     setBuscador(value.target.value);
   };
 
@@ -56,12 +55,11 @@ const NuevaTarea = () => {
   }, [data]);
 
 
-  useEffect(() => {
-    console.log("Busqueda: ", buscador);
-  }, [buscador]);
+  // useEffect(() => {
+  //   console.log("Busqueda: ", buscador);
+  // }, [buscador]);
 
   const handleSelect = (value) => {
-    console.log("cliente: ", value.target.value);
     setBuscador(value.target.value);
 
     if (ocultarC === true) {
@@ -101,9 +99,9 @@ const NuevaTarea = () => {
     }
   }, [dataTipoTarea]);
 
-  useEffect(() => {
-    console.log(tiposTareas);
-  }, [tiposTareas]);
+  // useEffect(() => {
+  //   console.log(tiposTareas);
+  // }, [tiposTareas]);
 
   // const handleSelectTT = ({ value }) => {
   //   console.log(value);
@@ -119,9 +117,9 @@ const NuevaTarea = () => {
     }
   }, [dataTipoOrigen]);
 
-  useEffect(() => {
-    console.log(tiposOrigenes);
-  }, [tiposOrigenes]);
+  // useEffect(() => {
+  //   console.log(tiposOrigenes);
+  // }, [tiposOrigenes]);
 
   // const handleSelectO = ({ value }) => {
   //   console.log(value);
