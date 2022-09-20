@@ -50,8 +50,7 @@ export const TareasVencidas = () => {
     <QueryResult loading={loading} error={error} data={tareas}>
       {tareas && (
         <div className="div_lista">
-          <ListaTarea itemListaTarea={tareas}>
-          </ListaTarea>
+          <ListaTarea itemListaTarea={tareas} />
         </div>
       )}
     </QueryResult>
