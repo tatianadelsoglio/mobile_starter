@@ -21,7 +21,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
   const { pollTareas } = useContext(GlobalContext);
-  console.log(tarea);
+
   const [mostrar, setMostrar] = useState(false);
 
   const ref = useRef(null);
@@ -44,7 +44,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const handleModalDetalleTarea = (tarea) => {
     let cliente = tarea;
-    console.log("tarea selec para editar: ", tarea.tar_id);
+    // console.log("tarea selec para editar: ", tarea.tar_id);
 
     return history.push({
       pathname: `/detalletarea/${tarea.tar_id}`,
@@ -142,7 +142,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             onClick={() => setMostrar(!mostrar)}
           >
             <div className="tarea-negocio-linea-superior">
-              <Ellipsis
+              {/* <Ellipsis
                 className="tarea-negocio-titulo"
                 style={{
                   fontWeight: "bold",
@@ -151,7 +151,12 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 }}
                 direction="end"
                 content={tarea.tar_asunto}
-              />
+              /> */}
+              <p style={{fontWeight: "bold",
+                  width: "90%",
+                  fontSize: "16px",
+                  marginTop: "4px",
+                  color: "#454545"}}>{tarea.tar_asunto}</p>
             </div>
             <div className="tarea-negocio-linea-intermedia">
               {tarea.cli_nombre ? (
