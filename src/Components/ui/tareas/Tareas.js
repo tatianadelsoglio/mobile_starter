@@ -68,13 +68,19 @@ const Tareas = () => {
 
     if (data) {     
       ordenarDatos(JSON.parse(data.getTareasIframeResolver));
+
+      console.log(JSON.parse(data.getTareasIframeResolver));
     }
   
     if (dataCalendario) {
+      
       setTareasCalendario(
         JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver)
           .fechasVenc
       );
+      console.log(JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver)
+      .fechasVenc)
+
     }
   }, [data, dataCalendario]);
 
