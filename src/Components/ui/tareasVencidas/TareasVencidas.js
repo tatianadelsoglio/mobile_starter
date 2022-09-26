@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useQuery } from "@apollo/client";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
@@ -98,7 +99,7 @@ export const TareasVencidas = () => {
           color="#56b43c"
           ariaLabel="tail-spin-loading"
           radius="1"
-          wrapperStyle={{marginLeft:"47%", marginTop:"15%"}}
+          wrapperStyle={{marginLeft:"47%", marginTop:"12%"}}
           wrapperClass=""
           visible={true}
         />
