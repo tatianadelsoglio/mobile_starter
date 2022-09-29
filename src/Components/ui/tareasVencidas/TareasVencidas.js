@@ -9,6 +9,7 @@ import ListaTarea from "../listaTareas/ListaTarea";
 import ReactSpinnerTimer from "react-spinner-timer";
 import { AutoSizer, List } from "react-virtualized";
 import { TailSpin } from "react-loader-spinner";
+import { FixedSizeList } from "react-window";
 
 export const TareasVencidas = () => {
   const [tareas, setTareas] = useState();
@@ -44,6 +45,28 @@ export const TareasVencidas = () => {
       setTareas(tareasOrdenadas);
     }
   };
+  /* INTENTO 3000 REACT LISTA VIRTUAL*/
+  // console.log("Tareas vencidas: ", tareas.length);
+
+  const getItemSize = (index) => tareas[index];
+
+  const row = () => {
+    <>
+      <QueryResult loading={loading} error={error} data={tareas}>
+        <FixedSizeList
+          height={500}
+          width={500}
+          itemSize={getItemSize}
+          itemCount={tareas.length}
+        >
+          <div className="div_lista">
+            <ListaTarea itemListaTarea={tareas} />
+          </div>
+        </FixedSizeList>
+      </QueryResult>
+    </>;
+  };
+  /* INTENTO 3000 REACT LISTA VIRTUAL*/
 
   useEffect(() => {
     if (data) {
@@ -59,7 +82,6 @@ export const TareasVencidas = () => {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
-
 
   return (
     <QueryResult loading={loading} error={error} data={tareas}>
@@ -80,5 +102,17 @@ export const TareasVencidas = () => {
         </div>
       )}
     </QueryResult>
+    // <QueryResult loading={loading} error={error} data={tareas}>
+    //   {tareas && (
+    //     <FixedSizeList
+    //       height={500}
+    //       width={500}
+    //       itemSize={getItemSize}
+    //       itemCount={tareas.length}
+    //     >
+    //      {row}
+    //     </FixedSizeList>
+    //   )}
+    // </QueryResult>
   );
 };
