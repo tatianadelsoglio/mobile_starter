@@ -20,8 +20,8 @@ import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
-  const { pollTareas, pollTareasCalendar } = useContext(GlobalContext);
-  console.log(tarea);
+  const { pollTareas } = useContext(GlobalContext);
+
   const [mostrar, setMostrar] = useState(false);
 
   const ref = useRef(null);
@@ -44,7 +44,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const handleModalDetalleTarea = (tarea) => {
     let cliente = tarea;
-    console.log("tarea selec para editar: ", tarea.tar_id);
+    // console.log("tarea selec para editar: ", tarea.tar_id);
 
     return history.push({
       pathname: `/detalletarea/${tarea.tar_id}`,
@@ -142,7 +142,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             onClick={() => setMostrar(!mostrar)}
           >
             <div className="tarea-negocio-linea-superior">
-              <Ellipsis
+              {/* <Ellipsis
                 className="tarea-negocio-titulo"
                 style={{
                   fontWeight: "bold",
@@ -151,7 +151,12 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 }}
                 direction="end"
                 content={tarea.tar_asunto}
-              />
+              /> */}
+              <p style={{fontWeight: "bold",
+                  width: "90%",
+                  fontSize: "16px",
+                  marginTop: "4px",
+                  color: "#454545"}}>{tarea.tar_asunto}</p>
             </div>
             <div className="tarea-negocio-linea-intermedia">
               {tarea.cli_nombre ? (
@@ -196,9 +201,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                         height: "20px",
                         width: "40px",
                         fontSize: "12px",
-                        backgroundColor: "#da4453",
+                        backgroundColor: "rgb(241, 45, 45)",
                         color: "white",
-                        border: "solid 1px #da4453",
+                        border: "solid 1px rgb(241, 45, 45)",
                         borderRadius: "4px",
                         display: "flex",
                         justifyContent: "center",
@@ -215,9 +220,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                         height: "20px",
                         width: "40px",
                         fontSize: "12px",
-                        backgroundColor: "#f7c560",
+                        backgroundColor: "rgb(232, 188, 13)",
                         color: "white",
-                        border: "solid 1px #f7c560",
+                        border: "solid 1px rgb(232, 188, 13)",
                         borderRadius: "4px",
                         display: "flex",
                         justifyContent: "center",
@@ -234,9 +239,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                         height: "20px",
                         width: "40px",
                         fontSize: "12px",
-                        backgroundColor: "#8cc152",
+                        backgroundColor: "rgb(0, 179, 60)",
                         color: "white",
-                        border: "solid 1px #8cc152",
+                        border: "solid 1px rgb(0, 179, 60)",
                         borderRadius: "4px",
                         display: "flex",
                         justifyContent: "center",

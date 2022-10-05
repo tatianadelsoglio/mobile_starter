@@ -27,7 +27,7 @@ const NuevaTarea = () => {
   const [idSelector, setIdSelector] = useState();
 
   const [clientes, setClientes] = useState([]);
-  const { userId, pollTareasCalendar, pollTareas } = useContext(GlobalContext);
+  const { userId, pollTareas } = useContext(GlobalContext);
 
   //TODO INICIO SECCION DE ELEGIR CLIENTE
 
@@ -38,7 +38,6 @@ const NuevaTarea = () => {
   const handleChange = (value) => {
     if (value === "" || value === null) {
     }
-    console.log(value.target.value);
     setBuscador(value.target.value);
   };
 
@@ -55,16 +54,12 @@ const NuevaTarea = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log(clientes);
-  }, [clientes]);
 
-  useEffect(() => {
-    console.log("Busqueda: ", buscador);
-  }, [buscador]);
+  // useEffect(() => {
+  //   console.log("Busqueda: ", buscador);
+  // }, [buscador]);
 
   const handleSelect = (value) => {
-    console.log("cliente: ", value.target.value);
     setBuscador(value.target.value);
 
     if (ocultarC === true) {
@@ -104,9 +99,9 @@ const NuevaTarea = () => {
     }
   }, [dataTipoTarea]);
 
-  useEffect(() => {
-    console.log(tiposTareas);
-  }, [tiposTareas]);
+  // useEffect(() => {
+  //   console.log(tiposTareas);
+  // }, [tiposTareas]);
 
   // const handleSelectTT = ({ value }) => {
   //   console.log(value);
@@ -122,9 +117,9 @@ const NuevaTarea = () => {
     }
   }, [dataTipoOrigen]);
 
-  useEffect(() => {
-    console.log(tiposOrigenes);
-  }, [tiposOrigenes]);
+  // useEffect(() => {
+  //   console.log(tiposOrigenes);
+  // }, [tiposOrigenes]);
 
   // const handleSelectO = ({ value }) => {
   //   console.log(value);
@@ -262,7 +257,6 @@ const NuevaTarea = () => {
             clientes.map((cliente) => (
               <>
                 {buscador !== "" ? (
-                  <>
                     <div className="div_clienteSelect_btn">
                       <input
                         className="select_nueva_tarea input_cliente"
@@ -277,7 +271,6 @@ const NuevaTarea = () => {
                         X
                       </Button>
                     </div>
-                  </>
                 ) : (
                   ""
                 )}

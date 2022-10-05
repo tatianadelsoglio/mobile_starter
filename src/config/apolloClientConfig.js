@@ -17,7 +17,6 @@ const Client = new ApolloClient({
 		//uri: process.env.REACT_APP_APOLLO,
 		//uri: URL,
 		//uri: `http://beeapp.binamics.com.ar:4002`,
-
 		// fetch,
 	}),
 });

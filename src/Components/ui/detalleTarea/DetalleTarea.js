@@ -1,48 +1,67 @@
 /* eslint-disable array-callback-return */
 
-import {
-  Form,
-  Button,
-  Selector,
-  TextArea,
-  Modal,
-  DatePicker,
-} from "antd-mobile";
+import { Form, Button, Selector, TextArea, Modal } from "antd-mobile";
 import { CheckOutline } from "antd-mobile-icons";
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import "./DetalleTarea.css";
 import moment from "moment";
 import { GlobalContext } from "../../context/GlobalContext";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import Select from "react-select";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
+import Note from "../note/Note";
+import { UPDATE_TAREA } from "../../../graphql/mutations/tareas";
 
 const DetalleTarea = () => {
-  const { userId } = useContext(GlobalContext);
+  const { userId, note, setNote, pollTareas } = useContext(GlobalContext);
 
   const location = useLocation();
 
+  const history = useHistory()
+
   const [tarea, setTarea] = useState(location.state);
 
-  const [idSelector, setIdSelector] = useState(tarea.pri_desc);
+  const [idSelector, setIdSelector] = useState(tarea.pri_id);
 
   const [clientes, setClientes] = useState([]);
 
-  const [buscador, setBuscador] = useState("");
-  const [ocultarC, setOcultarC] = useState(false);
-  const [dateFrom, setDateFrom] = useState("");
+  const [buscador, setBuscador] = useState(tarea.cli_nombre);
+  const [ocultarC, setOcultarC] = useState(true);
+  const [limpiar, setLimpiar] = useState(false);
 
-  const onChangeDateFrom = (v) => {
-    setDateFrom(moment(v));
-  };
+  const [file, setFile] = useState({});
+  const [fList, setFlist] = useState([]);
+
+  const [updateTareaResolver] = useMutation(UPDATE_TAREA, {
+    onCompleted: () => {
+
+      pollTareas.inicial(1000);
+      setTimeout(() => {
+        pollTareas.stop();
+      }, 1000);
+
+      Modal.alert({
+        header: (
+          <CheckOutline
+            style={{
+              fontSize: 64,
+              color: "var(--adm-color-primary)",
+            }}
+          />
+        ),
+        title: "Tarea editada correctamente",
+        confirmText: "Cerrar",
+        onConfirm: history.goBack(),
+      });
+    },
+  });
 
   const handleChange = (value) => {
-    if (value === "" || value === null) {
+    if (value.target.value === "" || value.target.value === null) {
     }
-    console.log(value.target.value);
     setBuscador(value.target.value);
   };
 
@@ -55,12 +74,27 @@ const DetalleTarea = () => {
 
   useEffect(() => {
     if (data) {
-      setClientes(data.getClientesLimitResolver);
+      let dataClientes = [];
+
+      data.getClientesLimitResolver.map((cliente) => {
+        if (cliente.cli_id != tarea.cli_id) dataClientes.push(cliente);
+      });
+
+      if (buscador === tarea.cli_nombre) {
+        dataClientes.push({
+          __typename: "Clientes",
+          cli_email: null,
+          cli_id: tarea.cli_id.toString(),
+          cli_nombre: tarea.cli_nombre,
+          cli_telefono1: null,
+        });
+      }
+
+      setClientes(dataClientes);
     }
   }, [data]);
 
   const handleSelect = (value) => {
-    console.log("cliente: ", value.target.value);
     setBuscador(value.target.value);
 
     if (ocultarC === true) {
@@ -70,6 +104,19 @@ const DetalleTarea = () => {
     if (ocultarC === false) {
       setOcultarC(true);
     }
+  };
+
+  const handleLimpiar = (value) => {
+    if (limpiar === false) {
+      setLimpiar(true);
+      setOcultarC(false);
+    }
+    if (limpiar === true) {
+      setLimpiar(false);
+      setOcultarC(false);
+    }
+
+    setBuscador("");
   };
 
   const [tiposTareas, setTiposTareas] = useState([]);
@@ -95,67 +142,101 @@ const DetalleTarea = () => {
       setTiposOrigenes(dataTipoOrigen.getOrigenesResolver);
     }
   }, [dataTipoOrigen]);
-  console.log(tarea);
 
   const prioridad = [
     {
       label: (
         <div
           className={
-            idSelector === "ALTA"
-              ? "selector-alta seleccionado"
-              : "selector-alta"
+            idSelector === 1 ? "selector-alta seleccionado" : "selector-alta"
           }
         >
           <p className="selector-texto">ALTA</p>
         </div>
       ),
-      value: "ALTA",
+      value: 1,
     },
     {
       label: (
         <div
           className={
-            idSelector === "MEDIA"
-              ? "selector-media seleccionado"
-              : "selector-media"
+            idSelector === 2 ? "selector-media seleccionado" : "selector-media"
           }
         >
           <p className="selector-texto">MEDIA</p>
         </div>
       ),
-      value: "MEDIA",
+      value: 2,
     },
     {
       label: (
         <div
           className={
-            idSelector === "BAJA"
-              ? "selector-baja seleccionado"
-              : "selector-baja"
+            idSelector === 3 ? "selector-baja seleccionado" : "selector-baja"
           }
         >
           <p className="selector-texto">BAJA</p>
         </div>
       ),
-      value: "BAJA",
+      value: 3,
     },
   ];
 
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {};
+  const onFinish = (v) => {
 
-  // const valoresIniciales = {
-  //   cli_id: tarea.cli_id,
-  //   tar_asunto: tarea.tar_asunto,
-  //   tar_vencimiento: tarea.tar_vencimiento,
-  //   tar_horavencimiento: moment(tarea.tar_horavencimiento, "HH:mm:ss").format("LT"),
-  //   not_desc: tarea.not_desc ? tarea.not_desc: null,
-  //   tip_id: tarea.tip_id,
-  //   ori_id: tarea.ori_id,
-  //   prioridad: tarea.pri_desc,
-  // }
+
+    let inputAdjunto;
+    if (Object.keys(file).length) {
+      const extension = file.originalname.split(".")[1];
+      inputAdjunto = {
+        up_filename: file.fileName,
+        up_mimetype: extension,
+        up_hashname: file.filename,
+        usu_id: 1,
+        up_detalle: v.adj_detalle,
+        up_size: String(file.size),
+      };
+    }
+
+    const inputTarea = {
+      tar_asunto: v.tar_asunto,
+      tar_vencimiento: v.tar_vencimiento,
+      tar_horavencimiento: v.tar_horavencimiento,
+      est_id: 1,
+      usu_id: userId,
+      cli_id: tarea.cli_id,
+      ale_id: null,
+      tar_alertanum: null,
+      tip_id: v.tip_id ? v.tip_id.value : tarea.tip_id,
+      pri_id: v.pri_id ? Number(v.pri_id[0]) : tarea.pri_id,
+    };
+
+    let inputNota = {
+      not_desc: note ? note : "",
+      not_importancia: v.pri_id ? Number(v.pri_id[0]) : tarea.pri_id,
+      not_id: tarea.not_id,
+    };
+
+    if (fList.length === 0) {
+      inputAdjunto = null;
+    }
+
+    updateTareaResolver({
+      variables: {
+        idTarea: tarea.tar_id,
+        inputTarea,
+        inputAdjunto,
+        inputNota,
+        idUsuario: userId,
+      },
+    });
+
+    setNote("");
+    form.resetFields();
+    setFlist([]);
+  };
 
   return (
     <div className="detalle-tarea-contenedor">
@@ -164,27 +245,12 @@ const DetalleTarea = () => {
         form={form}
         layout="vertical"
         onFinish={onFinish}
-        // initialValues={valoresIniciales}
         footer={
           <Button
             block
             type="submit"
             color="primary"
             size="large"
-            onClick={() => {
-              Modal.alert({
-                header: (
-                  <CheckOutline
-                    style={{
-                      fontSize: 64,
-                      color: "#00b33c",
-                    }}
-                  />
-                ),
-                title: "Tarea editada correctamente",
-                confirmText: "Cerrar",
-              });
-            }}
           >
             Guardar
           </Button>
@@ -195,27 +261,18 @@ const DetalleTarea = () => {
           name="cli_id"
           initialValue={{ label: tarea.cli_nombre, id: tarea.cli_id }}
         >
-          {ocultarC !== true ? (
-            <input
-              className="select_nueva_tarea input_cliente"
-              placeholder="Ingrese Cliente"
-              type="search"
-              autoComplete="off"
-              onChange={(value) => handleChange(value)}
-            />
-          ) : null}
           {clientes &&
             clientes.map((cliente) => (
               <>
                 {buscador !== "" ? (
-                  <>
+                  <div className="div_clienteSelect_btn">
                     <input
-                      className="select_nueva_tarea"
+                      className="select_nueva_tarea input_cliente"
                       type="text"
-                      onClick={(value) => handleSelect(value)}
                       value={cliente.cli_nombre}
+                      readOnly={true}
                     />
-                  </>
+                  </div>
                 ) : (
                   ""
                 )}
@@ -242,7 +299,7 @@ const DetalleTarea = () => {
             }
           />
         </Form.Item>
-        <Form.Item label="Fuente" name="ori_id">
+        {/* <Form.Item label="Fuente" name="ori_id">
           <Select
             className="select_nueva_tarea"
             defaultValue={{ label: tarea.ori_desc, value: tarea.ori_id }}
@@ -254,7 +311,7 @@ const DetalleTarea = () => {
               }))
             }
           />
-        </Form.Item>
+        </Form.Item> */}
         <div
           style={{
             display: "flex",
@@ -292,10 +349,15 @@ const DetalleTarea = () => {
             </Form.Item>
           </div>
         </div>
-        <Form.Item label="Nota" name="not_desc" initialValue={tarea.not_desc}>
-          <TextArea autoSize={true} />
+        <Form.Item label="Nota" name="not_desc">
+          <Note
+            editValue={tarea.not_desc || ""}
+            width="100%"
+            height="100%"
+          ></Note>
         </Form.Item>
-        <Form.Item label="Prioridad" name="prioridad">
+
+        <Form.Item label="Prioridad" name="pri_id">
           <Selector
             style={{
               "--border-radius": "10px",
