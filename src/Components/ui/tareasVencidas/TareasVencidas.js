@@ -2,8 +2,8 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import QueryResult from "../../queryResult/QueryResult";
 import ListaTarea from "../listaTareas/ListaTarea";
-import ReactSpinnerTimer from "react-spinner-timer";
-import { AutoSizer, List } from "react-virtualized";
+// import ReactSpinnerTimer from "react-spinner-timer";
+// import { AutoSizer, List } from "react-virtualized";
 import { TailSpin } from "react-loader-spinner";
 import { FixedSizeList } from "react-window";
 
