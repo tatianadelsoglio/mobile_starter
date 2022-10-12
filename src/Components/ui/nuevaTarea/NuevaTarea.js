@@ -6,7 +6,6 @@ import {
   Form,
   Modal,
   Selector,
-  SpinLoading,
   TextArea,
 } from "antd-mobile";
 import React, { useContext, useEffect, useState } from "react";
@@ -20,7 +19,6 @@ import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 import { NEW_TAREA } from "../../../graphql/mutations/tareas";
 import { useHistory } from "react-router-dom";
-import { sleep } from "antd-mobile/es/utils/sleep";
 
 const NuevaTarea = () => {
   let history = useHistory();

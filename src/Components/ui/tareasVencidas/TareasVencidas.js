@@ -1,30 +1,15 @@
-import { useQuery } from "@apollo/client";
 import moment from "moment";
-import { useContext, useEffect, useState } from "react";
-import { GET_TAREAS } from "../../../graphql/queries/Tarea";
-import { GlobalContext } from "../../context/GlobalContext";
+import { useEffect, useState } from "react";
 import QueryResult from "../../queryResult/QueryResult";
 import ListaTarea from "../listaTareas/ListaTarea";
 
-export const TareasVencidas = () => {
+export const TareasVencidas = ({tareasParametro, error, loading}) => {
   const [tareas, setTareas] = useState();
-  const [estado] = useState(1);
-
-  const { userId } = useContext(GlobalContext);
-
-  const { loading, error, data } = useQuery(GET_TAREAS, {
-    variables: {
-      idUsuario: userId,
-      filtroFecha: "expired",
-      fecha: moment().format("YYYY-MM-DD"),
-      estado: estado,
-      idUsuarioFiltro: "",
-      idClienteFiltro: null,
-    },
-  });
+  // const [estado] = useState(1);
 
   const ordenarDatos = (tareas) => {
     let tareasOrdenadas;
+
     if (tareas) {
       tareasOrdenadas = tareas.sort(function (a, b) {
         return (
@@ -39,21 +24,24 @@ export const TareasVencidas = () => {
       setTareas(tareasOrdenadas);
     }
   };
+  /* INTENTO 3000 REACT LISTA VIRTUAL*/
+  // console.log("Tareas vencidas: ", tareas.length);
+
+  /* INTENTO 3000 REACT LISTA VIRTUAL*/
 
   useEffect(() => {
-    if (data) {
-      ordenarDatos(JSON.parse(data.getTareasIframeResolver));
+    if (tareasParametro) {
+      ordenarDatos(tareasParametro);
     }
-  }, [data]);
+  }, [tareasParametro]);
 
   return (
     <QueryResult loading={loading} error={error} data={tareas}>
-      {tareas && (
+      {tareas && 
         <div className="div_lista">
-          <ListaTarea itemListaTarea={tareas}>
-          </ListaTarea>
+          <ListaTarea itemListaTarea={tareas} />
         </div>
-      )}
+      }
     </QueryResult>
   );
 };

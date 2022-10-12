@@ -42,7 +42,7 @@ export const ClienteTareas = ({ cliente }) => {
 
   useEffect(() => {
     if (data) {
-      ordenarDatos(JSON.parse(data.getTareasIframeResolver));
+      ordenarDatos(JSON.parse(data.getTareasIframeResolver).tareas);
     }
   }, [data]);
 
