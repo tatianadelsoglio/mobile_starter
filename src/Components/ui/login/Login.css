@@ -42,17 +42,6 @@
     padding: 0px;
 }
 
-/* .form_login_input{
-    margin-top: 10px; 
-    margin-bottom: 20px;
-    border : 0px none rgb(73, 80, 87); 
-    padding-top : 6px;
-    padding-bottom : 6px;
-    padding-left: 10px;
-    background : rgb(255, 255, 255);
-    box-sizing : content-box;
-} */
-
 .form_login_input{
     border : 0px none rgb(73, 80, 87); 
     background : rgb(255, 255, 255);
@@ -109,3 +98,7 @@
     cursor: pointer;
 }
 
+.adm-checkbox.adm-checkbox-checked .adm-checkbox-icon {
+	border-color: #56b43c !important;
+	background-color: #56b43c !important;
+}
