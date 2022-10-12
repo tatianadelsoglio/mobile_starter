@@ -29,14 +29,26 @@ const Tareas = () => {
   // const [estado, setEstado] = useState(1);
   const [tareasMobile, setTareasMobile] = useState();
 
-  const { dataTareas } = useQuery(GET_TAREAS, {
+  // const { dataTareas } = useQuery(GET_TAREAS, {
+  //   variables: {
+  //     idUsuario: userId,
+  //     filtroFecha: "",
+  //     fecha: "",
+  //     estado: 1,
+  //     idUsuarioFiltro: "",
+  //     idClienteFiltro: null
+  //   },
+  // });
+
+  const {
+    data: dataCalendario,
+    error,
+    loading,
+    startPolling, 
+    stopPolling
+  } = useQuery(GET_TAREAS_CALENDARIO, {
     variables: {
       idUsuario: userId,
-      filtroFecha: "",
-      fecha: "",
-      estado: 1,
-      idUsuarioFiltro: "",
-      idClienteFiltro: null
     },
   });
 
@@ -47,18 +59,6 @@ const Tareas = () => {
     startPolling: startPollingMobile, 
     stopPolling: stopPollingMobile
   } = useQuery(GET_TAREAS_MOBILE, {
-    variables: {
-      idUsuario: userId,
-    },
-  });
-
-  const {
-    data: dataCalendario,
-    error,
-    loading,
-    startPolling, 
-    stopPolling
-  } = useQuery(GET_TAREAS_CALENDARIO, {
     variables: {
       idUsuario: userId,
     },
@@ -91,12 +91,6 @@ const Tareas = () => {
   };
 
   useEffect(() => {
-    if (dataMobile) {
-      setTareasMobile(JSON.parse(dataMobile.getTareasMobileResolver));
-    }
-  }, [dataMobile]);
-
-  useEffect(() => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
       console.log(JSON.parse(dataCalendario.getTareasPropiasMobileResolver))
@@ -119,8 +113,14 @@ const Tareas = () => {
   }, [dataCalendario])
 
   useEffect(() => {
+    if (dataMobile) {
+      setTareasMobile(JSON.parse(dataMobile.getTareasMobileResolver));
+    }
+  }, [dataMobile]);
 
-  }, [dataMobile])
+  useEffect(() => {
+
+  }, [tareasMobile])
 
   return (
     <CapsuleTabs
