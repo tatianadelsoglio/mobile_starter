@@ -9,7 +9,7 @@ const QueryResult = ({ loading, error, data, children }) => {
   if (loading) {
     return (
       <div className="center-wrapper">
-        <SpinLoading color='primary' />
+        <SpinLoading color='#56b43c' />
       </div>
     );
   }
