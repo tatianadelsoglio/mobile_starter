@@ -299,19 +299,6 @@ const DetalleTarea = () => {
             }
           />
         </Form.Item>
-        {/* <Form.Item label="Fuente" name="ori_id">
-          <Select
-            className="select_nueva_tarea"
-            defaultValue={{ label: tarea.ori_desc, value: tarea.ori_id }}
-            options={
-              tiposOrigenes &&
-              tiposOrigenes.map((tipoOrigen) => ({
-                label: tipoOrigen.ori_desc,
-                value: tipoOrigen.ori_id,
-              }))
-            }
-          />
-        </Form.Item> */}
         <div
           style={{
             display: "flex",

@@ -15,7 +15,6 @@ import { TareasSemana } from "../tareasSemana/TareasSemana";
 import { TareasSemanaProxima } from "../tareasSemanaProxima/TareasSemanaProxima";
 import { TareasVencidas } from "../tareasVencidas/TareasVencidas";
 import { GET_TAREAS_MOBILE } from "../../../graphql/queries/TareaMobile";
-import { GET_TAREAS } from "../../../graphql/queries/Tarea";
 
 const Tareas = () => {
   const { tareas, setTareas, userId, setPollTareas, pollTareas } =
@@ -28,17 +27,6 @@ const Tareas = () => {
   const [filtroFecha, setFiltroFecha] = useState(moment().format("YYYY-MM-DD"));
   // const [estado, setEstado] = useState(1);
   const [tareasMobile, setTareasMobile] = useState();
-
-  // const { dataTareas } = useQuery(GET_TAREAS, {
-  //   variables: {
-  //     idUsuario: userId,
-  //     filtroFecha: "",
-  //     fecha: "",
-  //     estado: 1,
-  //     idUsuarioFiltro: "",
-  //     idClienteFiltro: null
-  //   },
-  // });
 
   const {
     data: dataCalendario,
@@ -81,7 +69,6 @@ const Tareas = () => {
           )
         );
       });
-      console.log(tareasOrdenadas);
       setTareas(tareasOrdenadas);
     }
   };
@@ -93,7 +80,6 @@ const Tareas = () => {
   useEffect(() => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
-      console.log(JSON.parse(dataCalendario.getTareasPropiasMobileResolver))
       ordenarDatos(
         JSON.parse(dataCalendario.getTareasPropiasMobileResolver)
           .tareasPropiasPorFecha,
