@@ -46,12 +46,11 @@ export const NotaTareaNegocio = ({
             <p style={{ margin: "0px" }}>{nota.pri_desc}</p>
           </div>
         </div>
-        <div
+        <div style={{padding: "4px 8px"}}
           dangerouslySetInnerHTML={{
             __html: nota.not_desc,
           }}
         ></div>
-        {/* <p className="nota-tarea-texto">{nota.texto}</p> */}
       </div>
     );
   } else {
