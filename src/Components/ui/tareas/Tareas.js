@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
@@ -57,7 +58,7 @@ const Tareas = () => {
     let tareasOrdenadas;
     if (tareasBasico) {
       tareasBasico = tareasBasico.filter(
-        (tarea) => tarea.fechavencimiento === filtroFecha
+        (tarea) => tarea.fechavencimiento === fecha
       );
       tareasOrdenadas = tareasBasico.sort(function (a, b) {
         return (
@@ -72,6 +73,7 @@ const Tareas = () => {
       setTareas(tareasOrdenadas);
     }
   };
+
 
   const handleChange = (val) => {
     setFiltroFecha(moment(val).format("YYYY-MM-DD"));
