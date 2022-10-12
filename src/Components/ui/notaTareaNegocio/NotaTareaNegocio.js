@@ -24,7 +24,11 @@ export const NotaTareaNegocio = ({
     return color;
   };
 
-  let notaFecha = moment(nota.not_fechahora, "YYYY-MM-DD").format("LL");
+  let notaFecha
+  if(nota.not_fechahora) {
+    notaFecha = moment(nota.not_fechahora, "YYYY-MM-DD").format("LL");
+  }
+  
 
   if (display === true) {
     return (
