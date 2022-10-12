@@ -101,7 +101,6 @@ const Tareas = () => {
     }
   }, [dataCalendario, filtroFecha]);
 
-
   return (
     <CapsuleTabs
       className="capsule_contenedor"
