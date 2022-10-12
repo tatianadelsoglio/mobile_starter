@@ -4,7 +4,6 @@ import "./ListaTarea.css";
 import "../tareaNegocio/tareaNegocio.css";
 import "moment/locale/es";
 import { TareaNegocio } from "../tareaNegocio/TareaNegocio";
-import { VariableSizeList } from "react-window";
 
 const ListaTarea = ({ itemListaTarea }) => {
   return (
