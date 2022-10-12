@@ -43,17 +43,5 @@ export const TareasVencidas = ({tareasParametro, error, loading}) => {
         </div>
       }
     </QueryResult>
-    // <QueryResult loading={loading} error={error} data={tareas}>
-    //   {tareas && (
-    //     <FixedSizeList
-    //       height={500}
-    //       width={500}
-    //       itemSize={getItemSize}
-    //       itemCount={tareas.length}
-    //     >
-    //      {row}
-    //     </FixedSizeList>
-    //   )}
-    // </QueryResult>
   );
 };
