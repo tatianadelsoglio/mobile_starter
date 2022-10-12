@@ -63,7 +63,7 @@ const Tareas = () => {
     let tareasOrdenadas;
     if (tareasBasico) {
       tareasBasico = tareasBasico.filter(
-        (tarea) => tarea.fechavencimiento == filtroFecha
+        (tarea) => tarea.fechavencimiento === filtroFecha
       );
       tareasOrdenadas = tareasBasico.sort(function (a, b) {
         return (
