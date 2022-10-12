@@ -57,7 +57,7 @@ const Tareas = () => {
     let tareasOrdenadas;
     if (tareasBasico) {
       tareasBasico = tareasBasico.filter(
-        (tarea) => tarea.fechavencimiento === filtroFecha
+        (tarea) => tarea.fechavencimiento === fecha
       );
       tareasOrdenadas = tareasBasico.sort(function (a, b) {
         return (
@@ -98,7 +98,6 @@ const Tareas = () => {
       );
     }
   }, [dataCalendario, filtroFecha]);
-
 
   return (
     <CapsuleTabs

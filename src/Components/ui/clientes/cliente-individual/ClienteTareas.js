@@ -24,6 +24,7 @@ export const ClienteTareas = ({ cliente }) => {
   });
 
   const ordenarDatos = (tareas) => {
+    console.log(tareas);
     let tareasOrdenadas;
     if (tareas) {
       tareasOrdenadas = tareas.sort(function (a, b) {
@@ -42,7 +43,7 @@ export const ClienteTareas = ({ cliente }) => {
 
   useEffect(() => {
     if (data) {
-      ordenarDatos(JSON.parse(data.getTareasIframeResolver));
+      ordenarDatos(JSON.parse(data.getTareasIframeResolver).tareas);
     }
   }, [data]);
 
