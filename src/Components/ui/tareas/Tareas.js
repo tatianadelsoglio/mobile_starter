@@ -28,17 +28,6 @@ const Tareas = () => {
   // const [estado, setEstado] = useState(1);
   const [tareasMobile, setTareasMobile] = useState();
 
-  // const { loading, error, data, startPolling, stopPolling } = useQuery(GET_TAREAS, {
-  //   variables: {
-  //     idUsuario: userId,
-  //     filtroFecha: "date",
-  //     fecha: filtroFecha,
-  //     estado: estado,
-  //     idUsuarioFiltro: "",
-  //     idClienteFiltro: null
-  //   },
-  // });
-
   const {
     data: dataMobile,
     error: errorMobile,
@@ -64,7 +53,7 @@ const Tareas = () => {
   });
 
   const ordenarDatos = (tareasBasico, filtroFecha) => {
-    console.log(filtroFecha);
+    let fecha = moment(filtroFecha, "YYYY-MM-DD").format("DD/MM/YYYY");
     let tareasOrdenadas;
     if (tareasBasico) {
       tareasBasico = tareasBasico.filter(
@@ -85,7 +74,7 @@ const Tareas = () => {
   };
 
   const handleChange = (val) => {
-    setFiltroFecha(moment(val).format("DD/MM/YYYY"));
+    setFiltroFecha(moment(val).format("YYYY-MM-DD"));
   };
 
   useEffect(() => {}, [activeKey]);
