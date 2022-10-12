@@ -24,7 +24,6 @@ export const ClienteTareas = ({ cliente }) => {
   });
 
   const ordenarDatos = (tareas) => {
-    console.log(tareas);
     let tareasOrdenadas;
     if (tareas) {
       tareasOrdenadas = tareas.sort(function (a, b) {
