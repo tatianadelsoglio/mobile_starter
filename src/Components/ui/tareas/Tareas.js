@@ -79,7 +79,7 @@ const Tareas = () => {
     setFiltroFecha(moment(val).format("YYYY-MM-DD"));
   };
 
-  useEffect(() => {}, [activeKey]);
+  // useEffect(() => {}, [activeKey]);
 
   useEffect(() => {
     if (dataMobile) {
@@ -100,6 +100,17 @@ const Tareas = () => {
       );
     }
   }, [dataCalendario, filtroFecha]);
+
+  useEffect(() => {
+    startPollingMobile(1000);
+    setTimeout(() => {
+      stopPollingMobile();
+    }, 1000);
+  }, [dataCalendario])
+
+  useEffect(() => {
+
+  }, [dataMobile])
 
   return (
     <CapsuleTabs
