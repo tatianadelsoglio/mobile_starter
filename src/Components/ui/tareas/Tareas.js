@@ -17,7 +17,7 @@ import { TareasVencidas } from "../tareasVencidas/TareasVencidas";
 import { GET_TAREAS_MOBILE } from "../../../graphql/queries/TareaMobile";
 
 const Tareas = () => {
-  const { tareas, setTareas, userId, setPollTareas } =
+  const { tareas, setTareas, userId, setPollTareas, pollTareas } =
     useContext(GlobalContext);
 
   const [tareasCalendario, setTareasCalendario] = useState();
@@ -25,7 +25,7 @@ const Tareas = () => {
 
   /*Estados de consulta */
   const [filtroFecha, setFiltroFecha] = useState(moment().format("YYYY-MM-DD"));
-  const [estado, setEstado] = useState(1);
+  // const [estado, setEstado] = useState(1);
   const [tareasMobile, setTareasMobile] = useState();
 
   // const { loading, error, data, startPolling, stopPolling } = useQuery(GET_TAREAS, {
@@ -43,6 +43,8 @@ const Tareas = () => {
     data: dataMobile,
     error: errorMobile,
     loading: loadingMobile,
+    startPolling: startPollingMobile, 
+    stopPolling: stopPollingMobile
   } = useQuery(GET_TAREAS_MOBILE, {
     variables: {
       idUsuario: userId,
@@ -53,6 +55,8 @@ const Tareas = () => {
     data: dataCalendario,
     error,
     loading,
+    startPolling, 
+    stopPolling
   } = useQuery(GET_TAREAS_CALENDARIO, {
     variables: {
       idUsuario: userId,
@@ -60,10 +64,11 @@ const Tareas = () => {
   });
 
   const ordenarDatos = (tareasBasico, filtroFecha) => {
+    console.log(filtroFecha);
     let tareasOrdenadas;
     if (tareasBasico) {
       tareasBasico = tareasBasico.filter(
-        (tarea) => tarea.fechavencimiento == filtroFecha
+        (tarea) => tarea.fechavencimiento === filtroFecha
       );
       tareasOrdenadas = tareasBasico.sort(function (a, b) {
         return (
@@ -79,29 +84,6 @@ const Tareas = () => {
     }
   };
 
-  // useEffect(() => {
-
-  //   setPollTareas({inicial:startPolling, stop:stopPolling});
-
-  //   // if (data) {
-  //   //   ordenarDatos(JSON.parse(data.getTareasIframeResolver));
-
-  //   //   console.log("getTareas: ",JSON.parse(data.getTareasIframeResolver));
-  //   // }
-
-  //   if (dataCalendario) {
-
-  //     ordenarDatos(JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver).data);
-
-  //     setTareasCalendario(
-  //       JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver)
-  //         .fechasVenc
-  //     );
-  //     console.log("getTareasParaCalendario: ",JSON.parse(dataCalendario.getTareasParaCalendarioIframeResolver));
-
-  //   }
-  // }, [dataCalendario]);
-
   const handleChange = (val) => {
     setFiltroFecha(moment(val).format("DD/MM/YYYY"));
   };
@@ -115,6 +97,7 @@ const Tareas = () => {
   }, [dataMobile]);
 
   useEffect(() => {
+    setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
       ordenarDatos(
         JSON.parse(dataCalendario.getTareasPropiasMobileResolver)
@@ -126,6 +109,7 @@ const Tareas = () => {
       );
     }
   }, [dataCalendario, filtroFecha]);
+
 
   return (
     <CapsuleTabs
