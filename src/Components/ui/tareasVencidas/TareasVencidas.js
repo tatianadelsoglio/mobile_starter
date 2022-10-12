@@ -9,7 +9,7 @@ import { FixedSizeList } from "react-window";
 
 export const TareasVencidas = ({tareasParametro, error, loading}) => {
   const [tareas, setTareas] = useState();
-  const [estado] = useState(1);
+  // const [estado] = useState(1);
 
   const ordenarDatos = (tareas) => {
     let tareasOrdenadas;
