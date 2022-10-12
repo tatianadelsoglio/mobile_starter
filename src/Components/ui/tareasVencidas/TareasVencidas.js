@@ -68,34 +68,11 @@ export const TareasVencidas = ({tareasParametro, error, loading}) => {
 
   return (
     <QueryResult loading={loading} error={error} data={tareas}>
-      {tareas && timeOff === true ? (
-        <TailSpin
-          height="30"
-          width="30"
-          color="#56b43c"
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          wrapperStyle={{marginLeft:"47%", marginTop:"12%"}}
-          wrapperClass=""
-          visible={true}
-        />
-      ) : (
+      {tareas && (    
         <div className="div_lista">
           <ListaTarea itemListaTarea={tareas} />
         </div>
       )}
     </QueryResult>
-    // <QueryResult loading={loading} error={error} data={tareas}>
-    //   {tareas && (
-    //     <FixedSizeList
-    //       height={500}
-    //       width={500}
-    //       itemSize={getItemSize}
-    //       itemCount={tareas.length}
-    //     >
-    //      {row}
-    //     </FixedSizeList>
-    //   )}
-    // </QueryResult>
   );
 };
