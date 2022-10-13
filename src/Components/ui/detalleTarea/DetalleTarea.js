@@ -223,8 +223,6 @@ const DetalleTarea = () => {
       inputAdjunto = null;
     }
 
-    console.log("input nota: ", inputNota.not_desc, inputNota.not_desc.length)
-
     if (inputNota.not_desc.length === 0 || tarea.not_desc === '<p><br></p>') {
       inputNota = null;
     }
