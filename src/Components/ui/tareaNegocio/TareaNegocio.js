@@ -20,7 +20,7 @@ import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
-  const { pollTareas } = useContext(GlobalContext);
+  const { pollTareas, pollTareasClientes } = useContext(GlobalContext);
 
   const [mostrar, setMostrar] = useState(false);
 
@@ -71,9 +71,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
         title: "Tarea Cerrada Correctamente",
         closeOnMaskClick: true,
         onClose: () => {
-          pollTareas.inicial(1000);
+          pollTareasClientes.inicial(1000);
           setTimeout(() => {
-            pollTareas.stop();
+            pollTareasClientes.stop();
           }, 1000);
         },
       });

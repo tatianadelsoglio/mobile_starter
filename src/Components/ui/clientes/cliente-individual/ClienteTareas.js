@@ -9,10 +9,10 @@ import { TareaNegocio } from "../../tareaNegocio/TareaNegocio";
 
 export const ClienteTareas = ({ cliente }) => {
 
-  const { userId } = useContext(GlobalContext);
+  const { userId, setPollTareasClientes } = useContext(GlobalContext);
   const [tareasXCliente, setTareasXCliente] = useState();
 
-  const { loading, error, data } = useQuery(GET_TAREAS, {
+  const { loading, error, data, startPolling, stopPolling } = useQuery(GET_TAREAS, {
     variables: {
       idUsuario: userId,
       filtroFecha: "",
@@ -42,6 +42,7 @@ export const ClienteTareas = ({ cliente }) => {
 
   useEffect(() => {
     if (data) {
+      setPollTareasClientes({inicial:startPolling, stop:stopPolling})
       ordenarDatos(JSON.parse(data.getTareasIframeResolver).tareas);
     }
   }, [data]);
