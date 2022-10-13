@@ -77,7 +77,7 @@ const DetalleTarea = () => {
       let dataClientes = [];
 
       data.getClientesLimitResolver.map((cliente) => {
-        if (cliente.cli_id != tarea.cli_id) dataClientes.push(cliente);
+        if (cliente.cli_id !== tarea.cli_id) dataClientes.push(cliente);
       });
 
       if (buscador === tarea.cli_nombre) {
