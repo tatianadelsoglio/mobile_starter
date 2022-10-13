@@ -71,10 +71,12 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
         title: "Tarea Cerrada Correctamente",
         closeOnMaskClick: true,
         onClose: () => {
-          pollTareasClientes.inicial(1000);
-          setTimeout(() => {
-            pollTareasClientes.stop();
-          }, 1000);
+          if (pollTareasClientes) {
+            pollTareasClientes.inicial(1000);
+            setTimeout(() => {
+              pollTareasClientes.stop();
+            }, 1000);
+          }
         },
       });
     },
