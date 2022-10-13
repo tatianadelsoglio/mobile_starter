@@ -54,13 +54,12 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const [updateEstadoTareaIframeResolver] = useMutation(UPDATE_ESTADO_TAREA, {
     onCompleted: () => {
-
       pollTareas.inicial(1000);
       setTimeout(() => {
         pollTareas.stop();
       }, 1000);
 
-      Modal.alert({
+      Modal.show({
         header: (
           <CheckOutline
             style={{
@@ -70,8 +69,13 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
           />
         ),
         title: "Tarea Cerrada Correctamente",
-        confirmText: "Cerrar",
-        onConfirm: history.push("/tareas"),
+        closeOnMaskClick: true,
+        onClose: () => {
+          pollTareas.inicial(1000);
+          setTimeout(() => {
+            pollTareas.stop();
+          }, 1000);
+        },
       });
     },
   });
@@ -83,8 +87,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     });
 
     // console.log(tarea.tar_id)
-
-    
   };
 
   let fechaActual = moment();
@@ -152,11 +154,17 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 direction="end"
                 content={tarea.tar_asunto}
               /> */}
-              <p style={{fontWeight: "bold",
+              <p
+                style={{
+                  fontWeight: "bold",
                   width: "100%",
                   fontSize: "16px",
                   marginTop: "4px",
-                  color: "#454545"}}>{tarea.tar_asunto}</p>
+                  color: "#454545",
+                }}
+              >
+                {tarea.tar_asunto}
+              </p>
             </div>
             <div className="tarea-negocio-linea-intermedia">
               {tarea.cli_nombre ? (
