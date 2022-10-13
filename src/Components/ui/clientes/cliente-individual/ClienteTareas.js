@@ -9,7 +9,7 @@ import QueryResult from "../../../queryResult/QueryResult";
 import { TareaNegocio } from "../../tareaNegocio/TareaNegocio";
 
 export const ClienteTareas = ({ cliente }) => {
-  const { userId } = useContext(GlobalContext);
+  const { userId,  setPollTareasClientes } = useContext(GlobalContext);
   const [tareasXCliente, setTareasXCliente] = useState();
 
   const {
@@ -49,6 +49,7 @@ export const ClienteTareas = ({ cliente }) => {
 
   useEffect(() => {
     if (data) {
+      setPollTareasClientes({inicial:startPolling, stop:stopPolling})
       ordenarDatos(JSON.parse(data.getTareasIframeResolver).tareas);
     }
   }, [data]);

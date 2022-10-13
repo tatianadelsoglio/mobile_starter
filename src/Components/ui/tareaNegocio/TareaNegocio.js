@@ -20,7 +20,7 @@ import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
-  const { pollTareas } = useContext(GlobalContext);
+  const { pollTareas, pollTareasClientes } = useContext(GlobalContext);
 
   const [mostrar, setMostrar] = useState(false);
 
@@ -54,13 +54,12 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const [updateEstadoTareaIframeResolver] = useMutation(UPDATE_ESTADO_TAREA, {
     onCompleted: () => {
-
       pollTareas.inicial(1000);
       setTimeout(() => {
         pollTareas.stop();
       }, 1000);
 
-      Modal.alert({
+      Modal.show({
         header: (
           <CheckOutline
             style={{
@@ -70,8 +69,13 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
           />
         ),
         title: "Tarea Cerrada Correctamente",
-        confirmText: "Cerrar",
-        onConfirm: history.push(window.location),
+        closeOnMaskClick: true,
+        onClose: () => {
+          pollTareasClientes.inicial(1000);
+          setTimeout(() => {
+            pollTareasClientes.stop();
+          }, 1000);
+        },
       });
     },
   });
@@ -83,8 +87,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     });
 
     // console.log(tarea.tar_id)
-
-    
   };
 
   let fechaActual = moment();
@@ -152,11 +154,17 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
                 direction="end"
                 content={tarea.tar_asunto}
               /> */}
-              <p style={{fontWeight: "bold",
+              <p
+                style={{
+                  fontWeight: "bold",
                   width: "90%",
                   fontSize: "16px",
                   marginTop: "4px",
-                  color: "#454545"}}>{tarea.tar_asunto}</p>
+                  color: "#454545",
+                }}
+              >
+                {tarea.tar_asunto}
+              </p>
             </div>
             <div className="tarea-negocio-linea-intermedia">
               {tarea.cli_nombre ? (
@@ -278,12 +286,15 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               </div>
               <div className="tarea-negocio-linea-inferior-dos">
                 <div className="VerMas">
-                  {(tarea.not_id && tarea.not_desc !== '<p><br></p>') || tarea.up_id ? <DownOutline /> : null}
+                  {(tarea.not_id && tarea.not_desc !== "<p><br></p>") ||
+                  tarea.up_id ? (
+                    <DownOutline />
+                  ) : null}
                 </div>
               </div>
             </div>
           </div>
-          {tarea.not_id && tarea.not_desc !== '<p><br></p>' ? (
+          {tarea.not_id && tarea.not_desc !== "<p><br></p>" ? (
             <NotaTareaNegocio
               nota={tarea}
               origen={origen}
