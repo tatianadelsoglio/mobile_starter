@@ -162,7 +162,7 @@ const Tareas = () => {
         )}
       </CapsuleTabs.Tab>
 
-      <CapsuleTabs.Tab title="Semana" key="2">
+      <CapsuleTabs.Tab title="Semana" key="2" disabled={!tareasMobile}>
         {activeKey === "2" && (
           <TareasSemana
             tareasParametro={tareasMobile.tareasEstaSemana}
@@ -172,7 +172,7 @@ const Tareas = () => {
         )}
       </CapsuleTabs.Tab>
 
-      <CapsuleTabs.Tab title="Semana Prox." key="3">
+      <CapsuleTabs.Tab title="Semana Prox." key="3" disabled={!tareasMobile}>
         {activeKey === "3" && (
           <TareasSemanaProxima
             tareasParametro={tareasMobile.tareasProximaSemana}
@@ -182,7 +182,7 @@ const Tareas = () => {
         )}
       </CapsuleTabs.Tab>
 
-      <CapsuleTabs.Tab title="Vencido" key="4">
+      <CapsuleTabs.Tab title="Vencido" key="4" disabled={!tareasMobile}>
         {activeKey === "4" && (
           <TareasVencidas
             tareasParametro={tareasMobile.tareasVencidas}

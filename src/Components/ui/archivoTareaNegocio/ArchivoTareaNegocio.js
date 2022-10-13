@@ -11,7 +11,7 @@ export const ArchivoTareaNegocio = ({ archivo, origen="", interno=false, display
     fechaFormato = moment(fechaFormato, "YYYY-MM-DD").fromNow();
     return fechaFormato;
   }
-  console.log(archivo)
+
   const formatSize = (size) => {
     const sizeFile = Number(size);
     //
