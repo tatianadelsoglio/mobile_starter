@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 
-import { Form, Button, Selector, TextArea, Modal } from "antd-mobile";
+import { Form, Button, Selector, TextArea, Modal, Empty } from "antd-mobile";
 import { CheckOutline } from "antd-mobile-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -223,6 +223,12 @@ const DetalleTarea = () => {
       inputAdjunto = null;
     }
 
+    console.log("input nota: ", inputNota.not_desc, inputNota.not_desc.length)
+
+    if (inputNota.not_desc.length === 0 || tarea.not_desc === '<p><br></p>') {
+      inputNota = null;
+    }
+
     updateTareaResolver({
       variables: {
         idTarea: tarea.tar_id,
@@ -351,7 +357,7 @@ const DetalleTarea = () => {
         </div>
         <Form.Item label="Nota" name="not_desc">
           <Note
-            editValue={tarea.not_desc || ""}
+            editValue={tarea.not_desc === '<p><br></p>' ? null : tarea.not_desc}
             width="100%"
             height="100%"
           ></Note>
