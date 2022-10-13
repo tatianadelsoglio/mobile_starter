@@ -56,7 +56,7 @@ export const ClienteTareas = ({ cliente }) => {
         {tareasXCliente &&
           tareasXCliente.map((tarea) => {
             return (
-              <SwipeAction className="swipe_clienteTarea">
+              <SwipeAction className="swipe_clienteTarea" key={tarea.tar_id}>
                 <TareaNegocio tarea={tarea} origen="ListaTareas" />
               </SwipeAction>
             );
