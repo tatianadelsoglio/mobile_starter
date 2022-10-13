@@ -71,7 +71,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
         ),
         title: "Tarea Cerrada Correctamente",
         confirmText: "Cerrar",
-        onConfirm: history.push("/tareas"),
+        onConfirm:history.go(0),
       });
     },
   });
