@@ -64,7 +64,7 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
           <CheckOutline
             style={{
               fontSize: 64,
-              color: "var(--adm-color-primary)",
+              color: "#56b43c",
             }}
           />
         ),
