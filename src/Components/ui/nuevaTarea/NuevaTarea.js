@@ -52,11 +52,6 @@ const NuevaTarea = () => {
     }
   }, [data]);
 
-
-  // useEffect(() => {
-  //   console.log("Busqueda: ", buscador);
-  // }, [buscador]);
-
   const handleSelect = (value) => {
     setBuscador(value.target.value);
 
@@ -97,13 +92,6 @@ const NuevaTarea = () => {
     }
   }, [dataTipoTarea]);
 
-  // useEffect(() => {
-  //   console.log(tiposTareas);
-  // }, [tiposTareas]);
-
-  // const handleSelectTT = ({ value }) => {
-  //   console.log(value);
-  // };
   //TODO FIN SECCION DE ELEGIR TIPO TAREA
   //TODO INICIO SECCION DE ELEGIR ORIGEN TAREA
   const [tiposOrigenes, setTiposOrigenes] = useState([]);
@@ -115,13 +103,6 @@ const NuevaTarea = () => {
     }
   }, [dataTipoOrigen]);
 
-  // useEffect(() => {
-  //   console.log(tiposOrigenes);
-  // }, [tiposOrigenes]);
-
-  // const handleSelectO = ({ value }) => {
-  //   console.log(value);
-  // };
   //TODO FIN SECCION DE ELEGIR ORIGEN TAREA
 
   const prioridad = [
@@ -214,8 +195,6 @@ const NuevaTarea = () => {
     }
 
     let inputAdjunto = null;
-
-    // console.log("tarea: ",inputTarea,"nota: ", inputNota,"adjunto: ", inputAdjunto);
 
     // escribe el resolver
     newTareaIframeResolver({
