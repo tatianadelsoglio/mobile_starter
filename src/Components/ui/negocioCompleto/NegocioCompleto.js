@@ -2,7 +2,7 @@
 /* eslint-disable default-case */
 import { useQuery } from "@apollo/client";
 import { CapsuleTabs } from "antd-mobile";
-import { ShopbagOutline, UserOutline, TagOutline } from "antd-mobile-icons";
+import { ShopbagOutline, UserOutline } from "antd-mobile-icons";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -136,6 +136,7 @@ export const NegocioCompleto = () => {
                     return (
                       <span
                         className="negocio-caja-tarea-grafico"
+                        key={tarea.tar_id}
                         style={{
                           backgroundColor: `${getColor(tarea.tip_id)}`,
                           width: `${tarea.porcentajeTipoTarea}%`,

@@ -5,7 +5,6 @@ import ListaTarea from "../listaTareas/ListaTarea";
 
 export const TareasVencidas = ({tareasParametro, error, loading}) => {
   const [tareas, setTareas] = useState();
-  // const [estado] = useState(1);
 
   const ordenarDatos = (tareas) => {
     let tareasOrdenadas;
@@ -24,10 +23,6 @@ export const TareasVencidas = ({tareasParametro, error, loading}) => {
       setTareas(tareasOrdenadas);
     }
   };
-  /* INTENTO 3000 REACT LISTA VIRTUAL*/
-  // console.log("Tareas vencidas: ", tareas.length);
-
-  /* INTENTO 3000 REACT LISTA VIRTUAL*/
 
   useEffect(() => {
     if (tareasParametro) {

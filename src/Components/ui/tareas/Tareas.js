@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
@@ -80,9 +81,7 @@ const Tareas = () => {
   useEffect(() => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
-      ordenarDatos(
-        JSON.parse(dataCalendario.getTareasPropiasMobileResolver)
-          .tareasPropiasPorFecha,
+      ordenarDatos(JSON.parse(dataCalendario.getTareasPropiasMobileResolver).tareasPropiasPorFecha,
         filtroFecha
       );
       setTareasCalendario(
@@ -162,7 +161,7 @@ const Tareas = () => {
         )}
       </CapsuleTabs.Tab>
 
-      <CapsuleTabs.Tab title="Semana" key="2">
+      <CapsuleTabs.Tab title="Semana" key="2" disabled={!tareasMobile}>
         {activeKey === "2" && (
           <TareasSemana
             tareasParametro={tareasMobile.tareasEstaSemana}
@@ -172,7 +171,7 @@ const Tareas = () => {
         )}
       </CapsuleTabs.Tab>
 
-      <CapsuleTabs.Tab title="Semana Prox." key="3">
+      <CapsuleTabs.Tab title="Semana Prox." key="3" disabled={!tareasMobile}>
         {activeKey === "3" && (
           <TareasSemanaProxima
             tareasParametro={tareasMobile.tareasProximaSemana}
@@ -182,7 +181,7 @@ const Tareas = () => {
         )}
       </CapsuleTabs.Tab>
 
-      <CapsuleTabs.Tab title="Vencido" key="4">
+      <CapsuleTabs.Tab title="Vencido" key="4" disabled={!tareasMobile}>
         {activeKey === "4" && (
           <TareasVencidas
             tareasParametro={tareasMobile.tareasVencidas}

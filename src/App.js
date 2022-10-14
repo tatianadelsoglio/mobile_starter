@@ -23,6 +23,7 @@ const App = () => {
   const [cargando, setCargando] = useState(false);
   const [note, setNote] = useState();
   const [pollTareas, setPollTareas] = useState();
+  const [pollTareasClientes, setPollTareasClientes] = useState();
 
   useEffect(() => {
 
@@ -68,6 +69,8 @@ const App = () => {
               setNote,
               pollTareas,
               setPollTareas,
+              pollTareasClientes, 
+              setPollTareasClientes
             }}
           >
             <AppRouter />
