@@ -29,8 +29,6 @@ const DetalleTarea = () => {
   const [clientes, setClientes] = useState([]);
 
   const [buscador, setBuscador] = useState(tarea.cli_nombre);
-  const [ocultarC, setOcultarC] = useState(true);
-  const [limpiar, setLimpiar] = useState(false);
 
   const [file, setFile] = useState({});
   const [fList, setFlist] = useState([]);
@@ -59,11 +57,6 @@ const DetalleTarea = () => {
     },
   });
 
-  const handleChange = (value) => {
-    if (value.target.value === "" || value.target.value === null) {
-    }
-    setBuscador(value.target.value);
-  };
 
   const { loading, error, data } = useQuery(GET_CLIENTE, {
     variables: {
@@ -93,31 +86,6 @@ const DetalleTarea = () => {
       setClientes(dataClientes);
     }
   }, [data]);
-
-  const handleSelect = (value) => {
-    setBuscador(value.target.value);
-
-    if (ocultarC === true) {
-      setOcultarC(false);
-    }
-
-    if (ocultarC === false) {
-      setOcultarC(true);
-    }
-  };
-
-  const handleLimpiar = (value) => {
-    if (limpiar === false) {
-      setLimpiar(true);
-      setOcultarC(false);
-    }
-    if (limpiar === true) {
-      setLimpiar(false);
-      setOcultarC(false);
-    }
-
-    setBuscador("");
-  };
 
   const [tiposTareas, setTiposTareas] = useState([]);
 
