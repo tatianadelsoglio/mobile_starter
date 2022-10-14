@@ -285,19 +285,22 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               </div>
               <div className="tarea-negocio-linea-inferior-dos">
                 <div className="VerMas">
-                  {tarea.not_id || tarea.up_id ? <DownOutline /> : null}
+                  {(tarea.not_id && tarea.not_desc !== "<p><br></p>") ||
+                  tarea.up_id ? (
+                    <DownOutline />
+                  ) : null}
                 </div>
               </div>
             </div>
           </div>
-          {tarea.not_id && (
+          {tarea.not_id && tarea.not_desc !== "<p><br></p>" ? (
             <NotaTareaNegocio
               nota={tarea}
               origen={origen}
               interno={true}
               display={mostrar}
             />
-          )}
+          ) : null}
           {tarea.up_id && (
             <ArchivoTareaNegocio
               archivo={tarea}

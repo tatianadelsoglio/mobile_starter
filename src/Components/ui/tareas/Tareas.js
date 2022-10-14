@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
@@ -80,9 +81,7 @@ const Tareas = () => {
   useEffect(() => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
-      ordenarDatos(
-        JSON.parse(dataCalendario.getTareasPropiasMobileResolver)
-          .tareasPropiasPorFecha,
+      ordenarDatos(JSON.parse(dataCalendario.getTareasPropiasMobileResolver).tareasPropiasPorFecha,
         filtroFecha
       );
       setTareasCalendario(

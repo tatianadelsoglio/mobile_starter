@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery } from "@apollo/client";
 import { SwipeAction } from "antd-mobile";
 import moment from "moment";
@@ -46,6 +47,13 @@ export const ClienteTareas = ({ cliente }) => {
       ordenarDatos(JSON.parse(data.getTareasIframeResolver).tareas);
     }
   }, [data]);
+
+  useEffect(() => {
+    startPolling(1000);
+    setTimeout(() => {
+      stopPolling();
+    }, 1000);
+  }, [data])
 
   return (
     <QueryResult loading={loading} error={error} data={tareasXCliente}>

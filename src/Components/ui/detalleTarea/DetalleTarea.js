@@ -8,10 +8,8 @@ import "./DetalleTarea.css";
 import moment from "moment";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import Select from "react-select";
-// import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 import Note from "../note/Note";
 import { UPDATE_TAREA } from "../../../graphql/mutations/tareas";
 
@@ -26,19 +24,30 @@ const DetalleTarea = () => {
 
   const [idSelector, setIdSelector] = useState(tarea.pri_id);
 
-  const [clientes, setClientes] = useState([]);
-
-  const [buscador, setBuscador] = useState(tarea.cli_nombre);
-
   const [file, setFile] = useState({});
   const [fList, setFlist] = useState([]);
 
+  const [hora, setHora] = useState(moment(
+    tarea.tar_horavencimiento,
+    "HH:mm:ss"
+  ).format("LT"))
+
+  const handleHora = (hora) => {
+    let horaFormato = hora
+    if(hora.length<5) {
+      horaFormato = "0" + hora;
+    } 
+    return horaFormato;
+  }
+
   const [updateTareaResolver] = useMutation(UPDATE_TAREA, {
     onCompleted: () => {
-      pollTareas.inicial(1000);
-      setTimeout(() => {
-        pollTareas.stop();
-      }, 1000);
+      if (pollTareas) {
+        pollTareas.inicial(1000);
+        setTimeout(() => {
+          pollTareas.stop();
+        }, 1000);
+      }
 
       Modal.alert({
         header: (
@@ -56,35 +65,6 @@ const DetalleTarea = () => {
     },
   });
 
-  const { loading, error, data } = useQuery(GET_CLIENTE, {
-    variables: {
-      input: buscador.length > 2 ? buscador : "",
-      idUsuario: userId,
-    },
-  });
-
-  useEffect(() => {
-    if (data) {
-      let dataClientes = [];
-
-      data.getClientesLimitResolver.map((cliente) => {
-        if (cliente.cli_id !== tarea.cli_id) dataClientes.push(cliente);
-      });
-
-      if (buscador === tarea.cli_nombre) {
-        dataClientes.push({
-          __typename: "Clientes",
-          cli_email: null,
-          cli_id: tarea.cli_id.toString(),
-          cli_nombre: tarea.cli_nombre,
-          cli_telefono1: null,
-        });
-      }
-
-      setClientes(dataClientes);
-    }
-  }, [data]);
-
   const [tiposTareas, setTiposTareas] = useState([]);
 
   const { data: dataTipoTarea } = useQuery(GET_TIPO_TAREA, {
@@ -98,16 +78,6 @@ const DetalleTarea = () => {
       setTiposTareas(dataTipoTarea.getTiposTareaResolver);
     }
   }, [dataTipoTarea]);
-
-  // const [tiposOrigenes, setTiposOrigenes] = useState([]);
-
-  // const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {});
-
-  // useEffect(() => {
-  //   if (dataTipoOrigen) {
-  //     setTiposOrigenes(dataTipoOrigen.getOrigenesResolver);
-  //   }
-  // }, [dataTipoOrigen]);
 
   const prioridad = [
     {
@@ -224,23 +194,14 @@ const DetalleTarea = () => {
           name="cli_id"
           initialValue={{ label: tarea.cli_nombre, id: tarea.cli_id }}
         >
-          {clientes &&
-            clientes.map((cliente) => (
-              <>
-                {buscador !== "" ? (
-                  <div className="div_clienteSelect_btn">
-                    <input
-                      className="select_nueva_tarea input_cliente"
-                      type="text"
-                      value={cliente.cli_nombre}
-                      readOnly={true}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
-              </>
-            ))}
+          <div className="div_clienteSelect_btn">
+            <input
+              className="select_nueva_tarea input_cliente"
+              type="text"
+              value={tarea.cli_nombre}
+              readOnly={true}
+            />
+          </div>
         </Form.Item>
         <Form.Item
           label="Asunto"
@@ -249,10 +210,14 @@ const DetalleTarea = () => {
         >
           <TextArea autoSize={true} />
         </Form.Item>
-        <Form.Item label="Tipo de Tarea" name="tip_id">
+        <Form.Item
+          label="Tipo de Tarea"
+          name="tip_id"
+          initialValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
+        >
           <Select
             className="select_nueva_tarea"
-            defaultValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
+            // defaultValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
             options={
               tiposTareas &&
               tiposTareas.map((tipoTarea) => ({
@@ -290,12 +255,9 @@ const DetalleTarea = () => {
             <Form.Item
               label="Hora"
               name="tar_horavencimiento"
-              initialValue={moment(
-                tarea.tar_horavencimiento,
-                "HH:mm:ss"
-              ).format("LT")}
+              initialValue={handleHora(hora)}
             >
-              <input className="input-fechaHora" type="time" />
+              <input className="input-fechaHora" type="time"/>
             </Form.Item>
           </div>
         </div>
