@@ -11,7 +11,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_CLIENTE } from "../../../graphql/queries/Cliente";
 import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import Select from "react-select";
-// import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
+import { GET_TIPO_ORIGEN } from "../../../graphql/queries/TipoOrigen";
 import Note from "../note/Note";
 import { UPDATE_TAREA } from "../../../graphql/mutations/tareas";
 
@@ -20,7 +20,7 @@ const DetalleTarea = () => {
 
   const location = useLocation();
 
-  const history = useHistory();
+  const history = useHistory()
 
   const [tarea, setTarea] = useState(location.state);
 
@@ -29,12 +29,15 @@ const DetalleTarea = () => {
   const [clientes, setClientes] = useState([]);
 
   const [buscador, setBuscador] = useState(tarea.cli_nombre);
+  const [ocultarC, setOcultarC] = useState(true);
+  const [limpiar, setLimpiar] = useState(false);
 
   const [file, setFile] = useState({});
   const [fList, setFlist] = useState([]);
 
   const [updateTareaResolver] = useMutation(UPDATE_TAREA, {
     onCompleted: () => {
+
       pollTareas.inicial(1000);
       setTimeout(() => {
         pollTareas.stop();
@@ -45,7 +48,7 @@ const DetalleTarea = () => {
           <CheckOutline
             style={{
               fontSize: 64,
-              color: "#56B43C",
+              color: "var(--adm-color-primary)",
             }}
           />
         ),
@@ -55,6 +58,12 @@ const DetalleTarea = () => {
       });
     },
   });
+
+  const handleChange = (value) => {
+    if (value.target.value === "" || value.target.value === null) {
+    }
+    setBuscador(value.target.value);
+  };
 
   const { loading, error, data } = useQuery(GET_CLIENTE, {
     variables: {
@@ -68,7 +77,7 @@ const DetalleTarea = () => {
       let dataClientes = [];
 
       data.getClientesLimitResolver.map((cliente) => {
-        if (cliente.cli_id !== tarea.cli_id) dataClientes.push(cliente);
+        if (cliente.cli_id != tarea.cli_id) dataClientes.push(cliente);
       });
 
       if (buscador === tarea.cli_nombre) {
@@ -85,6 +94,31 @@ const DetalleTarea = () => {
     }
   }, [data]);
 
+  const handleSelect = (value) => {
+    setBuscador(value.target.value);
+
+    if (ocultarC === true) {
+      setOcultarC(false);
+    }
+
+    if (ocultarC === false) {
+      setOcultarC(true);
+    }
+  };
+
+  const handleLimpiar = (value) => {
+    if (limpiar === false) {
+      setLimpiar(true);
+      setOcultarC(false);
+    }
+    if (limpiar === true) {
+      setLimpiar(false);
+      setOcultarC(false);
+    }
+
+    setBuscador("");
+  };
+
   const [tiposTareas, setTiposTareas] = useState([]);
 
   const { data: dataTipoTarea } = useQuery(GET_TIPO_TAREA, {
@@ -99,15 +133,15 @@ const DetalleTarea = () => {
     }
   }, [dataTipoTarea]);
 
-  // const [tiposOrigenes, setTiposOrigenes] = useState([]);
+  const [tiposOrigenes, setTiposOrigenes] = useState([]);
 
-  // const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {});
+  const { data: dataTipoOrigen } = useQuery(GET_TIPO_ORIGEN, {});
 
-  // useEffect(() => {
-  //   if (dataTipoOrigen) {
-  //     setTiposOrigenes(dataTipoOrigen.getOrigenesResolver);
-  //   }
-  // }, [dataTipoOrigen]);
+  useEffect(() => {
+    if (dataTipoOrigen) {
+      setTiposOrigenes(dataTipoOrigen.getOrigenesResolver);
+    }
+  }, [dataTipoOrigen]);
 
   const prioridad = [
     {
@@ -151,6 +185,8 @@ const DetalleTarea = () => {
   const [form] = Form.useForm();
 
   const onFinish = (v) => {
+
+
     let inputAdjunto;
     if (Object.keys(file).length) {
       const extension = file.originalname.split(".")[1];
@@ -187,10 +223,6 @@ const DetalleTarea = () => {
       inputAdjunto = null;
     }
 
-    if (inputNota.not_desc.length === 0 || tarea.not_desc === "<p><br></p>") {
-      inputNota = null;
-    }
-
     updateTareaResolver({
       variables: {
         idTarea: tarea.tar_id,
@@ -214,7 +246,12 @@ const DetalleTarea = () => {
         layout="vertical"
         onFinish={onFinish}
         footer={
-          <Button block type="submit" color="primary" size="large">
+          <Button
+            block
+            type="submit"
+            color="primary"
+            size="large"
+          >
             Guardar
           </Button>
         }
@@ -301,7 +338,7 @@ const DetalleTarea = () => {
         </div>
         <Form.Item label="Nota" name="not_desc">
           <Note
-            editValue={tarea.not_desc === "<p><br></p>" ? null : tarea.not_desc}
+            editValue={tarea.not_desc || ""}
             width="100%"
             height="100%"
           ></Note>

@@ -13,7 +13,7 @@ import {
 import { NotaTareaNegocio } from "../notaTareaNegocio/NotaTareaNegocio";
 import { ArchivoTareaNegocio } from "../archivoTareaNegocio/ArchivoTareaNegocio";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Dialog, Ellipsis, Modal, SwipeAction } from "antd-mobile";
+import { Dialog, Modal, SwipeAction } from "antd-mobile";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
@@ -44,7 +44,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
 
   const handleModalDetalleTarea = (tarea) => {
     let cliente = tarea;
-    // console.log("tarea selec para editar: ", tarea.tar_id);
 
     return history.push({
       pathname: `/detalletarea/${tarea.tar_id}`,
@@ -87,8 +86,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     updateEstadoTareaIframeResolver({
       variables: { idTarea: tarea.tar_id },
     });
-
-    // console.log(tarea.tar_id)
   };
 
   let fechaActual = moment();
