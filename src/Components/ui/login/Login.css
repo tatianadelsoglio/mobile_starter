@@ -41,7 +41,7 @@
     border : 0px none rgb(73, 80, 87); 
     background : rgb(255, 255, 255);
     box-sizing : content-box;
-    width: 150px;
+    width: 100%;
 }
 
 .adm-list-item-content-prefix{
