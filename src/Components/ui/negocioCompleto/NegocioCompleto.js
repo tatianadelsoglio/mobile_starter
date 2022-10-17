@@ -149,7 +149,7 @@ export const NegocioCompleto = () => {
                   {tareasDefinitivo &&
                     tareasDefinitivo.map((tarea) => {
                       return (
-                        <div className="negocio-grafico-referencias-linea">
+                        <div className="negocio-grafico-referencias-linea" key={tarea.tar_id}>
                           <span
                             className="negocio-grafico-referencia-cuadrito"
                             style={{
