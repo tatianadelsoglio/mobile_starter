@@ -81,12 +81,14 @@ const Tareas = () => {
   useEffect(() => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
-      ordenarDatos(JSON.parse(dataCalendario.getTareasPropiasMobileResolver).tareasPropiasPorFecha,
-        filtroFecha
-      );
-      setTareasCalendario(
-        JSON.parse(dataCalendario.getTareasPropiasMobileResolver).fechasVenc
-      );
+      if(JSON.parse(dataCalendario.getTareasPropiasMobileResolver)){
+        ordenarDatos(JSON.parse(dataCalendario.getTareasPropiasMobileResolver).tareasPropiasPorFecha,
+          filtroFecha
+        );
+        setTareasCalendario(
+          JSON.parse(dataCalendario.getTareasPropiasMobileResolver).fechasVenc
+        );
+      }
     }
   }, [dataCalendario, filtroFecha]);
 
