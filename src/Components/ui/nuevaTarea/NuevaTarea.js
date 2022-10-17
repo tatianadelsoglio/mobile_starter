@@ -255,7 +255,7 @@ const NuevaTarea = () => {
             clientes.map((cliente) => (
               <>
                 {buscador !== "" ? (
-                    <div className="div_clienteSelect_btn">
+                    <div className="div_clienteSelect_btn" key={cliente.cli_id}>
                       <input
                         className="select_nueva_tarea input_cliente"
                         type="text"
@@ -291,6 +291,7 @@ const NuevaTarea = () => {
               tiposTareas.map((tipoTarea) => ({
                 label: tipoTarea.tip_desc,
                 value: tipoTarea.tip_id,
+                key: tipoTarea.tip_id
               }))
             }
             // onChange={handleSelectTT}
@@ -305,6 +306,7 @@ const NuevaTarea = () => {
               tiposOrigenes.map((tipoOrigen) => ({
                 label: tipoOrigen.ori_desc,
                 value: tipoOrigen.ori_id,
+                key: tipoOrigen.ori_id
               }))
             }
             // onChange={handleSelectO}
