@@ -223,6 +223,7 @@ const DetalleTarea = () => {
               tiposTareas.map((tipoTarea) => ({
                 label: tipoTarea.tip_desc,
                 value: tipoTarea.tip_id,
+                key: tipoTarea.tip_id
               }))
             }
           />

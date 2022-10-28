@@ -24,7 +24,7 @@
   align-items: flex-start;
   text-align: start;
   margin: 0px;
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
   padding: 0px;
   height: calc(100% - 64.74px);
@@ -37,7 +37,7 @@
 .adm-capsule-tabs-header {
   z-index: 999;
   background-color: white;
-  width: 99.5vw;
+  width: 100%;
   padding: 12px 0px;
 }
 

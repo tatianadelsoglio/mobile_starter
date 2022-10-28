@@ -12,11 +12,12 @@ import "./negocioCompleto.css";
 import { NegocioPlanificado } from "./NegocioPlanificado";
 
 export const NegocioCompleto = () => {
+  
   const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
 
   const location = useLocation();
 
-  const [negocio, setNegocio] = useState(location.state[0]);
+  const [negocio] = useState(location.state[0]);
 
   const [activeKey, setActiveKey] = useState("1");
 
@@ -164,12 +165,12 @@ export const NegocioCompleto = () => {
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Planificado" key="2">
           {activeKey === "2" && (
-            <NegocioPlanificado neg_id={location.state[0].neg_id} />
+            <NegocioPlanificado neg_id={negocio} />
           )}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
           {activeKey === "3" && (
-            <NegocioCompletado neg_id={location.state[0].neg_id} />
+            <NegocioCompletado neg_id={negocio} />
           )}
         </CapsuleTabs.Tab>
       </CapsuleTabs>
