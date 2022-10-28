@@ -190,10 +190,6 @@ const NuevaTarea = () => {
 
     let inputAdjunto = null;
 
-<<<<<<< HEAD
-    // escribe el resolver
-=======
->>>>>>> dev
     newTareaIframeResolver({
       variables: { inputTarea, inputNota, inputAdjunto, usuAsig: userId },
     });
