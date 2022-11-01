@@ -165,12 +165,12 @@ export const NegocioCompleto = () => {
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Planificado" key="2">
           {activeKey === "2" && (
-            <NegocioPlanificado neg_id={negocio} />
+            <NegocioPlanificado negocio={negocio} />
           )}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
           {activeKey === "3" && (
-            <NegocioCompletado neg_id={negocio} />
+            <NegocioCompletado negocio={negocio} />
           )}
         </CapsuleTabs.Tab>
       </CapsuleTabs>
