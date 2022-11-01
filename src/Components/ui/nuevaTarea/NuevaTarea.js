@@ -108,6 +108,7 @@ const NuevaTarea = () => {
     {
       label: (
         <div
+          key={1}
           className={
             idSelector === 1 ? "selector-alta seleccionado" : "selector-alta"
           }
@@ -120,6 +121,7 @@ const NuevaTarea = () => {
     {
       label: (
         <div
+          key={2}
           className={
             idSelector === 2 ? "selector-media seleccionado" : "selector-media"
           }
@@ -132,6 +134,7 @@ const NuevaTarea = () => {
     {
       label: (
         <div
+          key={3}
           className={
             idSelector === 3 ? "selector-baja seleccionado" : "selector-baja"
           }
@@ -223,10 +226,21 @@ const NuevaTarea = () => {
           </Button>
         }
       >
-        <div style={{padding:"12px 0px", textAlign:"left", display:"flex", flexDirection:"column", justifyContent:"start"}}>
-          <span style={{marginBottom:"4px", fontSize:"15px", display:"flex"}}>
-            <p style={{color:"#ff3141"}}>*</p>
-            <p style={{color:"#00b33c"}}>Cliente</p></span>
+        <div
+          style={{
+            padding: "12px 0px",
+            textAlign: "left",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "start",
+          }}
+        >
+          <span
+            style={{ marginBottom: "4px", fontSize: "15px", display: "flex" }}
+          >
+            <p style={{ color: "#ff3141" }}>*</p>
+            <p style={{ color: "#00b33c" }}>Cliente</p>
+          </span>
           {ocultarC !== true ? (
             <input
               className="input-cliente-nueva-tarea"
@@ -264,7 +278,14 @@ const NuevaTarea = () => {
               </>
             ))}
           {alertaCliente && (
-            <span style={{ fontSize: "13px", color: "#ff3141", alignSelf:"center", marginTop:"4px"}}>
+            <span
+              style={{
+                fontSize: "13px",
+                color: "#ff3141",
+                alignSelf: "center",
+                marginTop: "4px",
+              }}
+            >
               Por favor ingrese Cliente
             </span>
           )}
