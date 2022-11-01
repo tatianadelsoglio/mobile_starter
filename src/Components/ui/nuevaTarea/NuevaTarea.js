@@ -50,9 +50,11 @@ const NuevaTarea = () => {
   }, [data]);
 
   const handleSelect = (value, cli_id) => {
-    if(cli_id){
-      setAlertaCliente(true);
+    if (cli_id) {
       setClienteSelect(cli_id);
+      setAlertaCliente(false);
+    } else {
+      setAlertaCliente(true);
     }
 
     setBuscador(value.target.value);
@@ -67,17 +69,10 @@ const NuevaTarea = () => {
   };
 
   const handleLimpiar = (value) => {
-    if (limpiar === false) {
-      setLimpiar(true);
-      setOcultarC(false);
-      setClienteSelect();
-    }
-    if (limpiar === true) {
-      setLimpiar(false);
-      setOcultarC(false);
-      setClienteSelect();
-    }
-
+    setLimpiar(!limpiar);
+    setOcultarC(false);
+    setClienteSelect();
+    setAlertaCliente(true);
     setBuscador("");
   };
   //TODO FIN SECCION DE ELEGIR CLIENTE
@@ -174,9 +169,8 @@ const NuevaTarea = () => {
   });
 
   const handleFormSubmit = (values) => {
-
-    if(!clienteSelect){
-      return setAlertaCliente(false);
+    if (!clienteSelect) {
+      return setAlertaCliente(true);
     }
 
     const inputTarea = {
@@ -229,13 +223,13 @@ const NuevaTarea = () => {
           </Button>
         }
       >
-        <Form.Item
-          label="Cliente"
-          className="nueva_tarea_buscador_cliente"
-        >
+        <div style={{padding:"12px 0px", textAlign:"left", display:"flex", flexDirection:"column", justifyContent:"start"}}>
+          <span style={{marginBottom:"4px", fontSize:"15px", display:"flex"}}>
+            <p style={{color:"#ff3141"}}>*</p>
+            <p style={{color:"#00b33c"}}>Cliente</p></span>
           {ocultarC !== true ? (
             <input
-              className="select_nueva_tarea input_cliente"
+              className="input-cliente-nueva-tarea"
               placeholder="Ingrese Cliente"
               type="search"
               autoComplete="off"
@@ -249,7 +243,7 @@ const NuevaTarea = () => {
                 {buscador !== "" ? (
                   <div className="div_clienteSelect_btn" key={cliente.cli_id}>
                     <input
-                      className="select_nueva_tarea input_cliente"
+                      className="input-cliente-nueva-tarea input-cliente-seleccionado"
                       type="text"
                       onClick={(value) => handleSelect(value, cliente.cli_id)}
                       defaultValue={cliente.cli_nombre}
@@ -269,11 +263,12 @@ const NuevaTarea = () => {
                 )}
               </>
             ))}
-            {
-              !alertaCliente && 
-              <span style={{fontSize:"13px", color:"#ff3141"}}>Por favor ingrese Cliente</span>
-            }
-        </Form.Item>
+          {alertaCliente && (
+            <span style={{ fontSize: "13px", color: "#ff3141", alignSelf:"center", marginTop:"4px"}}>
+              Por favor ingrese Cliente
+            </span>
+          )}
+        </div>
         <Form.Item
           label="Asunto"
           name="tar_asunto"
