@@ -106,7 +106,7 @@ const Tareas = () => {
   }, [dataMobile]);
 
   useEffect(() => {
-
+    console.log(tareasMobile);
   }, [tareasMobile])
 
   return (

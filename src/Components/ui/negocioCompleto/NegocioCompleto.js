@@ -6,6 +6,7 @@ import { ShopbagOutline, UserOutline } from "antd-mobile-icons";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { GET_HISTORIAL_POR_NEGOCIO } from "../../../graphql/queries/HistorialNegocio";
 import { GET_COUNT_TAREAS } from "../../../graphql/queries/NegocioContent";
 import { NegocioCompletado } from "./NegocioCompletado";
 import "./negocioCompleto.css";
@@ -171,12 +172,12 @@ export const NegocioCompleto = () => {
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Planificado" key="2">
           {activeKey === "2" && (
-            <NegocioPlanificado neg_id={negocio} />
+            <NegocioPlanificado negocio={negocio} />
           )}
         </CapsuleTabs.Tab>
         <CapsuleTabs.Tab title="Completado" key="3">
           {activeKey === "3" && (
-            <NegocioCompletado neg_id={negocio} />
+            <NegocioCompletado negocio={negocio} />
           )}
         </CapsuleTabs.Tab>
       </CapsuleTabs>
