@@ -27,18 +27,17 @@ const DetalleTarea = () => {
   const [file] = useState({});
   const [fList, setFlist] = useState([]);
 
-  const [hora] = useState(moment(
-    tarea.tar_horavencimiento,
-    "HH:mm:ss"
-  ).format("LT"))
+  const [hora] = useState(
+    moment(tarea.tar_horavencimiento, "HH:mm:ss").format("LT")
+  );
 
   const handleHora = (hora) => {
-    let horaFormato = hora
-    if(hora.length<5) {
+    let horaFormato = hora;
+    if (hora.length < 5) {
       horaFormato = "0" + hora;
-    } 
+    }
     return horaFormato;
-  }
+  };
 
   const [updateTareaResolver] = useMutation(UPDATE_TAREA, {
     onCompleted: () => {
@@ -196,7 +195,7 @@ const DetalleTarea = () => {
         >
           <div className="div_clienteSelect_btn">
             <input
-              className="select_nueva_tarea input_cliente"
+              className="input-cliente-nueva-tarea"
               type="text"
               value={tarea.cli_nombre}
               readOnly={true}
@@ -207,6 +206,11 @@ const DetalleTarea = () => {
           label="Asunto"
           name="tar_asunto"
           initialValue={tarea.tar_asunto}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
           <TextArea autoSize={true} />
         </Form.Item>
@@ -223,7 +227,7 @@ const DetalleTarea = () => {
               tiposTareas.map((tipoTarea) => ({
                 label: tipoTarea.tip_desc,
                 value: tipoTarea.tip_id,
-                key: tipoTarea.tip_id
+                key: tipoTarea.tip_id,
               }))
             }
           />
@@ -244,6 +248,11 @@ const DetalleTarea = () => {
               label="Vencimiento"
               name="tar_vencimiento"
               initialValue={tarea.tar_vencimiento}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
               <input className="input-fechaHora" type="date" />
             </Form.Item>
@@ -257,8 +266,13 @@ const DetalleTarea = () => {
               label="Hora"
               name="tar_horavencimiento"
               initialValue={handleHora(hora)}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
-              <input className="input-fechaHora" type="time"/>
+              <input className="input-fechaHora" type="time" />
             </Form.Item>
           </div>
         </div>
@@ -270,7 +284,15 @@ const DetalleTarea = () => {
           ></Note>
         </Form.Item>
 
-        <Form.Item label="Prioridad" name="pri_id">
+        <Form.Item
+          label="Prioridad"
+          name="pri_id"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
           <Selector
             style={{
               "--border-radius": "10px",

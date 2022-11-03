@@ -367,6 +367,11 @@ const NuevaTarea = () => {
               label="Vencimiento"
               name="tar_vencimiento"
               initialValue={moment().format("YYYY-MM-DD")}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
               <input className="input-fechaHora" type="date" />
             </Form.Item>
@@ -380,6 +385,11 @@ const NuevaTarea = () => {
               label="Hora"
               name="tar_horavencimiento"
               initialValue={handleHora(moment().format("LT"))}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
               <input className="input-fechaHora" type="time" />
             </Form.Item>
