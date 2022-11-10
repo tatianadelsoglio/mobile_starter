@@ -57,7 +57,7 @@ const Tareas = () => {
     let tareasOrdenadas;
     if (tareasBasico) {
       tareasBasico = tareasBasico.filter(
-        (tarea) => tarea.fechavencimiento === fecha
+        (tarea) => tarea.fechavencimiento == fecha
       );
       tareasOrdenadas = tareasBasico.sort(function (a, b) {
         return (
@@ -81,6 +81,7 @@ const Tareas = () => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
       if(JSON.parse(dataCalendario.getTareasPropiasMobileResolver)){
+        console.log(JSON.parse(dataCalendario.getTareasPropiasMobileResolver));
         ordenarDatos(JSON.parse(dataCalendario.getTareasPropiasMobileResolver).tareasPropiasPorFecha,
           filtroFecha
         );
@@ -121,6 +122,7 @@ const Tareas = () => {
             <div>
               <Calendar
                 selectionMode="single"
+                weekStartsOn='Monday'
                 defaultValue={filtroFecha}
                 renderLabel={
                   tareasCalendario &&
