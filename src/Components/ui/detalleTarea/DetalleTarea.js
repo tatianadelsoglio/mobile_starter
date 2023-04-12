@@ -12,30 +12,32 @@ import { GET_TIPO_TAREA } from "../../../graphql/queries/TipoTarea";
 import Select from "react-select";
 import Note from "../note/Note";
 import { UPDATE_TAREA } from "../../../graphql/mutations/tareas";
+import { decode } from "base-64";
 
 const DetalleTarea = () => {
   const { userId, note, setNote, pollTareas } = useContext(GlobalContext);
 
   const location = useLocation();
 
+  const search = location.search;
+
   const history = useHistory();
 
-  const [tarea] = useState(location.state);
+  const [error, setError] = useState(false);
 
-  const [idSelector, setIdSelector] = useState(tarea.pri_id);
+  const [tarea, setTarea] = useState(null);
+
+  const [idSelector, setIdSelector] = useState();
 
   const [file] = useState({});
   const [fList, setFlist] = useState([]);
 
-  const [hora] = useState(
-    moment(tarea.tar_horavencimiento, "HH:mm:ss").format("LT")
-  );
-
-  const handleHora = (hora) => {
-    let horaFormato = hora;
-    if (hora.length < 5) {
-      horaFormato = "0" + hora;
+  const handleHora = (hs) => {
+    let horaFormato = hs;
+    if (hs.length < 5) {
+      horaFormato = "0" + hs;
     }
+    
     return horaFormato;
   };
 
@@ -77,6 +79,32 @@ const DetalleTarea = () => {
       setTiposTareas(dataTipoTarea.getTiposTareaResolver);
     }
   }, [dataTipoTarea]);
+
+  useEffect(() => {
+    try {
+      const data = new URLSearchParams(search).get("data");
+      let tar = JSON.parse(decode(data));
+      if (typeof tar === "object" && tar !== null) {
+        setTarea(JSON.parse(decode(data)));
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch (error) {
+      console.log(error);
+      setError(true);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if(tarea) {
+      setIdSelector(tarea.pri_id)
+
+      form.setFieldsValue({
+        tar_horavencimiento: handleHora(moment(tarea.tar_horavencimiento, "HH:mm:ss").format("LT"))
+      })
+    }
+  }, [tarea])
 
   const prioridad = [
     {
@@ -175,140 +203,146 @@ const DetalleTarea = () => {
     setFlist([]);
   };
 
-  return (
-    <div className="detalle-tarea-contenedor">
-      <Form
-        name="tareaForm"
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        footer={
-          <Button block type="submit" color="primary" size="large">
-            Guardar
-          </Button>
-        }
-      >
-        <Form.Item
-          label="Cliente"
-          name="cli_id"
-          initialValue={{ label: tarea.cli_nombre, id: tarea.cli_id }}
+  return error ? (
+    <span>Hubo un error, por favor vuelva a la lista de tareas</span>
+  ) : (
+    tarea && (
+      <div className="detalle-tarea-contenedor">
+        <Form
+          name="tareaForm"
+          form={form}
+          layout="vertical"
+          onFinish={onFinish}
+          footer={
+            <Button block type="submit" color="primary" size="large">
+              Guardar
+            </Button>
+          }
         >
-          <div className="div_clienteSelect_btn">
-            <input
-              className="input-cliente-nueva-tarea"
-              type="text"
-              value={tarea.cli_nombre}
-              readOnly={true}
+          <Form.Item
+            label="Cliente"
+            name="cli_id"
+            initialValue={{ label: tarea.cli_nombre, id: tarea.cli_id }}
+          >
+            <div className="div_clienteSelect_btn">
+              <input
+                className="input-cliente-nueva-tarea"
+                type="text"
+                value={tarea.cli_nombre}
+                readOnly={true}
+              />
+            </div>
+          </Form.Item>
+          <Form.Item
+            label="Asunto"
+            name="tar_asunto"
+            initialValue={tarea.tar_asunto}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <TextArea autoSize={true} />
+          </Form.Item>
+          <Form.Item
+            label="Tipo de Tarea"
+            name="tip_id"
+            initialValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
+          >
+            <Select
+              className="select_nueva_tarea"
+              // defaultValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
+              options={
+                tiposTareas &&
+                tiposTareas.map((tipoTarea) => ({
+                  label: tipoTarea.tip_desc,
+                  value: tipoTarea.tip_id,
+                  key: tipoTarea.tip_id,
+                }))
+              }
             />
-          </div>
-        </Form.Item>
-        <Form.Item
-          label="Asunto"
-          name="tar_asunto"
-          initialValue={tarea.tar_asunto}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <TextArea autoSize={true} />
-        </Form.Item>
-        <Form.Item
-          label="Tipo de Tarea"
-          name="tip_id"
-          initialValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
-        >
-          <Select
-            className="select_nueva_tarea"
-            // defaultValue={{ label: tarea.tip_desc, value: tarea.tip_id }}
-            options={
-              tiposTareas &&
-              tiposTareas.map((tipoTarea) => ({
-                label: tipoTarea.tip_desc,
-                value: tipoTarea.tip_id,
-                key: tipoTarea.tip_id,
-              }))
-            }
-          />
-        </Form.Item>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+          </Form.Item>
           <div
             style={{
-              width: "50%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            <Form.Item
-              label="Vencimiento"
-              name="tar_vencimiento"
-              initialValue={tarea.tar_vencimiento}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+            <div
+              style={{
+                width: "50%",
+              }}
             >
-              <input className="input-fechaHora" type="date" />
-            </Form.Item>
-          </div>
-          <div
-            style={{
-              width: "50%",
-            }}
-          >
-            <Form.Item
-              label="Hora"
-              name="tar_horavencimiento"
-              initialValue={handleHora(hora)}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              <Form.Item
+                label="Vencimiento"
+                name="tar_vencimiento"
+                initialValue={tarea.tar_vencimiento}
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <input className="input-fechaHora" type="date" />
+              </Form.Item>
+            </div>
+            <div
+              style={{
+                width: "50%",
+              }}
             >
-              <input className="input-fechaHora" type="time" />
-            </Form.Item>
+              <Form.Item
+                label="Hora"
+                name="tar_horavencimiento"
+                // initialValue={hora && handleHora(hora)}
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <input className="input-fechaHora" type="time" />
+              </Form.Item>
+            </div>
           </div>
-        </div>
-        <Form.Item label="Nota" name="not_desc">
-          <Note
-            editValue={tarea.not_desc === "<p><br></p>" ? null : tarea.not_desc}
-            width="100%"
-            height="100%"
-          ></Note>
-        </Form.Item>
+          <Form.Item label="Nota" name="not_desc">
+            <Note
+              editValue={
+                tarea.not_desc === "<p><br></p>" ? null : tarea.not_desc
+              }
+              width="100%"
+              height="100%"
+            ></Note>
+          </Form.Item>
 
-        <Form.Item
-          label="Prioridad"
-          name="pri_id"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Selector
-            style={{
-              "--border-radius": "10px",
-              "--border": "none",
-              "--checked-border": "none",
-              "--padding": "0px",
-              fontSize: "16px",
-            }}
-            showCheckMark={false}
+          <Form.Item
             label="Prioridad"
-            options={prioridad}
-            onChange={(v) => setIdSelector(v[0])}
-          />
-        </Form.Item>
-      </Form>
-    </div>
+            name="pri_id"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Selector
+              style={{
+                "--border-radius": "10px",
+                "--border": "none",
+                "--checked-border": "none",
+                "--padding": "0px",
+                fontSize: "16px",
+              }}
+              showCheckMark={false}
+              label="Prioridad"
+              options={prioridad}
+              onChange={(v) => setIdSelector(v[0])}
+            />
+          </Form.Item>
+        </Form>
+      </div>
+    )
   );
 };
 

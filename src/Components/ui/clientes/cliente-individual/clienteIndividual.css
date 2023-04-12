@@ -12,6 +12,11 @@
   height: calc(100% - 45px);
   overflow: auto;
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.div_lista_l::-webkit-scrollbar {
+  display: none;
 }
 
 .div_lista_negocios {
@@ -19,9 +24,14 @@
   height: 100%;
   overflow: auto;
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.div_lista_negocios::-webkit-scrollbar {
+  display: none;
 }
 
-.div_lista_l .swipe_clienteTarea{
+.div_lista_l .swipe_clienteTarea {
   margin-bottom: -6px;
   margin-left: -4px;
 }

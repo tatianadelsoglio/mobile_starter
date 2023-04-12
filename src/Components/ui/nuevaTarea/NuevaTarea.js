@@ -228,7 +228,7 @@ const NuevaTarea = () => {
       >
         <div
           style={{
-            padding: "12px 0px",
+            padding: "12px 4px",
             textAlign: "left",
             display: "flex",
             flexDirection: "column",

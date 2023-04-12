@@ -10,14 +10,16 @@ import { GET_COUNT_TAREAS } from "../../../graphql/queries/NegocioContent";
 import { NegocioCompletado } from "./NegocioCompletado";
 import "./negocioCompleto.css";
 import { NegocioPlanificado } from "./NegocioPlanificado";
+import { decode } from "base-64";
 
 export const NegocioCompleto = () => {
-  
   const [tareasDefinitivo, setTareasDefinitivo] = useState([{}]);
 
   const location = useLocation();
 
-  const [negocio] = useState(location.state[0]);
+  const [negocio, setNegocio] = useState(null);
+
+  const [error, setError] = useState(false);
 
   const [activeKey, setActiveKey] = useState("1");
 
@@ -58,9 +60,11 @@ export const NegocioCompleto = () => {
     return colorList[i];
   };
 
+  const search = location.search;
+
   const { data: dataTareas } = useQuery(GET_COUNT_TAREAS, {
     variables: {
-      idNegocio: location.state[0].neg_id,
+      idNegocio: new URLSearchParams(search).get("id"),
     },
   });
 
@@ -70,110 +74,136 @@ export const NegocioCompleto = () => {
     }
   }, [dataTareas]);
 
-  return (
-    <div className="div_contenedor_negocioC">
-      <div className="negocio-completo-header">
-        <p className="negocio-completo-header-asunto">{negocio.neg_asunto}</p>
-        <p className="negocio-completo-header-importe">
-          {negocio.mon_iso +
-            " " +
-            negocio.neg_valor.toLocaleString("de-DE", {
-              minimumFractionDigits: 0,
-            })}
-        </p>
-        <div className="negocio-completo-header-linea-cliente">
-          <ShopbagOutline />
-          <p className="negocio-completo-header-texto">{negocio.cli_nombre}</p>
-        </div>
-        {negocio.con_nombre && (
-          <div className="negocio-completo-header-linea">
-            <UserOutline />
+  useEffect(() => {
+    try {
+      const data = new URLSearchParams(search).get("data");
+      console.log(data);
+      let neg = JSON.parse(decode(data));
+      console.log(neg);
+      if (typeof neg === "object" && neg !== null) {
+        setNegocio(JSON.parse(decode(data)));
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch (error){
+      console.log(error)
+      setError(true);
+    }
+  }, [location]);
+
+  return error ? (
+    <span>Hubo un error, por favor vuelva a negocios</span>
+  ) : (
+    negocio && (
+      <div className="div_contenedor_negocioC">
+        <div className="negocio-completo-header">
+          <p className="negocio-completo-header-asunto">{negocio.neg_asunto}</p>
+          <p className="negocio-completo-header-importe">
+            {negocio.mon_iso +
+              " " +
+              negocio.neg_valor.toLocaleString("de-DE", {
+                minimumFractionDigits: 0,
+              })}
+          </p>
+          <div className="negocio-completo-header-linea-cliente">
+            <ShopbagOutline />
             <p className="negocio-completo-header-texto">
-              {negocio.con_nombre}
+              {negocio.cli_nombre}
             </p>
           </div>
-        )}
-        <div className="negocio-completo-header-linea">
-          <p className="negocio-completo-header-fecha">
-            {"Fecha de creacion: " +
-              moment(negocio.neg_fechacreacion, "YYYY-MM-DD").format(
-                "DD/MM/YYYY"
-              )}
-          </p>
-        </div>
-        <div className="negocio-completo-header-linea">
-          <p className="negocio-completo-header-fecha">
-            {"Fecha de cierre estimada: " +
-              moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format(
-                "DD/MM/YYYY"
-              )}
-          </p>
-        </div>
-      </div>
-      <CapsuleTabs
-        className="capsuletabs-negocio"
-        onChange={(v) => setActiveKey(v)}
-      >
-        <CapsuleTabs.Tab title="Info" key="1">
-          {activeKey === "1" && (
-            <div className="div_lista_nrg">
-              <div className="negocio-completo-caja-grafica">
-                <div className="negocio-grafica-linea">
-                  <p className="negocio-antiguedad">Antigüedad del negocio</p>
-                  <p className="negocio-antiguedad-dias">
-                    {moment(negocio.neg_fechacreacion, "YYYY-MM-DD").fromNow()}
-                  </p>
-                </div>
-                <div className="negocio-grafico-degrade"></div>
-                <p className="negocio-tareas">Tareas</p>
-                <div className="negocio-grafico-tareas">
-                  {tareasDefinitivo.map((tarea) => {
-                    return (
-                      <span
-                        className="negocio-caja-tarea-grafico"
-                        key={tarea.tar_id}
-                        style={{
-                          backgroundColor: `${getColor(tarea.tip_id)}`,
-                          width: `${tarea.porcentajeTipoTarea}%`,
-                        }}
-                      ></span>
-                    );
-                  })}
-                </div>
-                <div className="negocio-grafico-referencias">
-                  {tareasDefinitivo &&
-                    tareasDefinitivo.map((tarea) => {
-                      return (
-                        <div className="negocio-grafico-referencias-linea" key={tarea.tar_id}>
-                          <span
-                            className="negocio-grafico-referencia-cuadrito"
-                            style={{
-                              backgroundColor: `${getColor(tarea.tip_id)}`,
-                            }}
-                          ></span>
-                          <p className="negocio-tarea-texto">{`${tarea.tip_desc} (${tarea.cantidadTipoTarea})`}</p>
-                          <p className="negocio-tarea-texto">{`- ${Math.round(
-                            tarea.porcentajeTipoTarea
-                          )}%`}</p>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
+          {negocio.con_nombre && (
+            <div className="negocio-completo-header-linea">
+              <UserOutline />
+              <p className="negocio-completo-header-texto">
+                {negocio.con_nombre}
+              </p>
             </div>
           )}
-        </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Planificado" key="2">
-          {activeKey === "2" && (
-            <NegocioPlanificado negocio={negocio} />
-          )}
-        </CapsuleTabs.Tab>
-        <CapsuleTabs.Tab title="Completado" key="3">
-          {activeKey === "3" && (
-            <NegocioCompletado negocio={negocio} />
-          )}
-        </CapsuleTabs.Tab>
-      </CapsuleTabs>
-    </div>
+          <div className="negocio-completo-header-linea">
+            <p className="negocio-completo-header-fecha">
+              {"Fecha de creacion: " +
+                moment(negocio.neg_fechacreacion, "YYYY-MM-DD").format(
+                  "DD/MM/YYYY"
+                )}
+            </p>
+          </div>
+          <div className="negocio-completo-header-linea">
+            <p className="negocio-completo-header-fecha">
+              {"Fecha de cierre estimada: " +
+                moment(negocio.neg_fechacierreestimado, "YYYY-MM-DD").format(
+                  "DD/MM/YYYY"
+                )}
+            </p>
+          </div>
+        </div>
+        <CapsuleTabs
+          className="capsuletabs-negocio"
+          onChange={(v) => setActiveKey(v)}
+        >
+          <CapsuleTabs.Tab title="Info" key="1">
+            {activeKey === "1" && (
+              <div className="div_lista_nrg">
+                <div className="negocio-completo-caja-grafica">
+                  <div className="negocio-grafica-linea">
+                    <p className="negocio-antiguedad">Antigüedad del negocio</p>
+                    <p className="negocio-antiguedad-dias">
+                      {moment(
+                        negocio.neg_fechacreacion,
+                        "YYYY-MM-DD"
+                      ).fromNow()}
+                    </p>
+                  </div>
+                  <div className="negocio-grafico-degrade"></div>
+                  <p className="negocio-tareas">Tareas</p>
+                  <div className="negocio-grafico-tareas">
+                    {tareasDefinitivo.map((tarea) => {
+                      return (
+                        <span
+                          className="negocio-caja-tarea-grafico"
+                          key={tarea.tar_id}
+                          style={{
+                            backgroundColor: `${getColor(tarea.tip_id)}`,
+                            width: `${tarea.porcentajeTipoTarea}%`,
+                          }}
+                        ></span>
+                      );
+                    })}
+                  </div>
+                  <div className="negocio-grafico-referencias">
+                    {tareasDefinitivo &&
+                      tareasDefinitivo.map((tarea) => {
+                        return (
+                          <div
+                            className="negocio-grafico-referencias-linea"
+                            key={tarea.tar_id}
+                          >
+                            <span
+                              className="negocio-grafico-referencia-cuadrito"
+                              style={{
+                                backgroundColor: `${getColor(tarea.tip_id)}`,
+                              }}
+                            ></span>
+                            <p className="negocio-tarea-texto">{`${tarea.tip_desc} (${tarea.cantidadTipoTarea})`}</p>
+                            <p className="negocio-tarea-texto">{`- ${Math.round(
+                              tarea.porcentajeTipoTarea
+                            )}%`}</p>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              </div>
+            )}
+          </CapsuleTabs.Tab>
+          <CapsuleTabs.Tab title="Planificado" key="2">
+            {activeKey === "2" && <NegocioPlanificado negocio={negocio} />}
+          </CapsuleTabs.Tab>
+          <CapsuleTabs.Tab title="Completado" key="3">
+            {activeKey === "3" && <NegocioCompletado negocio={negocio} />}
+          </CapsuleTabs.Tab>
+        </CapsuleTabs>
+      </div>
+    )
   );
 };

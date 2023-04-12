@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Switch, HashRouter } from "react-router-dom";
 import ClienteIndividualView from "../../views/ClienteIndividualView";
 import ClientesView from "../../views/ClientesView";
 import ConfiguracionView from "../../views/ConfiguracionView";
@@ -15,28 +15,43 @@ import PublicRoute from "./PublicRoute";
 
 const AppRouter = () => {
   return (
-    <BrowserRouter basename="/app">
+    <HashRouter>
       <Switch>
-        <PublicRoute exact path="/" component={LoginView}/>
+        <PublicRoute exact path="/" component={LoginView} />
 
-        <PrivateRoute exact path="/home" component={HomeView}/>
+        <PrivateRoute exact path="/home" component={HomeView} />
 
-        <PrivateRoute exact path="/configuracion" component={ConfiguracionView}/>
+        <PrivateRoute
+          exact
+          path="/configuracion"
+          component={ConfiguracionView}
+        />
 
-        <PrivateRoute exact path="/clientes" component={ClientesView}/>
+        <PrivateRoute exact path="/clientes" component={ClientesView} />
 
-        <PrivateRoute exact path="/tareas" component={TareasView}/>
+        <PrivateRoute exact path="/tareas" component={TareasView} />
 
-        <PrivateRoute exact path="/detalletarea/*" component={DetalleTareaView}/>
+        <PrivateRoute
+          exact
+          path="/detalletarea/*"
+          component={DetalleTareaView}
+        />
 
-        <PrivateRoute exact path="/nuevatarea" component={NuevaTareaView}/>
+        <PrivateRoute exact path="/nuevatarea" component={NuevaTareaView} />
 
-        <PrivateRoute exact path="/cliente-individual/*" component={ClienteIndividualView} />
+        <PrivateRoute
+          exact
+          path="/cliente-individual/*"
+          component={ClienteIndividualView}
+        />
 
-        <PrivateRoute exact path="/negocio-completo/*" component={NegocioCompletoView} />
-
+        <PrivateRoute
+          exact
+          path="/negocio-completo/*"
+          component={NegocioCompletoView}
+        />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

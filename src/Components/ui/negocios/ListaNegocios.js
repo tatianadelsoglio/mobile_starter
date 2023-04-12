@@ -8,6 +8,8 @@ import moment from "moment";
 import { Popover } from "antd-mobile";
 import { useHistory } from "react-router-dom";
 
+import {encode} from "base-64";
+
 export const ListaNegocios = ({ negocios }) => {
 
   let history = useHistory();
@@ -33,10 +35,8 @@ export const ListaNegocios = ({ negocios }) => {
   const onCardClick = (id) => {
     let negocio = negocios.filter((negocio) => negocio.neg_id === id);
 
-    return history.push({
-      pathname: `/negocio-completo/${id}`,
-      state: { ...negocio },
-    });
+    let encriptedNegocio = encode(JSON.stringify(negocio[0]));
+    return history.push(`/negocio-completo/?id=${id}?&data=${encriptedNegocio}`);
   };
 
   return (

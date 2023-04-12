@@ -1,7 +1,3 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable array-callback-return */
-/* eslint-disable no-unused-vars */
 import { Calendar, CapsuleTabs } from "antd-mobile";
 import moment from "moment";
 import ListaTarea from "../listaTareas/ListaTarea";
@@ -57,7 +53,7 @@ const Tareas = () => {
     let tareasOrdenadas;
     if (tareasBasico) {
       tareasBasico = tareasBasico.filter(
-        (tarea) => tarea.fechavencimiento == fecha
+        (tarea) => tarea.fechavencimiento === fecha
       );
       tareasOrdenadas = tareasBasico.sort(function (a, b) {
         return (
@@ -81,7 +77,6 @@ const Tareas = () => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
       if(JSON.parse(dataCalendario.getTareasPropiasMobileResolver)){
-        console.log(JSON.parse(dataCalendario.getTareasPropiasMobileResolver));
         ordenarDatos(JSON.parse(dataCalendario.getTareasPropiasMobileResolver).tareasPropiasPorFecha,
           filtroFecha
         );
@@ -133,8 +128,10 @@ const Tareas = () => {
                       let fechaCalendario = moment(date).format("YYYY-MM-DD");
 
                       if (fechaCalendario === tarea.tar_vencimiento) {
-                        return (bandera = true);
+                        bandera = true;
                       }
+
+                      return bandera;
                     });
 
                     if (bandera === true) {

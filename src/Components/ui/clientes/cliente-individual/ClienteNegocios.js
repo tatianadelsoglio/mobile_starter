@@ -43,15 +43,9 @@ export const ClienteNegocios = ({ cliente }) => {
 
   useEffect(() => {
     if (data) {
-      // console.log(JSON.parse(data.getNegocioResolver).dataNeg);
       ordenarDatos(JSON.parse(data.getNegocioResolver).dataNeg);
-      // ordenarDatos(JSON.parse(dataNegocios.getNegocioResolver));
     }
   }, [data]);
-
-  useEffect(() => {
-    // console.log(negocios);
-  }, [negocios]);
 
   return (
     <QueryResult loading={loading} error={error} data={negocios}>
