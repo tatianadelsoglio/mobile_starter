@@ -24,6 +24,7 @@ const App = () => {
   const [note, setNote] = useState();
   const [pollTareas, setPollTareas] = useState();
   const [pollTareasClientes, setPollTareasClientes] = useState();
+  const [pollTareasPlanificadas, setPollTareasPlanificadas] = useState();
   const [tabTareasActivo, setTabTareasActivo] = useState("1");
   const [tabClienteActivo, setTabClienteActivo] = useState("1");
 
@@ -73,6 +74,8 @@ const App = () => {
               setPollTareas,
               pollTareasClientes, 
               setPollTareasClientes,
+              pollTareasPlanificadas,
+              setPollTareasPlanificadas,
               tabTareasActivo,
               setTabTareasActivo,
               tabClienteActivo,

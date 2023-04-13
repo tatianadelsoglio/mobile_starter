@@ -18,17 +18,13 @@ const DetalleTarea = () => {
   const { userId, note, setNote, pollTareas } = useContext(GlobalContext);
 
   const location = useLocation();
-
   const search = location.search;
-
   const history = useHistory();
+  const [form] = Form.useForm();
 
   const [error, setError] = useState(false);
-
   const [tarea, setTarea] = useState(null);
-
   const [idSelector, setIdSelector] = useState();
-
   const [file] = useState({});
   const [fList, setFlist] = useState([]);
 
@@ -93,7 +89,7 @@ const DetalleTarea = () => {
     } catch (error) {
       setError(true);
     }
-  }, [location]);
+  }, [location, search]);
 
   useEffect(() => {
     if (tarea) {
@@ -105,7 +101,7 @@ const DetalleTarea = () => {
         ),
       });
     }
-  }, [tarea]);
+  }, [tarea, form]);
 
   const prioridad = [
     {
@@ -145,8 +141,6 @@ const DetalleTarea = () => {
       value: 3,
     },
   ];
-
-  const [form] = Form.useForm();
 
   const onFinish = (v) => {
     let inputAdjunto;

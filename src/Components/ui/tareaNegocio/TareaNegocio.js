@@ -18,10 +18,11 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { UPDATE_ESTADO_TAREA } from "../../../graphql/mutations/tareas";
 import { GlobalContext } from "../../context/GlobalContext";
-import {encode} from "base-64"
+import { encode } from "base-64";
 
 export const TareaNegocio = ({ tarea, origen = "" }) => {
-  const { pollTareas, pollTareasClientes } = useContext(GlobalContext);
+  const { pollTareas, pollTareasClientes, pollTareasPlanificadas } =
+    useContext(GlobalContext);
 
   const [mostrar, setMostrar] = useState(false);
 
@@ -46,17 +47,24 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
   const handleModalDetalleTarea = (tarea) => {
     let cliente = tarea;
 
-    cliente = encode(JSON.stringify(cliente))
+    cliente = encode(JSON.stringify(cliente));
 
-    return history.push(`/detalletarea/?id=${tarea.tar_id}&data=${cliente}`)
+    return history.push(`/detalletarea/?id=${tarea.tar_id}&data=${cliente}`);
   };
 
   const [updateEstadoTareaIframeResolver] = useMutation(UPDATE_ESTADO_TAREA, {
     onCompleted: () => {
-      pollTareas.inicial(1000);
-      setTimeout(() => {
-        pollTareas.stop();
-      }, 1000);
+      if (origen === "") {
+        pollTareasPlanificadas.inicial(1000);
+        setTimeout(() => {
+          pollTareasPlanificadas.stop();
+        }, 1000);
+      } else {
+        pollTareas.inicial(1000);
+        setTimeout(() => {
+          pollTareas.stop();
+        }, 1000);
+      }
 
       Modal.show({
         header: (
@@ -143,16 +151,6 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
             onClick={() => setMostrar(!mostrar)}
           >
             <div className="tarea-negocio-linea-superior">
-              {/* <Ellipsis
-                className="tarea-negocio-titulo"
-                style={{
-                  fontWeight: "bold",
-                  width: "90%",
-                  fontSize: "16px",
-                }}
-                direction="end"
-                content={tarea.tar_asunto}
-              /> */}
               <p
                 style={{
                   fontWeight: "bold",
@@ -285,7 +283,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               </div>
               <div className="tarea-negocio-linea-inferior-dos">
                 <div className="VerMas">
-                  {(tarea.not_id && tarea.not_desc !== "<p><br></p>") && tarea.not_desc ||
+                  {(tarea.not_id &&
+                    tarea.not_desc !== "<p><br></p>" &&
+                    tarea.not_desc) ||
                   tarea.up_id ? (
                     <DownOutline />
                   ) : null}
@@ -293,7 +293,9 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
               </div>
             </div>
           </div>
-          {tarea.not_id && tarea.not_desc !== "<p><br></p>" && tarea.not_desc ? (
+          {tarea.not_id &&
+          tarea.not_desc !== "<p><br></p>" &&
+          tarea.not_desc ? (
             <NotaTareaNegocio
               nota={tarea}
               origen={origen}
@@ -314,64 +316,98 @@ export const TareaNegocio = ({ tarea, origen = "" }) => {
     );
   } else {
     return (
-      <div className="tarea-negocio-contenedor">
-        <div
-          className="tarea-negocio-wrapper"
-          onClick={() => setMostrar(!mostrar)}
-        >
-          <div className="tarea-negocio-linea-superior">
-            <p className="tarea-negocio-titulo">{tarea.tar_asunto}</p>
-            <CheckOutline
+      <SwipeAction
+        ref={ref}
+        closeOnAction={false}
+        closeOnTouchOutside={false}
+        rightActions={[
+          {
+            key: "editar",
+            text: <EditSOutline />,
+            color: "#2bc4e3",
+            onClick: () => {
+              handleModalDetalleTarea(tarea);
+            },
+          },
+          {
+            key: "cerrar",
+            text: <CheckOutline />,
+            color: "primary",
+            onClick: async () => {
+              await Dialog.confirm({
+                content: "¿Cerrar Tarea?",
+                cancelText: "Cancelar",
+                confirmText: "Aceptar",
+                onConfirm: () => handleModalCerrar(tarea),
+              });
+              ref.current?.close();
+            },
+          },
+        ]}
+      >
+        <div className="tarea-negocio-contenedor">
+          <div
+            className="tarea-negocio-wrapper"
+            onClick={() => setMostrar(!mostrar)}
+          >
+            <div className="tarea-negocio-linea-superior">
+              <p className="tarea-negocio-titulo">{tarea.tar_asunto}</p>
+              {/* <CheckOutline
               style={{ color: "#00B33C", marginRight: "5px", fontSize: "1rem" }}
-            />
-          </div>
-          <div className="tarea-negocio-linea-inferior-timeline">
-            <p className="tarea-negocio-fecha">
-              {moment(tarea.tar_fecha_ts, "YYYY-MM-DD").fromNow()}
-            </p>
-            {tarea.cli_nombre ? (
-              <div className="tarea-negocio-item">
-                <UserOutline style={{ color: "#00B33C" }} />{" "}
-                <p className="tarea-negocio-contacto">{tarea.cli_nombre}</p>
-              </div>
-            ) : (
-              ""
-            )}
-            {tarea.tip_desc ? (
-              <div className="tarea-negocio-item">
-                <InformationCircleOutline style={{ color: "#00B33C" }} />{" "}
-                <p className="tarea-negocio-tipoTarea">{tarea.tip_desc}</p>
-              </div>
-            ) : (
-              ""
-            )}
-            <div className="tarea-contenedor-horario">
-              <ClockCircleOutline
-                style={{
-                  color: dateHandler(tarea.fechavencimiento),
-                  fontSize: "0.8rem",
-                }}
-              />
-              <p className="texto-tarea-horario">
-                {moment(tarea.tar_vencimiento, "YYYY-MM-DD").format(
-                  "DD/MM/YYYY"
-                )}
+            /> */}
+            </div>
+            <div className="tarea-negocio-linea-inferior-timeline">
+              <p className="tarea-negocio-fecha">
+                {moment(tarea.tar_fecha_ts, "YYYY-MM-DD").fromNow()}
               </p>
-              {tarea.tar_horavencimiento && (
-                <p className="texto-tarea-horario">
-                  {handleHora(tarea.tar_horavencimiento)} hs
-                </p>
+              {tarea.cli_nombre ? (
+                <div className="tarea-negocio-item">
+                  <UserOutline style={{ color: "#00B33C" }} />{" "}
+                  <p className="tarea-negocio-contacto">{tarea.cli_nombre}</p>
+                </div>
+              ) : (
+                ""
               )}
+              {tarea.tip_desc ? (
+                <div className="tarea-negocio-item">
+                  <InformationCircleOutline style={{ color: "#00B33C" }} />{" "}
+                  <p className="tarea-negocio-tipoTarea">{tarea.tip_desc}</p>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="tarea-contenedor-horario">
+                <ClockCircleOutline
+                  style={{
+                    color: dateHandler(tarea.fechavencimiento),
+                    fontSize: "0.8rem",
+                  }}
+                />
+                <p className="texto-tarea-horario">
+                  {moment(tarea.tar_vencimiento, "YYYY-MM-DD").format(
+                    "DD/MM/YYYY"
+                  )}
+                </p>
+                {tarea.tar_horavencimiento && (
+                  <p className="texto-tarea-horario">
+                    {handleHora(tarea.tar_horavencimiento)} hs
+                  </p>
+                )}
+              </div>
             </div>
           </div>
+          {tarea.not_desc && (
+            <NotaTareaNegocio nota={tarea} interno={true} display={true} />
+          )}
+          {tarea.up_id && (
+            <ArchivoTareaNegocio
+              archivo={tarea}
+              interno={true}
+              display={true}
+            />
+          )}
         </div>
-        {tarea.not_desc && (
-          <NotaTareaNegocio nota={tarea} interno={true} display={true} />
-        )}
-        {tarea.up_id && (
-          <ArchivoTareaNegocio archivo={tarea} interno={true} display={true} />
-        )}
-      </div>
+      </SwipeAction>
     );
   }
 };

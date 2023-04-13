@@ -158,7 +158,7 @@ export const NegocioCompleto = () => {
                       return (
                         <span
                           className="negocio-caja-tarea-grafico"
-                          key={tarea.tar_id}
+                          key={tarea.tip_id}
                           style={{
                             backgroundColor: `${getColor(tarea.tip_id)}`,
                             width: `${tarea.porcentajeTipoTarea}%`,

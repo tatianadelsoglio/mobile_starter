@@ -10,20 +10,23 @@ import {
   PictureOutline,
 } from "antd-mobile-icons";
 import { useQuery } from "@apollo/client";
-import {
-  GET_TIMELINE_POR_NEGOCIO,
-} from "../../../graphql/queries/HistorialNegocio";
-import { useEffect, useState } from "react";
+import { GET_TIMELINE_POR_NEGOCIO } from "../../../graphql/queries/HistorialNegocio";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import QueryResult from "../../queryResult/QueryResult";
+import { GlobalContext } from "../../context/GlobalContext";
 
 export const NegocioPlanificado = ({ negocio }) => {
   const [timeline, setTimeline] = useState();
+
+  const { setPollTareasPlanificadas } = useContext(GlobalContext);
 
   const {
     loading,
     error,
     data: dataTimeline,
+    startPolling,
+    stopPolling,
   } = useQuery(GET_TIMELINE_POR_NEGOCIO, {
     variables: {
       idNegocio: parseInt(negocio.neg_id),
@@ -73,6 +76,7 @@ export const NegocioPlanificado = ({ negocio }) => {
   };
 
   useEffect(() => {
+    setPollTareasPlanificadas({ inicial: startPolling, stop: stopPolling });
     if (dataTimeline) {
       timelineHandler(JSON.parse(dataTimeline.getTimeLineByNegocioResolver));
     }
