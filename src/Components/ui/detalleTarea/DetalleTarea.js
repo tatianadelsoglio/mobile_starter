@@ -37,7 +37,7 @@ const DetalleTarea = () => {
     if (hs.length < 5) {
       horaFormato = "0" + hs;
     }
-    
+
     return horaFormato;
   };
 
@@ -97,14 +97,16 @@ const DetalleTarea = () => {
   }, [location]);
 
   useEffect(() => {
-    if(tarea) {
-      setIdSelector(tarea.pri_id)
+    if (tarea) {
+      setIdSelector(tarea.pri_id);
 
       form.setFieldsValue({
-        tar_horavencimiento: handleHora(moment(tarea.tar_horavencimiento, "HH:mm:ss").format("LT"))
-      })
+        tar_horavencimiento: handleHora(
+          moment(tarea.tar_horavencimiento, "HH:mm:ss").format("LT")
+        ),
+      });
     }
-  }, [tarea])
+  }, [tarea]);
 
   const prioridad = [
     {

@@ -77,17 +77,15 @@ export const NegocioCompleto = () => {
   useEffect(() => {
     try {
       const data = new URLSearchParams(search).get("data");
-      console.log(data);
       let neg = JSON.parse(decode(data));
-      console.log(neg);
       if (typeof neg === "object" && neg !== null) {
         setNegocio(JSON.parse(decode(data)));
         setError(false);
       } else {
         setError(true);
       }
-    } catch (error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
       setError(true);
     }
   }, [location]);
@@ -173,7 +171,7 @@ export const NegocioCompleto = () => {
                   <div className="negocio-grafico-referencias">
                     {tareasDefinitivo &&
                       tareasDefinitivo.map((tarea) => {
-                        return (
+                        return tarea.tar_id ? (
                           <div
                             className="negocio-grafico-referencias-linea"
                             key={tarea.tar_id}
@@ -189,6 +187,8 @@ export const NegocioCompleto = () => {
                               tarea.porcentajeTipoTarea
                             )}%`}</p>
                           </div>
+                        ) : (
+                          <></>
                         );
                       })}
                   </div>
