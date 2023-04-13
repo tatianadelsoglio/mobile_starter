@@ -91,7 +91,6 @@ const DetalleTarea = () => {
         setError(true);
       }
     } catch (error) {
-      console.log(error);
       setError(true);
     }
   }, [location]);

@@ -36,7 +36,7 @@ export const ListaNegocios = ({ negocios }) => {
     let negocio = negocios.filter((negocio) => negocio.neg_id === id);
 
     let encriptedNegocio = encode(JSON.stringify(negocio[0]));
-    return history.push(`/negocio-completo/?id=${id}?&data=${encriptedNegocio}`);
+    return history.push(`/negocio-completo/?id=${id}&data=${encriptedNegocio}`);
   };
 
   return (

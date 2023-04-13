@@ -64,7 +64,7 @@ export const NegocioCompleto = () => {
 
   const { data: dataTareas } = useQuery(GET_COUNT_TAREAS, {
     variables: {
-      idNegocio: new URLSearchParams(search).get("id"),
+      idNegocio: Number(new URLSearchParams(search).get("id")),
     },
   });
 
@@ -85,10 +85,9 @@ export const NegocioCompleto = () => {
         setError(true);
       }
     } catch (error) {
-      console.log(error);
       setError(true);
     }
-  }, [location]);
+  }, [location, search]);
 
   return error ? (
     <span>Hubo un error, por favor vuelva a negocios</span>
@@ -171,10 +170,10 @@ export const NegocioCompleto = () => {
                   <div className="negocio-grafico-referencias">
                     {tareasDefinitivo &&
                       tareasDefinitivo.map((tarea) => {
-                        return tarea.tar_id ? (
+                        return tarea.tip_id ? (
                           <div
                             className="negocio-grafico-referencias-linea"
-                            key={tarea.tar_id}
+                            key={tarea.tip_id}
                           >
                             <span
                               className="negocio-grafico-referencia-cuadrito"
