@@ -77,6 +77,7 @@ const Tareas = () => {
     setPollTareas({inicial:startPolling, stop:stopPolling});
     if (dataCalendario) {
       if(JSON.parse(dataCalendario.getTareasPropiasMobileResolver)){
+        console.log(JSON.parse(dataCalendario.getTareasPropiasMobileResolver))
         ordenarDatos(JSON.parse(dataCalendario.getTareasPropiasMobileResolver).tareasPropiasPorFecha,
           filtroFecha
         );
@@ -99,10 +100,6 @@ const Tareas = () => {
       setTareasMobile(JSON.parse(dataMobile.getTareasMobileResolver));
     }
   }, [dataMobile]);
-
-  useEffect(() => {
-
-  }, [tareasMobile])
   
   return (
     <CapsuleTabs
